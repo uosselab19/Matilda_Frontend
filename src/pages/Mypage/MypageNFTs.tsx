@@ -1,12 +1,18 @@
 //import { useState, useEffect } from "react";
 import testImage from "./testImage1.png"
+import { useNavigate } from "react-router-dom"
 
 export const MypageNFTs = () => {
+  const navigate=useNavigate();
   const cardList = () => {
+    const handleCard = (index: number) => {
+      navigate(`/mypage/NFTItem?nft_id=${index}`, { replace: false })
+    }
+
     const cardItem = (index: number) => {
       return (
         <div className="col">
-          <div key={index} className="card text-white bg-dark rounded-0">
+          <div key={index} className="card text-white bg-dark rounded-0" onClick={() => { handleCard(index);}}>
             <img src={testImage} className="card-img rounded-0" alt="..." />
             <div className="card-img-overlay">
               <h5 className="card-title">NFT {index}</h5>

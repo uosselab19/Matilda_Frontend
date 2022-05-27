@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { ChangeEvent, useState } from 'react';
 //import axios from "axios";
+import matilda from "../../assets/images/matilda.png";
 
 import { cookies } from '../../App';
 import { Buffer } from "buffer";
@@ -55,7 +56,7 @@ export const Signin = () => {
   return (
     <main className="form-signin text-center d-flex justify-content-center">
       <div style={{ margin: "5.8%", width: "330px" }}>
-        <p><img src="./matilda.png" width="128"></img></p>
+        <p><img src={matilda} width="128"></img></p>
         <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
 
         {/* ID 입력란 */}

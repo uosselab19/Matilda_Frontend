@@ -11,7 +11,7 @@ interface NFT {
   price: number
 }
 
-export const NFTItem = () => {
+export const SellNFTItem = () => {
   const [searchParams] = useSearchParams();
   const id = Number(searchParams.get("nft_id") as string);
   console.log(id);
@@ -47,7 +47,7 @@ export const NFTItem = () => {
         <div className="col-lg-7">
           <article className="blog-post">
             <h1 className="blog-post-title my-5">{NFT_info.title}</h1>
-            <p className="blog-post-meta">owned by <Link to="#">Mindul</Link></p>
+            <p className="blog-post-meta">maked by <Link to="#">Mindul</Link></p>
 
             <p>해당 부분에 NFT에 대한 자세한 설명이 들어감. 이 부분은 첫 번째 단락임.</p>
             <p>해당 부분에 NFT에 대한 자세한 설명이 들어감. 이 부분은 두 번째 단락임.</p>
@@ -60,7 +60,7 @@ export const NFTItem = () => {
             <p>
               <button type="button" className="btn btn-primary btn-lg p-3 w-50"
                 data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                Buy
+                Sell
               </button>
               <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -91,14 +91,14 @@ export const NFTItem = () => {
                             <div className="col-7"><h3 className="blog-post-title">Price</h3></div>
                             <div className="col-5"><h3>{NFT_info.price}\</h3></div>
                           </div>
-                          <p className="fs-5"><span className="fs-4">{NFT_info.title}</span> 를 정말 구매하시겠습니까?</p>
+                          <p className="fs-5"><span className="fs-4">{NFT_info.title}</span> 를 정말 판매하시겠습니까?</p>
                         </article>
                       </div>
 
                       </div>
                       <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" className="btn btn-primary w-25">Buy</button>
+                        <button type="button" className="btn btn-primary w-25">Sell</button>
                       </div>
                     </div>
                   </div>

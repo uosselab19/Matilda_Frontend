@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import matilda from "../assets/images/matilda.png";
+import matildaWhite from "../assets/images/matilda_white.png";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -14,7 +16,7 @@ export const Home = () => {
     <main>
       <div className="d-flex justify-content-center p-3 p-md-5 text-center bg-light">
         <div className="col-md-5 py-5 w-100">
-          <img className="d-block mx-auto my-5" src="./matilda.png" width="128"></img>
+          <img className="d-block mx-auto my-5" src={matilda} width="128"></img>
           <h1 className="display-4 fw-normal"><p>MATILDA</p></h1>
           <p className="lead fw-normal">MATILDA means "Machine learning And non-fungible Token, Image to cLothes Design Application". <br /> MATILDA makes your 2D image an 3D NFT fashion item using Machine learning.</p>
         </div>
@@ -34,7 +36,7 @@ export const Home = () => {
             </div>
 
             <div className="col-5">
-              <img className="d-block mx-auto my-5" src="./matilda_white.png" width="128"></img>
+              <img className="d-block mx-auto my-5" src={matildaWhite} width="128"></img>
             </div>
           </div>
 

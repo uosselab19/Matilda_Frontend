@@ -12,7 +12,8 @@ import { Customize } from './pages/Customize/Customize';
 import { Signin } from './pages/Sign/Signin';
 import { Signup } from './pages/Sign/Signup';
 import { Mypage } from './pages/Mypage/Mypage';
-import { NFTItem }  from './pages/NFTItem';
+import { BuyNFTItem }  from './pages/BuyNFTItem';
+import { SellNFTItem }  from './pages/SellNFTItem';
 import { NotFound } from './NotFound';
 
 //기타 필요한 부분
@@ -41,7 +42,8 @@ export const App = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/mypage" element={<Mypage />} />
 
-          <Route path="/explore/NFTItem" element={<NFTItem />} />
+          <Route path="/explore/NFTItem" element={<BuyNFTItem />} />
+          <Route path="/mypage/NFTItem" element={<SellNFTItem />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

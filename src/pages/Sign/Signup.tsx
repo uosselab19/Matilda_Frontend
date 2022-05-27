@@ -1,5 +1,6 @@
 import { ChangeEvent, useState, MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import matilda from "../../assets/images/matilda.png";
 
 import axios from 'axios';
 
@@ -63,7 +64,7 @@ export const Signup = () => {
   return (
     <main className="container mb-5">
       <div className="py-5 col-lg-6 text-center mx-auto">
-        <img className="d-block mx-auto my-5" src="./matilda.png" width="128"></img>
+        <img className="d-block mx-auto my-5" src={matilda} width="128"></img>
         <h2>Sign Up Form</h2>
         <p className="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
       </div>

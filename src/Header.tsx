@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate, useLocation, To } from "react-router-dom";
 import { cookies } from "./App";
+import matildaWhite from "./assets/images/matilda_white.png";
 
 export const Header = () => {
   const navigate = useNavigate();//페이지 이동하는 훅
@@ -56,7 +57,7 @@ export const Header = () => {
       <div className="container">
         <div className="d-flex flex-wrap align-items-center justify-content-between justify-content-lg-start">
           <Link to="/" className="mb-2 px-3">
-            <img src="./matilda_white.png" width="48" alt=""></img>
+            <img src={matildaWhite} width="48" alt=""></img>
           </Link>
 
           {/* lg 이상 클 때 */}
