@@ -55,7 +55,7 @@ export const RegisterNFT = () => {
 
 	return (
 		<main className="container">
-			
+
 			<div className="row w-100 mt-5 d-flex justify-content-between">
 				<div className="col-6 row d-flex justify-content-center">
 					<label className="col-9">NFT로 변환할 3D 오브젝트를 골라주세요!</label>

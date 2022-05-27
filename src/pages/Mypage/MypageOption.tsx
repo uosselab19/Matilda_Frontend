@@ -43,8 +43,7 @@ export const MypageOption = () => {
           {/* 프사 */}
           <label htmlFor="id" className="form-label col-4 fs-3">Profile Image</label>
           <div className="col-4">
-            <input className="form-control border-dark" id="profileImg" style={{height:200}}
-              type="text" required />
+            <input className="form-control border-dark" id="profileImg" type="file" accept="image/*"/>
             <div className="invalid-feedback">
               Please enter a valid Profile Image
             </div>
@@ -64,8 +63,7 @@ export const MypageOption = () => {
           {/* 설명 */}
           <label htmlFor="id" className="form-label col-4 fs-3">Description</label>
           <div className="col-8">
-            <input className="form-control border-dark" id="profileImg" style={{height:200}}
-              type="text" required />
+            <textarea className="form-control border-dark" id="profileImg" rows={5} />
             <div className="invalid-feedback">
               Please enter a valid Profile Image
             </div>
