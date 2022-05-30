@@ -3,7 +3,7 @@ import { ChangeEvent, useState } from 'react';
 //import axios from "axios";
 import matilda from '../../assets/images/matilda.png';
 
-import { cookies } from '../../App';
+import { cookies } from '../App/App';
 import { Buffer } from 'buffer';
 
 export const Signin = () => {

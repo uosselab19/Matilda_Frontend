@@ -4,17 +4,17 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 //component import
 import { Header } from './Header';
 import { Footer } from './Footer';
-import { Home } from './components/Home';
-import { Explore } from './components/Explore/Explore';
-import { Convert3D } from './components/Convert3D/Convert3D';
-import { RegisterNFT } from './components/RegisterNFT/RegisterNFT';
-import { Customize } from './components/Customize/Customize';
-import { Signin } from './components/Sign/Signin';
-import { Signup } from './components/Sign/Signup';
-import { Mypage } from './components/Mypage/Mypage';
-import { BuyNFTItem } from './components/BuyNFTItem';
-import { SellNFTItem } from './components/SellNFTItem';
-import { NotFound } from './NotFound';
+import { Home } from './Home';
+import { Explore } from '../Explore/Explore';
+import { Convert3D } from '../Convert3D/Convert3D';
+import { RegisterNFT } from '../RegisterNFT/RegisterNFT';
+import { Customize } from '../Customize/Customize';
+import { Signin } from '../Sign/Signin';
+import { Signup } from '../Sign/Signup';
+import { Mypage } from '../Mypage/Mypage';
+import { BuyNFTItem } from '../NFTItem/BuyNFTItem';
+import { SellNFTItem } from '../NFTItem/SellNFTItem';
+import { NotFound } from '../NotFound/NotFound';
 
 //기타 필요한 부분
 import Cookies from 'universal-cookie';

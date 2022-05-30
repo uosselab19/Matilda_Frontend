@@ -1,28 +1,27 @@
 import React from 'react';
 import { Link, useNavigate, useLocation, To } from 'react-router-dom';
 import { cookies } from './App';
-import matildaWhite from './assets/images/matilda_white.png';
+import matildaWhite from '../../assets/images/matilda_white.png';
 
 export const Header = () => {
   const navigate = useNavigate(); //페이지 이동하는 훅
+
+  const linkTo = (link: To) => {
+    window.scrollTo({ top: 0 });
+    navigate(link, { replace: false });
+  };
 
   //로그아웃 버튼 기능
   const fetchSignout = () => {
     cookies.remove('userInfo'); // 로그인 기록 쿠키 지우기
     alert('sign out 하였습니다.'); // 로그아웃했다고 알림
-    window.scrollTo({ top: 0 });
-    navigate('/', { replace: false }); // 로그아웃하면 홈페이지로
-  };
-
-  const linkTo = (link: To) => {
-    window.scrollTo({ top: 0, behavior: 'auto' });
-    navigate(link, { replace: false }); // 로그아웃하면 홈페이지로
+    linkTo('/') // 로그아웃하면 홈페이지로
   };
 
   const location = useLocation(); // url 찍어주는 훅
   const pathname = location.pathname;
   let sign = cookies.get('userInfo') ? ( // 오른쪽 버튼 보여주기
-    <>
+    <div>
       <button
         className="btn btn-outline-light me-2"
         onClick={() => {
@@ -39,9 +38,9 @@ export const Header = () => {
       >
         My Page
       </button>
-    </>
+    </div>
   ) : (
-    <>
+    <div>
       <button
         className="btn btn-outline-light me-2"
         onClick={() => {
@@ -58,7 +57,7 @@ export const Header = () => {
       >
         Sign-up
       </button>
-    </>
+    </div>
   );
 
   // 왼쪽 부분 아이템 생성 함수

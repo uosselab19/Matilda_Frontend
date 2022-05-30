@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { MypageNFTs } from './MypageNFTs';
 import { MypageWallet } from './MypageWallet';
 import { MypageOption } from './MypageOption';
-import { cookies } from '../../App';
+import { cookies } from '../App/App';
 import { useNavigate /*, useSearchParams */ } from 'react-router-dom';
-import { NotFound } from '../../NotFound';
+import { NotFound } from '../NotFound/NotFound';
 // import Cookies from "universal-cookie";
 
 import profileImage from './../../profileImage.png';

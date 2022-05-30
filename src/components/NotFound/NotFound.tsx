@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import matilda from './assets/images/matilda.png';
+import matilda from '../../assets/images/matilda.png';
 
 export const NotFound = () => {
   return (

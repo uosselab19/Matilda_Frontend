@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import matilda from '../assets/images/matilda.png';
-import matildaWhite from '../assets/images/matilda_white.png';
+import matilda from '../../assets/images/matilda.png';
+import matildaWhite from '../../assets/images/matilda_white.png';
 
 export const Home = () => {
   const navigate = useNavigate();
