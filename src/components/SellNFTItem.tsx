@@ -1,5 +1,5 @@
 import { Link, useSearchParams } from 'react-router-dom';
-import imageFile from './mindul_NFT1.jpg';
+import imageFile from '../assets/images/NFTItem/mindul_NFT1.jpg';
 
 interface NFT {
   item_num: number;
@@ -11,7 +11,7 @@ interface NFT {
   price: number;
 }
 
-export const BuyNFTItem = () => {
+export const SellNFTItem = () => {
   const [searchParams] = useSearchParams();
   const id = Number(searchParams.get('nft_id') as string);
 
@@ -46,7 +46,7 @@ export const BuyNFTItem = () => {
           <article className="blog-post">
             <h1 className="blog-post-title my-5">{NFT_info.title}</h1>
             <p className="blog-post-meta">
-              owned by <Link to="#">Mindul</Link>
+              maked by <Link to="#">Mindul</Link>
             </p>
 
             <p>해당 부분에 NFT에 대한 자세한 설명이 들어감. 이 부분은 첫 번째 단락임.</p>
@@ -68,7 +68,7 @@ export const BuyNFTItem = () => {
                 data-bs-toggle="modal"
                 data-bs-target="#staticBackdrop"
               >
-                Buy
+                Sell
               </button>
               <div
                 className="modal fade"
@@ -87,13 +87,15 @@ export const BuyNFTItem = () => {
                       <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div className="modal-body">
-                      {/* 해당 부분은 구매 페이지 모달 본문입니다. */}
+                      {/* 해당 부분은 구매 페이지 본문입니다. */}
+                      {/* NFT 왼쪽 설명 부분 */}
                       <div className="col-lg-12">
                         <article className="blog-post mx-2">
                           <img src={imageFile} width="100%" />
                         </article>
                       </div>
 
+                      {/* NFT 오른쪽 설명 부분 */}
                       <div className="col-lg-12">
                         <article className="blog-post">
                           <p className="blog-post-meta">owned by Mindul</p>
@@ -107,7 +109,7 @@ export const BuyNFTItem = () => {
                             </div>
                           </div>
                           <p className="fs-5">
-                            <span className="fs-4">{NFT_info.title}</span> 를 정말 구매하시겠습니까?
+                            <span className="fs-4">{NFT_info.title}</span> 를 정말 판매하시겠습니까?
                           </p>
                         </article>
                       </div>
@@ -117,7 +119,7 @@ export const BuyNFTItem = () => {
                         Close
                       </button>
                       <button type="button" className="btn btn-primary w-25">
-                        Buy
+                        Sell
                       </button>
                     </div>
                   </div>

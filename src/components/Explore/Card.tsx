@@ -1,5 +1,5 @@
-import item_img1 from './item_img.png';
-import profile_img1 from './../../profileImage.png';
+import item_img1 from '../../assets/images/Explore/item_img.png';
+import profile_img1 from '../../assets/images/Profile/profileImage.png';
 import { useNavigate } from 'react-router-dom';
 
 //컴포넌트가 받을 props

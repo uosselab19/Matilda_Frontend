@@ -4,16 +4,16 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 //component import
 import { Header } from './Header';
 import { Footer } from './Footer';
-import { Home } from './pages/Home';
-import { Explore } from './pages/Explore/Explore';
-import { Convert3D } from './pages/Convert3D/Convert3D';
-import { RegisterNFT } from './pages/RegisterNFT/RegisterNFT';
-import { Customize } from './pages/Customize/Customize';
-import { Signin } from './pages/Sign/Signin';
-import { Signup } from './pages/Sign/Signup';
-import { Mypage } from './pages/Mypage/Mypage';
-import { BuyNFTItem } from './pages/BuyNFTItem';
-import { SellNFTItem } from './pages/SellNFTItem';
+import { Home } from './components/Home';
+import { Explore } from './components/Explore/Explore';
+import { Convert3D } from './components/Convert3D/Convert3D';
+import { RegisterNFT } from './components/RegisterNFT/RegisterNFT';
+import { Customize } from './components/Customize/Customize';
+import { Signin } from './components/Sign/Signin';
+import { Signup } from './components/Sign/Signup';
+import { Mypage } from './components/Mypage/Mypage';
+import { BuyNFTItem } from './components/BuyNFTItem';
+import { SellNFTItem } from './components/SellNFTItem';
 import { NotFound } from './NotFound';
 
 //기타 필요한 부분

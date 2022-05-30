@@ -1,24 +1,24 @@
 import { useState } from 'react';
 import { convertFunction } from './ConvertFunction';
 
-import convertImage from './convertImage.png';
-import imageDR from './img/imageDR.png';
-import imageTOP from './img/imageTOP.png';
-import imageOTR from './img/imageOTR.png';
-import imageBTM from './img/imageBTM.png';
-import imageSOX from './img/imageSOX.png';
-import imageSH from './img/imageSH.png';
-import imageHAIR from './img/imageHAIR.png';
-import imageHEADWEAR from './img/imageHEADWEAR.png';
-import imageGLASSES from './img/imageGLASSES.png';
-import imageBRACELET from './img/imageBRACELET.png';
-import imageNECKLACE from './img/imageNECKLACE.png';
-import imageEARRING from './img/imageEARRING.png';
-import imageBAG from './img/imageBAG.png';
-import imageMASK from './img/imageMASK.png';
-import imageWING from './img/imageWING.png';
-import imageNAIL from './img/imageNAIL.png';
-import imageGLOVE from './img/imageGLOVE.png';
+import convertImage from '../../assets/images/Convert3D/convertImage.png';
+import imageDR from '../../assets/images/Convert3D/imageDR.png';
+import imageTOP from '../../assets/images/Convert3D/imageTOP.png';
+import imageOTR from '../../assets/images/Convert3D/imageOTR.png';
+import imageBTM from '../../assets/images/Convert3D/imageBTM.png';
+import imageSOX from '../../assets/images/Convert3D/imageSOX.png';
+import imageSH from '../../assets/images/Convert3D/imageSH.png';
+import imageHAIR from '../../assets/images/Convert3D/imageHAIR.png';
+import imageHEADWEAR from '../../assets/images/Convert3D/imageHEADWEAR.png';
+import imageGLASSES from '../../assets/images/Convert3D/imageGLASSES.png';
+import imageBRACELET from '../../assets/images/Convert3D/imageBRACELET.png';
+import imageNECKLACE from '../../assets/images/Convert3D/imageNECKLACE.png';
+import imageEARRING from '../../assets/images/Convert3D/imageEARRING.png';
+import imageBAG from '../../assets/images/Convert3D/imageBAG.png';
+import imageMASK from '../../assets/images/Convert3D/imageMASK.png';
+import imageWING from '../../assets/images/Convert3D/imageWING.png';
+import imageNAIL from '../../assets/images/Convert3D/imageNAIL.png';
+import imageGLOVE from '../../assets/images/Convert3D/imageGLOVE.png';
 
 interface categoryItem {
   id: string;
