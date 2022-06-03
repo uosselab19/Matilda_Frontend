@@ -7,7 +7,7 @@ import { Footer } from './Footer';
 import { Home } from './Home';
 import { Explore } from '../Explore/Explore';
 import { Convert3D } from '../Convert3D/Convert3D';
-import { RegisterNFT } from '../RegisterNFT/RegisterNFT';
+import { MintNFT } from '../MintNFT/MintNFT';
 import { Customize } from '../Customize/Customize';
 import { Signin } from '../Sign/Signin';
 import { Signup } from '../Sign/Signup';
@@ -33,7 +33,7 @@ export const App = () => {
 
           <Route path="/explore" element={<Explore />} />
           <Route path="/convert3D" element={<Convert3D />} />
-          <Route path="/registerNFT" element={<RegisterNFT />} />
+          <Route path="/MintNFT" element={<MintNFT />} />
           <Route path="/customize" element={<Customize />} />
 
           <Route path="/signin" element={<Signin />} />

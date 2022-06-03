@@ -82,7 +82,7 @@ export const Header = () => {
   tapItemList.push(tapItem(1, 'Home', '/'));
   tapItemList.push(tapItem(2, 'Explore', '/explore'));
   tapItemList.push(tapItem(3, 'Convert 3D', '/convert3D'));
-  tapItemList.push(tapItem(4, 'Register NFT', '/registerNFT'));
+  tapItemList.push(tapItem(4, 'Mint NFT', '/mintNFT'));
   tapItemList.push(tapItem(5, 'Customize', '/customize'));
 
   return (

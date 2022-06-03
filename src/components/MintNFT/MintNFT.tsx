@@ -7,7 +7,7 @@ interface NFTInfo {
   title: string;
   image: '*.png';
 }
-export const RegisterNFT = () => {
+export const MintNFT = () => {
   //item 변수에는 선택한 NFT 아이템이 들어가있을 예정
   //null 값 들어가는 경우를 고려하기
   const [itemIndex, setItemIndex] = useState(0);
@@ -50,7 +50,7 @@ export const RegisterNFT = () => {
     );
   };
 
-  const fetchRegister = () => {
+  const fetchMint = () => {
     alert(
 			`NFT로 바꿀 3D Object 이름: ${itemList[itemIndex].title}\ntitle: ${title}, desc: ${desc}, price: ${price}`
 		);
@@ -84,7 +84,7 @@ export const RegisterNFT = () => {
           {NFTInfo(itemList[itemIndex])}
         </div>
         <div className="col-6">
-          <h2>Register NFT</h2>
+          <h2>Mint NFT</h2>
           <p>
             NFT로 바꿔주는 부분입니다!
             <br />
@@ -143,8 +143,8 @@ export const RegisterNFT = () => {
 
             <p />
 
-            <button className="w-100 btn btn-primary btn-lg bg-dark" type="submit" onClick={fetchRegister}>
-              Register NFT
+            <button className="w-100 btn btn-primary btn-lg bg-dark" type="submit" onClick={fetchMint}>
+              Mint NFT
             </button>
           </form>
         </div>
