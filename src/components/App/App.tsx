@@ -8,7 +8,7 @@ import { Home } from './Home';
 import { Explore } from '../Explore/Explore';
 import { Convert3D } from '../Convert3D/Convert3D';
 import { MintNFT } from '../MintNFT/MintNFT';
-import { Customize } from '../Customize/Customize';
+import { Dressup } from '../Dressup/Dressup';
 import { Signin } from '../Sign/Signin';
 import { Signup } from '../Sign/Signup';
 import { Mypage } from '../Mypage/Mypage';
@@ -31,16 +31,16 @@ export const App = () => {
 
           {/*header에 연결된 component*/}
 
-          <Route path="/explore" element={<Explore />} />
-          <Route path="/convert3D" element={<Convert3D />} />
-          <Route path="/MintNFT" element={<MintNFT />} />
-          <Route path="/customize" element={<Customize />} />
+          <Route path="/marketplace" element={<Explore />} />
+          <Route path="/3Dconversion" element={<Convert3D />} />
+          <Route path="/NFTminting" element={<MintNFT />} />
+          <Route path="/dressup" element={<Dressup />} />
 
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/mypage" element={<Mypage />} />
 
-          <Route path="/explore/NFTItem" element={<BuyNFTItem />} />
+          <Route path="/marketplace/NFTItem" element={<BuyNFTItem />} />
           <Route path="/mypage/NFTItem" element={<SellNFTItem />} />
 
           <Route path="*" element={<NotFound />} />

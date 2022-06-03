@@ -65,7 +65,7 @@ export const Header = () => {
     return (
       <button
         key={index}
-        className={`btn btn-outline-dark px-2 fw-bold ${
+        className={`btn btn-outline-dark px-2 mx-2 fw-bold ${
           pathname == url ? 'text-white' : 'text-secondary'
         } text-decoration-none`}
         onClick={() => {
@@ -80,10 +80,10 @@ export const Header = () => {
   //왼쪽 부분 아이템 배열 생성 부분
   const tapItemList = new Array();
   tapItemList.push(tapItem(1, 'Home', '/'));
-  tapItemList.push(tapItem(2, 'Explore', '/explore'));
-  tapItemList.push(tapItem(3, 'Convert 3D', '/convert3D'));
-  tapItemList.push(tapItem(4, 'Mint NFT', '/mintNFT'));
-  tapItemList.push(tapItem(5, 'Customize', '/customize'));
+  tapItemList.push(tapItem(2, 'Marketplace', '/marketplace'));
+  tapItemList.push(tapItem(3, '3D Conversion', '/3Dconversion'));
+  tapItemList.push(tapItem(4, 'NFT Minting', '/NFTminting'));
+  tapItemList.push(tapItem(5, 'Dress Up', '/dressup'));
 
   return (
     <header className="p-2 bg-dark text-white sticky-top">
@@ -94,7 +94,7 @@ export const Header = () => {
           </Link>
 
           {/* lg 이상 클 때 */}
-          <div className="nav col-lg-auto me-lg-auto mb-2 d-none d-lg-block">{tapItemList}</div>
+          <div className="nav col-lg-auto me-lg-auto d-none d-lg-block align-items-center">{tapItemList}</div>
 
           {/* 검색바 */}
 

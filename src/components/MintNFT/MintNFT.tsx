@@ -84,7 +84,7 @@ export const MintNFT = () => {
           {NFTInfo(itemList[itemIndex])}
         </div>
         <div className="col-6">
-          <h2>Mint NFT</h2>
+          <h2>Mint an NFT</h2>
           <p>
             NFT로 바꿔주는 부분입니다!
             <br />
