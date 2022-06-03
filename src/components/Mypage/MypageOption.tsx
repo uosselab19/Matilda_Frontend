@@ -1,6 +1,32 @@
-//import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 export const MypageOption = () => {
+  const [password, setPassword] = useState("qwer4321");
+  const [nickname, setNickname] = useState("mindul");
+  const [email, setEmail] = useState("pencake33@naver.com");
+  const [profileImg, setProfileImg] = useState("asdf");
+  const [walletAddr, setWalletAddr] = useState("asdf");
+  const [desc, setDesc] = useState("asdf");
+
+  const handlePassword = (e: ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+  const handleNickname = (e: ChangeEvent<HTMLInputElement>) => {
+    setNickname(e.target.value);
+  };
+  const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+  const handleProfileImg = (e: ChangeEvent<HTMLInputElement>) => {
+    setProfileImg(e.target.value);
+  };
+  const handleWalletAddr = (e: ChangeEvent<HTMLInputElement>) => {
+    setWalletAddr(e.target.value);
+  };
+  const handleDesc = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setDesc(e.target.value);
+  };
+
   return (
     <div>
       <div className="my-5">
@@ -19,7 +45,9 @@ export const MypageOption = () => {
             Password
           </label>
           <div className="col-8">
-            <input className="form-control border-dark" id="pw" placeholder="" type="password" required />
+            <input className="form-control border-dark" id="pw"
+              placeholder={password} type="password" required
+              onChange={handlePassword} />
             <div className="invalid-feedback">Please enter a valid password</div>
           </div>
 
@@ -28,7 +56,9 @@ export const MypageOption = () => {
             Nickname
           </label>
           <div className="col-8">
-            <input className="form-control border-dark" id="nickname" placeholder="" type="text" required />
+            <input className="form-control border-dark" id="nickname"
+              placeholder={nickname} type="text" required
+              onChange={handleNickname} />
             <div className="invalid-feedback">Please enter a valid Nickname</div>
           </div>
 
@@ -37,7 +67,9 @@ export const MypageOption = () => {
             E-mail
           </label>
           <div className="col-8">
-            <input className="form-control border-dark" id="email" placeholder="" type="email" required />
+            <input className="form-control border-dark" id="email"
+              placeholder={email} type="email" required
+              onChange={handleEmail} />
             <div className="invalid-feedback">Please enter a valid E-mail</div>
           </div>
 
@@ -46,7 +78,9 @@ export const MypageOption = () => {
             Profile Image
           </label>
           <div className="col-4">
-            <input className="form-control border-dark" id="profileImg" type="file" accept="image/*" />
+            <input className="form-control border-dark" id="profileImg"
+              type="file" accept="image/*" placeholder={profileImg}
+              onChange={handleProfileImg} />
             <div className="invalid-feedback">Please enter a valid Profile Image</div>
           </div>
           <div className="col-4" />
@@ -56,7 +90,9 @@ export const MypageOption = () => {
             Wallet Addr.
           </label>
           <div className="col-8">
-            <input className="form-control border-dark" id="walletAddress" placeholder="" type="text" required />
+            <input className="form-control border-dark" id="walletAddr"
+              placeholder={walletAddr} type="text" required
+              onChange={handleWalletAddr} />
             <div className="invalid-feedback">Please enter a valid Wallet Address</div>
           </div>
 
@@ -65,9 +101,18 @@ export const MypageOption = () => {
             Description
           </label>
           <div className="col-8">
-            <textarea className="form-control border-dark" id="profileImg" rows={5} />
+            <textarea className="form-control border-dark" id="desc"
+              placeholder={desc}
+              rows={5}
+              style={{ resize: 'none' }}
+              onChange={handleDesc}
+            />
             <div className="invalid-feedback">Please enter a valid Profile Image</div>
           </div>
+
+          <button className="col-6 btn btn-primary btn-lg bg-dark justify-content-center" type="submit">
+            Edit info
+          </button>
         </div>
       </form>
     </div>

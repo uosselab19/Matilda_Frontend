@@ -5,9 +5,9 @@ import testImage3 from '../../assets/images/Mypage/testImage3.png';
 import { useNavigate } from 'react-router-dom';
 
 interface itemInfo {
-  id: number
-  title: string
-  thumbImg: "*.png"
+  id: number;
+  title: string;
+  thumbImg: '*.png';
 }
 
 export const MypageNFTs = () => {
@@ -25,20 +25,20 @@ export const MypageNFTs = () => {
       } else {
         e.currentTarget.setAttribute('style', 'opacity: 1');
       }
-    }
+    };
 
     const loadItemInfo = (index: number) => {
-      const img=(i:number)=>{
-        if(i%3==0) return testImage1;
-        else if(i%3==1) return testImage2;
-        else if(i%3==2) return testImage3;
-      }
+      const img = (i: number) => {
+        if (i % 3 == 0) return testImage1;
+        else if (i % 3 == 1) return testImage2;
+        else if (i % 3 == 2) return testImage3;
+      };
       return {
         id: index,
         title: `NFT ${index}`,
         thumbImg: img(index)
-      }
-    }
+      };
+    };
 
     const cardItem = (index: number, info: itemInfo) => {
       return (

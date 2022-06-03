@@ -15,7 +15,7 @@ export const Header = () => {
   const fetchSignout = () => {
     cookies.remove('userInfo'); // 로그인 기록 쿠키 지우기
     alert('sign out 하였습니다.'); // 로그아웃했다고 알림
-    linkTo('/') // 로그아웃하면 홈페이지로
+    linkTo('/'); // 로그아웃하면 홈페이지로
   };
 
   const location = useLocation(); // url 찍어주는 훅
@@ -104,8 +104,8 @@ export const Header = () => {
           <div className="align-items-end d-block d-lg-none">
             <div className="collapse" id="navbarToggleExternalContent">
               <div className="bg-dark p-4">
-                <p>{tapItemList}</p>
-                <p className="d-flex justify-content-end">{sign}</p>
+                <div>{tapItemList}</div>
+                <div className="d-flex justify-content-end">{sign}</div>
               </div>
             </div>
             <div className="navbar navbar-dark bg-dark d-flex justify-content-end">
