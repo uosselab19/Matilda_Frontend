@@ -131,7 +131,7 @@ export const Card = (props: props) => {
   };
 
   const handleCard = (id: number) => {
-    navigate(`/explore/NFTItem?nft_id=${id}`, { replace: false });
+    navigate(`/marketplace/NFTItem?nft_id=${id}`, { replace: false });
   };
 
   const handleMouse = (e: React.MouseEvent): void => {

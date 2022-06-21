@@ -1,7 +1,7 @@
 import React from 'react';
 //import { UnityContext } from "react-unity-webgl";
 
-export const Customize = () => {
+export const Dressup = () => {
   //유니티 화면 띄워줄 부분 선언
   // const unityContext = new UnityContext({
   // 	loaderUrl: "Build/Customize.loader.js",

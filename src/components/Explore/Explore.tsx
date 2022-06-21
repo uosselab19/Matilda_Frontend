@@ -31,7 +31,7 @@ export const Explore = () => {
           type="button"
           className={`btn btn-outline-light text-dark ${category == cat_code ? 'fw-bold' : ''}`}
           onClick={() => {
-            navigate(`/explore?cat_id=${cat_code}`, { replace: true });
+            navigate(`/marketplace?cat_id=${cat_code}`, { replace: true });
             setCategory(cat_code);
           }}
         >
@@ -57,7 +57,7 @@ export const Explore = () => {
 
   const fetchSearch = async (e: any) => {
     console.log(e.target);
-    navigate(`/explore?search=${1}`, { replace: true });
+    navigate(`/marketplace?search=${1}`, { replace: true });
   };
 
   return (
