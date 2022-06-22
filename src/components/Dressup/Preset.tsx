@@ -5,13 +5,14 @@ export const Preset = () => {
 	const presetCard = (n: number) => {
 		return (
 			<div className='card'>
-				Preset {n}
 				<img alt="" className="card-img" src={item_img1}></img>
+				Preset {n}
 			</div>
 		)
 	}
+	
 	return (
-		<div className="h-100 d-flex align-content-between flex-wrap">
+		<div className="col-1 d-flex align-content-between flex-wrap text-center">
 			{presetCard(1)}
 			{presetCard(2)}
 			{presetCard(3)}

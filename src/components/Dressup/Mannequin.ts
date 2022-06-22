@@ -13,18 +13,18 @@ renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFShadowMap;
 
 //camera
-const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1500);
+const camera = new THREE.PerspectiveCamera(45, 1, 1, 1500);
 camera.position.set(0, 150, 150); //최초 카메라 위치 조절
 
 //lights
-const ambientLight = new THREE.AmbientLight(0xFFE0CD); // 예쁜 빛 색깔 찾아놨다...
-ambientLight.intensity = 0.7;
+const ambientLight = new THREE.AmbientLight(0xFFFFFF); // 예쁜 빛 색깔 찾아놨다...
+ambientLight.intensity = 1;
 scene.add(ambientLight);
 
 //controls (depend on camera & renderer)
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.minDistance = 100;// 카메라 최소 거리
-controls.maxDistance = 500;// 카메라 최대 거리
+controls.maxDistance = 400;// 카메라 최대 거리
 controls.enablePan = true;// 카메라 절대 위치 조절
 controls.keys = {
   LEFT:"",
@@ -88,7 +88,7 @@ export const loadModel = (model: string, scale: number, locVecter: THREE.Vector3
     window.requestAnimationFrame(animate);
     const dressupDom=document.getElementById("dressUp");
     if(dressupDom){
-      const width = dressupDom.offsetWidth-12;
+      const width = dressupDom.offsetWidth-15;
       renderer.setSize(width, width);
     }
   }
