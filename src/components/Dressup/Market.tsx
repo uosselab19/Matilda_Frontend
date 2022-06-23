@@ -30,7 +30,7 @@ export const Market = () => {
   const searchCardList = () => {
     const cardItem = (e: number) => {
       return (
-        <div className='col-4'>
+        <div className='col-4' key={e}>
           <div className='card'>
             <img alt="" className="card-img" src={item_img1}></img>
           </div>
