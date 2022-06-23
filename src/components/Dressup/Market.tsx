@@ -1,7 +1,13 @@
 import React from 'react';
 import item_img1 from '../../assets/images/Explore/item_img.png';
+import { Clothes } from './Dressup';
 
-export const Market = () => {
+interface props {
+	clothes: Clothes
+	setClothes: React.Dispatch<React.SetStateAction<Clothes>>
+}
+
+export const Market = (props: props) => {
   //3D 아이템 넣어주는 부분
   const optionItemList = new Array();
   optionItemList.push('전체');

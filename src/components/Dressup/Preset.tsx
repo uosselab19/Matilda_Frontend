@@ -1,7 +1,13 @@
 import React from 'react';
 import item_img1 from '../../assets/images/Explore/item_img.png';
+import { Clothes } from './Dressup';
 
-export const Preset = () => {
+interface props {
+	clothes: Clothes
+	setClothes: React.Dispatch<React.SetStateAction<Clothes>>
+}
+
+export const Preset = (props: props) => {
 	const presetCard = (n: number) => {
 		return (
 			<div className='card'>
@@ -10,7 +16,7 @@ export const Preset = () => {
 			</div>
 		)
 	}
-	
+
 	return (
 		<div className="col-1 d-flex align-content-between flex-wrap text-center">
 			{presetCard(1)}

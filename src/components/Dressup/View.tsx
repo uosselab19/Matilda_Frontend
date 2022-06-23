@@ -1,12 +1,18 @@
 import React, { useEffect } from 'react';
 import * as THREE from "three";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { Clothes } from './Dressup';
 import * as room from "./fittingRoom";
 import { loadModel } from './Model';
 
+interface props {
+	clothes: Clothes
+	setClothes: React.Dispatch<React.SetStateAction<Clothes>>
+}
+
 export const modelHeight = 66;
 
-export const View = () => {
+export const View = (props: props) => {
 	//scene
 	const scene = new THREE.Scene();
 	scene.background = new THREE.Color(0x999999);
