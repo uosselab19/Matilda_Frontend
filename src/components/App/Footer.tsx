@@ -1,10 +1,9 @@
-//navigate를 제외한 나머지 임포트는 디버그용으로 사용하는 버튼임
-//import { cookies } from "./App";
-
 export const Footer = () => {
   //Footer는 현재는 디버그용 버튼으로 활용 중
   const scrollTop = () => {
     window.scrollTo({ top: 0 });
+    const testStr=`adsf`;
+    console.log(testStr);
   };
 
   return (

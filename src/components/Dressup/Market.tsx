@@ -3,8 +3,8 @@ import item_img1 from '../../assets/images/Explore/item_img.png';
 import { Clothes } from './Dressup';
 
 interface props {
-	clothes: Clothes
-	setClothes: React.Dispatch<React.SetStateAction<Clothes>>
+  clothes: Clothes;
+  setClothes: React.Dispatch<React.SetStateAction<Clothes>>;
 }
 
 export const Market = (props: props) => {
@@ -36,13 +36,13 @@ export const Market = (props: props) => {
   const searchCardList = () => {
     const cardItem = (e: number) => {
       return (
-        <div className='col-4' key={e}>
-          <div className='card'>
+        <div className="col-4" key={e}>
+          <div className="card">
             <img alt="" className="card-img" src={item_img1}></img>
           </div>
         </div>
       );
-    }
+    };
 
     cardList.push(cardItem(0));
     cardList.push(cardItem(1));
@@ -53,13 +53,13 @@ export const Market = (props: props) => {
     cardList.push(cardItem(6));
     cardList.push(cardItem(7));
     cardList.push(cardItem(8));
-  }
-  
+  };
+
   searchCardList();
 
   return (
     <div className="col-5 text-center">
-      <form className='py-3'>
+      <form className="py-3">
         <div className="d-flex justify-content-between mx-auto">
           <select
             className="custom-select custom-select-lg col-3"
@@ -74,13 +74,16 @@ export const Market = (props: props) => {
           <button
             className="btn btn-outline-success col-2"
             type="submit"
-            onClick={() => { alert("아직은 검색 기능이 없어요!") }}
-          > Search </button>
+            onClick={() => {
+              alert('아직은 검색 기능이 없어요!');
+            }}
+          >
+            {' '}
+            Search{' '}
+          </button>
         </div>
       </form>
-      <div className='row g-2'>
-        {cardList}
-      </div>
+      <div className="row g-2">{cardList}</div>
     </div>
   );
 };

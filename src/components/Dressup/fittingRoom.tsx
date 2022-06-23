@@ -1,31 +1,31 @@
-import * as THREE from "three";
+import * as THREE from 'three';
 
 export const [width, height] = [720, 540];
 const textureLoader = new THREE.TextureLoader();
 
 //ground
 function makeFloor(w: number) {
-	const floor = new THREE.Mesh(
-		new THREE.PlaneGeometry(w, w),
-		new THREE.MeshStandardMaterial({
-			map: textureLoader.load("./assets/texture/floorTexture.jpg")
-		}),
-	);
-	floor.rotation.x -= 0.5 * Math.PI;
-	return floor;
+  const floor = new THREE.Mesh(
+    new THREE.PlaneGeometry(w, w),
+    new THREE.MeshStandardMaterial({
+      map: textureLoader.load('./assets/texture/floorTexture.jpg')
+    })
+  );
+  floor.rotation.x -= 0.5 * Math.PI;
+  return floor;
 }
 
 //wall
 function makeWall(w: number, h: number, angle: number, locVecter: THREE.Vector3) {
-	const wall = new THREE.Mesh(
-		new THREE.PlaneGeometry(w, h),
-		new THREE.MeshStandardMaterial({
-			map: textureLoader.load("./assets/texture/wallTexture.jpg")
-		})
-	);
-	wall.rotation.y += angle;
-	wall.position.set(locVecter.x, locVecter.y, locVecter.z);
-	return wall;
+  const wall = new THREE.Mesh(
+    new THREE.PlaneGeometry(w, h),
+    new THREE.MeshStandardMaterial({
+      map: textureLoader.load('./assets/texture/wallTexture.jpg')
+    })
+  );
+  wall.rotation.y += angle;
+  wall.position.set(locVecter.x, locVecter.y, locVecter.z);
+  return wall;
 }
 
 const meshFloor = makeFloor(width);

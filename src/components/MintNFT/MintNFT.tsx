@@ -51,9 +51,7 @@ export const MintNFT = () => {
   };
 
   const fetchMint = () => {
-    alert(
-			`NFT로 바꿀 3D Object 이름: ${itemList[itemIndex].title}\ntitle: ${title}, desc: ${desc}, price: ${price}`
-		);
+    alert(`NFT로 바꿀 3D Object 이름: ${itemList[itemIndex].title}\ntitle: ${title}, desc: ${desc}, price: ${price}`);
   };
 
   const handleTitle = (e: ChangeEvent<HTMLInputElement>) => {
