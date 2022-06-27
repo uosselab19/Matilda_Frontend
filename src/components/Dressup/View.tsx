@@ -85,7 +85,5 @@ export const View = (props: props) => {
   //set the matilda
   loadModel('./assets/model/matilda/scene.gltf', scene);
 
-  const viewComponent = <div id="dressUp" className="col-6" />;
-
-  return viewComponent;
+  return <div id="dressUp" className="col-6" />;
 };
