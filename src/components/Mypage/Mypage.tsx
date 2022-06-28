@@ -10,7 +10,7 @@ import { NotFound } from '../NotFound/NotFound';
 import profileImage from './../../profileImage.png';
 
 interface Cookie {
-  name: string;
+  nickname: string;
 }
 
 export const Mypage = () => {
@@ -55,7 +55,7 @@ export const Mypage = () => {
               width="328"
               style={{ borderRadius: '100%' }}
             />
-            <h2>{userInfo.name}</h2>한 줄 설명같은 거 적어두는 게 좋을까? 여기에다가는 뭘 적어서 넣을지 고민을 또
+            <h2>{userInfo.nickname}</h2>한 줄 설명같은 거 적어두는 게 좋을까? 여기에다가는 뭘 적어서 넣을지 고민을 또
             해봐야겠네.
           </div>
 

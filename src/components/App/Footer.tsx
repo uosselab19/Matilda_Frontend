@@ -1,9 +1,11 @@
+import { cookies } from "./App";
+
 export const Footer = () => {
   //Footer는 현재는 디버그용 버튼으로 활용 중
+  const userInfo = cookies.get('userInfo');
   const scrollTop = () => {
     window.scrollTo({ top: 0 });
-    const testStr=`adsf`;
-    console.log(testStr);
+    console.log(userInfo);
   };
 
   return (

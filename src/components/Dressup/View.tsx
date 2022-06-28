@@ -18,6 +18,7 @@ export const View = (props: props) => {
   scene.background = new THREE.Color(0x999999);
 
   //renderer
+  
   const renderer = new THREE.WebGLRenderer({ antialias: false });
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFShadowMap;
@@ -65,14 +66,14 @@ export const View = (props: props) => {
     window.requestAnimationFrame(animate);
 
     const dressupDom = document.getElementById('dressUp') as HTMLElement;
-    const width = dressupDom.offsetWidth - 15;
+    const width = dressupDom.offsetWidth - 16; // 16은 padding
     renderer.setSize(width, width);
   };
 
   useEffect(() => {
     const dressupDom = document.getElementById('dressUp') as HTMLElement;
     dressupDom.appendChild(renderer.domElement);
-    const width = dressupDom.offsetWidth - 15;
+    const width = dressupDom.offsetWidth - 16; // 16은 padding
     renderer.setSize(width, width);
     animate();
   }, []);

@@ -41,7 +41,7 @@ export const Signup = () => {
 
     //아이디 중복 입력 체크하는 부분
     try {
-      const data = (await axios.get('http://localhost:8888/members/validate', { params: { ID: inputID } })).data;
+      const data = (await axios.get('/members', { params: { ID: inputID } })).data;
       if (!data) {
         target.removeAttribute('disabled'); //중복 입력 방지 해제 코드
         return alert('이미 가입된 회원이 있습니다.');
@@ -54,11 +54,11 @@ export const Signup = () => {
 
     //회원 정보 DB에 입력하는 부분
     try {
-      await axios.post('http://localhost:8888/posts', {
+      await axios.post('/members', { 
+        email: inputEmail,
         id: inputID,
-        pw: inputPW,
         nickname: inputNickname,
-        email: inputEmail
+        password: inputPW
       });
       return navigate('/signin');
     } catch (error) {

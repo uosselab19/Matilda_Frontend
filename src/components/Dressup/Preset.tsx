@@ -22,14 +22,30 @@ export const Preset = (props: props) => {
   const presetCard = (n: number) => {
     const entity = presetDB[n - 1];
     return (
-      <div
-        className="card"
+      <div className="card">
+        <img alt="" className="card-img" src={item_img1}
+          onClick={() => {
+            setClothes(entity);
+          }}
+        />
+        <div className="btn-dark text-white">
+          Preset {n}
+        </div>
+        <button className="btn-dark text-white"
+          onClick={() => {
+            setClothes(entity);
+          }}
+        >
+          Load
+        </button>
+
+        <button className="btn-dark text-white"
         onClick={() => {
-          setClothes(entity);
-        }}
-      >
-        <img alt="" className="card-img" src={item_img1}></img>
-        Preset {n}
+          alert(n)
+        }}>
+          Save
+        </button>
+        
       </div>
     );
   };
@@ -39,8 +55,6 @@ export const Preset = (props: props) => {
       {presetCard(1)}
       {presetCard(2)}
       {presetCard(3)}
-      {presetCard(4)}
-      {presetCard(5)}
     </div>
   );
 };
