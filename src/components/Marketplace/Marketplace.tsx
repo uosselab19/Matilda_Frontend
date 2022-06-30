@@ -4,7 +4,7 @@ import matilda from '../../assets/images/matilda.png';
 
 import { Card } from './Card';
 
-export const Explore = () => {
+export const Marketplace = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 

@@ -1,5 +1,5 @@
 import item_img1 from '../../assets/images/Explore/item_img.png';
-import profile_img1 from '../../assets/images/Profile/profileImage.png';
+import profile_img1 from '../../assets/images/Profile/thumbProfileImage.png';
 import { useNavigate } from 'react-router-dom';
 
 //컴포넌트가 받을 props
@@ -115,6 +115,7 @@ export const Card = (props: props) => {
       profile_img: profile_img1
     };
   };
+  
   const loadNFTInfo = (e: number) => {
     //카드 안에 담길 정보 생성 함수(임시로 만든 함수)
     return {

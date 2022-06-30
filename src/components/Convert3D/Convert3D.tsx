@@ -8,32 +8,32 @@ import imageOTR from '../../assets/images/Convert3D/imageOTR.png';
 import imageBTM from '../../assets/images/Convert3D/imageBTM.png';
 import imageSOX from '../../assets/images/Convert3D/imageSOX.png';
 import imageSH from '../../assets/images/Convert3D/imageSH.png';
-import imageHAIR from '../../assets/images/Convert3D/imageHAIR.png';
-import imageHEADWEAR from '../../assets/images/Convert3D/imageHEADWEAR.png';
-import imageGLASSES from '../../assets/images/Convert3D/imageGLASSES.png';
-import imageBRACELET from '../../assets/images/Convert3D/imageBRACELET.png';
-import imageNECKLACE from '../../assets/images/Convert3D/imageNECKLACE.png';
-import imageEARRING from '../../assets/images/Convert3D/imageEARRING.png';
+import imageHAI from '../../assets/images/Convert3D/imageHAIR.png';
+import imageHEA from '../../assets/images/Convert3D/imageHEADWEAR.png';
+import imageGLA from '../../assets/images/Convert3D/imageGLASSES.png';
+import imageBRA from '../../assets/images/Convert3D/imageBRACELET.png';
+import imageNEC from '../../assets/images/Convert3D/imageNECKLACE.png';
+import imageEAR from '../../assets/images/Convert3D/imageEARRING.png';
 import imageBAG from '../../assets/images/Convert3D/imageBAG.png';
-import imageMASK from '../../assets/images/Convert3D/imageMASK.png';
-import imageWING from '../../assets/images/Convert3D/imageWING.png';
-import imageNAIL from '../../assets/images/Convert3D/imageNAIL.png';
-import imageGLOVE from '../../assets/images/Convert3D/imageGLOVE.png';
+import imageMAS from '../../assets/images/Convert3D/imageMASK.png';
+import imageWIN from '../../assets/images/Convert3D/imageWING.png';
+import imageNAI from '../../assets/images/Convert3D/imageNAIL.png';
+import imageGLO from '../../assets/images/Convert3D/imageGLOVE.png';
 
 interface categoryItem {
-  id: string;
-  type: string;
-  name: string;
+  catCode: string;
   image: '*.png';
+  title: string;
 }
 
+const initClothes={catCode:"", image:convertImage, title:""};
+
 export const Convert3D = () => {
-  const [clothes, setClothes] = useState(convertImage);
-  const [desc, setDesc] = useState(String);
+  const [clothes, setClothes] = useState(initClothes);
 
   //프리뷰 보여주는 함수
   const setPreview = (input: File): File | void => {
-    if (desc == '') return alert('왼쪽 카테고리에서 종류를 선택해주세요!');
+    if (clothes==initClothes) return alert('왼쪽 카테고리에서 종류를 선택해주세요!');
     if (!input) return; // 도중에 취소하면 아무것도 없음
     console.log(input);
     return convertFunction(input);
@@ -59,64 +59,18 @@ export const Convert3D = () => {
     setPreview(file);
   };
 
-  const handleAccordionItem = (e: categoryItem) => {
-    setClothes(e.image);
-    setDesc(e.name);
-  };
-
   //카테고리에 쓰일 아코디언
   const accordionItems = (
     index: Number,
-    firstCategoryName: string,
-    subCategoryNameList: Array<categoryItem>
+    category: categoryItem
   ): JSX.Element => {
-    //소항목에 들어갈 항목 집어넣어주는 함수
-    const accordionItemLink = (subList: Array<categoryItem>): JSX.Element => {
-      const linkList = [...subList].map((e, i) => {
-        return (
-          <li key={i} className="list-group-item">
-            <button
-              className="btn link-dark text-decoration-none"
-              onClick={() => {
-                handleAccordionItem(e);
-              }}
-            >
-              {e.name}
-            </button>
-          </li>
-        );
-      });
-
-      return <ul className="list-group">{linkList}</ul>;
-    };
-    subCategoryNameList;
-
-    //실제 카테고리 부분
     return (
-      <div key={`key${index}`} className="accordion-item">
-        {/* 전제항목 분류 부분 */}
-        <h2 className="accordion-header" id={`heading${index}`}>
-          <button
-            className="accordion-button collapsed"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target={`#collapse${index}`}
-            aria-expanded="false"
-            aria-controls={`collapse${index}`}
-          >
-            <span className="fw-bold">{firstCategoryName}</span>
-          </button>
-        </h2>
-
-        {/* 소항목 분류 부분 */}
-        <div
-          id={`collapse${index}`}
-          className="accordion-collapse collapse"
-          aria-labelledby={`collapse${index}`}
-          data-bs-parent="#accordionCategory"
-        >
-          <div className="accordion-body">{accordionItemLink(subCategoryNameList)}</div>
-        </div>
+      <div key={`key${index}`} className="btn btn-outline-secondary"
+        onClick={()=>{
+          setClothes(category);
+        }}
+      >
+        {category.title}
       </div>
     );
   };
@@ -124,92 +78,23 @@ export const Convert3D = () => {
   //아코디언 항목 대응시켜주는 부분
   const listAccordionItems = () => {
     const result: Array<JSX.Element> = new Array();
-    result.push(
-      accordionItems(1, '한 벌 의상(DR)', [
-        { id: 'minidress', type: 'DR', name: '미니 드레스', image: imageDR },
-        { id: 'longdress', type: 'DR', name: '롱 드레스', image: imageDR },
-        { id: 'casual', type: 'DR', name: '캐쥬얼', image: imageDR },
-        { id: 'suit', type: 'DR', name: '정장', image: imageDR }
-      ])
-    );
-    result.push(
-      accordionItems(2, '상의(TOP)', [
-        { id: 'T-shirt', type: 'TOP', name: '티셔츠', image: imageTOP },
-        { id: 'shirt', type: 'TOP', name: '셔츠', image: imageTOP },
-        { id: 'hoodie', type: 'TOP', name: '후드티', image: imageTOP },
-        { id: 'croptop', type: 'TOP', name: '크롭티', image: imageTOP }
-      ])
-    );
-    result.push(
-      accordionItems(3, '아우터(OTR)', [
-        { id: 'short jacket', type: 'OTR', name: '숏', image: imageOTR },
-        { id: 'medium jacket', type: 'OTR', name: '미디움', image: imageOTR },
-        { id: 'long jacket', type: 'OTR', name: '롱', image: imageOTR }
-      ])
-    );
-    result.push(
-      accordionItems(4, '하의(BTM)', [
-        { id: 'short pants', type: 'BTM', name: '숏', image: imageBTM },
-        { id: 'medium pants', type: 'BTM', name: '미디움', image: imageBTM },
-        { id: 'long pants', type: 'BTM', name: '롱', image: imageBTM }
-      ])
-    );
-    result.push(
-      accordionItems(5, '양말(SOX)', [
-        { id: 'ankle', type: 'SOX', name: '발목', image: imageSOX },
-        { id: 'basic', type: 'SOX', name: '기본', image: imageSOX },
-        { id: 'knee', type: 'SOX', name: '무릎', image: imageSOX },
-        { id: 'muruff-we', type: 'SOX', name: '무릎 위', image: imageSOX },
-        { id: 'herlee', type: 'SOX', name: '허리', image: imageSOX }
-      ])
-    );
-    result.push(
-      accordionItems(6, '신발류(SH)', [
-        { id: 'shoe', type: 'SH', name: '구두', image: imageSH },
-        { id: 'sneakers', type: 'SH', name: '스니커즈', image: imageSH },
-        { id: 'sandle', type: 'SH', name: '샌들', image: imageSH },
-        { id: 'boots', type: 'SH', name: '부츠', image: imageSH }
-      ])
-    );
-    result.push(
-      accordionItems(7, '헤어(HAIR)', [
-        { id: 'tovan', type: 'HAIR', name: '위', image: imageHAIR },
-        { id: 'short', type: 'HAIR', name: '숏', image: imageHAIR },
-        { id: 'medium', type: 'HAIR', name: '미디움', image: imageHAIR },
-        { id: 'long', type: 'HAIR', name: '롱', image: imageHAIR },
-        { id: 'tied', type: 'HAIR', name: '묶음', image: imageHAIR },
-        { id: 'accesary-hair', type: 'HAIR', name: '장식헤어', image: imageHAIR }
-      ])
-    );
-    result.push(
-      accordionItems(8, '헤드웨어(HEADWEAR)', [
-        { id: 'tal', type: 'HEADWEAR', name: '탈', image: imageHEADWEAR },
-        { id: 'accesary-headwear', type: 'HEADWEAR', name: '액세서리', image: imageHEADWEAR },
-        { id: 'hat', type: 'HEADWEAR', name: '모자', image: imageHEADWEAR }
-      ])
-    );
-    result.push(
-      accordionItems(9, '안경(GLASSES)', [
-        { id: 'fashionglasses', type: 'GLASSES', name: '패션', image: imageGLASSES },
-        { id: 'sunglasses', type: 'GLASSES', name: '선글라스', image: imageGLASSES }
-      ])
-    );
-    result.push(
-      accordionItems(10, '쥬얼리', [
-        { id: 'bracelet', type: 'BRACELET', name: '팔찌(BRACELET)', image: imageBRACELET },
-        { id: 'necklace', type: 'NECKLACE', name: '목걸이(NECKLACE)', image: imageNECKLACE },
-        { id: 'earring', type: 'EARRING', name: '귀걸이(EARRING)', image: imageEARRING }
-      ])
-    );
-    result.push(
-      accordionItems(11, '액세서리', [
-        { id: 'bag', type: 'BAG', name: '가방(BAG)', image: imageBAG },
-        { id: 'mask', type: 'MASK', name: '마스크(MASK)', image: imageMASK },
-        { id: 'wing', type: 'WING', name: '날개(WING)', image: imageWING },
-        { id: 'nail', type: 'NAIL', name: '네일아트(NAIL)', image: imageNAIL },
-        { id: 'glove', type: 'GLOVE', name: '장갑(GLOVE)', image: imageGLOVE }
-      ])
-    );
+    result.push(accordionItems(1, {catCode: 'DR', image: imageDR, title: '한 벌 의상' }));
+    result.push(accordionItems(2, {catCode: 'TOP', image: imageTOP, title: '상의' }));
+    result.push(accordionItems(3, {catCode: 'OTR', image: imageOTR, title: '아우터' }));
+    result.push(accordionItems(4, {catCode: 'BTM', image: imageBTM, title: '하의' }));
+    result.push(accordionItems(5, {catCode: 'SOX', image: imageSOX, title: '양말' }));
+    result.push(accordionItems(6, {catCode: 'SH', image: imageSH, title: '신발류' }));
+    result.push(accordionItems(7, {catCode: 'HAI', image: imageHAI, title: '헤어' }));
+    result.push(accordionItems(8, {catCode: 'HEA', image: imageHEA, title: '헤드웨어' }));
+    result.push(accordionItems(9, {catCode: 'GLA', image: imageGLA, title: '안경' }));
+    result.push(accordionItems(10, {catCode: 'BRA', image: imageBRA, title: '팔찌' }));
+    result.push(accordionItems(11, {catCode: 'NEC', image: imageNEC, title: '목걸이' }));
+    result.push(accordionItems(12, {catCode: 'EAR', image: imageEAR, title: '귀걸이' }));
+    result.push(accordionItems(13, {catCode: 'BAG', image: imageBAG, title: '가방' }));
+    result.push(accordionItems(14, {catCode: 'MAS', image: imageMAS, title: '마스크' }));
+    result.push(accordionItems(15, {catCode: 'WIN', image: imageWIN, title: '날개' }));
+    result.push(accordionItems(16, {catCode: 'NAI', image: imageNAI, title: '네일아트' }));
+    result.push(accordionItems(17, {catCode: 'GLO', image: imageGLO, title: '장갑' }));
     return result;
   };
 
@@ -219,7 +104,7 @@ export const Convert3D = () => {
       <div className="row my-3">
         <div className="col-lg-3">
           {/* 아코디언 들어갈 부분 */}
-          <div className="accordion my-5" id="accordionCategory">
+          <div className="btn-group-vertical my-5 w-75" id="btn-group">
             {listAccordionItems()}
           </div>
         </div>
@@ -236,14 +121,14 @@ export const Convert3D = () => {
                   height="100%"
                   alt=""
                   title="여기 맞아요, 사진을 넣어 주세요!"
-                  src={clothes}
+                  src={clothes.image}
                   onDrop={handleDrop}
                   onDragOver={handleDrag}
                   onDragLeave={handleDrag}
                   draggable="false"
                 />
                 <div className="card-img-overlay h-75 d-flex flex-column justify-content-end">
-                  <h5 className="card-title text-dark fs-2 fw-bold">{desc}</h5>
+                  <h5 className="card-title text-dark fs-2 fw-bold">{clothes.title}</h5>
                   <p className="card-text text-dark">여기에 사진을 넣어 주세요!</p>
                 </div>
               </div>

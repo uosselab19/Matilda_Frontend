@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Header } from './Header';
 import { Footer } from './Footer';
 import { Home } from './Home';
-import { Explore } from '../Explore/Explore';
+import { Marketplace } from '../Marketplace/Marketplace';
 import { Convert3D } from '../Convert3D/Convert3D';
 import { MintNFT } from '../MintNFT/MintNFT';
 import { Dressup } from '../Dressup/Dressup';
@@ -31,7 +31,7 @@ export const App = () => {
 
           {/*header에 연결된 component*/}
 
-          <Route path="/marketplace" element={<Explore />} />
+          <Route path="/marketplace" element={<Marketplace />} />
           <Route path="/3Dconversion" element={<Convert3D />} />
           <Route path="/NFTminting" element={<MintNFT />} />
           <Route path="/dressup" element={<Dressup />} />
