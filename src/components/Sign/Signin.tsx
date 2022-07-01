@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { ChangeEvent, useState } from 'react';
-import axios from "axios";
+import axios from 'axios';
 import matilda from '../../assets/images/matilda.png';
 
 import { cookies } from '../App/App';
@@ -35,7 +35,7 @@ export const Signin = () => {
     try {
       //jwt에 담기는 JWT 정보를 parsing할 필요가 있음.
       const jwt = (await axios.post('/security/login', { id: inputID, password: inputPW })).data;
-      
+
       //const jwt =
       //  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzZW0xMzA4NCIsInJvbGUiOiJVU0VSIiwibmFtZSI6IuuvvOuRmCIsImlhdCI6MTY1MDg3NjY2NSwiZXhwIjoxNzc3Nzc3Nzc3fQ.0fuf-P0e4S1nfYxUwSCYf9C_t_gwCNcuqvlVZ0V6Yeg';
       if (!jwt) return alert('아이디와 비밀번호를 다시 확인해주세요'); // 없으면 사인인 안 돼!
@@ -49,10 +49,8 @@ export const Signin = () => {
 
       //그냥 홈페이지로 넘어가게 하기
       navigate('/', { replace: true });
-
     } catch (err) {
-      if(err.response.data.message!=undefined)
-        alert(err.response.data.message);
+      if (err.response.data.message != undefined) alert(err.response.data.message);
       else alert(err.response.data);
     }
   };

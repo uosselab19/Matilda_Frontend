@@ -1,5 +1,5 @@
 import React from 'react';
-import item_img1 from '../../assets/images/Explore/item_img.png';
+// import item_img1 from '../../assets/images/Explore/item_img.png';
 import { Clothes } from './Dressup';
 
 interface props {
@@ -22,16 +22,15 @@ export const Preset = (props: props) => {
   const presetCard = (n: number) => {
     const entity = presetDB[n - 1];
     return (
-      <div className="card">
-        <img alt="" className="card-img" src={item_img1}
+      <div className="card w-100">
+        {/* <img alt="" className="card-img" src={item_img1}
           onClick={() => {
             setClothes(entity);
           }}
-        />
-        <div className="btn-dark text-white">
-          Preset {n}
-        </div>
-        <button className="btn-dark text-white"
+        /> */}
+        <div className="btn-light py-2">Preset {n}</div>
+        <button
+          className="btn-dark text-white py-1"
           onClick={() => {
             setClothes(entity);
           }}
@@ -39,13 +38,14 @@ export const Preset = (props: props) => {
           Load
         </button>
 
-        <button className="btn-dark text-white"
-        onClick={() => {
-          alert(n)
-        }}>
+        <button
+          className="btn-dark text-white py-1"
+          onClick={() => {
+            alert(n);
+          }}
+        >
           Save
         </button>
-        
       </div>
     );
   };
@@ -55,6 +55,8 @@ export const Preset = (props: props) => {
       {presetCard(1)}
       {presetCard(2)}
       {presetCard(3)}
+      {presetCard(4)}
+      {presetCard(5)}
     </div>
   );
 };

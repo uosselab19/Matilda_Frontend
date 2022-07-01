@@ -11,14 +11,14 @@ import profileImage from './../../assets/images/Profile/profileImage.png';
 import axios from 'axios';
 
 interface userInfo {
-  nickname: string,
-  desc: string
+  nickname: string;
+  desc: string;
 }
 
 export const Mypage = () => {
   const navigate = useNavigate();
   //위에 메뉴 선택하는 부분 state로 구현함. 네비게이션 바로 구현 다시 하자
-  const [userInfo, setUserInfo] = useState({ nickname: "", desc: "" } as userInfo);
+  const [userInfo, setUserInfo] = useState({ nickname: '', desc: '' } as userInfo);
   const [seletedTap, setSeletedTap] = useState(0);
   const MypageContent = (seletedNum: number) => {
     switch (seletedNum) {
@@ -36,20 +36,20 @@ export const Mypage = () => {
   //첫 마운트 시 유저정보 없으면 홈페이지로 날아가게 함.
   //URL로 마이페이지 접근을 막는 코드
   useEffect(() => {
-    const userCookie=cookies.get('userInfo');
+    const userCookie = cookies.get('userInfo');
     if (!userCookie) {
       alert('유저정보가 없어서 홈페이지로 이동합니다.');
       navigate('/');
     } else {
       const loadUserinfo = async () => {
         try {
-            const desc=(await axios.get("/members/2")).data.description;
-            setUserInfo({nickname:userCookie.nickname, desc:desc} as userInfo);
+          const desc = (await axios.get('/members/2')).data.description;
+          setUserInfo({ nickname: userCookie.nickname, desc: desc } as userInfo);
         } catch (err) {
           console.log(err);
-          alert("회원정보를 불러오지 못했습니다.");
+          alert('회원정보를 불러오지 못했습니다.');
         }
-      }
+      };
       loadUserinfo();
     }
   }, []);
@@ -75,8 +75,9 @@ export const Mypage = () => {
           <div className="row my-3">
             <div className="col-lg-4">
               <button
-                className={`btn btn-outline-light px-2 ${seletedTap == 0 ? 'text-dark fw-bold' : 'text-secondary'
-                  } text-decoration-none fs-5`}
+                className={`btn btn-outline-light px-2 ${
+                  seletedTap == 0 ? 'text-dark fw-bold' : 'text-secondary'
+                } text-decoration-none fs-5`}
                 onClick={() => {
                   setSeletedTap(0);
                 }}
@@ -87,8 +88,9 @@ export const Mypage = () => {
 
             <div className="col-lg-4">
               <button
-                className={`btn btn-outline-light px-2 ${seletedTap == 1 ? 'text-dark fw-bold' : 'text-secondary'
-                  } text-decoration-none fs-5`}
+                className={`btn btn-outline-light px-2 ${
+                  seletedTap == 1 ? 'text-dark fw-bold' : 'text-secondary'
+                } text-decoration-none fs-5`}
                 onClick={() => {
                   setSeletedTap(1);
                 }}
@@ -99,8 +101,9 @@ export const Mypage = () => {
 
             <div className="col-lg-4">
               <button
-                className={`btn btn-outline-light px-2 ${seletedTap == 2 ? 'text-dark fw-bold' : 'text-secondary'
-                  } text-decoration-none fs-5`}
+                className={`btn btn-outline-light px-2 ${
+                  seletedTap == 2 ? 'text-dark fw-bold' : 'text-secondary'
+                } text-decoration-none fs-5`}
                 onClick={() => {
                   setSeletedTap(2);
                 }}

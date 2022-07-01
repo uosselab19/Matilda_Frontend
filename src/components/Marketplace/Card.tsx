@@ -1,6 +1,7 @@
 import item_img1 from '../../assets/images/Explore/item_img.png';
-import profile_img1 from '../../assets/images/Profile/thumbProfileImage.png';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 //컴포넌트가 받을 props
 interface props {
@@ -11,20 +12,13 @@ interface props {
   numShowItems: number;
 }
 
-interface maker {
-  name: string;
-  profile_img: '*.png';
-}
-
 interface info {
   id: number;
   title: string;
-  maker: maker;
+  makerThumbImg: '*.png';
   link: string;
   thumbnail: '*.png';
-  description: string;
   price: number;
-  created_at: string;
 }
 
 const Pagination = (props: props) => {
@@ -106,30 +100,8 @@ const Pagination = (props: props) => {
 };
 
 export const Card = (props: props) => {
-  const [page, numItems, numShowItems] = [props.page, props.numItems, props.numShowItems];
+  const [page, numShowItems] = [props.page, props.numShowItems];
   const navigate = useNavigate();
-
-  const loadMakerInfo = (member_num: number): maker => {
-    return {
-      name: `Mindul ${member_num}`,
-      profile_img: profile_img1
-    };
-  };
-  
-  const loadNFTInfo = (e: number) => {
-    //카드 안에 담길 정보 생성 함수(임시로 만든 함수)
-    return {
-      id: e,
-      link: `/NFTItem/?nft_id=${e}`,
-      thumbnail: item_img1,
-      title: `Mindul NFT ${e}`,
-      maker: loadMakerInfo(e),
-      description:
-        'This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.',
-      price: 10.597,
-      created_at: `${Math.floor((e * 100) / 7)} min`
-    };
-  };
 
   const handleCard = (id: number) => {
     navigate(`/marketplace/NFTItem?nft_id=${id}`, { replace: false });
@@ -190,6 +162,48 @@ export const Card = (props: props) => {
     }
   };
 
+  const loadNFTInfo = (itemInfo: info): info => {
+    //카드 안에 담길 정보 생성 함수
+    return {
+      id: itemInfo.id,
+      link: `/NFTItem/?nft_id=${itemInfo.id}`,
+      thumbnail: item_img1,
+      title: itemInfo.title,
+      makerThumbImg: itemInfo.makerThumbImg,
+      price: itemInfo.price
+    };
+  };
+
+  //카드 리스트
+  let itemList = [];
+
+  //loadItemList에서 쿼리스트링을 통한 통신으로 받으면 되지 않을까...?
+  const loadItemList = async (category: string) => {
+    return (
+      await axios.get('/items', {
+        params: {
+          skip: 0,
+          sortKey: 'ID',
+          sortOrder: 'ASC',
+          take: 100
+        }
+      })
+    ).data.itemList.map((e) => {
+      return cardItem(loadNFTInfo(e));
+    });
+  };
+
+  useEffect(() => {
+    try {
+      const load = async () => {
+        itemList = await loadItemList('ALL');
+      };
+      load();
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
   const cardItem = (info: info) => {
     //Main에 올라갈 card item JSX 만드는 함수
     //borderTopRightRadius: 30, borderTopLeftRadius: 30
@@ -219,13 +233,7 @@ export const Card = (props: props) => {
           <div className="card-img-overlay d-flex flex-column">
             <div className="card-text mt-auto d-flex justify-content-between px-2 py-2">
               <div>{`${info.title}`}</div>
-              <img
-                src={`${info.maker.profile_img}`}
-                alt="profile"
-                width="32"
-                height="32"
-                className="rounded-circle me-3"
-              />
+              <img src={`${info.makerThumbImg}`} alt="profile" width="32" height="32" className="rounded-circle me-3" />
               <div>{`${info.price} KLAY`}</div>
             </div>
           </div>
@@ -240,14 +248,7 @@ export const Card = (props: props) => {
     );
   };
 
-  //카드 리스트
-  //loadItemList에서 쿼리스트링을 통한 통신으로 받으면 되지 않을까...?
-  const loadItemList = new Array(numItems).fill(0);
-  const itemList = loadItemList.map((_, i) => {
-    return cardItem(loadNFTInfo(i));
-  });
-
-  return (
+  return itemList ? (
     <div>
       <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 align-items-around g-3">
         {itemList.slice(page * numShowItems, (page + 1) * numShowItems)}
@@ -255,5 +256,5 @@ export const Card = (props: props) => {
       <p />
       {Pagination(props)}
     </div>
-  );
+  ) : null;
 };

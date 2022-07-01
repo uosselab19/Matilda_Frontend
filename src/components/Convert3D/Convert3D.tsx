@@ -26,14 +26,14 @@ interface categoryItem {
   title: string;
 }
 
-const initClothes={catCode:"", image:convertImage, title:""};
+const initClothes = { catCode: '', image: convertImage, title: '' };
 
 export const Convert3D = () => {
   const [clothes, setClothes] = useState(initClothes);
 
   //프리뷰 보여주는 함수
   const setPreview = (input: File): File | void => {
-    if (clothes==initClothes) return alert('왼쪽 카테고리에서 종류를 선택해주세요!');
+    if (clothes == initClothes) return alert('왼쪽 카테고리에서 종류를 선택해주세요!');
     if (!input) return; // 도중에 취소하면 아무것도 없음
     console.log(input);
     return convertFunction(input);
@@ -60,13 +60,12 @@ export const Convert3D = () => {
   };
 
   //카테고리에 쓰일 아코디언
-  const accordionItems = (
-    index: Number,
-    category: categoryItem
-  ): JSX.Element => {
+  const accordionItems = (index: Number, category: categoryItem): JSX.Element => {
     return (
-      <div key={`key${index}`} className="btn btn-outline-secondary"
-        onClick={()=>{
+      <div
+        key={`key${index}`}
+        className="btn btn-outline-secondary"
+        onClick={() => {
           setClothes(category);
         }}
       >
@@ -78,23 +77,23 @@ export const Convert3D = () => {
   //아코디언 항목 대응시켜주는 부분
   const listAccordionItems = () => {
     const result: Array<JSX.Element> = new Array();
-    result.push(accordionItems(1, {catCode: 'DR', image: imageDR, title: '한 벌 의상' }));
-    result.push(accordionItems(2, {catCode: 'TOP', image: imageTOP, title: '상의' }));
-    result.push(accordionItems(3, {catCode: 'OTR', image: imageOTR, title: '아우터' }));
-    result.push(accordionItems(4, {catCode: 'BTM', image: imageBTM, title: '하의' }));
-    result.push(accordionItems(5, {catCode: 'SOX', image: imageSOX, title: '양말' }));
-    result.push(accordionItems(6, {catCode: 'SH', image: imageSH, title: '신발류' }));
-    result.push(accordionItems(7, {catCode: 'HAI', image: imageHAI, title: '헤어' }));
-    result.push(accordionItems(8, {catCode: 'HEA', image: imageHEA, title: '헤드웨어' }));
-    result.push(accordionItems(9, {catCode: 'GLA', image: imageGLA, title: '안경' }));
-    result.push(accordionItems(10, {catCode: 'BRA', image: imageBRA, title: '팔찌' }));
-    result.push(accordionItems(11, {catCode: 'NEC', image: imageNEC, title: '목걸이' }));
-    result.push(accordionItems(12, {catCode: 'EAR', image: imageEAR, title: '귀걸이' }));
-    result.push(accordionItems(13, {catCode: 'BAG', image: imageBAG, title: '가방' }));
-    result.push(accordionItems(14, {catCode: 'MAS', image: imageMAS, title: '마스크' }));
-    result.push(accordionItems(15, {catCode: 'WIN', image: imageWIN, title: '날개' }));
-    result.push(accordionItems(16, {catCode: 'NAI', image: imageNAI, title: '네일아트' }));
-    result.push(accordionItems(17, {catCode: 'GLO', image: imageGLO, title: '장갑' }));
+    result.push(accordionItems(1, { catCode: 'DR', image: imageDR, title: '한 벌 의상' }));
+    result.push(accordionItems(2, { catCode: 'TOP', image: imageTOP, title: '상의' }));
+    result.push(accordionItems(3, { catCode: 'OTR', image: imageOTR, title: '아우터' }));
+    result.push(accordionItems(4, { catCode: 'BTM', image: imageBTM, title: '하의' }));
+    result.push(accordionItems(5, { catCode: 'SOX', image: imageSOX, title: '양말' }));
+    result.push(accordionItems(6, { catCode: 'SH', image: imageSH, title: '신발류' }));
+    result.push(accordionItems(7, { catCode: 'HAI', image: imageHAI, title: '헤어' }));
+    result.push(accordionItems(8, { catCode: 'HEA', image: imageHEA, title: '헤드웨어' }));
+    result.push(accordionItems(9, { catCode: 'GLA', image: imageGLA, title: '안경' }));
+    result.push(accordionItems(10, { catCode: 'BRA', image: imageBRA, title: '팔찌' }));
+    result.push(accordionItems(11, { catCode: 'NEC', image: imageNEC, title: '목걸이' }));
+    result.push(accordionItems(12, { catCode: 'EAR', image: imageEAR, title: '귀걸이' }));
+    result.push(accordionItems(13, { catCode: 'BAG', image: imageBAG, title: '가방' }));
+    result.push(accordionItems(14, { catCode: 'MAS', image: imageMAS, title: '마스크' }));
+    result.push(accordionItems(15, { catCode: 'WIN', image: imageWIN, title: '날개' }));
+    result.push(accordionItems(16, { catCode: 'NAI', image: imageNAI, title: '네일아트' }));
+    result.push(accordionItems(17, { catCode: 'GLO', image: imageGLO, title: '장갑' }));
     return result;
   };
 

@@ -1,7 +1,17 @@
+import { selectItem } from '../../services/itemService';
+
 export const Footer = () => {
   //Footer는 현재는 디버그용 버튼으로 활용 중
-  const scrollTop = () => {
-    window.scrollTo({ top: 0 });
+  const scrollTop = async () => {
+    // window.scrollTo({ top: 0 });
+    const { data, error } = await selectItem({
+      skip: 0,
+      sortKey: 'ID',
+      sortOrder: 'ASC',
+      take: 100
+    });
+    console.log(data);
+    console.log(error);
   };
 
   return (

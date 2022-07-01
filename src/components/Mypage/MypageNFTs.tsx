@@ -31,7 +31,7 @@ export const MypageNFTs = () => {
     }
   };
 
-  const loadItemInfo = (e:any, index: number) => {
+  const loadItemInfo = (e: any, index: number) => {
     const img = (i: number) => {
       if (i % 3 == 0) return testImage1;
       else if (i % 3 == 1) return testImage2;
@@ -67,13 +67,13 @@ export const MypageNFTs = () => {
   //첫 마운트.
   useEffect(() => {
     const cardItems = async () => {
-      const memberItems = (await axios.get("/members/2")).data;
+      const memberItems = (await axios.get('/members/2')).data;
       setItemList(
-        memberItems.items.map((e:any, i:number) => {
-          return cardItem(i, loadItemInfo(e,i));
+        memberItems.items.map((e: any, i: number) => {
+          return cardItem(i, loadItemInfo(e, i));
         })
       );
-    }
+    };
     cardItems();
   }, []);
 

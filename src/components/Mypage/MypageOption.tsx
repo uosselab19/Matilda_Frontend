@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 export const MypageOption = () => {
   const navigate = useNavigate();
 
-  const initUserinfo = { password: undefined, nickname: undefined, email: undefined, desc:undefined};
+  const initUserinfo = { password: undefined, nickname: undefined, email: undefined, desc: undefined };
   const [inputPW, setInputPW] = useState(initUserinfo.password as string | undefined);
   const [inputNickname, setInputNickname] = useState(initUserinfo.nickname as string | undefined);
   const [inputEmail, setInputEmail] = useState(initUserinfo.email as string | undefined);
@@ -16,31 +16,31 @@ export const MypageOption = () => {
   //첫 마운트.
   useEffect(() => {
     const loadUserinfo = async () => {
-      try{
-        const userinfo = (await axios.get("/members/2")).data;
+      try {
+        const userinfo = (await axios.get('/members/2')).data;
         setInputPW(userinfo.password);
         setInputNickname(userinfo.nickname);
         setInputEmail(userinfo.email);
         setInputDesc(userinfo.desc);
       } catch (err) {
         console.log(err);
-        alert("회원정보를 불러오지 못했습니다.");
-        navigate("/");
+        alert('회원정보를 불러오지 못했습니다.');
+        navigate('/');
       }
-    }
+    };
     loadUserinfo();
   }, []);
 
   const handlePassword = (e: ChangeEvent<HTMLInputElement>) => {
-    const eTargetValue = (e.target.value) ? (e.target.value) : "";
+    const eTargetValue = e.target.value ? e.target.value : '';
     setInputPW(eTargetValue);
   };
   const handleNickname = (e: ChangeEvent<HTMLInputElement>) => {
-    const eTargetValue = (e.target.value) ? (e.target.value) : "";
+    const eTargetValue = e.target.value ? e.target.value : '';
     setInputNickname(eTargetValue);
   };
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    const eTargetValue = (e.target.value) ? (e.target.value) : "";
+    const eTargetValue = e.target.value ? e.target.value : '';
     setInputEmail(eTargetValue);
   };
   // const handleProfileImg = (e: ChangeEvent<HTMLInputElement>) => {
@@ -50,7 +50,7 @@ export const MypageOption = () => {
   //   setWalletAddr(e.target.value);
   // };
   const handleDesc = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    const eTargetValue = (e.target.value) ? (e.target.value) : "";
+    const eTargetValue = e.target.value ? e.target.value : '';
     setInputDesc(eTargetValue);
   };
 
@@ -70,19 +70,20 @@ export const MypageOption = () => {
           password: inputPW,
           description: inputDesc
         });
-        alert("회원정보가 수정되었습니다!");
+        alert('회원정보가 수정되었습니다!');
         target.removeAttribute('disabled'); //중복 입력 방지 해제 코드
       } catch (error) {
         // DB 접속 오류
         console.log('회원 정보 DB에 put하다가 생긴 오류');
         console.log(error);
-        alert("회원정보 수정에 오류가 생겨서 바뀌지 않았습니다. 다시 한 번 실행해주세요!");
+        alert('회원정보 수정에 오류가 생겨서 바뀌지 않았습니다. 다시 한 번 실행해주세요!');
         target.removeAttribute('disabled'); //중복 입력 방지 해제 코드
       }
-    } else {//
-      alert("바뀌는 정보가 없어요!");
+    } else {
+      //
+      alert('바뀌는 정보가 없어요!');
     }
-  }
+  };
 
   return (
     <div>
@@ -102,12 +103,7 @@ export const MypageOption = () => {
             Password
           </label>
           <div className="col-8">
-            <input
-              className="form-control border-dark"
-              id="pw"
-              type="password"
-              onChange={handlePassword}
-            />
+            <input className="form-control border-dark" id="pw" type="password" onChange={handlePassword} />
           </div>
 
           {/* 닉네임 */}
@@ -184,7 +180,11 @@ export const MypageOption = () => {
             />
           </div>
         </div>
-        <button className="col-6 btn btn-primary btn-lg bg-dark justify-content-center mt-3" type="submit" onClick={submit}>
+        <button
+          className="col-6 btn btn-primary btn-lg bg-dark justify-content-center mt-3"
+          type="submit"
+          onClick={submit}
+        >
           Edit info
         </button>
       </form>

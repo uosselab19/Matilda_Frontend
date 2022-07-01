@@ -9,7 +9,7 @@ export const Home = () => {
   };
   const explore = () => {
     scrollTop();
-    navigate('/explore', { replace: true });
+    navigate('/marketplace', { replace: true });
   };
 
   return (

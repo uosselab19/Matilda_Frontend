@@ -18,7 +18,7 @@ export const View = (props: props) => {
   scene.background = new THREE.Color(0x999999);
 
   //renderer
-  
+
   const renderer = new THREE.WebGLRenderer({ antialias: false });
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFShadowMap;
@@ -63,11 +63,13 @@ export const View = (props: props) => {
     const maxPan = new THREE.Vector3(0, 2 * modelHeight, 0); //이거는 모델 키 조절해서 도전해봐야 할 듯
     controls.target.clamp(minPan, maxPan);
     renderer.render(scene, camera);
-    window.requestAnimationFrame(animate);
 
     const dressupDom = document.getElementById('dressUp') as HTMLElement;
-    const width = dressupDom.offsetWidth - 16; // 16은 padding
-    renderer.setSize(width, width);
+    if (dressupDom) {
+      const width = dressupDom.offsetWidth - 16; // 16은 padding
+      renderer.setSize(width, width);
+      window.requestAnimationFrame(animate);
+    }
   };
 
   useEffect(() => {

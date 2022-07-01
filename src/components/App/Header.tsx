@@ -21,26 +21,45 @@ export const Header = () => {
   const location = useLocation(); // url 찍어주는 훅
   const pathname = location.pathname;
 
-  let sign =  // 오른쪽 버튼 보여주기
-    <div>
-      <button
-        className="btn btn-outline-light me-2"
-        onClick={() => { cookies.get('userInfo') ? (fetchSignout()) : (linkTo('/signin')); }}
-      > {cookies.get('userInfo') ? "sign-out" :  "Sign-in"} </button>
-      <button
-        className="btn btn-secondary"
-        onClick={() => { cookies.get('userInfo') ? (linkTo('/mypage')) : (linkTo('/signup')); }}
-      > {cookies.get('userInfo') ? "My Page" : "Sign-up"} </button>
-    </div>
+  let sign = // 오른쪽 버튼 보여주기
+    (
+      <div>
+        <button
+          className="btn btn-outline-light me-2"
+          onClick={() => {
+            cookies.get('userInfo') ? fetchSignout() : linkTo('/signin');
+          }}
+        >
+          {' '}
+          {cookies.get('userInfo') ? 'sign-out' : 'Sign-in'}{' '}
+        </button>
+        <button
+          className="btn btn-secondary"
+          onClick={() => {
+            cookies.get('userInfo') ? linkTo('/mypage') : linkTo('/signup');
+          }}
+        >
+          {' '}
+          {cookies.get('userInfo') ? 'My Page' : 'Sign-up'}{' '}
+        </button>
+      </div>
+    );
 
   // 왼쪽 부분 아이템 생성 함수
   const tapItem = (index: React.Key, title: string, url: To) => {
     return (
       <button
         key={index}
-        className={`btn btn-outline-dark px-2 mx-2 fw-bold ${pathname == url ? 'text-white' : 'text-secondary'} text-decoration-none`}
-        onClick={() => { linkTo(url); }}
-      > {title} </button>
+        className={`btn btn-outline-dark px-2 mx-2 fw-bold ${
+          pathname == url ? 'text-white' : 'text-secondary'
+        } text-decoration-none`}
+        onClick={() => {
+          linkTo(url);
+        }}
+      >
+        {' '}
+        {title}{' '}
+      </button>
     );
   };
 

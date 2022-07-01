@@ -54,7 +54,7 @@ export const Signup = () => {
 
     //회원 정보 DB에 입력하는 부분
     try {
-      await axios.post('/members', { 
+      await axios.post('/members', {
         email: inputEmail,
         id: inputID,
         nickname: inputNickname,
