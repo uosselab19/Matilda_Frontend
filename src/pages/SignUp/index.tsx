@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import matilda from '../../assets/images/matilda.png';
 
 import axios from 'axios';
+import TextBox from '../../components/forms/TextBox';
 
 export const Signup = () => {
   //회원가입 시 중요한 state
@@ -84,72 +85,52 @@ export const Signup = () => {
         <form id="signupForm" className="needs-validation" noValidate>
           <div className="row g-3">
             {/*아이디*/}
-            <div className="col-12">
-              <label htmlFor="id" className="form-label">
-                ID
-              </label>
-              <input
-                className="form-control border-dark"
-                id="id"
-                type="id"
-                required
-                value={inputID}
-                onChange={handleInputID}
-              />
-              <div className="invalid-feedback">Please enter a valid ID</div>
-            </div>
+            <TextBox
+              id="id"
+              label="ID"
+              type="id"
+              placeholder="mindul486"
+              helpText="Please enter a valid ID"
+              disabled={false}
+              readonly={false}
+              handleChange={handleInputID}
+              value={inputID}/>
 
             {/*비밀번호*/}
-            <div className="col-12">
-              <label htmlFor="pw" className="form-label">
-                Password
-              </label>
-              <input
-                className="form-control border-dark"
-                id="pw"
-                type="password"
-                required
-                value={inputPW}
-                onChange={handleInputPW}
-              />
-              <div className="invalid-feedback">Please enter a valid Password</div>
-            </div>
+            <TextBox
+              id="pw"
+              label="Password"
+              type="password"
+              placeholder="password"
+              helpText="Please enter a valid Password"
+              disabled={false}
+              readonly={false}
+              handleChange={handleInputPW}
+              value={inputPW}/>
 
             {/*별명*/}
-            <div className="col-12">
-              <label htmlFor="nickname" className="form-label">
-                Nickname
-              </label>
-              <div className="input-group has-validation">
-                <input
-                  className="form-control border-dark"
-                  id="nickname"
-                  placeholder=""
-                  type="text"
-                  required
-                  value={inputNickname}
-                  onChange={handleInputNickname}
-                />
-                <div className="invalid-feedback">Your nickname is required.</div>
-              </div>
-            </div>
+            <TextBox
+              id="nickname"
+              label="Nickname"
+              type="text"
+              placeholder="Mindul"
+              helpText="Your nickname is required."
+              disabled={false}
+              readonly={false}
+              handleChange={handleInputNickname}
+              value={inputNickname}/>
 
             {/*이메일*/}
-            <div className="col-12">
-              <label htmlFor="email" className="form-label">
-                Email
-              </label>
-              <input
-                className="form-control border-dark"
-                id="email"
-                placeholder="mindul@example.com"
-                type="email"
-                required
-                value={inputEmail}
-                onChange={handleInputEmail}
-              />
-              <div className="invalid-feedback">Please enter a valid email address.</div>
-            </div>
+            <TextBox
+              id="email"
+              label="Email"
+              type="email"
+              placeholder="mindul@example.com"
+              helpText="Please enter a valid email address."
+              disabled={false}
+              readonly={false}
+              handleChange={handleInputEmail}
+              value={inputEmail}/>
           </div>
 
           <div className="col-12 my-4">

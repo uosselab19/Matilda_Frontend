@@ -3,7 +3,7 @@ import axios from 'axios';
 export const anonymousApiClient = axios.create({
   timeout: 1000,
   proxy: {
-    host: '3.133.233.81',
+    host: 'http://3.133.233.81',
     port: 8080
   }
 });

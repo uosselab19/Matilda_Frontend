@@ -10,7 +10,7 @@ import { Convert3D } from '../Convert3D/Convert3D';
 import { MintNFT } from '../MintNFT/MintNFT';
 import { Dressup } from '../Dressup/Dressup';
 import { Signin } from '../Sign/Signin';
-import { Signup } from '../Sign/Signup';
+import { Signup } from '../../pages/SignUp/index';
 import { Mypage } from '../Mypage/Mypage';
 import { BuyNFTItem } from '../NFTItem/BuyNFTItem';
 import { SellNFTItem } from '../NFTItem/SellNFTItem';

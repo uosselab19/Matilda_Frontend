@@ -1,4 +1,5 @@
 import { selectItem } from '../../services/itemService';
+//import { selectMember } from '../../services/memberService';
 
 export const Footer = () => {
   //Footer는 현재는 디버그용 버튼으로 활용 중
@@ -12,6 +13,10 @@ export const Footer = () => {
     });
     console.log(data);
     console.log(error);
+
+    // const { data, error } = await selectMember(2);
+    // console.log(data);
+    // console.log(error);
   };
 
   return (
