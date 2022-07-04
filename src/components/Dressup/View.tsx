@@ -18,7 +18,6 @@ export const View = (props: props) => {
   scene.background = new THREE.Color(0x999999);
 
   //renderer
-
   const renderer = new THREE.WebGLRenderer({ antialias: false });
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFShadowMap;
@@ -52,6 +51,7 @@ export const View = (props: props) => {
   controls.target.set(0, modelHeight, 0); //카메라 시점 조절
   controls.update();
 
+  let dressupDom: HTMLElement;
   const animate = () => {
     //need to load model
     controls.update();
@@ -64,7 +64,6 @@ export const View = (props: props) => {
     controls.target.clamp(minPan, maxPan);
     renderer.render(scene, camera);
 
-    const dressupDom = document.getElementById('dressUp') as HTMLElement;
     if (dressupDom) {
       const width = dressupDom.offsetWidth - 16; // 16은 padding
       renderer.setSize(width, width);

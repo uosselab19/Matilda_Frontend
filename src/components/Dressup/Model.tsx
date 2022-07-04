@@ -3,7 +3,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { modelHeight } from './View';
 
 //loader
-let boundaryBox: THREE.Box3, centerBox: THREE.Vector3;
+let boundaryBox: THREE.Box3, boxCenter: THREE.Vector3;
 const locVecter = new THREE.Vector3(0, 0, 0);
 
 export const loadModel = (model: string, scene: any) => {
@@ -17,9 +17,9 @@ export const loadModel = (model: string, scene: any) => {
       scene.add(gltf.scene);
 
       boundaryBox = new THREE.Box3().setFromObject(matilda);
-      centerBox = boundaryBox.getCenter(new THREE.Vector3());
+      boxCenter = boundaryBox.getCenter(new THREE.Vector3());
 
-      const scale = modelHeight / centerBox.y;
+      const scale = modelHeight / boxCenter.y;
       matilda.scale.set(scale, scale, scale); //스케일 조정
     },
 

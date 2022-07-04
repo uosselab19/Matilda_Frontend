@@ -21,7 +21,7 @@ export const Header = () => {
   const location = useLocation(); // url 찍어주는 훅
   const pathname = location.pathname;
 
-  let sign = // 오른쪽 버튼 보여주기
+  const sign = // 오른쪽 버튼 보여주기
     (
       <div>
         <button

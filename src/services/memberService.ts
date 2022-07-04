@@ -1,11 +1,11 @@
-import { SelectItem } from '../types/Item';
+import { SelectMember } from '../types/Member';
 import { anonymousApiClient } from './apiClient';
 
-export async function selectItem(item: SelectItem) {
+export async function selectMember(member: SelectMember) {
   let data = undefined, error = undefined;
 
   try {
-    const result = await anonymousApiClient.get('/items', {});
+    const result = await anonymousApiClient.get('/members', {});
 
     data = result?.data;
   } catch (err) {

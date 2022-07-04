@@ -3,9 +3,8 @@ import { MypageNFTs } from './MypageNFTs';
 import { MypageWallet } from './MypageWallet';
 import { MypageOption } from './MypageOption';
 import { cookies } from '../App/App';
-import { useNavigate /*, useSearchParams */ } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { NotFound } from '../NotFound/NotFound';
-// import Cookies from "universal-cookie";
 
 import profileImage from './../../assets/images/Profile/profileImage.png';
 import axios from 'axios';
@@ -19,9 +18,9 @@ export const Mypage = () => {
   const navigate = useNavigate();
   //위에 메뉴 선택하는 부분 state로 구현함. 네비게이션 바로 구현 다시 하자
   const [userInfo, setUserInfo] = useState({ nickname: '', desc: '' } as userInfo);
-  const [seletedTap, setSeletedTap] = useState(0);
-  const MypageContent = (seletedNum: number) => {
-    switch (seletedNum) {
+  const [selectedTap, setSelectedTap] = useState(0);
+  const MypageContent = (selectedNum: number) => {
+    switch (selectedNum) {
       case 0:
         return <MypageNFTs />;
       case 1:
@@ -76,10 +75,10 @@ export const Mypage = () => {
             <div className="col-lg-4">
               <button
                 className={`btn btn-outline-light px-2 ${
-                  seletedTap == 0 ? 'text-dark fw-bold' : 'text-secondary'
+                  selectedTap == 0 ? 'text-dark fw-bold' : 'text-secondary'
                 } text-decoration-none fs-5`}
                 onClick={() => {
-                  setSeletedTap(0);
+                  setSelectedTap(0);
                 }}
               >
                 My NFT List
@@ -89,10 +88,10 @@ export const Mypage = () => {
             <div className="col-lg-4">
               <button
                 className={`btn btn-outline-light px-2 ${
-                  seletedTap == 1 ? 'text-dark fw-bold' : 'text-secondary'
+                  selectedTap == 1 ? 'text-dark fw-bold' : 'text-secondary'
                 } text-decoration-none fs-5`}
                 onClick={() => {
-                  setSeletedTap(1);
+                  setSelectedTap(1);
                 }}
               >
                 Klaytn setting
@@ -102,10 +101,10 @@ export const Mypage = () => {
             <div className="col-lg-4">
               <button
                 className={`btn btn-outline-light px-2 ${
-                  seletedTap == 2 ? 'text-dark fw-bold' : 'text-secondary'
+                  selectedTap == 2 ? 'text-dark fw-bold' : 'text-secondary'
                 } text-decoration-none fs-5`}
                 onClick={() => {
-                  setSeletedTap(2);
+                  setSelectedTap(2);
                 }}
               >
                 Edit info
@@ -114,7 +113,7 @@ export const Mypage = () => {
           </div>
 
           {/* 이 부분이 My Page 핵심 부분 */}
-          {MypageContent(seletedTap)}
+          {MypageContent(selectedTap)}
         </div>
       </div>
     </main>

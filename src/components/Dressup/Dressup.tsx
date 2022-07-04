@@ -4,7 +4,7 @@ import { Market } from './Market';
 import { Preset } from './Preset';
 
 export interface Clothes {
-  shirt: string | undefined;
+  shirt?: string;
 }
 
 export const Dressup = () => {

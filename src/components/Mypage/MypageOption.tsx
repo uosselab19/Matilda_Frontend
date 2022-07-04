@@ -9,8 +9,8 @@ export const MypageOption = () => {
   const [inputPW, setInputPW] = useState(initUserinfo.password as string | undefined);
   const [inputNickname, setInputNickname] = useState(initUserinfo.nickname as string | undefined);
   const [inputEmail, setInputEmail] = useState(initUserinfo.email as string | undefined);
-  // const [profileImg, setProfileImg] = useState('asdf');
-  // const [walletAddr, setWalletAddr] = useState('asdf');
+  // const [inputProfileImg, setInputProfileImg] = useState('asdf');
+  // const [inputWalletAddr, setInputWalletAddr] = useState('asdf');
   const [inputDesc, setInputDesc] = useState(initUserinfo.desc as string | undefined);
 
   //첫 마운트.
@@ -44,7 +44,7 @@ export const MypageOption = () => {
     setInputEmail(eTargetValue);
   };
   // const handleProfileImg = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setProfileImg(e.target.value);
+  //   setinputProfileImg(e.target.value);
   // };
   // const handleWalletAddr = (e: ChangeEvent<HTMLInputElement>) => {
   //   setWalletAddr(e.target.value);
@@ -144,7 +144,7 @@ export const MypageOption = () => {
               id="profileImg"
               type="file"
               accept="image/*"
-              placeholder={profileImg}
+              placeholder={inputProfileImg}
               onChange={handleProfileImg}
             />
           </div>
@@ -158,7 +158,7 @@ export const MypageOption = () => {
             <input
               className="form-control border-dark"
               id="walletAddr"
-              placeholder={walletAddr}
+              placeholder={inputWalletAddr}
               type="text"
               required
               onChange={handleWalletAddr}

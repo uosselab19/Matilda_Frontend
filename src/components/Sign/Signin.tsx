@@ -55,7 +55,7 @@ export const Signin = () => {
     }
   };
 
-  const onKeyPress = (e: { key: string }) => {
+  const onEnterPress = (e: { key: string }) => {
     if (e.key == 'Enter') {
       fetchSignin();
     }
@@ -91,7 +91,7 @@ export const Signin = () => {
             placeholder="Password"
             value={inputPW}
             onChange={handleInputPW}
-            onKeyPress={onKeyPress}
+            onKeyPress={onEnterPress}
           ></input>
           <label htmlFor="floatingPassword">Password</label>
         </div>
@@ -108,7 +108,7 @@ export const Signin = () => {
           className="w-100 btn btn-lg btn-secondary mb-3"
           type="submit"
           onClick={fetchSignin}
-          onKeyPress={onKeyPress}
+          onKeyPress={onEnterPress}
         >
           Sign in
         </button>

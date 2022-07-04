@@ -11,13 +11,15 @@ export const Preset = (props: props) => {
   //const clothes=props.clothes;
   const setClothes = props.setClothes;
 
-  const presetDB = [
-    { shirt: 'mindul1' } as Clothes,
-    { shirt: 'mindul2' } as Clothes,
-    { shirt: 'mindul3' } as Clothes,
-    { shirt: 'mindul4' } as Clothes,
-    { shirt: 'mindul5' } as Clothes
-  ];
+  const presetDB = [];
+  const loadPresetDB = (presetDB:Array<Clothes>) => {
+    presetDB.push({ shirt: 'mindul1' });
+    presetDB.push({ shirt: 'mindul2' });
+    presetDB.push({ shirt: 'mindul3' });
+    presetDB.push({ shirt: 'mindul4' });
+    presetDB.push({ shirt: 'mindul5' });
+  };
+  loadPresetDB(presetDB);
 
   const presetCard = (n: number) => {
     const entity = presetDB[n - 1];

@@ -19,19 +19,19 @@ export const BuyNFTItem = () => {
   const navigate = useNavigate();
   const [NFTInfo, setNFTInfo] = useState(null as null | NFT);
   const [searchParams] = useSearchParams();
-  const id = Number(searchParams.get('nft_id') as string);
+  const NFT_ID = Number(searchParams.get('nft_id') as string);
   const mode = 'Buy';
 
-  const loadNFT = async (id: number) => {
-    const item = (await axios.get(`/items/${id}`)).data;
+  const loadNFT = async (NFT_ID: number) => {
+    const item = (await axios.get(`/items/${NFT_ID}`)).data;
     // {
-    //   itemNum: id,
+    //   itemNum: NFT_ID,
     //   catCode: 'all',
-    //   title: `nft ${id}`,
-    //   description: `nft ${id}`,
+    //   title: `nft ${NFT_ID}`,
+    //   description: `nft ${NFT_ID}`,
     //   makerName: `Mindul`,
     //   imgUrl: imageFile,
-    //   nftAddress: `nft ${id}`,
+    //   nftAddress: `nft ${NFT_ID}`,
     //   price: 10.597
     // };
     setNFTInfo(item);
@@ -39,7 +39,7 @@ export const BuyNFTItem = () => {
 
   useEffect(() => {
     try {
-      loadNFT(id);
+      loadNFT(NFT_ID);
     } catch (err) {
       console.log(err);
       alert('Item 정보를 불러오지 못 했습니다.');
