@@ -73,6 +73,7 @@ export const Signup = () => {
           <div className="row g-3">
             {/*아이디*/}
             <TextBox
+              name="id"
               id="id"
               label="ID"
               type="id"
@@ -80,12 +81,15 @@ export const Signup = () => {
               helpText="Please enter a valid ID"
               disabled={false}
               readonly={false}
-              handleChange={(e)=>{setInputID(e.target.value);}}
+              handleChange={(e) => {
+                setInputID(e.target.value);
+              }}
               value={inputID}
             />
 
             {/*비밀번호*/}
             <TextBox
+              name="pw"
               id="pw"
               label="Password"
               type="password"
@@ -93,12 +97,15 @@ export const Signup = () => {
               helpText="Please enter a valid Password"
               disabled={false}
               readonly={false}
-              handleChange={(e)=>{setInputPW(e.target.value);}}
+              handleChange={(e) => {
+                setInputPW(e.target.value);
+              }}
               value={inputPW}
             />
 
             {/*별명*/}
             <TextBox
+              name="nickname"
               id="nickname"
               label="Nickname"
               type="text"
@@ -106,12 +113,15 @@ export const Signup = () => {
               helpText="Your nickname is required."
               disabled={false}
               readonly={false}
-              handleChange={(e)=>{setInputNickname(e.target.value);}}
+              handleChange={(e) => {
+                setInputNickname(e.target.value);
+              }}
               value={inputNickname}
             />
 
             {/*이메일*/}
             <TextBox
+              name="email"
               id="email"
               label="Email"
               type="email"
@@ -119,7 +129,9 @@ export const Signup = () => {
               helpText="Please enter a valid email address."
               disabled={false}
               readonly={false}
-              handleChange={(e)=>{setInputEmail(e.target.value);}}
+              handleChange={(e) => {
+                setInputEmail(e.target.value);
+              }}
               value={inputEmail}
             />
           </div>

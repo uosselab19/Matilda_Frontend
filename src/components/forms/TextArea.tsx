@@ -2,6 +2,7 @@ import { ChangeEventHandler } from 'react';
 
 interface TextAreaProps {
   id: string;
+  name?: string;
   label: string;
   rows: number;
   placeholder: string;
@@ -13,7 +14,7 @@ interface TextAreaProps {
 }
 
 export default function TextArea(props: TextAreaProps) {
-  const { id, label, rows, placeholder, helpText, disabled, readonly, handleChange, value } = props;
+  const { id, name, label, rows, placeholder, helpText, disabled, readonly, handleChange, value } = props;
 
   const boxClass = readonly ? 'form-control-plaintext' : 'form-control';
 
@@ -25,6 +26,7 @@ export default function TextArea(props: TextAreaProps) {
       <textarea
         className={[boxClass, 'border-dark'].join(' ')}
         id={id}
+        name={name}
         rows={rows}
         placeholder={placeholder}
         disabled={disabled}

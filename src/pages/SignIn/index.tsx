@@ -73,6 +73,7 @@ export const Signin = () => {
         <p>
           {/* ID 입력란 */}
           <TextBox
+            name="id"
             id="id"
             label="ID"
             type="id"
@@ -87,6 +88,7 @@ export const Signin = () => {
         <p>
           {/* Password 입력란 */}
           <TextBox
+            name="password"
             id="password"
             label="Password"
             type="password"

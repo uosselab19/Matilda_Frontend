@@ -9,11 +9,13 @@ interface TextBoxProps {
   disabled: boolean;
   readonly: boolean;
   handleChange: ChangeEventHandler<HTMLInputElement>;
+  name: string;
   value: any;
+  errors?: string;
 }
 
 export default function TextBox(props: TextBoxProps) {
-  const { id, label, type, placeholder, helpText, disabled, readonly, handleChange, value } = props;
+  const { id, name, label, type, placeholder, disabled, readonly, handleChange, value, errors } = props;
 
   const boxClass = readonly ? 'form-control-plaintext' : 'form-control';
 
@@ -24,15 +26,17 @@ export default function TextBox(props: TextBoxProps) {
       </label>
       <input
         type={type || 'text'}
-        className={[boxClass, 'border-dark'].join(' ')}
+        className={[boxClass, 'border-dark', `input ${errors && 'is-danger'}`].join(' ')}
+        name={name}
         id={id}
         placeholder={placeholder}
         disabled={disabled}
         readOnly={readonly}
         onChange={handleChange}
-        value={value}
+        
+        value={value || ""}
       />
-      <div className="invalid-feedback">{helpText}</div>
+      {errors && (<p className="help is-danger">{errors}</p>)}
     </div>
   );
 }

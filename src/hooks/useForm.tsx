@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ChangeEvent } from 'react';
 
-export default function useForm (callback, validate) {
-
+export default function useForm(callback:Function, validate:Function) {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -10,25 +9,21 @@ export default function useForm (callback, validate) {
     if (Object.keys(errors).length === 0 && isSubmitting) {
       callback();
     }
+		callback();
   }, [errors]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: ChangeEvent<any>) => {
     if (event) {
-        event.preventDefault();
+      event.preventDefault();
     }
     setErrors(validate(values));
     setIsSubmitting(true);
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     event.persist();
-    setValues(values => ({ ...values, [event.target.name]: event.target.value }));
+    setValues((values) => ({ ...values, [event.target.name]: event.target.value }));
   };
 
-  return {
-    handleChange,
-    handleSubmit,
-    values,
-    errors,
-  }
-};
+  return { handleChange, handleSubmit, values, errors };
+}

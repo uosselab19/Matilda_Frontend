@@ -87,6 +87,7 @@ export const MypageOption = () => {
         <div className="row g-3">
           {/* 비밀번호 */}
           <TextBox
+            name="pw"
             id="pw"
             label="Password"
             type="password"
@@ -94,11 +95,15 @@ export const MypageOption = () => {
             helpText="Please enter a valid Password"
             disabled={false}
             readonly={false}
-            handleChange={(e)=>{setInputPW(e.target.value);}}
-            value={inputPW} />
+            handleChange={(e) => {
+              setInputPW(e.target.value);
+            }}
+            value={inputPW}
+          />
 
           {/* 닉네임 */}
           <TextBox
+            name="nickname"
             id="nickname"
             label="Nickname"
             type="text"
@@ -106,11 +111,15 @@ export const MypageOption = () => {
             helpText="Please enter a valid Nickname"
             disabled={false}
             readonly={false}
-            handleChange={(e)=>{setInputNickname(e.target.value);}}
-            value={inputNickname}/>
+            handleChange={(e) => {
+              setInputNickname(e.target.value);
+            }}
+            value={inputNickname}
+          />
 
           {/* 이메일 */}
           <TextBox
+            name="email"
             id="email"
             label="Email"
             type="email"
@@ -118,8 +127,11 @@ export const MypageOption = () => {
             helpText="Please enter a valid Email"
             disabled={false}
             readonly={false}
-            handleChange={(e)=>{setInputEmail(e.target.value);}}
-            value={inputEmail}/>
+            handleChange={(e) => {
+              setInputEmail(e.target.value);
+            }}
+            value={inputEmail}
+          />
 
           {/* 프사
           <label htmlFor="id" className="form-label col-4 fs-3">
@@ -154,6 +166,7 @@ export const MypageOption = () => {
 
           {/* 설명 */}
           <TextArea
+            name="desc"
             id="desc"
             label="Description"
             rows={5}
@@ -162,7 +175,8 @@ export const MypageOption = () => {
             disabled={false}
             readonly={false}
             handleChange={(e) => setInputDesc(e.target.value)}
-            value={inputDesc}/>
+            value={inputDesc}
+          />
         </div>
         <button
           className="col-6 btn btn-primary btn-lg bg-dark justify-content-center mt-3"
