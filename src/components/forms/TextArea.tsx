@@ -1,19 +1,19 @@
 import { ChangeEventHandler } from 'react';
 
-interface TextBoxProps {
+interface TextAreaProps {
   id: string;
   label: string;
-  type?: string;
+  rows: number;
   placeholder: string;
   helpText?: string;
   disabled: boolean;
   readonly: boolean;
-  handleChange: ChangeEventHandler<HTMLInputElement>;
+  handleChange: ChangeEventHandler<HTMLTextAreaElement>;
   value: any;
 }
 
-export default function TextBox(props: TextBoxProps) {
-  const { id, label, type, placeholder, helpText, disabled, readonly, handleChange, value } = props;
+export default function TextArea(props: TextAreaProps) {
+  const { id, label, rows, placeholder, helpText, disabled, readonly, handleChange, value } = props;
 
   const boxClass = readonly ? 'form-control-plaintext' : 'form-control';
 
@@ -22,15 +22,16 @@ export default function TextBox(props: TextBoxProps) {
       <label htmlFor={id} className="form-label">
         {label}
       </label>
-      <input
-        type={type || 'text'}
+      <textarea
         className={[boxClass, 'border-dark'].join(' ')}
         id={id}
+        rows={rows}
         placeholder={placeholder}
         disabled={disabled}
         readOnly={readonly}
         onChange={handleChange}
         value={value}
+        style={{ resize: 'none' }}
       />
       <div className="invalid-feedback">{helpText}</div>
     </div>

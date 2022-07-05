@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, MouseEvent } from 'react';
+import { useState, MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import matilda from '../../assets/images/matilda.png';
 
@@ -11,19 +11,6 @@ export const Signup = () => {
   const [inputPW, setInputPW] = useState('');
   const [inputNickname, setInputNickname] = useState('');
   const [inputEmail, setInputEmail] = useState('');
-
-  const handleInputID = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputID(e.target.value);
-  };
-  const handleInputPW = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputPW(e.target.value);
-  };
-  const handleInputNickname = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputNickname(e.target.value);
-  };
-  const handleInputEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputEmail(e.target.value);
-  };
 
   const navigate = useNavigate();
 
@@ -93,8 +80,9 @@ export const Signup = () => {
               helpText="Please enter a valid ID"
               disabled={false}
               readonly={false}
-              handleChange={handleInputID}
-              value={inputID}/>
+              handleChange={(e)=>{setInputID(e.target.value);}}
+              value={inputID}
+            />
 
             {/*비밀번호*/}
             <TextBox
@@ -105,8 +93,9 @@ export const Signup = () => {
               helpText="Please enter a valid Password"
               disabled={false}
               readonly={false}
-              handleChange={handleInputPW}
-              value={inputPW}/>
+              handleChange={(e)=>{setInputPW(e.target.value);}}
+              value={inputPW}
+            />
 
             {/*별명*/}
             <TextBox
@@ -117,8 +106,9 @@ export const Signup = () => {
               helpText="Your nickname is required."
               disabled={false}
               readonly={false}
-              handleChange={handleInputNickname}
-              value={inputNickname}/>
+              handleChange={(e)=>{setInputNickname(e.target.value);}}
+              value={inputNickname}
+            />
 
             {/*이메일*/}
             <TextBox
@@ -129,8 +119,9 @@ export const Signup = () => {
               helpText="Please enter a valid email address."
               disabled={false}
               readonly={false}
-              handleChange={handleInputEmail}
-              value={inputEmail}/>
+              handleChange={(e)=>{setInputEmail(e.target.value);}}
+              value={inputEmail}
+            />
           </div>
 
           <div className="col-12 my-4">

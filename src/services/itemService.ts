@@ -2,13 +2,14 @@ import { SelectItem } from '../types/Item';
 import { anonymousApiClient } from './apiClient';
 
 export async function selectItem(item: SelectItem) {
-  let data = undefined, error = undefined;
+  let data = undefined,
+    error = undefined;
 
   try {
     const result = await anonymousApiClient.get('/items', {
       data: item,
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       }
     });
 

@@ -1,6 +1,9 @@
 import axios from 'axios';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import TextBox from '../../components/forms/TextBox';
+import TextArea from '../forms/TextArea';
 
 export const MypageOption = () => {
   const navigate = useNavigate();
@@ -31,28 +34,12 @@ export const MypageOption = () => {
     loadUserinfo();
   }, []);
 
-  const handlePassword = (e: ChangeEvent<HTMLInputElement>) => {
-    const eTargetValue = e.target.value ? e.target.value : '';
-    setInputPW(eTargetValue);
-  };
-  const handleNickname = (e: ChangeEvent<HTMLInputElement>) => {
-    const eTargetValue = e.target.value ? e.target.value : '';
-    setInputNickname(eTargetValue);
-  };
-  const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    const eTargetValue = e.target.value ? e.target.value : '';
-    setInputEmail(eTargetValue);
-  };
   // const handleProfileImg = (e: ChangeEvent<HTMLInputElement>) => {
   //   setinputProfileImg(e.target.value);
   // };
   // const handleWalletAddr = (e: ChangeEvent<HTMLInputElement>) => {
   //   setWalletAddr(e.target.value);
   // };
-  const handleDesc = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    const eTargetValue = e.target.value ? e.target.value : '';
-    setInputDesc(eTargetValue);
-  };
 
   const submit = async (e: any) => {
     e.preventDefault(); // 화면 넘어가는 거 방지 코드
@@ -99,40 +86,40 @@ export const MypageOption = () => {
       <form id="signupForm" className="" noValidate>
         <div className="row g-3">
           {/* 비밀번호 */}
-          <label htmlFor="id" className="form-label col-4 fs-3">
-            Password
-          </label>
-          <div className="col-8">
-            <input className="form-control border-dark" id="pw" type="password" onChange={handlePassword} />
-          </div>
+          <TextBox
+            id="pw"
+            label="Password"
+            type="password"
+            placeholder={inputPW as string}
+            helpText="Please enter a valid Password"
+            disabled={false}
+            readonly={false}
+            handleChange={(e)=>{setInputPW(e.target.value);}}
+            value={inputPW} />
 
           {/* 닉네임 */}
-          <label htmlFor="id" className="form-label col-4 fs-3">
-            Nickname
-          </label>
-          <div className="col-8">
-            <input
-              className="form-control border-dark"
-              id="nickname"
-              placeholder={inputNickname}
-              type="text"
-              onChange={handleNickname}
-            />
-          </div>
+          <TextBox
+            id="nickname"
+            label="Nickname"
+            type="text"
+            placeholder={inputNickname as string}
+            helpText="Please enter a valid Nickname"
+            disabled={false}
+            readonly={false}
+            handleChange={(e)=>{setInputNickname(e.target.value);}}
+            value={inputNickname}/>
 
           {/* 이메일 */}
-          <label htmlFor="id" className="form-label col-4 fs-3">
-            E-mail
-          </label>
-          <div className="col-8">
-            <input
-              className="form-control border-dark"
-              id="email"
-              placeholder={inputEmail}
-              type="email"
-              onChange={handleEmail}
-            />
-          </div>
+          <TextBox
+            id="email"
+            label="Email"
+            type="email"
+            placeholder={inputEmail as string}
+            helpText="Please enter a valid Email"
+            disabled={false}
+            readonly={false}
+            handleChange={(e)=>{setInputEmail(e.target.value);}}
+            value={inputEmail}/>
 
           {/* 프사
           <label htmlFor="id" className="form-label col-4 fs-3">
@@ -166,19 +153,16 @@ export const MypageOption = () => {
           </div> */}
 
           {/* 설명 */}
-          <label htmlFor="id" className="form-label col-4 fs-3">
-            Description
-          </label>
-          <div className="col-8">
-            <textarea
-              className="form-control border-dark"
-              id="desc"
-              placeholder={inputDesc}
-              rows={5}
-              style={{ resize: 'none' }}
-              onChange={handleDesc}
-            />
-          </div>
+          <TextArea
+            id="desc"
+            label="Description"
+            rows={5}
+            placeholder={inputDesc as string}
+            helpText="Please enter a valid Description"
+            disabled={false}
+            readonly={false}
+            handleChange={(e) => setInputDesc(e.target.value)}
+            value={inputDesc}/>
         </div>
         <button
           className="col-6 btn btn-primary btn-lg bg-dark justify-content-center mt-3"

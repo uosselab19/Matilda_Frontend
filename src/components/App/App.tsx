@@ -9,7 +9,7 @@ import { Marketplace } from '../Marketplace/Marketplace';
 import { Convert3D } from '../Convert3D/Convert3D';
 import { MintNFT } from '../MintNFT/MintNFT';
 import { Dressup } from '../Dressup/Dressup';
-import { Signin } from '../Sign/Signin';
+import { Signin } from '../../pages/SignIn/index';
 import { Signup } from '../../pages/SignUp/index';
 import { Mypage } from '../Mypage/Mypage';
 import { BuyNFTItem } from '../NFTItem/BuyNFTItem';

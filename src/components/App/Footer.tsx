@@ -27,7 +27,6 @@ export const Footer = () => {
             Back to top
           </button>
         </p>
-        <p className="mb-1">Develop by Mindul-Mendul</p>
         <p className="mb-0">Copyright ©2022 by selab. All Rights Reserved.</p>
       </div>
     </footer>

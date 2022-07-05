@@ -101,7 +101,7 @@ export const Card = (props: props) => {
   const itemList = [];
 
   //loadItemList에서 쿼리스트링을 통한 통신으로 받으면 되지 않을까...?
-  const loadItemList = async (itemList:Array<JSX.Element>) => {
+  const loadItemList = async (itemList: Array<JSX.Element>) => {
     return (
       await axios.get('/items', {
         params: {

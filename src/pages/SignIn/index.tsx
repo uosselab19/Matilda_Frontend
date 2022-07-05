@@ -3,8 +3,9 @@ import { ChangeEvent, useState } from 'react';
 import axios from 'axios';
 import matilda from '../../assets/images/matilda.png';
 
-import { cookies } from '../App/App';
+import { cookies } from '../../components/App/App';
 import { Buffer } from 'buffer';
+import TextBox from '../../components/forms/TextBox';
 
 export const Signin = () => {
   const navigate = useNavigate(); // 로그인 후에 다른 창으로 넘어가야 할 때 사용하는 훅
@@ -62,43 +63,43 @@ export const Signin = () => {
   };
 
   return (
-    <main className="form-signin text-center d-flex justify-content-center">
+    <main className="form-signin d-flex justify-content-center">
       <div style={{ margin: '5.8%', width: '330px' }}>
-        <p>
+        <p className="text-center">
           <img src={matilda} width="128"></img>
         </p>
-        <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
+        <h1 className="h3 mb-3 fw-normal text-center">Please sign in</h1>
 
-        {/* ID 입력란 */}
-        <div className="form-floating">
-          <input
+        <p>
+          {/* ID 입력란 */}
+          <TextBox
+            id="id"
+            label="ID"
             type="id"
-            className="form-control"
-            id="floatingInput"
             placeholder="ID"
+            helpText="Please enter a valid ID"
+            disabled={false}
+            readonly={false}
+            handleChange={handleInputID}
             value={inputID}
-            onChange={handleInputID}
-          ></input>
-          <label htmlFor="floatingInput">ID</label>
-        </div>
-
-        {/* Password 입력란 */}
-        <div className="form-floating">
-          <input
+          />
+        </p>
+        <p>
+          {/* Password 입력란 */}
+          <TextBox
+            id="password"
+            label="Password"
             type="password"
-            className="form-control"
-            id="floatingPassword"
             placeholder="Password"
+            helpText="Please enter a valid Password"
+            disabled={false}
+            readonly={false}
+            handleChange={handleInputPW}
             value={inputPW}
-            onChange={handleInputPW}
-            onKeyPress={onEnterPress}
-          ></input>
-          <label htmlFor="floatingPassword">Password</label>
-        </div>
-
-        <p />
+          />
+        </p>
         {/* remember ID 체크
-        <div className="checkbox my-3">
+        <div className="checkbox mt-4 mb-3">
           <input type="checkbox" className="form-checkbox" id="floatingCheckbox" value="remember-me" tabIndex={-1}></input>
           <label htmlFor="floatingCheckbox">Remember ID</label>
         </div> */}
@@ -112,10 +113,11 @@ export const Signin = () => {
         >
           Sign in
         </button>
-        <Link to="/signup" className="text-muted">
-          회원이 아니세요?
-        </Link>
-        <p className="mt-5 mb-3 text-muted">© Copyright by Mindul</p>
+        <p className="text-center">
+          <Link to="/signup" className="text-muted">
+            회원이 아니세요?
+          </Link>
+        </p>
       </div>
     </main>
   );

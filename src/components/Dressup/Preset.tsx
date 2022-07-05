@@ -12,7 +12,7 @@ export const Preset = (props: props) => {
   const setClothes = props.setClothes;
 
   const presetDB = [];
-  const loadPresetDB = (presetDB:Array<Clothes>) => {
+  const loadPresetDB = (presetDB: Array<Clothes>) => {
     presetDB.push({ shirt: 'mindul1' });
     presetDB.push({ shirt: 'mindul2' });
     presetDB.push({ shirt: 'mindul3' });
