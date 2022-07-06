@@ -11,10 +11,11 @@ interface TextAreaProps {
   readonly: boolean;
   handleChange: ChangeEventHandler<HTMLTextAreaElement>;
   value: any;
+  error?: string;
 }
 
 export default function TextArea(props: TextAreaProps) {
-  const { id, name, label, rows, placeholder, helpText, disabled, readonly, handleChange, value } = props;
+  const { id, name, label, rows, placeholder, disabled, readonly, handleChange, value, error } = props;
 
   const boxClass = readonly ? 'form-control-plaintext' : 'form-control';
 
@@ -24,7 +25,7 @@ export default function TextArea(props: TextAreaProps) {
         {label}
       </label>
       <textarea
-        className={[boxClass, 'border-dark'].join(' ')}
+        className={[boxClass, 'border-dark', `input ${error && 'is-danger'}`].join(' ')}
         id={id}
         name={name}
         rows={rows}
@@ -35,7 +36,7 @@ export default function TextArea(props: TextAreaProps) {
         value={value}
         style={{ resize: 'none' }}
       />
-      <div className="invalid-feedback">{helpText}</div>
+      {error && <p className="help is-danger">{error}</p>}
     </div>
   );
 }

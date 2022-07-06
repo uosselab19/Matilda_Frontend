@@ -11,11 +11,11 @@ interface TextBoxProps {
   handleChange: ChangeEventHandler<HTMLInputElement>;
   name: string;
   value: any;
-  errors?: string;
+  error?: string;
 }
 
 export default function TextBox(props: TextBoxProps) {
-  const { id, name, label, type, placeholder, disabled, readonly, handleChange, value, errors } = props;
+  const { id, name, label, type, placeholder, disabled, readonly, handleChange, value, error } = props;
 
   const boxClass = readonly ? 'form-control-plaintext' : 'form-control';
 
@@ -26,17 +26,16 @@ export default function TextBox(props: TextBoxProps) {
       </label>
       <input
         type={type || 'text'}
-        className={[boxClass, 'border-dark', `input ${errors && 'is-danger'}`].join(' ')}
+        className={[boxClass, 'border-dark', `input ${error && 'is-danger'}`].join(' ')}
         name={name}
         id={id}
         placeholder={placeholder}
         disabled={disabled}
         readOnly={readonly}
         onChange={handleChange}
-        
-        value={value || ""}
+        value={value || ''}
       />
-      {errors && (<p className="help is-danger">{errors}</p>)}
+      {error && <p className="help is-danger">{error}</p>}
     </div>
   );
 }

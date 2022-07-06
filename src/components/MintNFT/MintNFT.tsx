@@ -6,18 +6,23 @@ import TextBox from '../forms/TextBox';
 import TextArea from '../forms/TextArea';
 import SelectBox from '../forms/SelectBox';
 import useForm from '../../hooks/useForm';
+import { UpdateItem } from '../../types/Item';
+import { isRequired, notMaxLength, notMinLength, isNumber } from '../../utils/validator';
 
-function validate(values) {
-  let errors = {};
-  const title=values.title;
-  if (!title) {
-    errors['title'] = 'title is required';
-  } else if (title.length<2 || title.length>10) {
-    errors['title'] = 'Email address is invalid';
+function validate(values: UpdateItem) {
+  const errors = {
+    title: isRequired(values?.title) 
+      || notMinLength(values?.title, 2, '타이틀을 2글자 이상 입력해 주세요.')
+      || notMaxLength(values?.title, 10, '타이틀을 10글자 이하로 입력해 주세요.'),
+    description: isRequired(values?.description)
+      || notMinLength(values?.description, 2, '설명을 2글자 이상 입력해 주세요.') 
+      || notMaxLength(values?.description, 10, '설명을 10글자 이하로 입력해 주세요.'),
+    price: isRequired(values?.price)
+      || isNumber(values?.price)
   }
 
   return errors;
-};
+}
 
 export const MintNFT = () => {
   //3D 아이템 넣어주는 부분
@@ -39,9 +44,9 @@ export const MintNFT = () => {
   });
 
   const [itemValue, setItemValue] = useState(itemList[0].title);
-  const callback=()=>{
-    console.log(values)
-    console.log(errors)
+
+  const callback = () => {
+    console.log("asdf");
   };
 
   const { handleChange, handleSubmit, values, errors } = useForm(callback, validate);
@@ -84,12 +89,12 @@ export const MintNFT = () => {
                 readonly={false}
                 handleChange={handleChange}
                 value={values['title']}
-                errors={errors['title']}
+                error={errors['title']}
               />
               {/* 설명 */}
               <TextArea
-                name="desc"
-                id="desc"
+                name="description"
+                id="description"
                 label="Description"
                 rows={7}
                 placeholder="description"
@@ -97,7 +102,8 @@ export const MintNFT = () => {
                 disabled={false}
                 readonly={false}
                 handleChange={handleChange}
-                value={values['desc']}
+                value={values['description']}
+                error={errors['description']}
               />
 
               {/* 가격 */}
@@ -112,6 +118,7 @@ export const MintNFT = () => {
                 readonly={false}
                 handleChange={handleChange}
                 value={values['price']}
+                error={errors['price']}
               />
             </div>
             <button className="w-100 btn btn-primary btn-lg bg-dark" type="submit" onClick={handleSubmit}>

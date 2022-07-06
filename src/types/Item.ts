@@ -22,3 +22,11 @@ export interface SelectItem {
   take?: number;
   title?: string;
 }
+
+export interface UpdateItem {
+  title: string;
+  description: string;
+  nftAddress: string;
+  stateCode: string;
+  price: number;
+}

@@ -1,28 +1,37 @@
 import { useState, useEffect, ChangeEvent } from 'react';
 
-export default function useForm(callback:Function, validate:Function) {
+export default function useForm(callback: Function, validate: Function) {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    if (Object.keys(errors).length === 0 && isSubmitting) {
+    if (Object.values(errors).filter((e)=>{return e;}).length === 0 && isSubmitting) {
       callback();
     }
-		callback();
   }, [errors]);
 
   const handleSubmit = (event: ChangeEvent<any>) => {
     if (event) {
       event.preventDefault();
     }
-    setErrors(validate(values));
     setIsSubmitting(true);
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     event.persist();
-    setValues((values) => ({ ...values, [event.target.name]: event.target.value }));
+
+    const { name, value } = event.target
+
+    // setValues((oldValues) => {
+    //   const newValues = { ...oldValues, [name]: value };
+    //   setErrors((errors) => ({ ...errors, [name]: validate(newValues)[name]}));
+    //   return newValues;
+    // });
+
+    const newValues={ ...values, [name]: value };
+    setValues(newValues);
+    setErrors((errors) => ({ ...errors, [name]: validate(newValues)[name]}));
   };
 
   return { handleChange, handleSubmit, values, errors };
