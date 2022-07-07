@@ -1,21 +1,21 @@
-import { ChangeEventHandler } from 'react';
+import { ChangeEventHandler, MouseEventHandler } from 'react';
 
 interface TextBoxProps {
   id: string;
   label: string;
   type?: string;
   placeholder: string;
-  helpText?: string;
   disabled: boolean;
   readonly: boolean;
   handleChange: ChangeEventHandler<HTMLInputElement>;
+  handleClick: MouseEventHandler<HTMLInputElement>;
   name: string;
   value: any;
   error?: string;
 }
 
 export default function TextBox(props: TextBoxProps) {
-  const { id, name, label, type, placeholder, disabled, readonly, handleChange, value, error } = props;
+  const { id, name, label, type, placeholder, disabled, readonly, handleClick, handleChange, value, error } = props;
 
   const boxClass = readonly ? 'form-control-plaintext' : 'form-control';
 
@@ -32,6 +32,7 @@ export default function TextBox(props: TextBoxProps) {
         placeholder={placeholder}
         disabled={disabled}
         readOnly={readonly}
+        onClick={handleClick}
         onChange={handleChange}
         value={value || ''}
       />

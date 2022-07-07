@@ -7,14 +7,14 @@ import { Footer } from './Footer';
 import { Home } from './Home';
 import { Marketplace } from '../Marketplace/Marketplace';
 import { Convert3D } from '../Convert3D/Convert3D';
-import { MintNFT } from '../MintNFT/MintNFT';
+import { MintNFT } from '../../pages/MintNFT/index';
 import { Dressup } from '../Dressup/Dressup';
 import { Signin } from '../../pages/SignIn/index';
 import { Signup } from '../../pages/SignUp/index';
 import { Mypage } from '../Mypage/Mypage';
 import { BuyNFTItem } from '../NFTItem/BuyNFTItem';
 import { SellNFTItem } from '../NFTItem/SellNFTItem';
-import { NotFound } from '../NotFound/NotFound';
+import { NotFound } from '../../pages/NotFound/index';
 
 //기타 필요한 부분
 import Cookies from 'universal-cookie';

@@ -1,76 +1,33 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import TextBox from '../../components/forms/TextBox';
+import useForm from '../../hooks/useForm';
+import { UpdateMember } from '../../types/Member';
+import { isEmail, isPassword, notMaxLength, notMinLength } from '../../utils/validator';
 import TextArea from '../forms/TextArea';
 
+const validate = (values: UpdateMember) => {
+  const errors = {
+    password: isPassword(values?.password),
+    nickname: notMinLength(values?.nickname, 2, '설명을 2글자 이상 입력해 주세요.') 
+      || notMaxLength(values?.nickname, 10, '설명을 10글자 이하로 입력해 주세요.'),
+    email: isEmail(values?.email),
+    description: notMinLength(values?.description, 2, '설명을 2글자 이상 입력해 주세요.') 
+    || notMaxLength(values?.description, 10, '설명을 10글자 이하로 입력해 주세요.'),
+  }
+
+  return errors;
+}
+const callback = () => {
+  console.log("asdf");
+}
+
 export const MypageOption = () => {
-  const navigate = useNavigate();
-
-  const initUserinfo = { password: undefined, nickname: undefined, email: undefined, desc: undefined };
-  const [inputPW, setInputPW] = useState(initUserinfo.password as string | undefined);
-  const [inputNickname, setInputNickname] = useState(initUserinfo.nickname as string | undefined);
-  const [inputEmail, setInputEmail] = useState(initUserinfo.email as string | undefined);
-  // const [inputProfileImg, setInputProfileImg] = useState('asdf');
-  // const [inputWalletAddr, setInputWalletAddr] = useState('asdf');
-  const [inputDesc, setInputDesc] = useState(initUserinfo.desc as string | undefined);
-
   //첫 마운트.
   useEffect(() => {
-    const loadUserinfo = async () => {
-      try {
-        const userinfo = (await axios.get('/members/2')).data;
-        setInputPW(userinfo.password);
-        setInputNickname(userinfo.nickname);
-        setInputEmail(userinfo.email);
-        setInputDesc(userinfo.desc);
-      } catch (err) {
-        console.log(err);
-        alert('회원정보를 불러오지 못했습니다.');
-        navigate('/');
-      }
-    };
-    loadUserinfo();
   }, []);
 
-  // const handleProfileImg = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setinputProfileImg(e.target.value);
-  // };
-  // const handleWalletAddr = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setWalletAddr(e.target.value);
-  // };
-
-  const submit = async (e: any) => {
-    e.preventDefault(); // 화면 넘어가는 거 방지 코드
-
-    const target = e.target as Element; // as Element 안 하면 setAttribute, removeAttribute 함수 못 씀
-
-    if (inputEmail || inputNickname || inputPW || inputDesc) {
-      target.setAttribute('disabled', 'true'); // 중복 입력 방지로, 한 번 submit를 제출하면 그냥 버튼을 비활성화시킴.
-
-      //회원 정보 DB에 입력하는 부분
-      try {
-        await axios.put('/members/2', {
-          email: inputEmail,
-          nickname: inputNickname,
-          password: inputPW,
-          description: inputDesc
-        });
-        alert('회원정보가 수정되었습니다!');
-        target.removeAttribute('disabled'); //중복 입력 방지 해제 코드
-      } catch (error) {
-        // DB 접속 오류
-        console.log('회원 정보 DB에 put하다가 생긴 오류');
-        console.log(error);
-        alert('회원정보 수정에 오류가 생겨서 바뀌지 않았습니다. 다시 한 번 실행해주세요!');
-        target.removeAttribute('disabled'); //중복 입력 방지 해제 코드
-      }
-    } else {
-      //
-      alert('바뀌는 정보가 없어요!');
-    }
-  };
+  const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
 
   return (
     <div>
@@ -87,18 +44,17 @@ export const MypageOption = () => {
         <div className="row g-3">
           {/* 비밀번호 */}
           <TextBox
-            name="pw"
-            id="pw"
+            name="password"
+            id="password"
             label="Password"
             type="password"
-            placeholder={inputPW as string}
-            helpText="Please enter a valid Password"
+            placeholder={""}
             disabled={false}
             readonly={false}
-            handleChange={(e) => {
-              setInputPW(e.target.value);
-            }}
-            value={inputPW}
+            handleChange={handleChange}
+            handleClick={handleClick}
+            value={values["password"]}
+            error={errors["password"]}
           />
 
           {/* 닉네임 */}
@@ -107,14 +63,13 @@ export const MypageOption = () => {
             id="nickname"
             label="Nickname"
             type="text"
-            placeholder={inputNickname as string}
-            helpText="Please enter a valid Nickname"
+            placeholder={""}
             disabled={false}
             readonly={false}
-            handleChange={(e) => {
-              setInputNickname(e.target.value);
-            }}
-            value={inputNickname}
+            handleChange={handleChange}
+            handleClick={handleClick}
+            value={values["nickname"]}
+            error={errors["nickname"]}
           />
 
           {/* 이메일 */}
@@ -123,14 +78,13 @@ export const MypageOption = () => {
             id="email"
             label="Email"
             type="email"
-            placeholder={inputEmail as string}
-            helpText="Please enter a valid Email"
+            placeholder={""}
             disabled={false}
             readonly={false}
-            handleChange={(e) => {
-              setInputEmail(e.target.value);
-            }}
-            value={inputEmail}
+            handleChange={handleChange}
+            handleClick={handleClick}
+            value={values["email"]}
+            error={errors["email"]}
           />
 
           {/* 프사
@@ -166,22 +120,23 @@ export const MypageOption = () => {
 
           {/* 설명 */}
           <TextArea
-            name="desc"
-            id="desc"
+            name="description"
+            id="description"
             label="Description"
             rows={5}
-            placeholder={inputDesc as string}
-            helpText="Please enter a valid Description"
+            placeholder={""}
             disabled={false}
             readonly={false}
-            handleChange={(e) => setInputDesc(e.target.value)}
-            value={inputDesc}
+            handleChange={handleChange}
+            handleClick={handleClick}
+            value={values["description"]}
+            error={errors["description"]}
           />
         </div>
         <button
           className="col-6 btn btn-primary btn-lg bg-dark justify-content-center mt-3"
           type="submit"
-          onClick={submit}
+          onClick={handleSubmit}
         >
           Edit info
         </button>

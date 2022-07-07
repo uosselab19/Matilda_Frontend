@@ -23,16 +23,26 @@ export default function useForm(callback: Function, validate: Function) {
 
     const { name, value } = event.target
 
-    // setValues((oldValues) => {
-    //   const newValues = { ...oldValues, [name]: value };
-    //   setErrors((errors) => ({ ...errors, [name]: validate(newValues)[name]}));
-    //   return newValues;
-    // });
-
-    const newValues={ ...values, [name]: value };
-    setValues(newValues);
-    setErrors((errors) => ({ ...errors, [name]: validate(newValues)[name]}));
+    setValues((oldValues) => {
+      const newValues = { ...oldValues, [name]: value };
+      setErrors((errors) => ({ ...errors, [name]: validate(newValues)[name]}));
+      setIsSubmitting(false);
+      return newValues;
+    });
   };
 
-  return { handleChange, handleSubmit, values, errors };
+  const handleClick = (event: React.MouseEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    event.persist();
+
+    const { name, value } = event.currentTarget
+
+    setValues((oldValues) => {
+      const newValues = { ...oldValues, [name]: value };
+      setErrors((errors) => ({ ...errors, [name]: validate(newValues)[name]}));
+      setIsSubmitting(false);
+      return newValues;
+    });
+  };
+
+  return { handleChange, handleClick, handleSubmit, values, errors };
 }

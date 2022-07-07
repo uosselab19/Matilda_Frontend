@@ -1,18 +1,20 @@
-import { SelectItem } from './Item';
-import { SelectContract } from './Contract';
-
-export interface SelectMember {
-  boughtContracts?: [SelectContract];
-  createdAt?: string;
-  description?: string;
-  email?: string;
+export interface InsertMember {
   id?: string;
-  items?: [SelectItem];
-  memberNum?: 0;
-  nickname?: string;
   password?: string;
+  nickname?: string;
+  email?: string;
+}
+
+export interface UpdateMember {
+  password?: string;
+  nickname?: string;
+  email?: string;
   profileImg?: string;
-  soldContracts?: [SelectContract];
-  thumbProfileImg?: string;
   walletAddress?: string;
+  description?: string;
+}
+
+export interface LoginMember {
+  id:string;
+  password: string;
 }

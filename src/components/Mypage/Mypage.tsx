@@ -4,7 +4,7 @@ import { MypageWallet } from './MypageWallet';
 import { MypageOption } from './MypageOption';
 import { cookies } from '../App/App';
 import { useNavigate } from 'react-router-dom';
-import { NotFound } from '../NotFound/NotFound';
+import { NotFound } from '../../pages/NotFound';
 
 import profileImage from './../../assets/images/Profile/profileImage.png';
 import axios from 'axios';

@@ -1,61 +1,30 @@
-import { useState, MouseEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
 import matilda from '../../assets/images/matilda.png';
-
-import axios from 'axios';
 import TextBox from '../../components/forms/TextBox';
+import useForm from '../../hooks/useForm';
+import { InsertMember } from '../../types/Member';
+import { isRequired, isID, isPassword, isEmail, notMaxLength, notMinLength } from '../../utils/validator';
+
+const validate = (values: InsertMember) => {
+  const errors = {
+    id: isRequired(values?.id) 
+    || isID(values?.id),
+    password: isRequired(values?.password)
+    || isPassword(values?.password),
+    nickname: isRequired(values?.nickname)
+    || notMinLength(values?.nickname, 2, '닉네임을 2글자 이상 입력해 주세요.') 
+    || notMaxLength(values?.nickname, 10, '닉네임을 10글자 이하로 입력해 주세요.'),
+    email: isRequired(values?.email) 
+    || isEmail(values?.email),
+  }
+
+  return errors;
+}
+const callback = () => {
+  console.log("asdf");
+}
 
 export const Signup = () => {
-  //회원가입 시 중요한 state
-  const [inputID, setInputID] = useState('');
-  const [inputPW, setInputPW] = useState('');
-  const [inputNickname, setInputNickname] = useState('');
-  const [inputEmail, setInputEmail] = useState('');
-
-  const navigate = useNavigate();
-
-  const submit = async (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault(); // 화면 넘어가는 거 방지 코드
-
-    const target = e.target as Element; // as Element 안 하면 setAttribute, removeAttribute 함수 못 씀
-    const form = document.getElementById('signupForm') as HTMLSelectElement;
-    target.setAttribute('disabled', 'true'); // 중복 입력 방지로, 한 번 submit를 제출하면 그냥 버튼을 비활성화시킴.
-    if (!form.checkValidity()) {
-      // 폼 유효성 검사
-      form.classList.add('was-validated'); // 폼 유효성 검사 후에 이미지화 시켜주는 코드
-      target.removeAttribute('disabled'); // 중복 입력 방지 해제 코드
-      return;
-    }
-
-    //아이디 중복 입력 체크하는 부분
-    try {
-      const data = (await axios.get('/members', { params: { ID: inputID } })).data;
-      if (!data) {
-        target.removeAttribute('disabled'); //중복 입력 방지 해제 코드
-        return alert('이미 가입된 회원이 있습니다.');
-      }
-    } catch (error) {
-      // DB 접속 오류
-      console.log('아이디 중복 체크에서 생긴 오류');
-      console.log(error);
-    }
-
-    //회원 정보 DB에 입력하는 부분
-    try {
-      await axios.post('/members', {
-        email: inputEmail,
-        id: inputID,
-        nickname: inputNickname,
-        password: inputPW
-      });
-      return navigate('/signin');
-    } catch (error) {
-      // DB 접속 오류
-      console.log('회원 정보 DB에 넣다가 생긴 오류');
-      console.log(error);
-      target.removeAttribute('disabled'); //중복 입력 방지 해제 코드
-    }
-  };
+  const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
 
   return (
     <main className="container mb-5">
@@ -78,29 +47,27 @@ export const Signup = () => {
               label="ID"
               type="id"
               placeholder="mindul486"
-              helpText="Please enter a valid ID"
               disabled={false}
               readonly={false}
-              handleChange={(e) => {
-                setInputID(e.target.value);
-              }}
-              value={inputID}
+              handleChange={handleChange}
+              handleClick={handleClick}
+              value={values['id']}
+              error={errors['id']}
             />
 
             {/*비밀번호*/}
             <TextBox
-              name="pw"
-              id="pw"
+              name="password"
+              id="password"
               label="Password"
               type="password"
               placeholder="password"
-              helpText="Please enter a valid Password"
               disabled={false}
               readonly={false}
-              handleChange={(e) => {
-                setInputPW(e.target.value);
-              }}
-              value={inputPW}
+              handleChange={handleChange}
+              handleClick={handleClick}
+              value={values['password']}
+              error={errors['password']}
             />
 
             {/*별명*/}
@@ -110,13 +77,12 @@ export const Signup = () => {
               label="Nickname"
               type="text"
               placeholder="Mindul"
-              helpText="Your nickname is required."
               disabled={false}
               readonly={false}
-              handleChange={(e) => {
-                setInputNickname(e.target.value);
-              }}
-              value={inputNickname}
+              handleChange={handleChange}
+              handleClick={handleClick}
+              value={values['nickname']}
+              error={errors['nickname']}
             />
 
             {/*이메일*/}
@@ -126,13 +92,12 @@ export const Signup = () => {
               label="Email"
               type="email"
               placeholder="mindul@example.com"
-              helpText="Please enter a valid email address."
               disabled={false}
               readonly={false}
-              handleChange={(e) => {
-                setInputEmail(e.target.value);
-              }}
-              value={inputEmail}
+              handleChange={handleChange}
+              handleClick={handleClick}
+              value={values['email']}
+              error={errors['email']}
             />
           </div>
 
@@ -145,7 +110,7 @@ export const Signup = () => {
             </div>
           </div>
 
-          <button className="w-100 btn btn-primary btn-lg bg-dark" type="submit" onClick={submit}>
+          <button className="w-100 btn btn-primary btn-lg bg-dark" type="submit" onClick={handleSubmit}>
             Continue to Sign-up
           </button>
         </form>

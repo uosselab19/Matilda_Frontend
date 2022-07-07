@@ -1,4 +1,4 @@
-import { ChangeEventHandler } from 'react';
+import { ChangeEventHandler, MouseEventHandler } from 'react';
 
 interface TextAreaProps {
   id: string;
@@ -6,16 +6,16 @@ interface TextAreaProps {
   label: string;
   rows: number;
   placeholder: string;
-  helpText?: string;
   disabled: boolean;
   readonly: boolean;
   handleChange: ChangeEventHandler<HTMLTextAreaElement>;
+  handleClick: MouseEventHandler<HTMLTextAreaElement>;
   value: any;
-  error?: string;
+  error: string;
 }
 
 export default function TextArea(props: TextAreaProps) {
-  const { id, name, label, rows, placeholder, disabled, readonly, handleChange, value, error } = props;
+  const { id, name, label, rows, placeholder, disabled, readonly, handleClick, handleChange, value, error } = props;
 
   const boxClass = readonly ? 'form-control-plaintext' : 'form-control';
 
@@ -33,6 +33,7 @@ export default function TextArea(props: TextAreaProps) {
         disabled={disabled}
         readOnly={readonly}
         onChange={handleChange}
+        onClick={handleClick}
         value={value}
         style={{ resize: 'none' }}
       />

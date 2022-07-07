@@ -2,9 +2,9 @@ import { useState } from 'react';
 import testImage1 from '../../assets/images/Register/testImageRegister1.png';
 import testImage2 from '../../assets/images/Register/testImageRegister2.png';
 import testImage3 from '../../assets/images/Register/testImageRegister3.png';
-import TextBox from '../forms/TextBox';
-import TextArea from '../forms/TextArea';
-import SelectBox from '../forms/SelectBox';
+import TextBox from '../../components/forms/TextBox';
+import TextArea from '../../components/forms/TextArea';
+import SelectBox from '../../components/forms/SelectBox';
 import useForm from '../../hooks/useForm';
 import { UpdateItem } from '../../types/Item';
 import { isRequired, notMaxLength, notMinLength, isNumber } from '../../utils/validator';
@@ -49,7 +49,7 @@ export const MintNFT = () => {
     console.log("asdf");
   };
 
-  const { handleChange, handleSubmit, values, errors } = useForm(callback, validate);
+  const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
 
   return (
     <main className="container">
@@ -88,6 +88,7 @@ export const MintNFT = () => {
                 disabled={false}
                 readonly={false}
                 handleChange={handleChange}
+                handleClick={handleClick}
                 value={values['title']}
                 error={errors['title']}
               />
@@ -98,10 +99,10 @@ export const MintNFT = () => {
                 label="Description"
                 rows={7}
                 placeholder="description"
-                //errors={errors.desc}
                 disabled={false}
                 readonly={false}
                 handleChange={handleChange}
+                handleClick={handleClick}
                 value={values['description']}
                 error={errors['description']}
               />
@@ -113,10 +114,10 @@ export const MintNFT = () => {
                 label="Price"
                 type="text"
                 placeholder="price"
-                //errors={errors.price}
                 disabled={false}
                 readonly={false}
                 handleChange={handleChange}
+                handleClick={handleClick}
                 value={values['price']}
                 error={errors['price']}
               />
