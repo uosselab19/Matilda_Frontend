@@ -90,7 +90,7 @@ export const Marketplace = () => {
       </nav>
 
       <section className="container py-5">
-        {/* 페이지네이션 */}
+        {/* 카드 */}
         <Card
           category={category as string}
           page={page}

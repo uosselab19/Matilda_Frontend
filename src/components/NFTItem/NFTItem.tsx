@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-//import imageFile from '../../assets/images/NFTItem/mindul_NFT1.jpg';
-import { ModalBuyNFTItem } from './ModalBuyNFTItem';
+import { ModalNFTItem } from './ModalNFTItem';
 
 interface NFT {
   itemNum: number;
@@ -15,7 +14,7 @@ interface NFT {
   price: number;
 }
 
-export const BuyNFTItem = () => {
+export const NFTItem = (props:string) => {
   const navigate = useNavigate();
   const [NFTInfo, setNFTInfo] = useState(null as null | NFT);
   const [searchParams] = useSearchParams();
@@ -84,7 +83,7 @@ export const BuyNFTItem = () => {
               >
                 {mode}
               </button>
-              {ModalBuyNFTItem(NFTInfo, mode)}
+              {ModalNFTItem(NFTInfo, mode)}
             </div>
 
             <h3>기타 정보</h3>

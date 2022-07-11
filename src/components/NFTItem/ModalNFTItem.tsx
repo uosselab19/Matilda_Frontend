@@ -9,7 +9,7 @@ interface NFT {
   price: number;
 }
 
-export const ModalSellNFTItem = (NFTInfo: NFT, mode: string) => {
+export const ModalNFTItem = (NFTInfo: NFT, mode: string) => {
   return (
     <div
       className="modal fade"
@@ -48,7 +48,7 @@ export const ModalSellNFTItem = (NFTInfo: NFT, mode: string) => {
                   </div>
                 </div>
                 <p className="fs-5">
-                  <span className="fs-4">{NFTInfo.title}</span> 를 정말 판매하시겠습니까?
+                  <span className="fs-4">{NFTInfo.title}</span> 를 정말 구매하시겠습니까?
                 </p>
               </article>
             </div>
@@ -58,7 +58,7 @@ export const ModalSellNFTItem = (NFTInfo: NFT, mode: string) => {
               Close
             </button>
             <button type="button" className="btn btn-primary w-25">
-              Sell
+              Buy
             </button>
           </div>
         </div>
