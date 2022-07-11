@@ -8,17 +8,15 @@ import { isRequired, isID, isPassword } from '../../utils/validator';
 
 const validate = (values: LoginMember) => {
   const errors = {
-    id: isRequired(values?.id)
-      || isID(values?.id),
-    password: isRequired(values?.password)
-      || isPassword(values?.password),
-  }
+    id: isRequired(values?.id) || isID(values?.id),
+    password: isRequired(values?.password) || isPassword(values?.password)
+  };
 
   return errors;
-}
+};
 const callback = () => {
-  console.log("asdf");
-}
+  console.log('asdf');
+};
 
 export const Signin = () => {
   //base 64를 디코딩한 후에 parse 과정을 통해 json화 하는 함수
@@ -73,12 +71,7 @@ export const Signin = () => {
         </div>
 
         {/* Sign in 버튼 */}
-        <button
-          className="w-100 btn btn-lg btn-secondary mb-5"
-          type="submit"
-          onClick={handleSubmit}
-          onKeyPress={handleSubmit}
-        >
+        <button className="w-100 btn btn-lg btn-secondary mb-5" type="submit" onClick={handleSubmit} onKeyPress={handleSubmit}>
           Sign in
         </button>
         <div className="text-center">

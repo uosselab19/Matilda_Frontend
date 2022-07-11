@@ -11,15 +11,16 @@ import { isRequired, notMaxLength, notMinLength, isNumber } from '../../utils/va
 
 function validate(values: UpdateItem) {
   const errors = {
-    title: isRequired(values?.title) 
-      || notMinLength(values?.title, 2, '타이틀을 2글자 이상 입력해 주세요.')
-      || notMaxLength(values?.title, 10, '타이틀을 10글자 이하로 입력해 주세요.'),
-    description: isRequired(values?.description)
-      || notMinLength(values?.description, 2, '설명을 2글자 이상 입력해 주세요.') 
-      || notMaxLength(values?.description, 10, '설명을 10글자 이하로 입력해 주세요.'),
-    price: isRequired(values?.price)
-      || isNumber(values?.price)
-  }
+    title:
+      isRequired(values?.title) ||
+      notMinLength(values?.title, 2, '타이틀을 2글자 이상 입력해 주세요.') ||
+      notMaxLength(values?.title, 10, '타이틀을 10글자 이하로 입력해 주세요.'),
+    description:
+      isRequired(values?.description) ||
+      notMinLength(values?.description, 2, '설명을 2글자 이상 입력해 주세요.') ||
+      notMaxLength(values?.description, 10, '설명을 10글자 이하로 입력해 주세요.'),
+    price: isRequired(values?.price) || isNumber(values?.price)
+  };
 
   return errors;
 }
@@ -46,7 +47,7 @@ export const MintNFT = () => {
   const [itemValue, setItemValue] = useState(itemList[0].title);
 
   const callback = () => {
-    console.log("asdf");
+    console.log('asdf');
   };
 
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);

@@ -21,8 +21,8 @@ export const Home = () => {
             <p>MATILDA</p>
           </h1>
           <p className="lead fw-normal">
-            MATILDA means "Machine learning And non-fungible Token, Image to cLothes Design Application". <br /> MATILDA
-            makes your 2D image an 3D NFT fashion item using Machine learning.
+            MATILDA means "Machine learning And non-fungible Token, Image to cLothes Design Application". <br /> MATILDA makes your 2D image
+            an 3D NFT fashion item using Machine learning.
           </p>
         </div>
       </div>

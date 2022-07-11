@@ -50,9 +50,7 @@ export const Header = () => {
     return (
       <button
         key={index}
-        className={`btn btn-outline-dark px-2 mx-2 fw-bold ${
-          pathname == url ? 'text-white' : 'text-secondary'
-        } text-decoration-none`}
+        className={`btn btn-outline-dark px-2 mx-2 fw-bold ${pathname == url ? 'text-white' : 'text-secondary'} text-decoration-none`}
         onClick={() => {
           linkTo(url);
         }}

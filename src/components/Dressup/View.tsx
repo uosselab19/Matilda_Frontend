@@ -5,7 +5,7 @@ import { Clothes } from './Dressup';
 import * as room from './fittingRoom';
 import { loadModel } from './Model';
 
- // 프로퍼티로 DressUp 컴포넌트에 있는 clothes와 setClothes를 받을 예정
+// 프로퍼티로 DressUp 컴포넌트에 있는 clothes와 setClothes를 받을 예정
 interface props {
   clothes: Clothes;
   setClothes: React.Dispatch<React.SetStateAction<Clothes>>;
@@ -61,14 +61,16 @@ export const View = (props: props) => {
     controls.target.clamp(minPan, maxPan); // 카메라 위치 고정하는 함수
     renderer.render(scene, camera); // 렌더링하는 부분.
 
-    if (dressupDom) { // Dom 갱신을 위한 부분
+    if (dressupDom) {
+      // Dom 갱신을 위한 부분
       const width = dressupDom.offsetWidth - 16; // 브라우저 크기 확인, 16은 padding
       renderer.setSize(width, width); // 브라우저 크기에 맞춰서 사이즈 조절
       window.requestAnimationFrame(animate); // 브라우저에 애니메이트
     }
   };
 
-  useEffect(() => { // 최초 마운트 시에 Dom 갱신을 위한 부분
+  useEffect(() => {
+    // 최초 마운트 시에 Dom 갱신을 위한 부분
     const dressupDom = document.getElementById('dressUp') as HTMLElement; // 마운트가 되어야 Dom을 찾을 수 있다.
     dressupDom.appendChild(renderer.domElement); // 렌더러를 Dom 아래에 달아두는 함수.
     const width = dressupDom.offsetWidth - 16; // 브라우저 크기 확인, 16은 padding

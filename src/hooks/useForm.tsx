@@ -6,7 +6,12 @@ export default function useForm(callback: Function, validate: Function) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    if (Object.values(errors).filter((e)=>{return e;}).length === 0 && isSubmitting) {
+    if (
+      Object.values(errors).filter((e) => {
+        return e;
+      }).length === 0 &&
+      isSubmitting
+    ) {
       callback();
     }
   }, [errors]);
@@ -21,11 +26,11 @@ export default function useForm(callback: Function, validate: Function) {
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     event.persist();
 
-    const { name, value } = event.target
+    const { name, value } = event.target;
 
     setValues((oldValues) => {
       const newValues = { ...oldValues, [name]: value };
-      setErrors((errors) => ({ ...errors, [name]: validate(newValues)[name]}));
+      setErrors((errors) => ({ ...errors, [name]: validate(newValues)[name] }));
       setIsSubmitting(false);
       return newValues;
     });
@@ -34,11 +39,11 @@ export default function useForm(callback: Function, validate: Function) {
   const handleClick = (event: React.MouseEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     event.persist();
 
-    const { name, value } = event.currentTarget
+    const { name, value } = event.currentTarget;
 
     setValues((oldValues) => {
       const newValues = { ...oldValues, [name]: value };
-      setErrors((errors) => ({ ...errors, [name]: validate(newValues)[name]}));
+      setErrors((errors) => ({ ...errors, [name]: validate(newValues)[name] }));
       setIsSubmitting(false);
       return newValues;
     });

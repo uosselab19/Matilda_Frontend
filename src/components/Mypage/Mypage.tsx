@@ -59,12 +59,7 @@ export const Mypage = () => {
     <main className="container text-center d-flex flex-column justify-content-center">
       <div className="row my-3">
         <div className="col-lg-4">
-          <img
-            src={profileImage}
-            className="flex-column py-3 mt-5 mb-4 px-4 w-100"
-            alt=""
-            style={{ borderRadius: '100%' }}
-          />
+          <img src={profileImage} className="flex-column py-3 mt-5 mb-4 px-4 w-100" alt="" style={{ borderRadius: '100%' }} />
           <h2>{userInfo.nickname}</h2>
           {userInfo.desc}
         </div>

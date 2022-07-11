@@ -91,13 +91,7 @@ export const Marketplace = () => {
 
       <section className="container py-5">
         {/* 카드 */}
-        <Card
-          category={category as string}
-          page={page}
-          setPage={setPage}
-          numItems={numItems}
-          numShowItems={numShowItems}
-        />
+        <Card category={category as string} page={page} setPage={setPage} numItems={numItems} numShowItems={numShowItems} />
       </section>
     </main>
   );

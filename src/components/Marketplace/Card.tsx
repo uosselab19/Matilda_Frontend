@@ -40,23 +40,13 @@ export const Card = (props: props) => {
     if (e.type === 'mouseover') {
       childImg.setAttribute(
         'style',
-        'transition: width height;' +
-          'transition-duration: 1.25s;' +
-          'transition-timing-function: easy-in;' +
-          'transform:scale(1.5,1.5);'
+        'transition: width height;' + 'transition-duration: 1.25s;' + 'transition-timing-function: easy-in;' + 'transform:scale(1.5,1.5);'
       );
       childEffect.setAttribute(
         'style',
-        'transition-duration: 1.25s;' +
-          'transition-timing-function: easy-in;' +
-          'background-color: black;' +
-          'top: 0%;' +
-          'opacity: 0.8;'
+        'transition-duration: 1.25s;' + 'transition-timing-function: easy-in;' + 'background-color: black;' + 'top: 0%;' + 'opacity: 0.8;'
       );
-      childDesc.setAttribute(
-        'style',
-        'transition-duration: 0.5s;' + 'transition-timing-function: easy-in;' + 'opacity:0;'
-      );
+      childDesc.setAttribute('style', 'transition-duration: 0.5s;' + 'transition-timing-function: easy-in;' + 'opacity:0;');
       childTitle.setAttribute('style', 'transition-delay: 0.5s;' + 'opacity:1;');
     } else {
       childImg.setAttribute(
@@ -68,18 +58,11 @@ export const Card = (props: props) => {
       );
       childEffect.setAttribute(
         'style',
-        'transition-duration: 1.25s;' +
-          'transition-timing-function: easy-in;' +
-          'background-color:black;' +
-          'opacity:0.8;' +
-          'top: 80%;'
+        'transition-duration: 1.25s;' + 'transition-timing-function: easy-in;' + 'background-color:black;' + 'opacity:0.8;' + 'top: 80%;'
       );
       childDesc.setAttribute(
         'style',
-        'transition-delay: 0.5s;' +
-          'transition-duration: 0.8s;' +
-          'transition-timing-function: easy-out;' +
-          'opacity:1;'
+        'transition-delay: 0.5s;' + 'transition-duration: 0.8s;' + 'transition-timing-function: easy-out;' + 'opacity:1;'
       );
       childTitle.setAttribute('style', 'transition-delay: 0.3s;' + 'opacity:0;');
     }
@@ -160,10 +143,7 @@ export const Card = (props: props) => {
               <div>{`${info.price} KLAY`}</div>
             </div>
           </div>
-          <div
-            className="card-img-overlay d-flex justify-content-center align-items-center mx-auto my-auto"
-            style={{ opacity: 0 }}
-          >
+          <div className="card-img-overlay d-flex justify-content-center align-items-center mx-auto my-auto" style={{ opacity: 0 }}>
             <h2>{info.title}</h2>
           </div>
         </div>

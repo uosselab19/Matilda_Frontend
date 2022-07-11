@@ -15,6 +15,6 @@ export interface UpdateMember {
 }
 
 export interface LoginMember {
-  id:string;
+  id: string;
   password: string;
 }

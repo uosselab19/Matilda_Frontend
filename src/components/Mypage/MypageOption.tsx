@@ -9,23 +9,24 @@ import TextArea from '../forms/TextArea';
 const validate = (values: UpdateMember) => {
   const errors = {
     password: isPassword(values?.password),
-    nickname: notMinLength(values?.nickname, 2, '설명을 2글자 이상 입력해 주세요.') 
-      || notMaxLength(values?.nickname, 10, '설명을 10글자 이하로 입력해 주세요.'),
+    nickname:
+      notMinLength(values?.nickname, 2, '설명을 2글자 이상 입력해 주세요.') ||
+      notMaxLength(values?.nickname, 10, '설명을 10글자 이하로 입력해 주세요.'),
     email: isEmail(values?.email),
-    description: notMinLength(values?.description, 2, '설명을 2글자 이상 입력해 주세요.') 
-    || notMaxLength(values?.description, 10, '설명을 10글자 이하로 입력해 주세요.'),
-  }
+    description:
+      notMinLength(values?.description, 2, '설명을 2글자 이상 입력해 주세요.') ||
+      notMaxLength(values?.description, 10, '설명을 10글자 이하로 입력해 주세요.')
+  };
 
   return errors;
-}
+};
 const callback = () => {
-  console.log("asdf");
-}
+  console.log('asdf');
+};
 
 export const MypageOption = () => {
   //첫 마운트.
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
 
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
 
@@ -48,13 +49,13 @@ export const MypageOption = () => {
             id="password"
             label="Password"
             type="password"
-            placeholder={""}
+            placeholder={''}
             disabled={false}
             readonly={false}
             handleChange={handleChange}
             handleClick={handleClick}
-            value={values["password"]}
-            error={errors["password"]}
+            value={values['password']}
+            error={errors['password']}
           />
 
           {/* 닉네임 */}
@@ -63,13 +64,13 @@ export const MypageOption = () => {
             id="nickname"
             label="Nickname"
             type="text"
-            placeholder={""}
+            placeholder={''}
             disabled={false}
             readonly={false}
             handleChange={handleChange}
             handleClick={handleClick}
-            value={values["nickname"]}
-            error={errors["nickname"]}
+            value={values['nickname']}
+            error={errors['nickname']}
           />
 
           {/* 이메일 */}
@@ -78,13 +79,13 @@ export const MypageOption = () => {
             id="email"
             label="Email"
             type="email"
-            placeholder={""}
+            placeholder={''}
             disabled={false}
             readonly={false}
             handleChange={handleChange}
             handleClick={handleClick}
-            value={values["email"]}
-            error={errors["email"]}
+            value={values['email']}
+            error={errors['email']}
           />
 
           {/* 프사
@@ -124,20 +125,16 @@ export const MypageOption = () => {
             id="description"
             label="Description"
             rows={5}
-            placeholder={""}
+            placeholder={''}
             disabled={false}
             readonly={false}
             handleChange={handleChange}
             handleClick={handleClick}
-            value={values["description"]}
-            error={errors["description"]}
+            value={values['description']}
+            error={errors['description']}
           />
         </div>
-        <button
-          className="col-6 btn btn-primary btn-lg bg-dark justify-content-center mt-3"
-          type="submit"
-          onClick={handleSubmit}
-        >
+        <button className="col-6 btn btn-primary btn-lg bg-dark justify-content-center mt-3" type="submit" onClick={handleSubmit}>
           Edit info
         </button>
       </form>

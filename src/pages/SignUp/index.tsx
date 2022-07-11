@@ -6,22 +6,20 @@ import { isRequired, isID, isPassword, isEmail, notMaxLength, notMinLength } fro
 
 const validate = (values: InsertMember) => {
   const errors = {
-    id: isRequired(values?.id) 
-    || isID(values?.id),
-    password: isRequired(values?.password)
-    || isPassword(values?.password),
-    nickname: isRequired(values?.nickname)
-    || notMinLength(values?.nickname, 2, '닉네임을 2글자 이상 입력해 주세요.') 
-    || notMaxLength(values?.nickname, 10, '닉네임을 10글자 이하로 입력해 주세요.'),
-    email: isRequired(values?.email) 
-    || isEmail(values?.email),
-  }
+    id: isRequired(values?.id) || isID(values?.id),
+    password: isRequired(values?.password) || isPassword(values?.password),
+    nickname:
+      isRequired(values?.nickname) ||
+      notMinLength(values?.nickname, 2, '닉네임을 2글자 이상 입력해 주세요.') ||
+      notMaxLength(values?.nickname, 10, '닉네임을 10글자 이하로 입력해 주세요.'),
+    email: isRequired(values?.email) || isEmail(values?.email)
+  };
 
   return errors;
-}
+};
 const callback = () => {
-  console.log("asdf");
-}
+  console.log('asdf');
+};
 
 export const Signup = () => {
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
@@ -32,8 +30,8 @@ export const Signup = () => {
         <img className="d-block mx-auto my-5" src={matilda} width="128"></img>
         <h2>Sign Up Form</h2>
         <p className="lead">
-          Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a
-          validation state that can be triggered by attempting to submit the form without completing it.
+          Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can
+          be triggered by attempting to submit the form without completing it.
         </p>
       </div>
 

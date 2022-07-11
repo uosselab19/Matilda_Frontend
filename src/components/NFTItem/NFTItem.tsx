@@ -14,7 +14,7 @@ interface NFT {
   price: number;
 }
 
-export const NFTItem = (props:string) => {
+export const NFTItem = (props: { mode: string }) => {
   const navigate = useNavigate();
   const [NFTInfo, setNFTInfo] = useState(null as null | NFT);
   const [searchParams] = useSearchParams();
