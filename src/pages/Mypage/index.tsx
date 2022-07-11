@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { MypageNFTs } from './MypageNFTs';
-import { MypageWallet } from './MypageWallet';
-import { MypageOption } from './MypageOption';
-import { cookies } from '../App/App';
+import { MypageNFTs } from '../../components/Mypage/MypageNFTs';
+import { MypageWallet } from '../../components/Mypage/MypageWallet';
+import { MypageOption } from '../../components/Mypage/MypageOption';
+import { cookies } from '../../components/App/App';
 import { useNavigate } from 'react-router-dom';
-import { NotFound } from '../../pages/NotFound';
+import { NotFound } from '../NotFound';
 
 import profileImage from './../../assets/images/Profile/profileImage.png';
 import axios from 'axios';

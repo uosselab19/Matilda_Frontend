@@ -1,7 +1,8 @@
-import axios from 'axios';
+//import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ModalNFTItem } from './ModalNFTItem';
+import { ModalNFTItem } from '../../components/modal/ModalNFTItem';
+import imageFile from '../../assets/images/NFTItem/mindul_NFT1.jpg';
 
 interface NFT {
   itemNum: number;
@@ -14,25 +15,29 @@ interface NFT {
   price: number;
 }
 
-export const NFTItem = (props: { mode: string }) => {
+interface NFTItemProps {
+  mode: string
+}
+
+export const NFTItem = (props: NFTItemProps) => {
+  const { mode } = props;
   const navigate = useNavigate();
   const [NFTInfo, setNFTInfo] = useState(null as null | NFT);
   const [searchParams] = useSearchParams();
   const NFT_ID = Number(searchParams.get('nft_id') as string);
-  const mode = 'Buy';
 
   const loadNFT = async (NFT_ID: number) => {
-    const item = (await axios.get(`/items/${NFT_ID}`)).data;
-    // {
-    //   itemNum: NFT_ID,
-    //   catCode: 'all',
-    //   title: `nft ${NFT_ID}`,
-    //   description: `nft ${NFT_ID}`,
-    //   makerName: `Mindul`,
-    //   imgUrl: imageFile,
-    //   nftAddress: `nft ${NFT_ID}`,
-    //   price: 10.597
-    // };
+    const item = //(await axios.get(`/items/${NFT_ID}`)).data;
+    {
+      itemNum: NFT_ID,
+      catCode: 'all',
+      title: `nft ${NFT_ID}`,
+      description: `nft ${NFT_ID}`,
+      makerName: `Mindul`,
+      imgUrl: imageFile,
+      nftAddress: `nft ${NFT_ID}`,
+      price: 10.597
+    };
     setNFTInfo(item);
   };
 
@@ -83,7 +88,10 @@ export const NFTItem = (props: { mode: string }) => {
               >
                 {mode}
               </button>
-              {ModalNFTItem(NFTInfo, mode)}
+              <ModalNFTItem
+                NFTInfo={NFTInfo}
+                mode={mode}
+              />
             </div>
 
             <h3>기타 정보</h3>

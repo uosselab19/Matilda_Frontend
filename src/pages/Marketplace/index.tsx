@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import matilda from '../../assets/images/matilda.png';
 
-import { Card } from './Card';
+import { Card } from '../../components/Marketplace/Card';
 
 export const Marketplace = () => {
   const navigate = useNavigate();

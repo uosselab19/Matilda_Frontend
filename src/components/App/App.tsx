@@ -5,15 +5,15 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Header } from './Header';
 import { Footer } from './Footer';
 import { Home } from './Home';
-import { Marketplace } from '../Marketplace/Marketplace';
-import { Convert3D } from '../Convert3D/Convert3D';
-import { MintNFT } from '../../pages/MintNFT/index';
-import { Dressup } from '../Dressup/Dressup';
-import { Signin } from '../../pages/SignIn/index';
-import { Signup } from '../../pages/SignUp/index';
-import { Mypage } from '../Mypage/Mypage';
-import { NFTItem } from '../NFTItem/NFTItem';
-import { NotFound } from '../../pages/NotFound/index';
+import { Marketplace } from '../../pages/Marketplace';
+import { Convert3D } from '../../pages/Convert3D';
+import { MintNFT } from '../../pages/MintNFT';
+import { Dressup } from '../../pages/Dressup';
+import { Signin } from '../../pages/SignIn';
+import { Signup } from '../../pages/SignUp';
+import { Mypage } from '../../pages/Mypage';
+import { NFTItem } from '../../pages/NFTItem';
+import { NotFound } from '../../pages/NotFound';
 
 //기타 필요한 부분
 import Cookies from 'universal-cookie';
@@ -40,7 +40,7 @@ export const App = () => {
           <Route path="/mypage" element={<Mypage />} />
 
           <Route path="/marketplace/NFTItem" element={<NFTItem mode={'Buy'} />} />
-          <Route path="/marketplace/NFTItem" element={<NFTItem mode={'Sell'} />} />
+          <Route path="/mypage/NFTItem" element={<NFTItem mode={'Sell'} />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -1,6 +1,6 @@
 import React from 'react';
 import item_img1 from '../../assets/images/Explore/item_img.png';
-import { Clothes } from './Dressup';
+import { Clothes } from '../../pages/Dressup';
 
 interface props {
   clothes: Clothes;

@@ -9,7 +9,13 @@ interface NFT {
   price: number;
 }
 
-export const ModalNFTItem = (NFTInfo: NFT, mode: string) => {
+interface NFTItemModalProps {
+  NFTInfo: NFT
+  mode: string
+}
+
+export const ModalNFTItem = (props: NFTItemModalProps) => {
+  const { NFTInfo, mode } = props;
   return (
     <div
       className="modal fade"
@@ -28,7 +34,6 @@ export const ModalNFTItem = (NFTInfo: NFT, mode: string) => {
             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div className="modal-body">
-            {/* 해당 부분은 구매 페이지 모달 본문입니다. */}
             <div className="col-lg-12">
               <article className="blog-post mx-2">
                 <img src={NFTInfo.imgUrl} width="100%" />
@@ -48,7 +53,7 @@ export const ModalNFTItem = (NFTInfo: NFT, mode: string) => {
                   </div>
                 </div>
                 <p className="fs-5">
-                  <span className="fs-4">{NFTInfo.title}</span> 를 정말 구매하시겠습니까?
+                  <span className="fs-4">{NFTInfo.title}</span> 를 정말 {(mode=="Buy")?"구매":"판매"}하시겠습니까?
                 </p>
               </article>
             </div>
@@ -58,7 +63,7 @@ export const ModalNFTItem = (NFTInfo: NFT, mode: string) => {
               Close
             </button>
             <button type="button" className="btn btn-primary w-25">
-              Buy
+              {mode}
             </button>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { View } from './View';
-import { Market } from './Market';
-import { Preset } from './Preset';
+import { View } from '../../components/Dressup/View';
+import { Market } from '../../components/Dressup/Market';
+import { Preset } from '../../components/Dressup/Preset';
 
 export interface Clothes {
   shirt?: string;

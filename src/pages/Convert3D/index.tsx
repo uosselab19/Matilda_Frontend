@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { convertFunction } from './ConvertFunction';
+import { convertFunction } from '../../hooks/ConvertFunction';
 
 import convertImage from '../../assets/images/Convert3D/convertImage.png';
 import imageDR from '../../assets/images/Convert3D/imageDR.png';
