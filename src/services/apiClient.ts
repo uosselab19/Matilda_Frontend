@@ -1,11 +1,9 @@
 import axios from 'axios';
 
 export const anonymousApiClient = axios.create({
+  baseURL: 'http://3.133.233.81:8080',
   timeout: 1000,
-  proxy: {
-    host: 'http://3.133.233.81',
-    port: 8080
-  }
+  headers: { 'X-Custom-Header': 'foobar' }
 });
 
 export const apiClient = axios.create({

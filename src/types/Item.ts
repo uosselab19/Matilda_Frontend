@@ -30,3 +30,16 @@ export interface UpdateItem {
   stateCode: string;
   price: number;
 }
+
+export interface Item {
+  catCode: string
+  imgUrl: string
+  itemNum: number
+  memberNickName: string
+  memberNum: number
+  memberThumbImgUrl: null
+  objectUrl: string
+  price: number
+  stateCode: string
+  title: string
+}

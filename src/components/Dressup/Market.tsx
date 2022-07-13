@@ -64,7 +64,7 @@ export const Market = (props: props) => {
           <select
             className="custom-select custom-select-lg col-3"
             defaultValue={0}
-            onChange={(e) => {
+            onChange={() => {
               //setItemIndex(Number(e.target.value));
             }}
           >

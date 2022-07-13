@@ -13,11 +13,11 @@ export const Preset = (props: props) => {
 
   const presetDB = [];
   const loadPresetDB = (presetDB: Array<Clothes>) => {
-    presetDB.push({ shirt: 'mindul1' });
-    presetDB.push({ shirt: 'mindul2' });
-    presetDB.push({ shirt: 'mindul3' });
-    presetDB.push({ shirt: 'mindul4' });
-    presetDB.push({ shirt: 'mindul5' });
+    presetDB.push({ TOP: 'mindul1' });
+    presetDB.push({ TOP: 'mindul2' });
+    presetDB.push({ TOP: 'mindul3' });
+    presetDB.push({ TOP: 'mindul4' });
+    presetDB.push({ TOP: 'mindul5' });
   };
   loadPresetDB(presetDB);
 

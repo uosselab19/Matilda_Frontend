@@ -1,19 +1,13 @@
-import React, { useEffect } from 'react';
+
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { Clothes } from '../../pages/Dressup';
-import * as room from './fittingRoom';
-import { loadModel } from './Model';
+import * as room from '../components/Dressup/fittingRoom';
 
-// 프로퍼티로 DressUp 컴포넌트에 있는 clothes와 setClothes를 받을 예정
-interface props {
-  clothes: Clothes;
-  setClothes: React.Dispatch<React.SetStateAction<Clothes>>;
-}
+export const useView = () => {
+  const modelHeight = 66; // 모델의 크기 지정. (단위: 미터)
+  const dressupDom = document.getElementById('View') as HTMLElement; // 마운트가 되어야 Dom을 찾을 수 있다.
+  let dressupDomWidth = dressupDom.offsetWidth - 16; // 브라우저 크기 확인, 16은 padding
 
-export const modelHeight = 66; // 모델의 크기 지정. (단위: 미터)
-
-export const View = (props: props) => {
   //scene : 화면 출력의 대상
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x999999); // 플레이스홀더의 색깔은 회색으로.
@@ -22,14 +16,14 @@ export const View = (props: props) => {
   const renderer = new THREE.WebGLRenderer({ antialias: false }); // 안티앨리어싱은 필요하지 않음.
   renderer.shadowMap.enabled = true; //셰도우맵 사용 : 그림자 표현
   renderer.shadowMap.type = THREE.PCFShadowMap; // PCF 방식의 섀도우맵을 사용할 예정
+  dressupDom.appendChild(renderer.domElement);
 
   //camera : 화면 출력 카메라
   const camera = new THREE.PerspectiveCamera(45, 1, 1, 1500); // 화면각은 45도, 400보다 적당히 큰 1500 기준으로 가시거리 설정.
   camera.position.set(0, 160, 160); //최초 카메라 위치 조절
 
   //lights : 광원
-  const ambientLight = new THREE.AmbientLight(0xffffff); // 빛 종류는 AmbientLight, 빛 색깔은 사이트 분위기와 비교하여 고르기
-  ambientLight.intensity = 1; // 광원의 세기
+  const ambientLight = new THREE.AmbientLight(0xffffff, 1); // 빛 종류는 AmbientLight, 빛 색깔은 사이트 분위기와 비교하여 고르기
   scene.add(ambientLight);
 
   //controls : 카메라 조절하는 컨트롤러 (depend on camera & renderer)
@@ -47,7 +41,6 @@ export const View = (props: props) => {
   controls.target.set(0, modelHeight, 0); //카메라 시점 조절
   controls.update();
 
-  let dressupDom: HTMLElement;
   const animate = () => {
     //need to load model
     controls.update();
@@ -59,32 +52,18 @@ export const View = (props: props) => {
     const minPan = new THREE.Vector3(0, minHeight, 0); // 카메라 최소위치 고정
     const maxPan = new THREE.Vector3(0, 2 * modelHeight, 0); // 카메라 최대위치 고정, 모델 키에 비례하여 달라짐.
     controls.target.clamp(minPan, maxPan); // 카메라 위치 고정하는 함수
+    
+    // Dom 갱신을 위한 부분
+    dressupDomWidth = dressupDom.offsetWidth - 16; // 브라우저 크기 확인, 16은 padding
+    renderer.setSize(dressupDomWidth, dressupDomWidth); // 브라우저 크기에 맞춰서 사이즈 조절
     renderer.render(scene, camera); // 렌더링하는 부분.
-
-    if (dressupDom) {
-      // Dom 갱신을 위한 부분
-      const width = dressupDom.offsetWidth - 16; // 브라우저 크기 확인, 16은 padding
-      renderer.setSize(width, width); // 브라우저 크기에 맞춰서 사이즈 조절
-      window.requestAnimationFrame(animate); // 브라우저에 애니메이트
-    }
+    window.requestAnimationFrame(animate); // 브라우저에 애니메이트
   };
 
-  useEffect(() => {
-    // 최초 마운트 시에 Dom 갱신을 위한 부분
-    const dressupDom = document.getElementById('dressUp') as HTMLElement; // 마운트가 되어야 Dom을 찾을 수 있다.
-    dressupDom.appendChild(renderer.domElement); // 렌더러를 Dom 아래에 달아두는 함수.
-    const width = dressupDom.offsetWidth - 16; // 브라우저 크기 확인, 16은 padding
-    renderer.setSize(width, width); // 브라우저 크기에 맞춰서 사이즈 조절
-    animate(); // 브라우저에 애니메이트
-  }, []);
+  animate();
 
   //set the changing room
-  room.fittingRoom.forEach((e) => {
-    scene.add(e); // scene adds each of sides & floor.
-  });
+  room.fittingRoom.forEach((e) => {scene.add(e);});
 
-  //set the matilda
-  loadModel('./assets/model/matilda/scene.gltf', scene);
-
-  return <div id="dressUp" className="col-6" />;
+  return scene;
 };
