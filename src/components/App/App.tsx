@@ -29,7 +29,6 @@ export const App = () => {
           <Route path="/" element={<Home />} />
 
           {/*header에 연결된 component*/}
-
           <Route path="/marketplace" element={<Marketplace />} />
           <Route path="/3Dconversion" element={<Convert3D />} />
           <Route path="/NFTminting" element={<MintNFT />} />

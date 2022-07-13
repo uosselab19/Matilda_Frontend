@@ -44,7 +44,7 @@ export const Home = () => {
                   <p>NFT 구경하기</p>
                 </li>
                 <li>
-                  <p>마네킹에 옷입히기</p>
+                  <p>구경한 NFT를 마네킹에 입혀보기</p>
                 </li>
               </ul>
             </div>
@@ -81,7 +81,7 @@ export const Home = () => {
                 <h4 className="fw-bold">바꾼 3D 이미지를 NFT로도 만들어줄 수 있어요!</h4>
                 MATILDA가 가이드라인을 제공하고 있어요!
                 <br />
-                당장 바꿀 필요도 없이 원할 때 바꾸세요!
+                당장 바꿀 필요도 없이 바꾸고 싶을 때 바꾸세요!
                 <br />
               </li>
 

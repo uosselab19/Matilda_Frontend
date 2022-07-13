@@ -1,5 +1,5 @@
 import React from 'react';
-import item_img1 from '../../assets/images/Explore/item_img.png';
+//import item_img1 from '../../assets/images/Explore/item_img.png';
 import { Clothes } from '../../pages/Dressup';
 
 interface props {
@@ -32,33 +32,7 @@ export const Market = (props: props) => {
     );
   });
 
-  const cardList = new Array();
-  const searchCardList = () => {
-    const cardItem = (e: number) => {
-      return (
-        <div className="col-4" key={e}>
-          <div className="card">
-            <img alt="" className="card-img" src={item_img1}></img>
-          </div>
-        </div>
-      );
-    };
-
-    cardList.push(cardItem(0));
-    cardList.push(cardItem(1));
-    cardList.push(cardItem(2));
-    cardList.push(cardItem(3));
-    cardList.push(cardItem(4));
-    cardList.push(cardItem(5));
-    cardList.push(cardItem(6));
-    cardList.push(cardItem(7));
-    cardList.push(cardItem(8));
-  };
-
-  searchCardList();
-
   return (
-    <div className="col-5 text-center">
       <form className="py-3">
         <div className="d-flex justify-content-between mx-auto">
           <select
@@ -83,7 +57,5 @@ export const Market = (props: props) => {
           </button>
         </div>
       </form>
-      <div className="row g-2">{cardList}</div>
-    </div>
   );
 };

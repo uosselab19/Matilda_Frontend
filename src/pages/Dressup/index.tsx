@@ -36,7 +36,10 @@ export const Dressup = () => {
       <div className="col-12 row g-3">
         <Preset clothes={clothes} setClothes={setClothes} />
         <div id="View" className="col-6" />
-        <Market clothes={clothes} setClothes={setClothes} />
+        <div className="col-5 text-center">
+          <Market clothes={clothes} setClothes={setClothes} />
+          {/* <div className="row g-2">{cardList}</div> */}
+        </div>
       </div>
     </main>
   );

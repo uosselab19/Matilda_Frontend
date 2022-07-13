@@ -1,19 +1,21 @@
 import { useEffect, useState } from 'react';
+import Card from '../../components/Marketplace/Card';
+import { Item } from '../../types/Item';
 
 //컴포넌트가 받을 props
 interface CardListProps {
   page: number;
-  itemList: JSX.Element[];
+  itemList: Item[];
   numShowItems: number;
 }
 
 export default function CardList(props: CardListProps) {
   const {page, itemList, numShowItems} = props;
-  const [showList, setShowList]=useState(itemList.slice(page));
+  const [showList, setShowList]=useState(makeCard(itemList.slice(page*numShowItems, (page+1)*numShowItems)));
 
-  useEffect(() => { (async () => {
-    setShowList(itemList.slice(page*numShowItems, (page+1)*numShowItems));
-  })();}, [page]);
+  useEffect( () => {
+    setShowList(makeCard(itemList.slice(page*numShowItems, (page+1)*numShowItems)));
+  }, [page, itemList]);
 
   return (
     <div className="container">
@@ -23,3 +25,18 @@ export default function CardList(props: CardListProps) {
     </div>
   );
 };
+
+const makeCard = (itemList: Item[]) => {
+  return itemList.map(
+    (e: Item) => {
+      return (
+        <Card
+          key={e.itemNum}
+          itemNum={e.itemNum}
+          title={e.title}
+          price={e.price}
+        />
+      )
+    }
+  )
+}

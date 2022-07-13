@@ -9,7 +9,6 @@ interface CardProps {
   price:number;
 }
 
-
 export default function Card (props: CardProps) {
   const { itemNum, title, price } = props;
   const navigate = useNavigate();
