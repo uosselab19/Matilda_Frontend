@@ -18,7 +18,7 @@ import imageGLO from '../assets/images/Convert3D/imageGLOVE.png';
 
 export default function useCategory() {
 	return [
-		{ title: '전체', image: imageDR, catCode: 'ALL' },
+		{ title: '전체', image: imageDR, catCode: '' },
 		{ title: '한 벌 의상', image: imageDR, catCode: 'DR' },
 		{ title: '상의', image: imageTOP, catCode: 'TOP' },
 		{ title: '아우터', image: imageOTR, catCode: 'OTR' },

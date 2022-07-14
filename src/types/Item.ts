@@ -43,8 +43,3 @@ export interface Item {
   stateCode: string;
   title: string;
 }
-
-export interface SearchItem {
-  catCode: string;
-  keyword: string; 
-}

@@ -1,19 +1,15 @@
 // import { useNavigate } from 'react-router-dom';
 import useCategory from '../../hooks/useCategory';
 import useForm from '../../hooks/useForm';
-import { SearchItem } from '../../types/Item';
+import { SelectItem } from '../../types/Item';
 import { isRequired } from '../../utils/validator';
 import SearchBox from '../forms/SearchBox';
 import SelectBox from '../forms/SelectBox';
 
-function validate(values: SearchItem) {
-  const errors = {searched:isRequired(values?.keyword)};
+function validate(values: SelectItem) {
+  const errors = {searched:isRequired(values?.title)};
 
   return errors;
-}
-
-const callback = () => {
-  alert('asdf');
 }
 
 interface SearchProps {
@@ -21,12 +17,11 @@ interface SearchProps {
 }
 
 export default function Search(props: SearchProps) {
+  const callback = () => {
+    console.log(values);
+  }
+
   const {size}=props;
-  // const navigate = useNavigate();
-  // const fetchSearch = async (e: any) => {
-  //   console.log(e.target);
-  //   navigate(`/marketplace?search=${1}`, { replace: true });
-  // };
 
   // 3D 아이템 목록이 들어가는 리스트 생성하는 부분
   const categoryList = useCategory();
@@ -54,14 +49,14 @@ export default function Search(props: SearchProps) {
           </div>
           <div className="col-6">
             <SearchBox
-              id="keyword"
-              name="keyword"
+              id="searchBox"
+              name="title"
               readonly={false}
               disabled={false}
               size={size}
               handleChange={(e) => { handleChange(e) }}
-              value={values['keyword']}
-              error={errors['keyword']}
+              value={values['title']}
+              error={errors['title']}
             />
           </div>
           <div className="col-3">

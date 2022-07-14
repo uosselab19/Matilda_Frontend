@@ -45,7 +45,7 @@ export default function Card (props: CardProps) {
       );
       childEffect.setAttribute(
         'style',
-        'transition-duration: 1.25s;' + 'transition-timing-function: easy-in;' + 'background-color:black;' + 'opacity:0.8;' + 'top: 80%;'
+        'transition-duration: 1.25s;' + 'transition-timing-function: easy-in;' + 'background-color:black;' + 'opacity:0.8;' + 'top: 70%;'
       );
       childDesc.setAttribute(
         'style',
@@ -76,16 +76,16 @@ export default function Card (props: CardProps) {
         }}
       >
         <img alt="" className="card-img" src={item_img1}></img>
-        <div className="card-img-overlay" style={{ top: '80%', backgroundColor: 'black', opacity: 0.8 }}></div>
+        <div className="card-img-overlay" style={{ top: '70%', backgroundColor: 'black', opacity: 0.8 }}></div>
         <div className="card-img-overlay d-flex flex-column">
-          <div className="card-text mt-auto d-flex justify-content-between px-2 py-2">
-            <div>{`${title}`}</div>
-            <img src={makerThumbImg1} alt="profile" width="32" height="32" className="rounded-circle me-3" />
-            <div>{`${price} KLAY`}</div>
+          <div className={`card-text mt-auto d-flex justify-content-between px-2 ${(size=='lg')?"py-2":""}`}>
+            {(size=="lg")?<img src={makerThumbImg1} alt="profile" width="32" height="32" className="rounded-circle me-3" />:null}
+            <div>{`${title.slice(0,8)}${(title.length>8)?"...":''}`}</div>
+            {(size=="lg")?<div>{`${price} KLAY`}</div>:null}
           </div>
         </div>
         <div className="card-img-overlay d-flex justify-content-center align-items-center mx-auto my-auto" style={{ opacity: 0 }}>
-          <h2>{title}</h2>
+          <h2>{`${title.slice(0,(1+Number(size=="lg"))*15)}${(title.length>(1+Number(size=="lg"))*15)?"...":''}`}</h2>
         </div>
       </div>
     </div>
