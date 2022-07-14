@@ -16,10 +16,11 @@ const validate = (values: InsertMember) => {
   };
 
   return errors;
-};
+}
+
 const callback = () => {
   console.log('asdf');
-};
+}
 
 export const Signup = () => {
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);

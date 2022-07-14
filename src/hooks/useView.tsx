@@ -6,8 +6,9 @@ import * as room from '../components/Dressup/fittingRoom';
 export const useView = () => {
   const modelHeight = 66; // 모델의 크기 지정. (단위: 미터)
   const dressupDom = document.getElementById('View') as HTMLElement; // 마운트가 되어야 Dom을 찾을 수 있다.
-  let dressupDomWidth = dressupDom.offsetWidth - 16; // 브라우저 크기 확인, 16은 padding
-
+  const marketDom = document.getElementById('Market') as HTMLElement; // 마운트가 되어야 Dom을 찾을 수 있다.
+  let [canvasWidth, canvasDomHeight] = [dressupDom.clientWidth - 16, marketDom.clientHeight]; // 브라우저 크기 확인, 16은 padding
+  
   //scene : 화면 출력의 대상
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x999999); // 플레이스홀더의 색깔은 회색으로.
@@ -54,8 +55,8 @@ export const useView = () => {
     controls.target.clamp(minPan, maxPan); // 카메라 위치 고정하는 함수
     
     // Dom 갱신을 위한 부분
-    dressupDomWidth = dressupDom.offsetWidth - 16; // 브라우저 크기 확인, 16은 padding
-    renderer.setSize(dressupDomWidth, dressupDomWidth); // 브라우저 크기에 맞춰서 사이즈 조절
+    [canvasWidth, canvasDomHeight] = [dressupDom.clientWidth - 16, marketDom.clientHeight];
+    renderer.setSize(canvasWidth, canvasDomHeight); // 브라우저 크기에 맞춰서 사이즈 조절
     renderer.render(scene, camera); // 렌더링하는 부분.
     window.requestAnimationFrame(animate); // 브라우저에 애니메이트
   };

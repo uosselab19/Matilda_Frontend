@@ -32,14 +32,19 @@ export interface UpdateItem {
 }
 
 export interface Item {
-  catCode: string
-  imgUrl: string
-  itemNum: number
-  memberNickName: string
-  memberNum: number
-  memberThumbImgUrl: null
-  objectUrl: string
-  price: number
-  stateCode: string
-  title: string
+  catCode: string;
+  imgUrl: string;
+  itemNum: number;
+  memberNickName: string;
+  memberNum: number;
+  memberThumbImgUrl: null;
+  objectUrl: string;
+  price: number;
+  stateCode: string;
+  title: string;
+}
+
+export interface SearchItem {
+  catCode: string;
+  keyword: string; 
 }

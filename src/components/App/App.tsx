@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 //component import
 import { Header } from './Header';
 import { Footer } from './Footer';
-import { Home } from './Home';
+import { Home } from '../../pages/Home';
 import { Marketplace } from '../../pages/Marketplace';
 import { Convert3D } from '../../pages/Convert3D';
 import { MintNFT } from '../../pages/MintNFT';

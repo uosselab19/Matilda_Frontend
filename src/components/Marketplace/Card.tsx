@@ -7,10 +7,11 @@ interface CardProps {
   itemNum:number;
   title:string;
   price:number;
+  size: string;
 }
 
 export default function Card (props: CardProps) {
-  const { itemNum, title, price } = props;
+  const { itemNum, title, price, size } = props;
   const navigate = useNavigate();
   const handleCard = (id: number) => {
     navigate(`/marketplace/NFTItem?nft_id=${id}`, { replace: false });
@@ -57,7 +58,7 @@ export default function Card (props: CardProps) {
   return (
     <div
       key={itemNum}
-      className="col"
+      className={`${size}`}
       onClick={() => {
         handleCard(itemNum);
       }}

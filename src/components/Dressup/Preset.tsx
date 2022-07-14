@@ -53,7 +53,7 @@ export const Preset = (props: props) => {
   };
 
   return (
-    <div className="col-1 d-flex align-content-between flex-wrap text-center">
+    <div className='h-100 d-flex align-content-between flex-wrap'>
       {presetCard(1)}
       {presetCard(2)}
       {presetCard(3)}

@@ -13,10 +13,11 @@ const validate = (values: LoginMember) => {
   };
 
   return errors;
-};
+}
+
 const callback = () => {
   console.log('asdf');
-};
+}
 
 export const Signin = () => {
   //base 64를 디코딩한 후에 parse 과정을 통해 json화 하는 함수

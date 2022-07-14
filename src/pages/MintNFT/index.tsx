@@ -25,6 +25,10 @@ function validate(values: UpdateItem) {
   return errors;
 }
 
+const callback = () => {
+  console.log('asdf');
+};
+
 export const MintNFT = () => {
   //3D 아이템 넣어주는 부분
   const itemList: any[] = [];
@@ -45,10 +49,6 @@ export const MintNFT = () => {
   });
 
   const [itemValue, setItemValue] = useState(itemList[0].title);
-
-  const callback = () => {
-    console.log('asdf');
-  };
 
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
 

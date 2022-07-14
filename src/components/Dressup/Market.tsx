@@ -1,61 +1,51 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 //import item_img1 from '../../assets/images/Explore/item_img.png';
 import { Clothes } from '../../pages/Dressup';
+import { selectItem } from '../../services/itemService';
+import { Item } from '../../types/Item';
+import CardList from '../Marketplace/CardList';
+import Pagination from '../Marketplace/Pagination';
+import Search from '../Marketplace/Search';
 
-interface props {
+interface DressupMarketProps {
   clothes: Clothes;
   setClothes: React.Dispatch<React.SetStateAction<Clothes>>;
 }
 
-export const Market = (props: props) => {
-  //3D 아이템 넣어주는 부분
-  const optionItemList = new Array();
-  optionItemList.push('전체');
-  optionItemList.push('한벌의상');
-  optionItemList.push('상의');
-  optionItemList.push('하의');
-  optionItemList.push('양말');
-  optionItemList.push('신발류');
-  optionItemList.push('헤어');
-  optionItemList.push('헤드웨어');
-  optionItemList.push('안경');
-  optionItemList.push('쥬얼리');
-  optionItemList.push('액세서리');
+export const Market = (props: DressupMarketProps) => {
+  const { clothes } = props;
+  const [numShowItems, maxNumPagination]=[9, 5];
+  const [page, setPage]=useState(0);
+  const [itemList, setItemList] = useState([] as Item[]);
 
-  // 3D 아이템 목록이 들어가는 리스트 생성하는 부분
-  const optionList = new Array();
-  optionItemList.forEach((info, index) => {
-    optionList.push(
-      <option key={index} value={index}>
-        {info}
-      </option>
-    );
-  });
+  useEffect(() => {
+    (async () => {
+      const { data } = await selectItem({});
 
+      setItemList(data);
+    })();
+  }, [page]);
+  console.log(clothes);
+  
   return (
-      <form className="py-3">
-        <div className="d-flex justify-content-between mx-auto">
-          <select
-            className="custom-select custom-select-lg col-3"
-            defaultValue={0}
-            onChange={() => {
-              //setItemIndex(Number(e.target.value));
-            }}
-          >
-            {optionList}
-          </select>
-          <input className="col-7" type="search" placeholder="Search" aria-label="Search" />
-          <button
-            className="btn btn-outline-success col-2"
-            type="submit"
-            onClick={() => {
-              alert('아직은 검색 기능이 없어요!');
-            }}
-          >
-            {' '}
-            Search{' '}
-          </button>
-        </div>
-      </form>
+    <div>
+      <Search/>
+      {/* <Category /> */}
+      <div className="my-3">
+        <CardList
+          page={page}
+          itemList={itemList}
+          numShowItems={numShowItems}
+          size="sm"
+        />
+      </div>
+      <Pagination
+        page={page}
+        setPage={setPage}
+        numItems={itemList.length}
+        numShowItems={numShowItems}
+        maxNumPagination={maxNumPagination}
+      />
+    </div>
   );
 };

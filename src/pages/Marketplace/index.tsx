@@ -22,13 +22,18 @@ export const Marketplace = () => {
   return (
     <main>
       <div className="d-flex justify-content-center align-items-center fw-bold fs-2 my-5">Marketplace</div>
-      <Search />
+      <Search
+        size="lg"
+        />
       {/* <Category /> */}
-      <CardList
-        page={page}
-        itemList={itemList}
-        numShowItems={numShowItems}
-      />
+      <div className='my-5'>
+        <CardList
+          page={page}
+          itemList={itemList}
+          numShowItems={numShowItems}
+          size={"lg"}
+        />
+      </div>
       <Pagination
         page={page}
         setPage={setPage}

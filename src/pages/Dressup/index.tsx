@@ -33,10 +33,12 @@ export const Dressup = () => {
 
   return (
     <main className="container mt-5 d-flex justify-content-center">
-      <div className="col-12 row g-3">
-        <Preset clothes={clothes} setClothes={setClothes} />
-        <div id="View" className="col-6" />
-        <div className="col-5 text-center">
+      <div className="row text-center">
+        <div id='Preset' className="col-1">
+          <Preset clothes={clothes} setClothes={setClothes} />
+        </div>
+        <div id="View" className="col-5 align-self-center"/>
+        <div id='Market' className="col-6 align-self-center">
           <Market clothes={clothes} setClothes={setClothes} />
           {/* <div className="row g-2">{cardList}</div> */}
         </div>
