@@ -4,26 +4,7 @@ import { Preset } from '../../components/Dressup/Preset';
 import useView from '../../hooks/useView';
 import useModel from '../../hooks/useModel';
 import useFittingRoom  from '../../hooks/useFittingRoom';
-
-export interface Clothes {
-  DR?: string;
-  TOP?: string;
-  OTR?: string;
-  BTM?: string;
-  SOX?: string;
-  SH?: string;
-  HAI?: string;
-  HEA?: string;
-  GLA?: string;
-  BRA?: string;
-  NEC?: string;
-  EAR?: string;
-  BAG?: string;
-  MAS?: string;
-  WIN?: string;
-  NAI?: string;
-  GLO?: string;
-}
+import { Clothes } from '../../types/Clothes';
 
 export const Dressup = () => {
   const [clothes, setClothes] = useState({ TOP: '상의' } as Clothes);
@@ -35,9 +16,9 @@ export const Dressup = () => {
   }, []);
 
   return (
-    <main className="container mt-5 d-flex justify-content-center">
+    <main className="container d-flex justify-content-center">
       <div className="row text-center">
-        <div className='col-12'>dress up</div>
+        <div className='col-12 fs-2 fw-bold my-4'>dress up</div>
         <div id='Preset' className="col-1">
           <Preset clothes={clothes} setClothes={setClothes} />
         </div>

@@ -56,11 +56,12 @@ export const MintNFT = () => {
           <img src={itemImage} />
         </div>
         <div className="col-6">
-          <h2>Mint an NFT</h2>
+          <div className="fw-bold fs-2">Mint an NFT</div>
           <p>
-            NFT로 바꿔주는 부분입니다!
-            <br />
-            NFT로 바꿔주는 부분입니다!
+            당신이 가지고 있던 3D 패션아이템을 NFT로 만들어주는 페이지입니다!<br />
+            왼쪽에서 NFT로 만들고 싶은 3D 패션아이템을 선택해주세요.<br />
+            오른쪽에 필요한 내용을 모두 기입하고 Mint NFT 버튼을 눌러주세요. <br />
+            그러면 3D 패션아이템이 NFT가 될 거에요!
           </p>
           <form id="signupForm" className="needs-validation" noValidate>
             <div className="row g-3 mb-4">

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 //import item_img1 from '../../assets/images/Explore/item_img.png';
-import { Clothes } from '../../pages/Dressup';
+import { Clothes } from '../../types/Clothes';
 import { selectItem } from '../../services/itemService';
 import { Item } from '../../types/Item';
 import CardList from '../Marketplace/CardList';
