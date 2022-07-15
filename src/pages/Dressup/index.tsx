@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Market } from '../../components/Dressup/Market';
 import { Preset } from '../../components/Dressup/Preset';
-import { useView } from '../../hooks/useView';
-import { useModel } from '../../hooks/useModel';
+import useView from '../../hooks/useView';
+import useModel from '../../hooks/useModel';
+import useFittingRoom  from '../../hooks/useFittingRoom';
 
 export interface Clothes {
   DR?: string;
@@ -27,18 +28,21 @@ export interface Clothes {
 export const Dressup = () => {
   const [clothes, setClothes] = useState({ TOP: '상의' } as Clothes);
   useEffect(() => {
-    const scene = useView();
-    useModel('./assets/model/matilda/scene.gltf', scene);
+    const [modelHeight, roomWidth, roomHeight]=[60, 1024, 350];
+    const scene = useView(modelHeight, roomHeight);
+    useFittingRoom('wooden', roomWidth, roomHeight, scene);
+    useModel('./assets/model/matilda/scene.gltf', modelHeight, scene);
   }, []);
 
   return (
     <main className="container mt-5 d-flex justify-content-center">
       <div className="row text-center">
+        <div className='col-12'>dress up</div>
         <div id='Preset' className="col-1">
           <Preset clothes={clothes} setClothes={setClothes} />
         </div>
-        <div id="View" className="col-5 align-self-center"/>
-        <div id='Market' className="col-6 align-self-center">
+        <div id="View" className="col-5"/>
+        <div id='Market' className="col-6">
           <Market clothes={clothes} setClothes={setClothes} />
           {/* <div className="row g-2">{cardList}</div> */}
         </div>

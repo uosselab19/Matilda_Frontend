@@ -31,8 +31,8 @@ export const Signup = () => {
         <img className="d-block mx-auto my-5" src={matilda} width="128"></img>
         <h2>Sign Up Form</h2>
         <p className="lead">
-          Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can
-          be triggered by attempting to submit the form without completing it.
+          MATILDA을 사용하기 위해 필요한 회원가입 페이지입니다. <br/>
+          ID, Password, Nickname, Email을 모두 기입해주셔야 합니다.
         </p>
       </div>
 

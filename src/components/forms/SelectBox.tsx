@@ -29,8 +29,8 @@ export default function SelectBox(props: SelectBoxProps) {
   };
 
   return (
-    <div className="h-100">
-      {label?<label htmlFor={id} className="form-label">label</label>:null}
+    <div>
+      {label?<label htmlFor={id} className="form-label">{label}</label>:null}
       <select className={["form-select", 'border-dark', (size)?`form-select-${size}`:""].join(' ')}
         id={id} placeholder={placeholder} disabled={disabled} onChange={handleChange} value={value} name={valueProperty}>
         {list()}

@@ -96,7 +96,9 @@ export const Convert3D = () => {
                 />
                 <div className="card-img-overlay h-75 d-flex flex-column justify-content-end">
                   <h5 className="card-title text-dark fs-2 fw-bold">{clothes.title}</h5>
-                  <p className="card-text text-dark">여기에 사진을 넣어 주세요!</p>
+                  <p className="card-text text-dark">
+                    {(clothes.title.length)?"여기에 사진을 넣어 주세요!":"왼쪽 카테고리에서 종류를 선택해주세요!"}
+                  </p>
                 </div>
               </div>
 

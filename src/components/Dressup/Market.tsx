@@ -14,22 +14,25 @@ interface DressupMarketProps {
 
 export const Market = (props: DressupMarketProps) => {
   const { clothes } = props;
-  const [numShowItems, maxNumPagination]=[9, 5];
+  const [numShowItems, numShowPages]=[9, 5];
   const [page, setPage]=useState(0);
   const [itemList, setItemList] = useState([] as Item[]);
+  const [selectCondition, setSelectCondition] = useState({});
 
   useEffect(() => {
     (async () => {
-      const { data } = await selectItem({});
+      const { data } = await selectItem(selectCondition);
 
       setItemList(data);
     })();
-  }, [page]);
+  }, [page, selectCondition]);
   console.log(clothes);
   
   return (
     <div>
-      <Search/>
+      <Search
+        callback={setSelectCondition}
+        />
       {/* <Category /> */}
       <div className="my-3">
         <CardList
@@ -44,7 +47,7 @@ export const Market = (props: DressupMarketProps) => {
         setPage={setPage}
         numItems={itemList.length}
         numShowItems={numShowItems}
-        maxNumPagination={maxNumPagination}
+        numShowPages={numShowPages}
       />
     </div>
   );

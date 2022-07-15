@@ -2,8 +2,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 //loader
-export const useModel = (modelURL: string, scene: THREE.Scene) => {
-  const modelHeight = 66; // 모델의 크기 지정. (단위: 미터)
+export default function useModel (modelURL: string, modelHeight:number, scene: THREE.Scene) {
   const locVecter = new THREE.Vector3(0, 0, 0);
 
   new GLTFLoader().load(

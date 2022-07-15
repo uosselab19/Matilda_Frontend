@@ -31,24 +31,9 @@ const callback = () => {
 
 export const MintNFT = () => {
   //3D 아이템 넣어주는 부분
-  const itemList: any[] = [];
-  itemList.push({
-    name: 'Name1',
-    title: 'Mindul1',
-    image: testImage1
-  });
-  itemList.push({
-    name: 'Name2',
-    title: 'Mindul2',
-    image: testImage2
-  });
-  itemList.push({
-    name: 'Name3',
-    title: 'Mindul3',
-    image: testImage3
-  });
+  const itemList = [{title: 'Mindul1', imgUrl: testImage1}, {title: 'Mindul2', imgUrl: testImage2}, {title: 'Mindul3', imgUrl: testImage3}];
 
-  const [itemValue, setItemValue] = useState(itemList[0].title);
+  const [itemImage, setItemImage] = useState(itemList[0].imgUrl);
 
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
 
@@ -63,12 +48,12 @@ export const MintNFT = () => {
             helpText="Please enter a valid TEST"
             disabled={false}
             options={itemList}
-            handleChange={(e) => setItemValue(e.target.value)}
-            value={itemValue}
-            keyProperty="name"
-            valueProperty="title"
+            handleChange={(e) => setItemImage(e.target.value)}
+            value={itemImage}
+            keyProperty="title"
+            valueProperty="imgUrl"
           />
-          {itemValue}
+          <img src={itemImage} />
         </div>
         <div className="col-6">
           <h2>Mint an NFT</h2>

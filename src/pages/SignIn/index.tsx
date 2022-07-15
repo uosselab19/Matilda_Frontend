@@ -36,7 +36,7 @@ export const Signin = () => {
         <div className="text-center my-4">
           <img src={matilda} width="128"></img>
         </div>
-        <h1 className="h3 mb-5 fw-normal text-center">Please sign in</h1>
+        <h1 className="h3 mb-5 fw-normal text-center">Sign-in</h1>
         {/* ID 입력란 */}
         <TextBox
           name="id"

@@ -14,19 +14,19 @@ function validate(values: SelectItem) {
 
 interface SearchProps {
   size?:string;
+  callback:Function
 }
 
 export default function Search(props: SearchProps) {
-  const callback = () => {
-    console.log(values);
+  const {size, callback}=props;
+  const serach = () => {
+    callback(values);
   }
-
-  const {size}=props;
 
   // 3D 아이템 목록이 들어가는 리스트 생성하는 부분
   const categoryList = useCategory();
 
-  const { handleChange, handleSubmit, values, errors } = useForm(callback, validate);
+  const { handleChange, handleSubmit, values, errors } = useForm(serach, validate);
 
   return (
     <div className="container text-center">

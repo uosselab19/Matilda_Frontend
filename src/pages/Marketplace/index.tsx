@@ -3,27 +3,28 @@ import { selectItem } from '../../services/itemService';
 import CardList from '../../components/Marketplace/CardList';
 import Pagination from '../../components/Marketplace/Pagination';
 import Search from '../../components/Marketplace/Search';
-//import Category from '../../components/Marketplace/Category';
 import { Item } from '../../types/Item';
 
 export const Marketplace = () => {
   const [page, setPage] = useState(0);
-  const [numShowItems, maxNumPagination] = [10, 10];
+  const [numShowItems, numShowPages] = [16, 10];
   const [itemList, setItemList] = useState([] as Item[]);
+  const [selectCondition, setSelectCondition] = useState({});
 
   useEffect(() => {
     (async () => {
-      const { data } = await selectItem({});
+      const { data } = await selectItem(selectCondition);
 
       setItemList(data);
     })();
-  }, [page]);
+  }, [page, selectCondition]);
 
   return (
     <main>
       <div className="d-flex justify-content-center align-items-center fw-bold fs-2 my-5">Marketplace</div>
       <Search
         size="lg"
+        callback={setSelectCondition}
         />
       {/* <Category /> */}
       <div className='my-5'>
@@ -39,7 +40,7 @@ export const Marketplace = () => {
         setPage={setPage}
         numItems={itemList.length}
         numShowItems={numShowItems}
-        maxNumPagination={maxNumPagination}
+        numShowPages={numShowPages}
       />
     </main>
   );
