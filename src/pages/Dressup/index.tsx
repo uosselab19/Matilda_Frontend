@@ -10,7 +10,7 @@ export const Dressup = () => {
   const [clothes, setClothes] = useState({ TOP: '상의' } as Clothes);
   useEffect(() => {
     const [modelHeight, roomWidth, roomHeight]=[60, 1024, 350];
-    const scene = useView(modelHeight, roomHeight);
+    const scene = useView(modelHeight, roomWidth);
     useFittingRoom('wooden', roomWidth, roomHeight, scene);
     useModel('./assets/model/matilda/scene.gltf', modelHeight, scene);
   }, []);

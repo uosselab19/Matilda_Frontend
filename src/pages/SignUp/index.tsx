@@ -1,6 +1,7 @@
 import matilda from '../../assets/images/matilda.png';
 import TextBox from '../../components/forms/TextBox';
 import useForm from '../../hooks/useForm';
+import { insertMember } from '../../services/memberService';
 import { InsertMember } from '../../types/Member';
 import { isRequired, isID, isPassword, isEmail, notMaxLength, notMinLength } from '../../utils/validator';
 
@@ -11,15 +12,16 @@ const validate = (values: InsertMember) => {
     nickname:
       isRequired(values?.nickname) ||
       notMinLength(values?.nickname, 2, '닉네임을 2글자 이상 입력해 주세요.') ||
-      notMaxLength(values?.nickname, 10, '닉네임을 10글자 이하로 입력해 주세요.'),
+      notMaxLength(values?.nickname, 50, '닉네임을 50글자 이하로 입력해 주세요.'),
     email: isRequired(values?.email) || isEmail(values?.email)
   };
 
   return errors;
 }
 
-const callback = () => {
+const callback = (values: InsertMember) => {
   console.log('asdf');
+  insertMember(values);
 }
 
 export const Signup = () => {

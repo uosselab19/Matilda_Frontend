@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import matilda from '../../assets/images/matilda.png';
 import matildaWhite from '../../assets/images/matilda_white.png';
+import { CapitalText } from '../../components/App/CapitalText';
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -17,13 +18,8 @@ export const Home = () => {
       <div className="d-flex justify-content-center p-3 p-md-5 text-center bg-light">
         <div className="col-md-5 py-5 w-100">
           <img className="d-block mx-auto my-5" src={matilda} width="128"></img>
-          <h1 className="display-4 fw-normal">
-            <p>MATILDA</p>
-          </h1>
-          <p className="lead fw-normal">
-            MATILDA means "Machine learning And non-fungible Token, Image to cLothes Design Application". <br /> MATILDA makes your 2D image
-           into an 3D NFT fashion item.
-          </p>
+          <h1 className="display-4 fw-normal">MATILDA</h1>
+          <CapitalText text={"Machine learning And non-fungible Token, Image to cLothes Design Application"} size={4}/>
         </div>
       </div>
 

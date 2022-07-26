@@ -2,7 +2,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-export default function useView (modelHeight:number, roomHeight:number) {
+export default function useView (modelHeight:number, roomWidth:number) {
   const dressupDom = document.getElementById('View') as HTMLElement; // 마운트가 되어야 Dom을 찾을 수 있다.
   let [canvasWidth, canvasDomHeight] = [dressupDom.clientWidth - 16, 4/3*(dressupDom.clientWidth - 16)]; // 브라우저 크기 확인, 16은 padding
   
@@ -17,7 +17,7 @@ export default function useView (modelHeight:number, roomHeight:number) {
   dressupDom.appendChild(renderer.domElement);
 
   //camera : 화면 출력 카메라
-  const camera = new THREE.PerspectiveCamera(45, 3/4, modelHeight/64, 100 * modelHeight); // 화면각은 45도, 400보다 적당히 큰 1500 기준으로 가시거리 설정.
+  const camera = new THREE.PerspectiveCamera(45, 3/4, modelHeight/64, 2 * roomWidth); // 화면각은 45도, 화면 비율은 실제 보여지는 비율에 맞게 수정.
   camera.position.set(0, 3*modelHeight, 3*modelHeight); //최초 카메라 위치 조절
 
   //lights : 광원
@@ -26,8 +26,8 @@ export default function useView (modelHeight:number, roomHeight:number) {
 
   //controls : 카메라 조절하는 컨트롤러 (depend on camera & renderer)
   const controls = new OrbitControls(camera, renderer.domElement);
-  controls.minDistance = 1.5 * modelHeight; // 카메라 최소 거리
-  controls.maxDistance = 10 * modelHeight; // 카메라 최대 거리
+  controls.minDistance = 1 * modelHeight; // 카메라 최소 거리
+  controls.maxDistance = 0.5 * roomWidth ; // 카메라 최대 거리
   controls.enablePan = true; // 카메라 절대 위치 조절
   controls.keys = { LEFT: '', RIGHT: '', UP: '', BOTTOM: '' }; //카메라 절대 위치는 마우스로만 조절할 수 있음
   controls.panSpeed = 2; // 카메라 절대 위치 속도 조절
@@ -43,12 +43,8 @@ export default function useView (modelHeight:number, roomHeight:number) {
     //need to load model
     controls.update();
     //const distance = camera.position.distanceTo(controls.target); //모델과 카메라 사이의 거리
-    const minHeight = -100;//1.25 * Math.tan(0.125 * Math.PI) * Math.max(0, distance - roomHeight * 0.5) + 1;
-    // 카메라 최소 높이 : 카메라가 바닥을 뚫지 않고 안정적으로 모델을 바라볼 수 있는 최소 높이
-    // 가중치 * tan(1/8*pi) * 높이 + 바닥 최대 길이 (1/8*pi 인 이유는 화면 각이 45도이기 때문.)
-    //+1 붙이는 이유는 높이가 0이면 바닥이 뚫려보이기 때문, 뒤에 있는 540은 방의 너비
-    const minPan = new THREE.Vector3(0, minHeight, 0); // 카메라 최소위치 고정
-    const maxPan = new THREE.Vector3(0, 3 * modelHeight, 0); // 카메라 최대위치 고정, 모델 키에 비례하여 달라짐.
+    const minPan = new THREE.Vector3(0, 1, 0); // 카메라 최소위치 고정
+    const maxPan = new THREE.Vector3(0, 2 * modelHeight, 0); // 카메라 최대위치 고정, 모델 키에 비례하여 달라짐.
     controls.target.clamp(minPan, maxPan); // 카메라 위치 고정하는 함수
     
     // Dom 갱신을 위한 부분

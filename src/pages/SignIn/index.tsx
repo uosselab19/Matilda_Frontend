@@ -3,6 +3,7 @@ import matilda from '../../assets/images/matilda.png';
 
 import TextBox from '../../components/forms/TextBox';
 import useForm from '../../hooks/useForm';
+import { insertMember } from '../../services/memberService';
 import { LoginMember } from '../../types/Member';
 import { isRequired, isID, isPassword } from '../../utils/validator';
 
@@ -15,8 +16,9 @@ const validate = (values: LoginMember) => {
   return errors;
 }
 
-const callback = () => {
-  console.log('asdf');
+const callback = (values: LoginMember) => {
+  console.log(values);
+  insertMember(values);
 }
 
 export const Signin = () => {
