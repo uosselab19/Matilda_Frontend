@@ -1,16 +1,7 @@
-interface NFT {
-  itemNum: number;
-  catCode: string;
-  title: string;
-  description: string;
-  makerName: string;
-  imgUrl: string;
-  nftAddress: string;
-  price: number;
-}
+import { Item } from "../../types/Item";
 
 interface NFTItemModalProps {
-  NFTInfo: NFT
+  NFTInfo: Item
   mode: string
 }
 
@@ -42,7 +33,7 @@ export const ModalNFTItem = (props: NFTItemModalProps) => {
 
             <div className="col-lg-12">
               <article className="blog-post">
-                <p className="blog-post-meta">owned by {NFTInfo.makerName}</p>
+                <p className="blog-post-meta">owned by {NFTInfo.memberNickName}</p>
 
                 <div className="row">
                   <div className="col-7">

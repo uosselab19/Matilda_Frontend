@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 //import item_img1 from '../../assets/images/Explore/item_img.png';
 import { Clothes } from '../../types/Clothes';
 import { selectItem } from '../../services/itemService';
-import { Item } from '../../types/Item';
 import CardList from '../Marketplace/CardList';
 import Pagination from '../Marketplace/Pagination';
 import Search from '../Marketplace/Search';
+import usePagination from '../../hooks/usePagination';
+import { ModalDressupCard } from '../modal/ModalDressupCard';
 
 interface DressupMarketProps {
   clothes: Clothes;
@@ -13,30 +14,15 @@ interface DressupMarketProps {
 }
 
 export const Market = (props: DressupMarketProps) => {
-  const { clothes } = props;
-  const [numShowItems, numShowPages]=[9, 5];
-  const [page, setPage]=useState(0);
-  const [itemList, setItemList] = useState([] as Item[]);
+  //const { clothes, setClothes } = props;
+  const [numShowItems, numShowPages] = [9, 5];
   const [selectCondition, setSelectCondition] = useState({});
+  const {itemList, page, setPage} = usePagination(selectItem(selectCondition));
+  const [itemNum, setItemNum] = useState(-1);
 
-  useEffect(() => {
-    (async () => {
-      const { data } = await selectItem(selectCondition);
-
-      setItemList(data);
-    })();
-  }, [page, selectCondition]);
-  console.log(clothes);
-
-  const handleCard=()=>{
-    console.log("Asfd");
-  }
-  
   return (
     <div>
-      <Search
-        callback={setSelectCondition}
-        />
+      <Search callback={setSelectCondition} />
       {/* <Category /> */}
       <div className="my-3">
         <CardList
@@ -44,16 +30,18 @@ export const Market = (props: DressupMarketProps) => {
           itemList={itemList}
           numShowItems={numShowItems}
           size="sm"
-          handleCard={handleCard}
-        />
+          handleCard={setItemNum}
+          modalID={"modalDressup"} />
       </div>
+      <ModalDressupCard
+        id={"modalDressup"}
+        itemNum={itemNum}/>
       <Pagination
         page={page}
         setPage={setPage}
         numItems={itemList.length}
         numShowItems={numShowItems}
-        numShowPages={numShowPages}
-      />
+        numShowPages={numShowPages} />
     </div>
   );
 };

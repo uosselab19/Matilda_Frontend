@@ -25,7 +25,6 @@ export const Dressup = () => {
         <div id="View" className="col-5"/>
         <div id='Market' className="col-6">
           <Market clothes={clothes} setClothes={setClothes} />
-          {/* <div className="row g-2">{cardList}</div> */}
         </div>
       </div>
     </main>

@@ -24,22 +24,29 @@ export interface SelectItem {
 }
 
 export interface UpdateItem {
-  title: string;
-  description: string;
-  imgUrl: string;
-  stateCode: string;
-  price: number;
+  title?: string;
+  description?: string;
+  price?: number;
 }
 
 export interface Item {
-  catCode: string;
-  imgUrl: string;
   itemNum: number;
-  memberNickName: string;
-  memberNum: number;
-  memberThumbImgUrl: null;
-  objectUrl: string;
   price: number;
-  stateCode: string;
   title: string;
+  imgUrl: string;
+  description: string;
+  memberNickName: string;
+}
+
+export interface SelectItemwithMember {
+  catCode?: string;
+  imgUrl?: string;
+  itemNum?: number;
+  memberNickName?: string;
+  memberNum?: number;
+  memberThumbImgUrl?: null;
+  objectUrl?: string;
+  price?: number;
+  stateCode?: string;
+  title?: string;
 }

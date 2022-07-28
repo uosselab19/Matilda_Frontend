@@ -8,11 +8,12 @@ interface CardListProps {
   itemList: Item[];
   numShowItems: number;
   size: string;
-  handleCard: Function;
+  handleCard?: Function;
+  modalID?: string;
 }
 
 export default function CardList(props: CardListProps) {
-  const { page, itemList, numShowItems, size, handleCard } = props;
+  const { page, itemList, numShowItems, size, handleCard, modalID } = props;
   const [showList, setShowList] = useState([] as JSX.Element[]);
 
   const makeCard = (size: string, itemList: Item[]) => {
@@ -26,6 +27,7 @@ export default function CardList(props: CardListProps) {
             title={e.title}
             price={e.price}
             handleCard={handleCard}
+            modalID={modalID}
           />
         )
       }

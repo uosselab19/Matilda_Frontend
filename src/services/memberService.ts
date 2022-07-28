@@ -18,7 +18,7 @@ export async function selectMember(memberID: number) {
   let [data, error] = [undefined, undefined];
 
   try {
-    const result = await apiClient.get(`/members${memberID}`);
+    const result = await apiClient.get(`/members/${memberID}`);
 
     data = result?.data;
   } catch (err) {

@@ -3,6 +3,7 @@ import matilda from '../../assets/images/matilda.png';
 
 import TextBox from '../../components/forms/TextBox';
 import useForm from '../../hooks/useForm';
+import { signinMember } from '../../services/signinService';
 import { LoginMember } from '../../types/Member';
 import { isRequired, isID, isPassword } from '../../utils/validator';
 
@@ -24,8 +25,10 @@ export const Signin = () => {
   // };
 
   //const jwt ='eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzZW0xMzA4NCIsInJvbGUiOiJVU0VSIiwibmFtZSI6IuuvvOuRmCIsImlhdCI6MTY1MDg3NjY2NSwiZXhwIjoxNzc3Nzc3Nzc3fQ.0fuf-P0e4S1nfYxUwSCYf9C_t_gwCNcuqvlVZ0V6Yeg';
-  const callback = (values: LoginMember) => {
+  const callback = async (values: LoginMember) => {
+    const {data} = await signinMember(values);
     console.log(values);
+    console.log(data);
   }
   
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);

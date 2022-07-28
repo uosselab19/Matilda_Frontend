@@ -3,15 +3,16 @@ import makerThumbImg1 from '../../assets/images/Profile/thumbProfileImage.png'
 
 //컴포넌트가 받을 props
 interface CardProps {
-  itemNum:number;
-  title:string;
-  price:number;
+  itemNum: number;
+  title: string;
+  price: number;
   size: string;
-  handleCard:Function;
+  handleCard?: Function;
+  modalID?: string;
 }
 
-export default function Card (props: CardProps) {
-  const { itemNum, title, price, size, handleCard } = props;
+export default function Card(props: CardProps) {
+  const { itemNum, title, price, size, handleCard, modalID } = props;
 
   const handleMouse = (e: React.MouseEvent): void => {
     e.stopPropagation();
@@ -54,11 +55,11 @@ export default function Card (props: CardProps) {
   return (
     <div
       key={itemNum}
-      className={`${size}`}
-      onClick={() => {
-        handleCard(itemNum);
-      }}
+      className={`cardItemNum${itemNum}`}
+      onClick={() => { if(handleCard) handleCard(itemNum); }}
       draggable="false"
+      data-bs-toggle={modalID ? "modal" : undefined}
+      data-bs-target={modalID ? `#${modalID}` : undefined}
     >
       <div
         className="card overflow-hidden text-white d-flex flex-column"
@@ -74,14 +75,14 @@ export default function Card (props: CardProps) {
         <img alt="" className="card-img" src={item_img1}></img>
         <div className="card-img-overlay" style={{ top: '70%', backgroundColor: 'black', opacity: 0.8 }}></div>
         <div className="card-img-overlay d-flex flex-column">
-          <div className={`card-text mt-auto d-flex justify-content-between px-2 ${(size=='lg')?"py-2":""}`}>
-            {(size=="lg")?<img src={makerThumbImg1} alt="profile" width="32" height="32" className="rounded-circle me-3" />:null}
-            <div>{`${title.slice(0,5)}${(title.length>5)?"...":''}`}</div>
-            {(size=="lg")?<div>{`${price} KLAY`}</div>:null}
+          <div className={`card-text mt-auto d-flex justify-content-between px-2 ${(size == 'lg') ? "py-2" : ""}`}>
+            {(size == "lg") ? <img src={makerThumbImg1} alt="profile" width="32" height="32" className="rounded-circle me-3" /> : null}
+            <div>{`${title.slice(0, 5)}${(title.length > 5) ? "..." : ''}`}</div>
+            {(size == "lg") ? <div>{`${price} KLAY`}</div> : null}
           </div>
         </div>
         <div className="card-img-overlay d-flex justify-content-center align-items-center mx-auto my-auto" style={{ opacity: 0 }}>
-          <h2>{`${title.slice(0,(1+Number(size=="lg"))*15)}${(title.length>(1+Number(size=="lg"))*15)?"...":''}`}</h2>
+          <h2>{`${title.slice(0, (1 + Number(size == "lg")) * 15)}${(title.length > (1 + Number(size == "lg")) * 15) ? "..." : ''}`}</h2>
         </div>
       </div>
     </div>

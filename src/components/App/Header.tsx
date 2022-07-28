@@ -65,9 +65,10 @@ export const Header = () => {
   const tapItemList = new Array();
   tapItemList.push(tapItem(1, 'Home', '/'));
   tapItemList.push(tapItem(2, 'Marketplace', '/marketplace'));
-  tapItemList.push(tapItem(3, '3D Conversion', '/3Dconversion'));
-  tapItemList.push(tapItem(4, 'NFT Minting', '/NFTminting'));
-  tapItemList.push(tapItem(5, 'Dress Up', '/dressup'));
+  tapItemList.push(tapItem(3, 'Dress Up', '/dressup'));
+  tapItemList.push(tapItem(4, '3D Conversion', '/3Dconversion'));
+  tapItemList.push(tapItem(5, 'NFT Minting', '/NFTminting'));
+  
 
   return (
     <header className="p-2 bg-dark text-white sticky-top">

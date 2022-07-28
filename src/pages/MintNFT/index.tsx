@@ -1,13 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import TextBox from '../../components/forms/TextBox';
 import TextArea from '../../components/forms/TextArea';
 import useForm from '../../hooks/useForm';
 import testImage from '../../assets/images/NFTItem/mindul_NFT1.jpg';
-import { UpdateItem } from '../../types/Item';
+import { Item, UpdateItem } from '../../types/Item';
 import { isRequired, notMaxLength, notMinLength, isNumber } from '../../utils/validator';
-import { selectItem } from '../../services/itemService';
+import { selectItemwithMember } from '../../services/itemService';
 import CardList from '../../components/Marketplace/CardList';
 import Pagination from '../../components/Marketplace/Pagination';
+import usePagination from '../../hooks/usePagination';
 
 function validate(values: UpdateItem) {
   const errors = {
@@ -25,58 +26,48 @@ function validate(values: UpdateItem) {
   return errors;
 }
 
-const callback = (values: UpdateItem) => {
-  const { title, description, price, imgUrl } = values;
-  if( title && description && price && imgUrl){
-    console.log(values);
-  } else {
-    alert("빈칸을 모두 다 채워주세요!");
-  }
-};
-
 export const MintNFT = () => {
-  //3D 아이템 넣어주는 부분
-  const [itemImage] = useState(testImage);
-  const [itemList, setItemList] = useState([]);
-  const [page, setPage] = useState(0);
+  const callback = (values: UpdateItem) => {
+    const { title, description, price } = values;
+    if (title && description && price) {
+      console.log(values);
+    } else alert("빈칸을 모두 다 채워주세요!");
+  };
 
+  //3D 아이템 넣어주는 부분
+  const [itemImage, setItemImage] = useState("");
+  const {itemList, page, setPage} = usePagination(selectItemwithMember(2, { stateCode: "CR" }));
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
 
-  useEffect(() => {
-    (async () => {
-      const { data } = await selectItem({memberNum:2, stateCode: "CR"});
-
-      setItemList(data);
-    })();
-  },[]);
-
-  const handleCard=()=>{
-    console.log("asdf");
+  const handleCard = (itemNum: number) => {
+    const imgUrl=itemList.find((e:Item)=>{return e.itemNum==itemNum;}) as Item;
+    setItemImage(imgUrl.imgUrl);
   }
   
+
   return (
     <main className="container">
-      <div className="row g-3 w-100 mt-5 d-flex justify-content-between">
-        <div className="col-6 row d-flex justify-content-center">
-          <img className="w-75 mb-3" src={itemImage} />
+      <div className="d-flex justify-content-center align-items-center fw-bold fs-2 my-4">Marketplace</div>
+      <div className="row g-3 w-100 d-flex justify-content-between">
+        <div className="col-6 d-flex justify-content-center flex-column">
+          <img className="mb-3 align-self-center" src={testImage} style={{width:350, height:350}} />
           <CardList
             page={page}
             itemList={itemList}
             numShowItems={3}
             size={"md"}
-            handleCard={handleCard}/>
+            handleCard={handleCard} />
           <Pagination
             page={page}
             setPage={setPage}
             numItems={itemList.length}
             numShowItems={3}
-            numShowPages={5}/>
+            numShowPages={5} />
         </div>
         <div className="col-6">
-          <div className="fw-bold fs-2">Mint an NFT</div>
           <p>
             당신이 가지고 있던 3D 패션아이템을 NFT로 만들어주는 페이지입니다!<br />
-            왼쪽에서 NFT로 만들고 싶은 3D 패션아이템을 선택해주세요.<br />
+            먼저, 왼쪽에서 NFT로 만들고 싶은 3D 패션아이템을 선택해주세요.<br />
             오른쪽에 필요한 내용을 모두 기입하고 Mint NFT 버튼을 눌러주세요. <br />
             그러면 3D 패션아이템이 NFT가 될 거에요!
           </p>
@@ -89,7 +80,7 @@ export const MintNFT = () => {
                 label="Title"
                 type="text"
                 placeholder="title"
-                disabled={false}
+                disabled={!(itemImage.length)}
                 readonly={false}
                 handleChange={handleChange}
                 handleClick={handleClick}
@@ -103,7 +94,7 @@ export const MintNFT = () => {
                 label="Description"
                 rows={7}
                 placeholder="description"
-                disabled={false}
+                disabled={!(itemImage.length)}
                 readonly={false}
                 handleChange={handleChange}
                 handleClick={handleClick}
@@ -117,8 +108,8 @@ export const MintNFT = () => {
                 id="price"
                 label="Price"
                 type="text"
-                placeholder="price"
-                disabled={false}
+                placeholder="10.597"
+                disabled={!(itemImage.length)}
                 readonly={false}
                 handleChange={handleChange}
                 handleClick={handleClick}

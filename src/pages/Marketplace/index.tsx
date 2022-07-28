@@ -1,24 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { selectItem } from '../../services/itemService';
 import CardList from '../../components/Marketplace/CardList';
 import Pagination from '../../components/Marketplace/Pagination';
 import Search from '../../components/Marketplace/Search';
-import { Item } from '../../types/Item';
 import { useNavigate } from 'react-router-dom';
+import usePagination from '../../hooks/usePagination';
 
 export const Marketplace = () => {
-  const [page, setPage] = useState(0);
   const [numShowItems, numShowPages] = [16, 10];
-  const [itemList, setItemList] = useState([] as Item[]);
   const [selectCondition, setSelectCondition] = useState({});
-
-  useEffect(() => {
-    (async () => {
-      const { data } = await selectItem(selectCondition);
-
-      setItemList(data);
-    })();
-  }, [page, selectCondition]);
+  const {itemList, page, setPage} = usePagination(selectItem(selectCondition));
 
   const navigate = useNavigate();
   const handleCard = (id: number) => {
