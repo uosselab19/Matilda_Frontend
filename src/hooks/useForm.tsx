@@ -8,14 +8,13 @@ export default function useForm(callback: Function, validate: Function) {
   useEffect(() => {
     const hasErrors = (Object.values(errors).filter((e) => {return e;}).length > 0);
     if (!hasErrors && isSubmitting) {
-      callback();
+      callback(values);
     }
   }, [errors, isSubmitting]);
 
   const handleSubmit = (event: ChangeEvent<any>) => {
-    if (event) {
-      event.preventDefault();
-    }
+    if (event) event.preventDefault();
+
     setIsSubmitting(true);
   };
 

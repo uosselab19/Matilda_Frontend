@@ -27,6 +27,10 @@ export const Market = (props: DressupMarketProps) => {
     })();
   }, [page, selectCondition]);
   console.log(clothes);
+
+  const handleCard=()=>{
+    console.log("Asfd");
+  }
   
   return (
     <div>
@@ -40,6 +44,7 @@ export const Market = (props: DressupMarketProps) => {
           itemList={itemList}
           numShowItems={numShowItems}
           size="sm"
+          handleCard={handleCard}
         />
       </div>
       <Pagination

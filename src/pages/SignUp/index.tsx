@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import matilda from '../../assets/images/matilda.png';
 import TextBox from '../../components/forms/TextBox';
 import useForm from '../../hooks/useForm';
@@ -19,13 +20,21 @@ const validate = (values: InsertMember) => {
   return errors;
 }
 
-const callback = (values: InsertMember) => {
-  console.log('asdf');
-  insertMember(values);
-}
-
 export const Signup = () => {
+  const navigate = useNavigate();
+  const callback = async (values: InsertMember) => {
+    const { error } = await insertMember(values);
+    
+    if(error){
+      alert(error);
+    } else {
+      alert("회원가입이 완료되었습니다!");
+      navigate('/signin', { replace: false });
+    }
+  }
+
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
+  
 
   return (
     <main className="container mb-5">

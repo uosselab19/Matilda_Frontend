@@ -10,13 +10,14 @@ interface SelectBoxProps {
   size?: string;
   handleChange: ChangeEventHandler<HTMLSelectElement>;
   value: any;
+  defaultValue?: any;
   options: any[]; // options는 무조건 object[]로만 받음
   keyProperty: string;
   valueProperty: string;
 }
 
 export default function SelectBox(props: SelectBoxProps) {
-  const { id, label, placeholder, helpText, disabled, size, handleChange, value, options, keyProperty, valueProperty } = props;
+  const { id, label, placeholder, helpText, disabled, size, handleChange, value, defaultValue, options, keyProperty, valueProperty } = props;
 
   const list = () => {
     return options.map((option, index) => {
@@ -32,7 +33,7 @@ export default function SelectBox(props: SelectBoxProps) {
     <div>
       {label?<label htmlFor={id} className="form-label">{label}</label>:null}
       <select className={["form-select", 'border-dark', (size)?`form-select-${size}`:""].join(' ')}
-        id={id} placeholder={placeholder} disabled={disabled} onChange={handleChange} value={value} name={valueProperty}>
+        id={id} placeholder={placeholder} disabled={disabled} onChange={handleChange} value={value} defaultValue={defaultValue} name={valueProperty}>
         {list()}
       </select>
       <div className="invalid-feedback">{helpText}</div>

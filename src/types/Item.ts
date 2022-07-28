@@ -26,7 +26,7 @@ export interface SelectItem {
 export interface UpdateItem {
   title: string;
   description: string;
-  nftAddress: string;
+  imgUrl: string;
   stateCode: string;
   price: number;
 }

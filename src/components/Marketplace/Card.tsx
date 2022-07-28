@@ -1,5 +1,4 @@
 import item_img1 from '../../assets/images/Explore/item_img.png';
-import { useNavigate } from 'react-router-dom';
 import makerThumbImg1 from '../../assets/images/Profile/thumbProfileImage.png'
 
 //컴포넌트가 받을 props
@@ -8,14 +7,11 @@ interface CardProps {
   title:string;
   price:number;
   size: string;
+  handleCard:Function;
 }
 
 export default function Card (props: CardProps) {
-  const { itemNum, title, price, size } = props;
-  const navigate = useNavigate();
-  const handleCard = (id: number) => {
-    navigate(`/marketplace/NFTItem?nft_id=${id}`, { replace: false });
-  };
+  const { itemNum, title, price, size, handleCard } = props;
 
   const handleMouse = (e: React.MouseEvent): void => {
     e.stopPropagation();

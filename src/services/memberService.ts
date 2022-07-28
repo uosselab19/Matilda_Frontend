@@ -4,13 +4,13 @@ export async function insertMember(data: any) {
   let [response, error] = [undefined, undefined];
 
   try {
-    const result = await anonymousApiClient.post(`/members`, {data: data});
+    const result = await anonymousApiClient.post(`/members`, data);
 
     response = result?.data;
   } catch (err) {
     error = err?.response || err?.message;
   }
-
+  console.log(error);
   return { response, error };
 }
 

@@ -9,13 +9,13 @@
     "buffer": "^6.0.3",
     "caver-js": "^1.8.2",
     "file-loader": "^6.2.0",
+    "node-pre-gyp": "^0.17.0",
     "prettier": "^2.6.2",
     "react": "^18.2.0",
-    "react-bootstrap": "^2.3.1",
-    "react-dom": "^18.1.0",
+    "react-bootstrap": "^2.4.0",
+    "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "^5.0.1",
-    "react-unity-webgl": "^8.8.0",
     "solc": "^0.8.15",
     "three": "^0.141.0",
     "truffle": "^5.5.20",
@@ -47,6 +47,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "proxy": "http://3.133.233.81:8080"
+  }
 }

@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import testImage1 from '../../assets/images/Register/testImageRegister1.png';
-import testImage2 from '../../assets/images/Register/testImageRegister2.png';
-import testImage3 from '../../assets/images/Register/testImageRegister3.png';
+import { useEffect, useState } from 'react';
 import TextBox from '../../components/forms/TextBox';
 import TextArea from '../../components/forms/TextArea';
-import SelectBox from '../../components/forms/SelectBox';
 import useForm from '../../hooks/useForm';
+import testImage from '../../assets/images/NFTItem/mindul_NFT1.jpg';
 import { UpdateItem } from '../../types/Item';
 import { isRequired, notMaxLength, notMinLength, isNumber } from '../../utils/validator';
+import { selectItem } from '../../services/itemService';
+import CardList from '../../components/Marketplace/CardList';
+import Pagination from '../../components/Marketplace/Pagination';
 
 function validate(values: UpdateItem) {
   const errors = {
@@ -25,35 +25,52 @@ function validate(values: UpdateItem) {
   return errors;
 }
 
-const callback = () => {
-  console.log('asdf');
+const callback = (values: UpdateItem) => {
+  const { title, description, price, imgUrl } = values;
+  if( title && description && price && imgUrl){
+    console.log(values);
+  } else {
+    alert("빈칸을 모두 다 채워주세요!");
+  }
 };
 
 export const MintNFT = () => {
   //3D 아이템 넣어주는 부분
-  const itemList = [{title: 'Mindul1', imgUrl: testImage1}, {title: 'Mindul2', imgUrl: testImage2}, {title: 'Mindul3', imgUrl: testImage3}];
-
-  const [itemImage, setItemImage] = useState(itemList[0].imgUrl);
+  const [itemImage] = useState(testImage);
+  const [itemList, setItemList] = useState([]);
+  const [page, setPage] = useState(0);
 
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
 
+  useEffect(() => {
+    (async () => {
+      const { data } = await selectItem({memberNum:2, stateCode: "CR"});
+
+      setItemList(data);
+    })();
+  },[]);
+
+  const handleCard=()=>{
+    console.log("asdf");
+  }
+  
   return (
     <main className="container">
       <div className="row g-3 w-100 mt-5 d-flex justify-content-between">
         <div className="col-6 row d-flex justify-content-center">
-          <SelectBox
-            id="test"
-            label="NFT로 변환할 3D 오브젝트를 골라주세요!"
-            placeholder=""
-            helpText="Please enter a valid TEST"
-            disabled={false}
-            options={itemList}
-            handleChange={(e) => setItemImage(e.target.value)}
-            value={itemImage}
-            keyProperty="title"
-            valueProperty="imgUrl"
-          />
-          <img src={itemImage} />
+          <img className="w-75 mb-3" src={itemImage} />
+          <CardList
+            page={page}
+            itemList={itemList}
+            numShowItems={3}
+            size={"md"}
+            handleCard={handleCard}/>
+          <Pagination
+            page={page}
+            setPage={setPage}
+            numItems={itemList.length}
+            numShowItems={3}
+            numShowPages={5}/>
         </div>
         <div className="col-6">
           <div className="fw-bold fs-2">Mint an NFT</div>

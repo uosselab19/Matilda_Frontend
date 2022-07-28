@@ -8,37 +8,41 @@ interface CardListProps {
   itemList: Item[];
   numShowItems: number;
   size: string;
+  handleCard: Function;
 }
 
 export default function CardList(props: CardListProps) {
-  const {page, itemList, numShowItems, size} = props;
-  const [showList, setShowList]=useState(makeCard(size, itemList.slice(page*numShowItems, (page+1)*numShowItems)));
+  const { page, itemList, numShowItems, size, handleCard } = props;
+  const [showList, setShowList] = useState([] as JSX.Element[]);
 
-  useEffect( () => {
-    setShowList(makeCard(size, itemList.slice(page*numShowItems, (page+1)*numShowItems)));
+  const makeCard = (size: string, itemList: Item[]) => {
+    return itemList.map(
+      (e: Item) => {
+        return (
+          <Card
+            key={e.itemNum}
+            size={size}
+            itemNum={e.itemNum}
+            title={e.title}
+            price={e.price}
+            handleCard={handleCard}
+          />
+        )
+      }
+    )
+  }
+
+  useEffect(() => {
+    setShowList(makeCard(size, itemList.slice(page * numShowItems, (page + 1) * numShowItems)));
   }, [page, itemList]);
 
   return (
     <div className="container">
-      <div className={`row row-cols-1 row-cols-sm-2 row-cols-md-${(size=="lg")?4:3} align-items-around g-2`}>
+      <div className={`row row-cols-1 row-cols-sm-2 row-cols-md-${(size == "lg") ? 4 : 3} align-items-around g-2`}>
         {showList}
       </div>
     </div>
   );
 };
 
-const makeCard = (size: string, itemList: Item[]) => {
-  return itemList.map(
-    (e: Item) => {
-      return (
-        <Card
-          key={e.itemNum}
-          size={size}
-          itemNum={e.itemNum}
-          title={e.title}
-          price={e.price}
-        />
-      )
-    }
-  )
-}
+

@@ -3,7 +3,6 @@ import matilda from '../../assets/images/matilda.png';
 
 import TextBox from '../../components/forms/TextBox';
 import useForm from '../../hooks/useForm';
-import { insertMember } from '../../services/memberService';
 import { LoginMember } from '../../types/Member';
 import { isRequired, isID, isPassword } from '../../utils/validator';
 
@@ -16,20 +15,19 @@ const validate = (values: LoginMember) => {
   return errors;
 }
 
-const callback = (values: LoginMember) => {
-  console.log(values);
-  insertMember(values);
-}
-
 export const Signin = () => {
   //base 64를 디코딩한 후에 parse 과정을 통해 json화 하는 함수
   // const parseToken = (token: string) => {
   //   const result = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
-  //   result.token = token;
+  //   result.token = token; 
   //   return result;
   // };
 
   //const jwt ='eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzZW0xMzA4NCIsInJvbGUiOiJVU0VSIiwibmFtZSI6IuuvvOuRmCIsImlhdCI6MTY1MDg3NjY2NSwiZXhwIjoxNzc3Nzc3Nzc3fQ.0fuf-P0e4S1nfYxUwSCYf9C_t_gwCNcuqvlVZ0V6Yeg';
+  const callback = (values: LoginMember) => {
+    console.log(values);
+  }
+  
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
 
   return (

@@ -7,7 +7,7 @@ export function isRequired(value: any, customMessage?: string) {
 }
 
 export function isID(value: any, minLength = 8, maxLength = 16, customMessage?: string) {
-  const pattern = new RegExp(`^[a-z][a-z0-9]{${minLength},${maxLength}}$`);
+  const pattern = new RegExp(`^[a-z][a-z0-9]{${minLength-1},${maxLength-1}}$`);
 
   if (!pattern.test(value)) {
     return customMessage || `아이디를 영문, 숫자 포함하여 ${minLength} - ${maxLength}자리 사이로 입력해주세요.`;
