@@ -21,7 +21,7 @@ export const Convert3D = () => {
       <div
         key={`key${index}`}
         className="btn btn-outline-secondary"
-        onClick={() => {setClothes(category);}}
+        onClick={() => { setClothes(category); }}
       >
         {category.title}
       </div>
@@ -33,7 +33,7 @@ export const Convert3D = () => {
     const category = useCategory();
     const result = category.map((e: categoryItem, i: Number) => {
       return accordionItems(e, i);
-    });
+    }); result.shift();
     return result;
   };
 
@@ -50,12 +50,103 @@ export const Convert3D = () => {
 
         {/* Convert 들어갈 부분 */}
         <div className="col-lg-9 d-flex flex-column">
-          <p className="mt-5 fs-4">{(loading)?"변환 중입니다, 시간이 1분 이상 걸릴 수 있습니다.":"사진을 넣으면 3D 패션아이템으로 재탄생합니다!"}</p>
-          <div className='flex-fill d-flex flex-column align-items-center'>
-            {(loading)?<Spinner />:<ConvertBox clothes={ clothes } setLoading={ setLoading }/>}
+          <p className="mt-5 fs-4">{(loading) ? "변환 중입니다, 시간이 1분 이상 걸릴 수 있습니다." : "사진을 넣으면 3D 패션아이템으로 재탄생합니다!"}</p>
+          <div className='h-100 d-flex justify-content-center align-items-center'>
+            {(loading) ? (<Spinner delay={1.5} radius={1.5} />) : <ConvertBox clothes={clothes} setLoading={setLoading} />}
           </div>
         </div>
       </div>
     </main>
   );
 };
+
+
+{/* <div>
+              <Spinner delay={0} />
+              <Spinner delay={0.25} />
+              <Spinner delay={0.5} />
+              <Spinner delay={0.75} />
+            </div> */}
+{/* <div>
+                <div>
+              <Spinner delay={0} />
+              <Spinner delay={0.25} />
+              <Spinner delay={0.5} />
+              <Spinner delay={0.75} />
+              <Spinner delay={1} />
+              <Spinner delay={1.25} />
+              <Spinner delay={1.5} />
+              <Spinner delay={1.75} />
+              <Spinner delay={2} />
+              <Spinner delay={2.25} />
+              <Spinner delay={2.5} />
+              <Spinner delay={2.75} />
+            </div>
+            <div>
+              <Spinner delay={0.25} />
+              <Spinner delay={0.5} />
+              <Spinner delay={0.75} />
+              <Spinner delay={1} />
+              <Spinner delay={1.25} />
+              <Spinner delay={1.5} />
+              <Spinner delay={1.75} />
+              <Spinner delay={2} />
+              <Spinner delay={2.25} />
+              <Spinner delay={2.5} />
+              <Spinner delay={2.75} />
+              <Spinner delay={3} />
+            </div><div>
+              <Spinner delay={0.5} />
+              <Spinner delay={0.75} />
+              <Spinner delay={1} />
+              <Spinner delay={1.25} />
+              <Spinner delay={1.5} />
+              <Spinner delay={1.75} />
+              <Spinner delay={2} />
+              <Spinner delay={2.25} />
+              <Spinner delay={2.5} />
+              <Spinner delay={2.75} />
+              <Spinner delay={3} />
+              <Spinner delay={3.25} />
+            </div>
+            <div>
+              <Spinner delay={0.5} />
+              <Spinner delay={0.75} />
+              <Spinner delay={1} />
+              <Spinner delay={1.25} />
+              <Spinner delay={1.5} />
+              <Spinner delay={1.75} />
+            </div>
+            <div>
+              <Spinner delay={0.75} />
+              <Spinner delay={1} />
+              <Spinner delay={1.25} />
+              <Spinner delay={1.5} />
+              <Spinner delay={1.75} />
+              <Spinner delay={2} />
+            </div>
+            <div>
+              <Spinner delay={1} />
+              <Spinner delay={1.25} />
+              <Spinner delay={1.5} />
+              <Spinner delay={1.75} />
+              <Spinner delay={2} />
+              <Spinner delay={2.25} />
+            </div>
+            <div>
+              <Spinner delay={1.25} />
+              <Spinner delay={1.5} />
+              <Spinner delay={1.75} />
+              <Spinner delay={2} />
+              <Spinner delay={2.25} />
+              <Spinner delay={2.5} />
+            </div>
+            <div>
+              <Spinner delay={1.5} />
+              <Spinner delay={1.75} />
+              <Spinner delay={2} />
+              <Spinner delay={2.25} />
+              <Spinner delay={2.5} />
+              <Spinner delay={2.75} />
+            </div>
+          </div> */}
