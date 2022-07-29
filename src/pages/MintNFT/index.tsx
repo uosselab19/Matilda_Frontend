@@ -31,43 +31,36 @@ export const MintNFT = () => {
     const { title, description, price } = values;
     if (title && description && price) {
       console.log(values);
-    } else alert("빈칸을 모두 다 채워주세요!");
+    } else alert('빈칸을 모두 다 채워주세요!');
   };
 
   //3D 아이템 넣어주는 부분
-  const [itemImage, setItemImage] = useState("");
-  const {itemList, page, setPage} = usePagination(selectItemwithMember(2, { stateCode: "CR" }));
+  const [itemImage, setItemImage] = useState('');
+  const { itemList, page, setPage } = usePagination(selectItemwithMember(2, { stateCode: 'CR' }));
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
 
   const handleCard = (itemNum: number) => {
-    const imgUrl=itemList.find((e:Item)=>{return e.itemNum==itemNum;}) as Item;
+    const imgUrl = itemList.find((e: Item) => {
+      return e.itemNum == itemNum;
+    }) as Item;
     setItemImage(imgUrl.imgUrl);
-  }
-  
+  };
 
   return (
     <main className="container">
       <div className="d-flex justify-content-center align-items-center fw-bold fs-2 my-4">Marketplace</div>
       <div className="row g-3 w-100 d-flex justify-content-between">
         <div className="col-6 d-flex justify-content-center flex-column">
-          <img className="mb-3 align-self-center" src={testImage} style={{width:350, height:350}} />
-          <CardList
-            page={page}
-            itemList={itemList}
-            numShowItems={3}
-            size={"md"}
-            handleCard={handleCard} />
-          <Pagination
-            page={page}
-            setPage={setPage}
-            numItems={itemList.length}
-            numShowItems={3}
-            numShowPages={5} />
+          <img className="mb-3 align-self-center" src={testImage} style={{ width: 350, height: 350 }} />
+          <CardList page={page} itemList={itemList} numShowItems={3} size={'md'} handleCard={handleCard} />
+          <Pagination page={page} setPage={setPage} numItems={itemList.length} numShowItems={3} numShowPages={5} />
         </div>
         <div className="col-6">
           <p>
-            당신이 가지고 있던 3D 패션아이템을 NFT로 만들어주는 페이지입니다!<br />
-            먼저, 왼쪽에서 NFT로 만들고 싶은 3D 패션아이템을 선택해주세요.<br />
+            당신이 가지고 있던 3D 패션아이템을 NFT로 만들어주는 페이지입니다!
+            <br />
+            먼저, 왼쪽에서 NFT로 만들고 싶은 3D 패션아이템을 선택해주세요.
+            <br />
             오른쪽에 필요한 내용을 모두 기입하고 Mint NFT 버튼을 눌러주세요. <br />
             그러면 3D 패션아이템이 NFT가 될 거에요!
           </p>
@@ -80,7 +73,7 @@ export const MintNFT = () => {
                 label="Title"
                 type="text"
                 placeholder="title"
-                disabled={!(itemImage.length)}
+                disabled={!itemImage.length}
                 readonly={false}
                 handleChange={handleChange}
                 handleClick={handleClick}
@@ -94,7 +87,7 @@ export const MintNFT = () => {
                 label="Description"
                 rows={7}
                 placeholder="description"
-                disabled={!(itemImage.length)}
+                disabled={!itemImage.length}
                 readonly={false}
                 handleChange={handleChange}
                 handleClick={handleClick}
@@ -109,7 +102,7 @@ export const MintNFT = () => {
                 label="Price"
                 type="text"
                 placeholder="10.597"
-                disabled={!(itemImage.length)}
+                disabled={!itemImage.length}
                 readonly={false}
                 handleChange={handleChange}
                 handleClick={handleClick}

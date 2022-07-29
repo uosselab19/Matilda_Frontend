@@ -17,24 +17,24 @@ import imageNAI from '../assets/images/Convert3D/imageNAIL.png';
 import imageGLO from '../assets/images/Convert3D/imageGLOVE.png';
 
 export default function useCategory() {
-	return [
-		{ title: '전체', image: imageDR, catCode: '' },
-		{ title: '한 벌 의상', image: imageDR, catCode: 'DR' },
-		{ title: '상의', image: imageTOP, catCode: 'TOP' },
-		{ title: '아우터', image: imageOTR, catCode: 'OTR' },
-		{ title: '하의', image: imageBTM, catCode: 'BTM' },
-		{ title: '양말', image: imageSOX, catCode: 'SOX' },
-		{ title: '신발류', image: imageSH, catCode: 'SH' },
-		{ title: '헤어', image: imageHAI, catCode: 'HAI' },
-		{ title: '헤드웨어', image: imageHEA, catCode: 'HEA' },
-		{ title: '안경', image: imageGLA, catCode: 'GLA' },
-		{ title: '팔찌', image: imageBRA, catCode: 'BRA' },
-		{ title: '목걸이', image: imageNEC, catCode: 'NEC' },
-		{ title: '귀걸이', image: imageEAR, catCode: 'EAR' },
-		{ title: '가방', image: imageBAG, catCode: 'BAG' },
-		{ title: '마스크', image: imageMAS, catCode: 'MAS' },
-		{ title: '날개', image: imageWIN, catCode: 'WIN' },
-		{ title: '네일아트', image: imageNAI, catCode: 'NAI' },
-		{ title: '장갑', image: imageGLO, catCode: 'GLO' },
-	];
-} 
+  return [
+    { title: '전체', image: imageDR, catCode: '' },
+    { title: '한 벌 의상', image: imageDR, catCode: 'DR' },
+    { title: '상의', image: imageTOP, catCode: 'TOP' },
+    { title: '아우터', image: imageOTR, catCode: 'OTR' },
+    { title: '하의', image: imageBTM, catCode: 'BTM' },
+    { title: '양말', image: imageSOX, catCode: 'SOX' },
+    { title: '신발류', image: imageSH, catCode: 'SH' },
+    { title: '헤어', image: imageHAI, catCode: 'HAI' },
+    { title: '헤드웨어', image: imageHEA, catCode: 'HEA' },
+    { title: '안경', image: imageGLA, catCode: 'GLA' },
+    { title: '팔찌', image: imageBRA, catCode: 'BRA' },
+    { title: '목걸이', image: imageNEC, catCode: 'NEC' },
+    { title: '귀걸이', image: imageEAR, catCode: 'EAR' },
+    { title: '가방', image: imageBAG, catCode: 'BAG' },
+    { title: '마스크', image: imageMAS, catCode: 'MAS' },
+    { title: '날개', image: imageWIN, catCode: 'WIN' },
+    { title: '네일아트', image: imageNAI, catCode: 'NAI' },
+    { title: '장갑', image: imageGLO, catCode: 'GLO' }
+  ];
+}

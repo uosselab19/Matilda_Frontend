@@ -6,7 +6,10 @@ export default function useForm(callback: Function, validate: Function) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    const hasErrors = (Object.values(errors).filter((e) => {return e;}).length > 0);
+    const hasErrors =
+      Object.values(errors).filter((e) => {
+        return e;
+      }).length > 0;
     if (!hasErrors && isSubmitting) {
       callback(values);
     }

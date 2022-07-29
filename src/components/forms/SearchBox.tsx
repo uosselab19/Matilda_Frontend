@@ -5,7 +5,7 @@ interface SearchBoxProps {
   name: string;
   disabled: boolean;
   readonly: boolean;
-  size?:string;
+  size?: string;
   handleChange: ChangeEventHandler<HTMLInputElement>;
   value: any;
   error?: string;
@@ -19,8 +19,8 @@ export default function SearchBox(props: SearchBoxProps) {
   return (
     <div>
       <input
-        type='search'
-        className={[boxClass, 'border-dark', (size)?`form-control-${size}`:"", `input ${error && 'is-danger'}`].join(' ')}
+        type="search"
+        className={[boxClass, 'border-dark', size ? `form-control-${size}` : '', `input ${error && 'is-danger'}`].join(' ')}
         name={name}
         id={id}
         placeholder="Search"

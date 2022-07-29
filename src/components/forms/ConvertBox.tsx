@@ -50,31 +50,20 @@ export default function ConvertBox(props: ConvertBoxProps) {
     const fileList = e.currentTarget.files as FileList;
     const file = fileList.item(0) as File;
     setPreview(file);
-  }
+  };
 
   return (
     <label htmlFor="file-input">
-      <div className="card text-white border-white text-center"
-        onDrop={handleDrop}
-        onDragOver={handleDrag}
-        onDragLeave={handleDrag}>
-        <img
-          id="preview-image"
-          className='w-100 h-100'
-          alt="여기 맞아요, 사진을 넣어 주세요!"
-          src={clothes.image}
-          draggable="false"
-        />
+      <div className="card text-white border-white text-center" onDrop={handleDrop} onDragOver={handleDrag} onDragLeave={handleDrag}>
+        <img id="preview-image" className="w-100 h-100" alt="여기 맞아요, 사진을 넣어 주세요!" src={clothes.image} draggable="false" />
         <div className="card-img-overlay h-75 d-flex flex-column justify-content-end">
           <h5 className="card-title text-dark fs-2 fw-bold">{clothes.title}</h5>
           <p className="card-text text-dark">
-            {(clothes.title.length) ? "여기에 사진을 넣어 주세요!" : "왼쪽 카테고리에서 종류를 선택해주세요!"}
+            {clothes.title.length ? '여기에 사진을 넣어 주세요!' : '왼쪽 카테고리에서 종류를 선택해주세요!'}
           </p>
         </div>
       </div>
-      <input id="file-input" type="file" style={{ display: 'none' }} accept="image/*"
-        onChange={handleChange}
-        onClick={handleClick} />
+      <input id="file-input" type="file" style={{ display: 'none' }} accept="image/*" onChange={handleChange} onClick={handleClick} />
     </label>
   );
 }

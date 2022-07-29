@@ -6,7 +6,7 @@ import { Item } from '../../types/Item';
 import { getItem } from '../../services/itemService';
 
 interface NFTItemProps {
-  mode: string
+  mode: string;
 }
 
 export const NFTItem = (props: NFTItemProps) => {
@@ -16,11 +16,11 @@ export const NFTItem = (props: NFTItemProps) => {
   const itemNum = Number(searchParams.get('nft_id') as string);
 
   useEffect(() => {
-		(async () => {
-			const { data } = await getItem(itemNum);
-			setItem(data as unknown as Item);
-		})();
-	}, []);
+    (async () => {
+      const { data } = await getItem(itemNum);
+      setItem(data as unknown as Item);
+    })();
+  }, []);
 
   return item ? (
     <main className="container">
@@ -55,15 +55,11 @@ export const NFTItem = (props: NFTItemProps) => {
                 type="button"
                 className="btn btn-primary btn-lg p-3 mb-5 w-50"
                 data-bs-toggle="modal"
-                data-bs-target={`#${"ModalNFTItem"}`}
+                data-bs-target={`#${'ModalNFTItem'}`}
               >
                 {mode}
               </button>
-              <ModalNFTItem
-                item={item}
-                mode={mode}
-                id={"ModalNFTItem"}
-              />
+              <ModalNFTItem item={item} mode={mode} id={'ModalNFTItem'} />
             </div>
 
             <h3>기타 정보</h3>

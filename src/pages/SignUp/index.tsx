@@ -18,23 +18,22 @@ const validate = (values: InsertMember) => {
   };
 
   return errors;
-}
+};
 
 export const Signup = () => {
   const navigate = useNavigate();
   const callback = async (values: InsertMember) => {
     const { error } = await insertMember(values);
-    
-    if(error){
+
+    if (error) {
       alert(error);
     } else {
-      alert("회원가입이 완료되었습니다!");
+      alert('회원가입이 완료되었습니다!');
       navigate('/signin', { replace: false });
     }
-  }
+  };
 
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
-  
 
   return (
     <main className="container mb-5">
@@ -42,7 +41,7 @@ export const Signup = () => {
         <img className="d-block mx-auto my-5" src={matilda} width="128"></img>
         <h2>Sign Up Form</h2>
         <p className="lead">
-          MATILDA을 사용하기 위해 필요한 회원가입 페이지입니다. <br/>
+          MATILDA을 사용하기 위해 필요한 회원가입 페이지입니다. <br />
           ID, Password, Nickname, Email을 모두 기입해주셔야 합니다.
         </p>
       </div>

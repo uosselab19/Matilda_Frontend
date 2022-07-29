@@ -19,7 +19,7 @@ export const Home = () => {
         <div className="col-md-5 py-5 w-100">
           <img className="d-block mx-auto my-5" src={matilda} width="128"></img>
           <h1 className="display-4 fw-normal">MATILDA</h1>
-          <CapitalText text={"Machine learning And non-fungible Token, Image to cLothes Design Application"} size={4}/>
+          <CapitalText text={'Machine learning And non-fungible Token, Image to cLothes Design Application'} size={4} />
         </div>
       </div>
 

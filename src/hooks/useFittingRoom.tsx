@@ -4,7 +4,7 @@ import * as THREE from 'three';
 const textureLoader = new THREE.TextureLoader();
 
 //ground
-function makeFloor(theme:string, w: number) {
+function makeFloor(theme: string, w: number) {
   const floor = new THREE.Mesh(
     new THREE.PlaneGeometry(w, w),
     new THREE.MeshStandardMaterial({
@@ -15,7 +15,7 @@ function makeFloor(theme:string, w: number) {
   return floor;
 }
 
-function makeCeil(theme:string, w: number, h:number) {
+function makeCeil(theme: string, w: number, h: number) {
   const floor = new THREE.Mesh(
     new THREE.PlaneGeometry(w, w),
     new THREE.MeshStandardMaterial({
@@ -28,7 +28,7 @@ function makeCeil(theme:string, w: number, h:number) {
 }
 
 //wall
-function makeWall(theme:string, w: number, h: number, angle: number, locVecter: THREE.Vector3) {
+function makeWall(theme: string, w: number, h: number, angle: number, locVecter: THREE.Vector3) {
   const wall = new THREE.Mesh(
     new THREE.PlaneGeometry(w, h),
     new THREE.MeshStandardMaterial({
@@ -40,7 +40,7 @@ function makeWall(theme:string, w: number, h: number, angle: number, locVecter: 
   return wall;
 }
 
-export default function useFittingRoom (theme:string, width:number, height:number, scene:THREE.Scene) {
+export default function useFittingRoom(theme: string, width: number, height: number, scene: THREE.Scene) {
   scene.add(makeFloor(theme, width)); //floor
   scene.add(makeWall(theme, width, height, 0, new THREE.Vector3(0, height / 2, -width / 2))); //back
   scene.add(makeWall(theme, width, height, 0.5 * Math.PI, new THREE.Vector3(-width / 2, height / 2, 0))); //right

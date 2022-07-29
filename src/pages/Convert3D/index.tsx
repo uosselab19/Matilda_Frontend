@@ -16,14 +16,20 @@ export const Convert3D = () => {
   const [loading, setLoading] = useState(false);
 
   //아코디언 항목 대응시켜주는 부분
-    const categoryItems = useCategory().map((categoryElement: categoryItem, index: Number) => {
-      return (<div
+  const categoryItems = useCategory().map((categoryElement: categoryItem, index: Number) => {
+    return (
+      <div
         key={`category${index}`}
         className="btn btn-outline-secondary"
-        onClick={() => { setClothes(categoryElement); }}
-      >{categoryElement.title}</div>
-      );
-    }); categoryItems.shift();
+        onClick={() => {
+          setClothes(categoryElement);
+        }}
+      >
+        {categoryElement.title}
+      </div>
+    );
+  });
+  categoryItems.shift();
 
   //컴포넌트 출력 결과
   return (
@@ -38,9 +44,11 @@ export const Convert3D = () => {
 
         {/* Convert 들어갈 부분 */}
         <div className="col-lg-9 d-flex flex-column">
-          <p className="mt-5 fs-4">{(loading) ? "변환 중입니다, 시간이 1분 이상 걸릴 수 있습니다." : "사진을 넣으면 3D 패션아이템으로 재탄생합니다!"}</p>
-          <div className='h-100 d-flex justify-content-center align-items-center'>
-            {(loading) ? (<Spinner delay={1.5} radius={1.5} />) : <ConvertBox clothes={clothes} setLoading={setLoading} />}
+          <p className="mt-5 fs-4">
+            {loading ? '변환 중입니다, 시간이 1분 이상 걸릴 수 있습니다.' : '사진을 넣으면 3D 패션아이템으로 재탄생합니다!'}
+          </p>
+          <div className="h-100 d-flex justify-content-center align-items-center">
+            {loading ? <Spinner delay={1.5} radius={1.5} /> : <ConvertBox clothes={clothes} setLoading={setLoading} />}
           </div>
         </div>
       </div>
@@ -48,14 +56,16 @@ export const Convert3D = () => {
   );
 };
 
-
-{/* <div>
+{
+  /* <div>
               <Spinner delay={0} />
               <Spinner delay={0.25} />
               <Spinner delay={0.5} />
               <Spinner delay={0.75} />
-            </div> */}
-{/* <div>
+            </div> */
+}
+{
+  /* <div>
                 <div>
               <Spinner delay={0} />
               <Spinner delay={0.25} />
@@ -137,4 +147,5 @@ export const Convert3D = () => {
               <Spinner delay={2.5} />
               <Spinner delay={2.75} />
             </div>
-          </div> */}
+          </div> */
+}

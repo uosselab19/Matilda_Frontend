@@ -5,7 +5,7 @@ export async function selectItem(item: SelectItem) {
   let [data, error] = [[], undefined];
 
   try {
-    const result = await anonymousApiClient.get('/items', {params: item});
+    const result = await anonymousApiClient.get('/items', { params: item });
 
     data = result?.data;
   } catch (err) {
@@ -16,7 +16,7 @@ export async function selectItem(item: SelectItem) {
 }
 
 export async function getItem(itemNum: number) {
-  let [data, error] = [undefined as Item|undefined, undefined];
+  let [data, error] = [undefined as Item | undefined, undefined];
 
   try {
     const result = await anonymousApiClient.get(`/items/${itemNum}`);
@@ -29,12 +29,11 @@ export async function getItem(itemNum: number) {
   return { data, error };
 }
 
-
-export async function selectItemwithMember(memberID:number, item: SelectItemwithMember) {
+export async function selectItemwithMember(memberID: number, item: SelectItemwithMember) {
   let [data, error] = [[], undefined];
 
   try {
-    const result = await apiClient.get(`/items/user/${memberID}`, {data: item});
+    const result = await apiClient.get(`/items/user/${memberID}`, { data: item });
 
     data = result?.data;
   } catch (err) {

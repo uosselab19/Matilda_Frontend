@@ -20,20 +20,20 @@ export interface LoginMember {
 }
 
 export interface SelectMember {
-  createdAt?: string,
-  description?: string,
-  email?: string,
-  id?: string,
-  memberNum?: 0,
-  nickname?: string,
+  createdAt?: string;
+  description?: string;
+  email?: string;
+  id?: string;
+  memberNum?: 0;
+  nickname?: string;
   presetList?: [
     {
-      additionalProp1?: 0,
-      additionalProp2?: 0,
-      additionalProp3?: 0
+      additionalProp1?: 0;
+      additionalProp2?: 0;
+      additionalProp3?: 0;
     }
-  ],
-  profileImg?: string,
-  thumbProfileImg?: string,
-  walletAddress?: string
-} 
+  ];
+  profileImg?: string;
+  thumbProfileImg?: string;
+  walletAddress?: string;
+}

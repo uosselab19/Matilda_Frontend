@@ -17,22 +17,12 @@ export default function CardList(props: CardListProps) {
   const [showList, setShowList] = useState([] as JSX.Element[]);
 
   const makeCard = (size: string, itemList: Item[]) => {
-    return itemList.map(
-      (e: Item) => {
-        return (
-          <Card
-            key={e.itemNum}
-            size={size}
-            itemNum={e.itemNum}
-            title={e.title}
-            price={e.price}
-            handleCard={handleCard}
-            modalID={modalID}
-          />
-        )
-      }
-    )
-  }
+    return itemList.map((e: Item) => {
+      return (
+        <Card key={e.itemNum} size={size} itemNum={e.itemNum} title={e.title} price={e.price} handleCard={handleCard} modalID={modalID} />
+      );
+    });
+  };
 
   useEffect(() => {
     setShowList(makeCard(size, itemList.slice(page * numShowItems, (page + 1) * numShowItems)));
@@ -40,11 +30,7 @@ export default function CardList(props: CardListProps) {
 
   return (
     <div className="container">
-      <div className={`row row-cols-1 row-cols-sm-2 row-cols-md-${(size == "lg") ? 4 : 3} align-items-around g-2`}>
-        {showList}
-      </div>
+      <div className={`row row-cols-1 row-cols-sm-2 row-cols-md-${size == 'lg' ? 4 : 3} align-items-around g-2`}>{showList}</div>
     </div>
   );
-};
-
-
+}

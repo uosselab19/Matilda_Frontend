@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 //loader
-export default function useModel (modelURL: string, modelHeight:number, scene: THREE.Scene) {
+export default function useModel(modelURL: string, modelHeight: number, scene: THREE.Scene) {
   const locVecter = new THREE.Vector3(0, 0, 0);
 
   new GLTFLoader().load(
@@ -32,4 +32,4 @@ export default function useModel (modelURL: string, modelHeight:number, scene: T
       console.log('An error happened');
     }
   );
-};
+}

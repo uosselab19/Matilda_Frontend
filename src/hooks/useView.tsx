@@ -1,11 +1,10 @@
-
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
-export default function useView (modelHeight:number, roomWidth:number) {
+export default function useView(modelHeight: number, roomWidth: number) {
   const dressupDom = document.getElementById('View') as HTMLElement; // 마운트가 되어야 Dom을 찾을 수 있다.
-  let [canvasWidth, canvasDomHeight] = [dressupDom.clientWidth - 16, 4/3*(dressupDom.clientWidth - 16)]; // 브라우저 크기 확인, 16은 padding
-  
+  let [canvasWidth, canvasDomHeight] = [dressupDom.clientWidth - 16, (4 / 3) * (dressupDom.clientWidth - 16)]; // 브라우저 크기 확인, 16은 padding
+
   //scene : 화면 출력의 대상
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x999999); // 플레이스홀더의 색깔은 회색으로.
@@ -17,8 +16,8 @@ export default function useView (modelHeight:number, roomWidth:number) {
   dressupDom.appendChild(renderer.domElement);
 
   //camera : 화면 출력 카메라
-  const camera = new THREE.PerspectiveCamera(45, 3/4, modelHeight/64, 2 * roomWidth); // 화면각은 45도, 화면 비율은 실제 보여지는 비율에 맞게 수정.
-  camera.position.set(0, 3*modelHeight, 3*modelHeight); //최초 카메라 위치 조절
+  const camera = new THREE.PerspectiveCamera(45, 3 / 4, modelHeight / 64, 2 * roomWidth); // 화면각은 45도, 화면 비율은 실제 보여지는 비율에 맞게 수정.
+  camera.position.set(0, 3 * modelHeight, 3 * modelHeight); //최초 카메라 위치 조절
 
   //lights : 광원
   const ambientLight = new THREE.AmbientLight(0xffffff, 1); // 빛 종류는 AmbientLight, 빛 색깔은 사이트 분위기와 비교하여 고르기
@@ -27,7 +26,7 @@ export default function useView (modelHeight:number, roomWidth:number) {
   //controls : 카메라 조절하는 컨트롤러 (depend on camera & renderer)
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.minDistance = 1 * modelHeight; // 카메라 최소 거리
-  controls.maxDistance = 0.5 * roomWidth ; // 카메라 최대 거리
+  controls.maxDistance = 0.5 * roomWidth; // 카메라 최대 거리
   controls.enablePan = true; // 카메라 절대 위치 조절
   controls.keys = { LEFT: '', RIGHT: '', UP: '', BOTTOM: '' }; //카메라 절대 위치는 마우스로만 조절할 수 있음
   controls.panSpeed = 2; // 카메라 절대 위치 속도 조절
@@ -46,9 +45,9 @@ export default function useView (modelHeight:number, roomWidth:number) {
     const minPan = new THREE.Vector3(0, 1, 0); // 카메라 최소위치 고정
     const maxPan = new THREE.Vector3(0, 2 * modelHeight, 0); // 카메라 최대위치 고정, 모델 키에 비례하여 달라짐.
     controls.target.clamp(minPan, maxPan); // 카메라 위치 고정하는 함수
-    
+
     // Dom 갱신을 위한 부분
-    [canvasWidth, canvasDomHeight] = [dressupDom.clientWidth - 16, (4/3)*(dressupDom.clientWidth - 16)];
+    [canvasWidth, canvasDomHeight] = [dressupDom.clientWidth - 16, (4 / 3) * (dressupDom.clientWidth - 16)];
     renderer.setSize(canvasWidth, canvasDomHeight); // 브라우저 크기에 맞춰서 사이즈 조절
     renderer.render(scene, camera); // 렌더링하는 부분.
     window.requestAnimationFrame(animate); // 브라우저에 애니메이트
@@ -57,4 +56,4 @@ export default function useView (modelHeight:number, roomWidth:number) {
   animate();
 
   return scene;
-};
+}

@@ -15,7 +15,7 @@ interface DressupMarketProps {
 export const Market = (props: DressupMarketProps) => {
   const [numShowItems, numShowPages] = [9, 5];
   const [selectCondition, setSelectCondition] = useState({});
-  const {itemList, page, setPage} = usePagination(selectItem(selectCondition));
+  const { itemList, page, setPage } = usePagination(selectItem(selectCondition));
   const [itemNum, setItemNum] = useState(-1);
 
   return (
@@ -23,23 +23,10 @@ export const Market = (props: DressupMarketProps) => {
       <Search callback={setSelectCondition} />
       {/* <Category /> */}
       <div className="my-3">
-        <CardList
-          page={page}
-          itemList={itemList}
-          numShowItems={numShowItems}
-          size="sm"
-          handleCard={setItemNum}
-          modalID={"modalDressup"} />
+        <CardList page={page} itemList={itemList} numShowItems={numShowItems} size="sm" handleCard={setItemNum} modalID={'modalDressup'} />
       </div>
-      <ModalDressupCard
-        id={"modalDressup"}
-        itemNum={itemNum}/>
-      <Pagination
-        page={page}
-        setPage={setPage}
-        numItems={itemList.length}
-        numShowItems={numShowItems}
-        numShowPages={numShowPages} />
+      <ModalDressupCard id={'modalDressup'} itemNum={itemNum} />
+      <Pagination page={page} setPage={setPage} numItems={itemList.length} numShowItems={numShowItems} numShowPages={numShowPages} />
     </div>
   );
 };

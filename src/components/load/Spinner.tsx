@@ -11,15 +11,20 @@ interface LoadingProps {
 
 function SpinnerUnit(props: SpinnerProps) {
   const { index, delay, radius } = props;
-  return (<div className="spinner-grow m-3" role="status"
-    style={{
-      width: `${radius}em`,
-      height: `${radius}em`,
-      animationDuration: `${delay}s`,
-      animationDelay: `${delay/6 * index}s`
-    }}>
-    <span className="visually-hidden">Converting 2D to 3D</span>
-  </div>)
+  return (
+    <div
+      className="spinner-grow m-3"
+      role="status"
+      style={{
+        width: `${radius}em`,
+        height: `${radius}em`,
+        animationDuration: `${delay}s`,
+        animationDelay: `${(delay / 6) * index}s`
+      }}
+    >
+      <span className="visually-hidden">Converting 2D to 3D</span>
+    </div>
+  );
 }
 
 export default function Spinner(props: LoadingProps) {

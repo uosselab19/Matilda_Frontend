@@ -17,7 +17,8 @@ interface SelectBoxProps {
 }
 
 export default function SelectBox(props: SelectBoxProps) {
-  const { id, label, placeholder, helpText, disabled, size, handleChange, value, defaultValue, options, keyProperty, valueProperty } = props;
+  const { id, label, placeholder, helpText, disabled, size, handleChange, value, defaultValue, options, keyProperty, valueProperty } =
+    props;
 
   const list = () => {
     return options.map((option, index) => {
@@ -31,9 +32,21 @@ export default function SelectBox(props: SelectBoxProps) {
 
   return (
     <div>
-      {label?<label htmlFor={id} className="form-label">{label}</label>:null}
-      <select className={["form-select", 'border-dark', (size)?`form-select-${size}`:""].join(' ')}
-        id={id} placeholder={placeholder} disabled={disabled} onChange={handleChange} value={value} defaultValue={defaultValue} name={valueProperty}>
+      {label ? (
+        <label htmlFor={id} className="form-label">
+          {label}
+        </label>
+      ) : null}
+      <select
+        className={['form-select', 'border-dark', size ? `form-select-${size}` : ''].join(' ')}
+        id={id}
+        placeholder={placeholder}
+        disabled={disabled}
+        onChange={handleChange}
+        value={value}
+        defaultValue={defaultValue}
+        name={valueProperty}
+      >
         {list()}
       </select>
       <div className="invalid-feedback">{helpText}</div>
