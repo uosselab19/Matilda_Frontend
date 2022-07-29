@@ -1,3 +1,4 @@
+import { SelectMember } from '../types/Member';
 import { anonymousApiClient, apiClient } from './apiClient';
 
 export async function insertMember(data: any) {
@@ -15,7 +16,7 @@ export async function insertMember(data: any) {
 }
 
 export async function selectMember(memberID: number) {
-  let [data, error] = [undefined, undefined];
+  let [data, error] = [undefined as SelectMember|undefined, undefined];
 
   try {
     const result = await apiClient.get(`/members/${memberID}`);

@@ -15,27 +15,15 @@ export const Convert3D = () => {
   const [clothes, setClothes] = useState({ catCode: '', image: convertImage, title: '' });
   const [loading, setLoading] = useState(false);
 
-  //카테고리에 쓰일 아코디언
-  const accordionItems = (category: categoryItem, index: Number) => {
-    return (
-      <div
-        key={`key${index}`}
-        className="btn btn-outline-secondary"
-        onClick={() => { setClothes(category); }}
-      >
-        {category.title}
-      </div>
-    );
-  };
-
   //아코디언 항목 대응시켜주는 부분
-  const listAccordionItems = () => {
-    const category = useCategory();
-    const result = category.map((e: categoryItem, i: Number) => {
-      return accordionItems(e, i);
-    }); result.shift();
-    return result;
-  };
+    const categoryItems = useCategory().map((categoryElement: categoryItem, index: Number) => {
+      return (<div
+        key={`category${index}`}
+        className="btn btn-outline-secondary"
+        onClick={() => { setClothes(categoryElement); }}
+      >{categoryElement.title}</div>
+      );
+    }); categoryItems.shift();
 
   //컴포넌트 출력 결과
   return (
@@ -44,7 +32,7 @@ export const Convert3D = () => {
         <div className="col-lg-3">
           {/* 아코디언 들어갈 부분 */}
           <div className="btn-group-vertical my-5 w-75" id="btn-group">
-            {listAccordionItems()}
+            {categoryItems}
           </div>
         </div>
 

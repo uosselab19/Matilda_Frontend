@@ -55,13 +55,14 @@ export const NFTItem = (props: NFTItemProps) => {
                 type="button"
                 className="btn btn-primary btn-lg p-3 mb-5 w-50"
                 data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop"
+                data-bs-target={`#${"ModalNFTItem"}`}
               >
                 {mode}
               </button>
               <ModalNFTItem
-                NFTInfo={item}
+                item={item}
                 mode={mode}
+                id={"ModalNFTItem"}
               />
             </div>
 

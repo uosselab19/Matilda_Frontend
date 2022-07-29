@@ -1,62 +1,43 @@
 import { Item } from "../../types/Item";
 
 interface NFTItemModalProps {
-  NFTInfo: Item
-  mode: string
+  item: Item;
+  mode: string;
+  id: string;
 }
 
 export const ModalNFTItem = (props: NFTItemModalProps) => {
-  const { NFTInfo, mode } = props;
+  const { item, mode, id } = props;
   return (
     <div
       className="modal fade"
-      id="staticBackdrop"
+      id={id}
       data-bs-backdrop="static"
       data-bs-keyboard="false"
-      aria-labelledby="staticBackdropLabel"
-      aria-hidden="true"
-    >
+      aria-labelledby={`${id}Label`}
+      aria-hidden="true">
       <div className="modal-dialog">
         <div className="modal-content">
+
           <div className="modal-header">
-            <h1 className="modal-title" id="staticBackdropLabel">
-              {NFTInfo.title}
-            </h1>
-            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <h1 className="modal-title" id={`${id}Label`}>{item.title}</h1>
+            <div className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
           </div>
-          <div className="modal-body">
-            <div className="col-lg-12">
-              <article className="blog-post mx-2">
-                <img src={NFTInfo.imgUrl} width="100%" />
-              </article>
-            </div>
 
-            <div className="col-lg-12">
-              <article className="blog-post">
-                <p className="blog-post-meta">owned by {NFTInfo.memberNickName}</p>
-
-                <div className="row">
-                  <div className="col-7">
-                    <h3 className="blog-post-title">Price </h3>
-                  </div>
-                  <div className="col-5">
-                    <h3>{NFTInfo.price} Klay</h3>
-                  </div>
-                </div>
-                <p className="fs-5">
-                  <span className="fs-4">{NFTInfo.title}</span> 를 정말 {(mode=="Buy")?"구매":"판매"}하시겠습니까?
-                </p>
-              </article>
+          <div className="modal-body row">
+            <img src={item.imgUrl} width="100%" />
+            <div>owned by {item.memberNickName}</div>
+            <div className="row">
+              <h3 className="col-7">Price </h3>
+              <h3 className="col-5">{item.price} Klay</h3>
             </div>
+            <span className="fs-4">{item.title}</span> 를 정말 {(mode == "Buy") ? "구매" : "판매"}하시겠습니까?
           </div>
+
           <div className="modal-footer">
-            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
-              Close
-            </button>
-            <button type="button" className="btn btn-primary w-25">
-              {mode}
-            </button>
+            <div className="btn btn-primary w-25">{mode}</div>
           </div>
+
         </div>
       </div>
     </div>

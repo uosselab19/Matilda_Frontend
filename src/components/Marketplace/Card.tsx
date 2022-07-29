@@ -60,7 +60,8 @@ export default function Card(props: CardProps) {
       draggable="false"
       data-bs-toggle={modalID ? "modal" : undefined}
       data-bs-target={modalID ? `#${modalID}` : undefined}
-    >
+      aria-controls={modalID ? `${modalID}` : undefined}
+      aria-expanded="false">
       <div
         className="card overflow-hidden text-white d-flex flex-column"
         onMouseOver={handleMouse}
@@ -70,8 +71,7 @@ export default function Card(props: CardProps) {
           borderTopLeftRadius: 30,
           borderBottomRightRadius: 10,
           borderBottomLeftRadius: 10
-        }}
-      >
+        }}>
         <img alt="" className="card-img" src={item_img1}></img>
         <div className="card-img-overlay" style={{ top: '70%', backgroundColor: 'black', opacity: 0.8 }}></div>
         <div className="card-img-overlay d-flex flex-column">

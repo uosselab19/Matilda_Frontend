@@ -1,4 +1,4 @@
-import { SelectItem, SelectItemwithMember } from '../types/Item';
+import { Item, SelectItem, SelectItemwithMember } from '../types/Item';
 import { anonymousApiClient, apiClient } from './apiClient';
 
 export async function selectItem(item: SelectItem) {
@@ -16,7 +16,7 @@ export async function selectItem(item: SelectItem) {
 }
 
 export async function getItem(itemNum: number) {
-  let [data, error] = [undefined, undefined];
+  let [data, error] = [undefined as Item|undefined, undefined];
 
   try {
     const result = await anonymousApiClient.get(`/items/${itemNum}`);
