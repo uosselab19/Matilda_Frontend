@@ -6,16 +6,19 @@ import { MypageOption } from '../../components/Mypage/MypageOption';
 
 import profileImage from './../../assets/images/Profile/profileImage.png';
 import { NavButtons } from '../../components/NavButtons';
-// import axios from 'axios';
 // import useCookie from '../../hooks/useCookie';
 
 export const Mypage = () => {
   // const navigate = useNavigate();
   //위에 메뉴 선택하는 부분 state로 구현함. 네비게이션 바로 구현 다시 하자
   // const [userInfo, setUserInfo] = useState({ nickname: '', desc: '' } as userInfo);
-  const [selectedTap, setSelectedTap] = useState(0);
+  const [selectedNavButton, setSelectedNavButton] = useState("myNFTList");
 
-  const navItems = ["My NFT List", "Klaytn setting", "Edit info"];
+  const navItems = [
+    { key:"myNFTList", title: "My NFT List", onClick: setSelectedNavButton },
+    { key:"klaytnSetting", title: "Klaytn setting", onClick: setSelectedNavButton },
+    { key:"editInfo", title: "Edit Info", onClick: setSelectedNavButton }
+  ];
 
   //첫 마운트 시 유저정보 없으면 홈페이지로 날아가게 함.
   //URL로 마이페이지 접근을 막는 코드
@@ -41,8 +44,8 @@ export const Mypage = () => {
 
   //userInfo가 null인 경우면 JSX 안에 있는 userInfo.name 때문에 에러뜨게 되는 시스템이라 부득이하게 이렇게 사용
   //어떻게든 바꿔야 함
-  const userInfo=true;
-  return userInfo?(
+  const userInfo = true;
+  return userInfo ? (
     <main className="container d-flex flex-column justify-content-center">
       <div className="row my-3">
         <div className="col-lg-4">
@@ -59,19 +62,18 @@ export const Mypage = () => {
           <div className="my-3">
             <NavButtons
               navItems={navItems}
-              selectedTap={selectedTap}
-              setSelectedTap={setSelectedTap}
+              selectedNavButton={selectedNavButton}
               textBold={true}
               textSize={5}
               textColor={"black"} />
           </div>
 
           {/* 이 부분이 My Page 핵심 부분 */}
-          <div className={`${selectedTap == 0 ? "d-block" : "d-none"}`}><MypageNFTs /></div>
-          <div className={`${selectedTap == 1 ? "d-block" : "d-none"}`}><MypageWallet /></div>
-          <div className={`${selectedTap == 2 ? "d-block" : "d-none"}`}><MypageOption /></div>
+          <div className={`${selectedNavButton == "myNFTList" ? "d-block" : "d-none"}`}><MypageNFTs /></div>
+          <div className={`${selectedNavButton == "klaytnSetting" ? "d-block" : "d-none"}`}><MypageWallet /></div>
+          <div className={`${selectedNavButton == "editInfo" ? "d-block" : "d-none"}`}><MypageOption /></div>
         </div>
       </div>
     </main>
-  ):null;
+  ) : null;
 };

@@ -1,36 +1,38 @@
 interface NavButtonsProps {
 	navItems: any[];
-	selectedTap: number;
-	setSelectedTap: Function;
+	selectedNavButton: string;
 	textBold?: boolean;
 	textSize?: number;
 	textColor?: string;
 }
 
+interface NavButton {
+	key:string;
+	title: string;
+	onClick: Function;
+}
+
 export const NavButtons = (props: NavButtonsProps) => {
-	const { navItems, selectedTap, setSelectedTap, textBold, textSize, textColor } = props;
-	const NavButton = (index: number, butStr: string) => {
+	const { navItems, selectedNavButton, textBold, textSize, textColor } = props;
+	const NavButton = (data: NavButton) => {
+		const { key, title, onClick } = data;
 		return (
 			<button
-				className={
-					[
-						"btn btn-outline-white text-decoration-none",
-						`text-${selectedTap == index ? (textColor ? `${textColor}` : "dark") : 'secondary'}`,
-						`${textBold ? "fw-bold" : ""}`,
-						`${textSize ? `fs-${textSize}` : ""}`
-					].join(" ")
-				}
-				onClick={() => { setSelectedTap(index); }}
-			> {butStr} </button>
+				key={key}
+				className={[
+					"btn btn-outline-white text-decoration-none",
+					`text-${selectedNavButton == key ? (textColor ? `${textColor}` : "dark") : 'secondary'}`,
+					`${textBold ? "fw-bold" : ""}`,
+					`${textSize ? `fs-${textSize}` : ""}`
+				].join(" ")}
+				onClick={()=>{onClick(key)}}
+			> {title} </button>
 		);
 	};
 
-	const buttons = navItems.map((e, i) => {
-		return NavButton(i, e);
-	});
 	return (
 		<div className="d-flex justify-content-around">
-			{buttons}
+			{navItems.map((e) => {return NavButton(e);})}
 		</div>
 	);
 }

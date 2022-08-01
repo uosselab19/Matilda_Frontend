@@ -12,7 +12,7 @@ export const MypageWallet = () => {
         </p>
       </div>
 
-      <form id="signupForm" className="needs-validation" noValidate>
+      <form id="walletForm" className="needs-validation" noValidate>
         <div className="row g-3">
           {/* 지갑주소 */}
           <label htmlFor="id" className="form-label col-4 fs-3">

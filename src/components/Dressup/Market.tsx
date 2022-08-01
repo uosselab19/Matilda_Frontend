@@ -5,7 +5,7 @@ import CardList from '../Items/CardList';
 import Pagination from '../Items/Pagination';
 import Search from '../Items/Search';
 import usePagination from '../../hooks/useItems';
-import { ModalDressupCard } from '../modal/ModalDressupCard';
+import { ModalItem } from '../modal/ModalItem';
 
 interface DressupMarketProps {
   clothes: Clothes;
@@ -29,10 +29,10 @@ export const Market = (props: DressupMarketProps) => {
           size="sm"
           handleCard={setItemNum}
           modalID={'modalDressup'} />
+        <ModalItem
+          modalID={'modalDressup'}
+          itemNum={itemNum} />
       </div>
-      <ModalDressupCard
-        id={'modalDressup'}
-        itemNum={itemNum} />
       <Pagination
         page={page}
         setPage={setPage}

@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import { getItem } from '../../services/itemService';
 import { Item } from '../../types/Item';
 
-interface ModalDressupCardProps {
-  id: string;
+interface ModalItemProps {
+  modalID: string;
   itemNum: number;
 }
 
-export const ModalDressupCard = (props: ModalDressupCardProps) => {
-  const { id, itemNum } = props;
+export const ModalItem = (props: ModalItemProps) => {
+  const { modalID, itemNum } = props;
   const [item, setItem] = useState(undefined as Item | undefined);
   useEffect(() => {
     (async () => {
@@ -21,11 +21,11 @@ export const ModalDressupCard = (props: ModalDressupCardProps) => {
   }, [itemNum]);
 
   return (
-    <div className="modal fade" id={id}>
+    <div className="modal fade" id={modalID}>
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title" id={`${id}Label`}>
+            <h5 className="modal-title" id={`${modalID}Label`}>
               {item?.title}
             </h5>
             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -37,12 +37,7 @@ export const ModalDressupCard = (props: ModalDressupCardProps) => {
           </div>
 
           <div className="modal-footer">
-            <button type="button" className="btn btn-success" onClick={() => {}}>
-              입히기
-            </button>
-            <button type="button" className="btn btn-primary" onClick={() => {}}>
-              구매하기
-            </button>
+            {}
           </div>
         </div>
       </div>

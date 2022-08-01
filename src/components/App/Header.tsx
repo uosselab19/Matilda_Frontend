@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, useLocation, To } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import matildaWhite from '../../assets/images/matilda_white.png';
 import useCookie from '../../hooks/useCookie';
 import { NavButtons } from '../NavButtons';
 
 export const Header = () => {
   const navigate = useNavigate(); //페이지 이동하는 훅
-
   const { cookies } = useCookie();
+  
+  const location = useLocation(); // url 찍어주는 훅
+  const pathname = location.pathname;
+  const [selectedNavButton,  setSelectedNavButton] = useState(pathname);
 
-  const [selectedTap, setSelectedTap] = useState(0);
-
-  const linkTo = (link: To) => {
+  const linkTo = (link: string) => {
     window.scrollTo({ top: 0 });
     navigate(link, { replace: false });
+    setSelectedNavButton(link);
   };
 
   //로그아웃 버튼 기능
@@ -23,8 +25,7 @@ export const Header = () => {
     linkTo('/'); // 로그아웃하면 홈페이지로
   };
 
-  const location = useLocation(); // url 찍어주는 훅
-  const pathname = location.pathname;
+  
 
   const sign = // 오른쪽 버튼 보여주기
     (
@@ -46,30 +47,14 @@ export const Header = () => {
       </div>
     );
 
-  // 왼쪽 부분 아이템 생성 함수
-  const tapItem = (index: React.Key, title: string, url: To) => {
-    return (
-      <button
-        key={index}
-        className={`btn btn-outline-dark px-2 mx-2 fw-bold ${pathname == url ? 'text-white' : 'text-secondary'} text-decoration-none`}
-        onClick={() => {
-          linkTo(url);
-        }}
-      >
-        {title}
-      </button>
-    );
-  };
-
   //왼쪽 부분 아이템 배열 생성 부분
-  const tapItemList = new Array();
-  tapItemList.push(tapItem(1, 'Home', '/'));
-  tapItemList.push(tapItem(2, 'Marketplace', '/marketplace'));
-  tapItemList.push(tapItem(3, 'Dress Up', '/dressup'));
-  tapItemList.push(tapItem(4, '3D Conversion', '/3Dconversion'));
-  tapItemList.push(tapItem(5, 'NFT Minting', '/NFTminting'));
-
-  const navItems = ['Home', 'Marketplace', 'Dress Up', '3D Conversion', 'NFT Minting'];
+  const navItems = [
+    { key: '/', title: 'Home', onClick: linkTo },
+    { key: '/marketplace', title: 'Marketplace', onClick: linkTo },
+    { key: '/dressup', title: 'Dress Up', onClick: linkTo },
+    { key: '/3Dconversion', title: '3D Conversion', onClick: linkTo },
+    { key: '/NFTminting', title: 'NFT Minting', onClick: linkTo }
+  ];
 
   return (
     <header className="p-2 bg-dark text-white sticky-top">
@@ -83,10 +68,9 @@ export const Header = () => {
           <div className="nav col-lg-auto me-lg-auto d-none d-lg-block align-items-center">
             <NavButtons
               navItems={navItems}
-              selectedTap={selectedTap}
-              setSelectedTap={setSelectedTap}
+              selectedNavButton={selectedNavButton}
               textBold={true}
-              textColor={"white"}/>
+              textColor={"white"} />
           </div>
 
           {/* 검색바 */}
@@ -97,7 +81,11 @@ export const Header = () => {
           <div className="align-items-end d-block d-lg-none">
             <div className="collapse" id="navbarToggleExternalContent">
               <div className="bg-dark p-4">
-                <div>{tapItemList}</div>
+                <NavButtons
+                  navItems={navItems}
+                  selectedNavButton={selectedNavButton}
+                  textBold={true}
+                  textColor={"white"} />
                 <div className="d-flex justify-content-end">{sign}</div>
               </div>
             </div>

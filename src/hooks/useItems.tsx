@@ -8,8 +8,7 @@ export default function useItems(selectItem: Promise<any>) {
   useEffect(() => {
     (async () => {
       const { data, error } = await selectItem;
-      console.log(error);
-      if(error) return alert(error);
+      if(error) {console.log(error); return alert(error);}
       setItems(data);
       
       //timeout of 1000ms exceeded    -> handling은 어떻게 해야할까?

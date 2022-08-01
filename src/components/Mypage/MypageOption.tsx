@@ -41,7 +41,7 @@ export const MypageOption = () => {
         </p>
       </div>
 
-      <form id="signupForm" className="" noValidate>
+      <form id="memberEditForm" className="" noValidate>
         <div className="row g-3">
           {/* 비밀번호 */}
           <TextBox
