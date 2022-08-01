@@ -37,3 +37,11 @@ export interface SelectMember {
   thumbProfileImg?: string;
   walletAddress?: string;
 }
+
+export interface userInfo {
+  id: number;
+  role: string;
+  iat: number;
+  exp: number;
+  token: string;
+}

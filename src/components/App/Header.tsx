@@ -6,11 +6,9 @@ import { NavButtons } from '../NavButtons';
 
 export const Header = () => {
   const navigate = useNavigate(); //페이지 이동하는 훅
-  const { cookies } = useCookie();
-  
+  const { getCookie, removeCookie } = useCookie();
   const location = useLocation(); // url 찍어주는 훅
-  const pathname = location.pathname;
-  const [selectedNavButton,  setSelectedNavButton] = useState(pathname);
+  const [selectedNavButton, setSelectedNavButton] = useState(location.pathname);
 
   const linkTo = (link: string) => {
     window.scrollTo({ top: 0 });
@@ -20,40 +18,38 @@ export const Header = () => {
 
   //로그아웃 버튼 기능
   const fetchSignout = () => {
-    cookies.remove('userInfo'); // 로그인 기록 쿠키 지우기
+    removeCookie('userInfo'); // 로그인 기록 쿠키 지우기
     alert('sign out 하였습니다.'); // 로그아웃했다고 알림
     linkTo('/'); // 로그아웃하면 홈페이지로
   };
 
-  
-
   const sign = // 오른쪽 버튼 보여주기
     (
-      <div>
+      <div className='btn-group'>
         <button
-          className="btn btn-outline-light me-2"
+          className="btn btn-outline-light me-1"
           onClick={() => {
-            cookies.get('userInfo') ? fetchSignout() : linkTo('/signin');
+            getCookie('userInfo') ? fetchSignout() : linkTo('/signin');
           }}
-        >{cookies.get('userInfo') ? 'sign-out' : 'Sign-in'}
+        >{getCookie('userInfo') ? 'sign-out' : 'Sign-in'}
         </button>
         <button
           className="btn btn-secondary"
           onClick={() => {
-            cookies.get('userInfo') ? linkTo('/mypage') : linkTo('/signup');
+            getCookie('userInfo') ? linkTo('/mypage') : linkTo('/signup');
           }}
-        >{cookies.get('userInfo') ? 'My Page' : 'Sign-up'}
+        >{getCookie('userInfo') ? 'My Page' : 'Sign-up'}
         </button>
       </div>
     );
 
   //왼쪽 부분 아이템 배열 생성 부분
   const navItems = [
-    { key: '/', title: 'Home', onClick: linkTo },
-    { key: '/marketplace', title: 'Marketplace', onClick: linkTo },
-    { key: '/dressup', title: 'Dress Up', onClick: linkTo },
-    { key: '/3Dconversion', title: '3D Conversion', onClick: linkTo },
-    { key: '/NFTminting', title: 'NFT Minting', onClick: linkTo }
+    { key: '/', title: 'Home' },
+    { key: '/marketplace', title: 'Marketplace' },
+    { key: '/dressup', title: 'Dress Up' },
+    { key: '/3Dconversion', title: '3D Conversion' },
+    { key: '/NFTminting', title: 'NFT Minting' }
   ];
 
   return (
@@ -69,6 +65,7 @@ export const Header = () => {
             <NavButtons
               navItems={navItems}
               selectedNavButton={selectedNavButton}
+              onClick={linkTo}
               textBold={true}
               textColor={"white"} />
           </div>
@@ -84,6 +81,7 @@ export const Header = () => {
                 <NavButtons
                   navItems={navItems}
                   selectedNavButton={selectedNavButton}
+                  onClick={linkTo}
                   textBold={true}
                   textColor={"white"} />
                 <div className="d-flex justify-content-end">{sign}</div>

@@ -1,11 +1,12 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import matilda from '../../assets/images/matilda.png';
 
 import TextBox from '../../components/forms/TextBox';
 import useForm from '../../hooks/useForm';
-import { signinMember } from '../../services/signinService';
 import { LoginMember } from '../../types/Member';
 import { isRequired, isID, isPassword } from '../../utils/validator';
+import { Buffer } from 'buffer';
+import useCookie from '../../hooks/useCookie';
 
 const validate = (values: LoginMember) => {
   const errors = {
@@ -17,19 +18,24 @@ const validate = (values: LoginMember) => {
 };
 
 export const Signin = () => {
-  //base 64를 디코딩한 후에 parse 과정을 통해 json화 하는 함수
-  // const parseToken = (token: string) => {
-  //   const result = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
-  //   result.token = token;
-  //   return result;
-  // };
-
-  //const jwt ='eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzZW0xMzA4NCIsInJvbGUiOiJVU0VSIiwibmFtZSI6IuuvvOuRmCIsImlhdCI6MTY1MDg3NjY2NSwiZXhwIjoxNzc3Nzc3Nzc3fQ.0fuf-P0e4S1nfYxUwSCYf9C_t_gwCNcuqvlVZ0V6Yeg';
+  const { setCookie } = useCookie();
+  const navigate = useNavigate();
   const callback = async (values: LoginMember) => {
-    const { data, error } = await signinMember(values);
-    if(error) alert(error);
-    console.log(error);
-    console.log(data);
+    // const { data, error } = await signinMember(values);
+    // if(error) alert(error);
+    // console.log(error);
+    // console.log(data);
+
+    const jwt = 'eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjIiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTY1MDg3NjY2NSwiZXhwIjoxNzc3Nzc3Nzc3fQ._lNxhvNEly0ebal-RUnEZ46n-utx1e4M6U_WIb4TuEE';
+    //base 64를 디코딩한 후에 parse 과정을 통해 json화 하는 함수
+    const parseToken = (token: string) => {
+      const result = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
+      result.token = token;
+      return result;
+    };
+    const userInfo = parseToken(jwt);
+    setCookie("userInfo", userInfo);
+    navigate('/');
   };
 
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);

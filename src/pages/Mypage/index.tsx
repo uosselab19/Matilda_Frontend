@@ -1,59 +1,52 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MypageNFTs } from '../../components/Mypage/MypageNFTs';
 import { MypageWallet } from '../../components/Mypage/MypageWallet';
 import { MypageOption } from '../../components/Mypage/MypageOption';
-//import { useNavigate } from 'react-router-dom';
-
-import profileImage from './../../assets/images/Profile/profileImage.png';
+import { useNavigate } from 'react-router-dom';
 import { NavButtons } from '../../components/NavButtons';
-// import useCookie from '../../hooks/useCookie';
+import useCookie from '../../hooks/useCookie';
+import { SelectMember } from '../../types/Member';
+import { selectMember } from '../../services/memberService';
 
 export const Mypage = () => {
-  // const navigate = useNavigate();
-  //위에 메뉴 선택하는 부분 state로 구현함. 네비게이션 바로 구현 다시 하자
-  // const [userInfo, setUserInfo] = useState({ nickname: '', desc: '' } as userInfo);
+  const navigate = useNavigate();
+  const { getCookie } = useCookie();
   const [selectedNavButton, setSelectedNavButton] = useState("myNFTList");
+  const [userInfo, setUserInfo] = useState(undefined as SelectMember | undefined);
 
   const navItems = [
-    { key:"myNFTList", title: "My NFT List", onClick: setSelectedNavButton },
-    { key:"klaytnSetting", title: "Klaytn setting", onClick: setSelectedNavButton },
-    { key:"editInfo", title: "Edit Info", onClick: setSelectedNavButton }
+    { key: "myNFTList", title: "My NFT List" },
+    { key: "klaytnSetting", title: "Klaytn setting" },
+    { key: "editInfo", title: "Edit Info" }
   ];
 
   //첫 마운트 시 유저정보 없으면 홈페이지로 날아가게 함.
   //URL로 마이페이지 접근을 막는 코드
-  // useEffect(() => {
-  //   const {cookies}=useCookie();
-  //   const userCookie = cookies.get('userInfo');
-  //   if (!userCookie) {
-  //     alert('유저정보가 없어서 홈페이지로 이동합니다.');
-  //     navigate('/');
-  //   } else {
-  //     const loadUserinfo = async () => {
-  //       try {
-  //         const desc = (await axios.get('/members/2')).data.description;
-  //         setUserInfo({ nickname: userCookie.nickname, desc: desc } as userInfo);
-  //       } catch (err) {
-  //         console.log(err);
-  //         alert('회원정보를 불러오지 못했습니다.');
-  //       }
-  //     };
-  //     loadUserinfo();
-  //   }
-  // }, []);
+  useEffect(() => {
+    (async () => {
+      const cookieData = getCookie("userInfo");
+      if (!cookieData) {
+        alert('유저정보가 없어서 홈페이지로 이동합니다.');
+        navigate('/');
+      } else {
+        const { data, error } = await selectMember(cookieData.id);
+        if(error) {console.log(error); return alert(error);}
+        setUserInfo(data);
+      }
+    })();
+  }, []);
 
   //userInfo가 null인 경우면 JSX 안에 있는 userInfo.name 때문에 에러뜨게 되는 시스템이라 부득이하게 이렇게 사용
   //어떻게든 바꿔야 함
-  const userInfo = true;
   return userInfo ? (
     <main className="container d-flex flex-column justify-content-center">
       <div className="row my-3">
         <div className="col-lg-4">
-          <img src={profileImage}
+          {/* <img src={profileImage}
             className="flex-column py-3 mt-5 mb-4 px-4 w-100"
             alt=""
             style={{ borderRadius: '100%' }} />
-          {/* <h2>{userInfo.nickname}</h2>
+          <h2>{userInfo.nickname}</h2>
           {userInfo.desc} */}
         </div>
 
@@ -63,6 +56,7 @@ export const Mypage = () => {
             <NavButtons
               navItems={navItems}
               selectedNavButton={selectedNavButton}
+              onClick={setSelectedNavButton}
               textBold={true}
               textSize={5}
               textColor={"black"} />

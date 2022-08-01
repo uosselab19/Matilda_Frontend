@@ -1,6 +1,7 @@
 interface NavButtonsProps {
 	navItems: any[];
 	selectedNavButton: string;
+	onClick:Function;
 	textBold?: boolean;
 	textSize?: number;
 	textColor?: string;
@@ -13,9 +14,9 @@ interface NavButton {
 }
 
 export const NavButtons = (props: NavButtonsProps) => {
-	const { navItems, selectedNavButton, textBold, textSize, textColor } = props;
+	const { navItems, selectedNavButton, onClick, textBold, textSize, textColor } = props;
 	const NavButton = (data: NavButton) => {
-		const { key, title, onClick } = data;
+		const { key, title } = data;
 		return (
 			<button
 				key={key}
