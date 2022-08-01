@@ -8,7 +8,7 @@ import { isRequired, notMaxLength, notMinLength, isNumber } from '../../utils/va
 import { selectItemwithMember } from '../../services/itemService';
 import CardList from '../../components/Marketplace/CardList';
 import Pagination from '../../components/Marketplace/Pagination';
-import usePagination from '../../hooks/usePagination';
+import usePagination from '../../hooks/useItems';
 
 function validate(values: UpdateItem) {
   const errors = {
@@ -36,11 +36,11 @@ export const MintNFT = () => {
 
   //3D 아이템 넣어주는 부분
   const [itemImage, setItemImage] = useState('');
-  const { itemList, page, setPage } = usePagination(selectItemwithMember(2, { stateCode: 'CR' }));
+  const { items, page, setPage } = usePagination(selectItemwithMember(2, { stateCode: 'CR' }));
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
 
   const handleCard = (itemNum: number) => {
-    const imgUrl = itemList.find((e: Item) => {
+    const imgUrl = items.find((e: Item) => {
       return e.itemNum == itemNum;
     }) as Item;
     setItemImage(imgUrl.imgUrl);
@@ -52,8 +52,8 @@ export const MintNFT = () => {
       <div className="row g-3 w-100 d-flex justify-content-between">
         <div className="col-6 d-flex justify-content-center flex-column">
           <img className="mb-3 align-self-center" src={testImage} style={{ width: 350, height: 350 }} />
-          <CardList page={page} itemList={itemList} numShowItems={3} size={'md'} handleCard={handleCard} />
-          <Pagination page={page} setPage={setPage} numItems={itemList.length} numShowItems={3} numShowPages={5} />
+          <CardList page={page} items={items} numShowItems={3} size={'md'} handleCard={handleCard} />
+          <Pagination page={page} setPage={setPage} numItems={items.length} numShowItems={3} numShowPages={5} />
         </div>
         <div className="col-6">
           <p>

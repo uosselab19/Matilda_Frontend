@@ -15,11 +15,6 @@ import { Mypage } from '../../pages/Mypage';
 import { NFTItem } from '../../pages/NFTItem';
 import { NotFound } from '../../pages/NotFound';
 
-//기타 필요한 부분
-import Cookies from 'universal-cookie';
-
-export const cookies = new Cookies();
-
 export const App = () => {
   return (
     <div className="App">

@@ -26,7 +26,7 @@ const callback = () => {
 
 export const MypageOption = () => {
   //첫 마운트.
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
 
@@ -102,7 +102,7 @@ export const MypageOption = () => {
               onChange={handleProfileImg}
             />
           </div>
-          <div className="col-4" /> */}
+          <div className="col-4" />
 
           {/* 지갑주소
           <label htmlFor="id" className="form-label col-4 fs-3">
@@ -134,7 +134,7 @@ export const MypageOption = () => {
             error={errors['description']}
           />
         </div>
-        <button className="col-6 btn btn-primary btn-lg bg-dark justify-content-center mt-3" type="submit" onClick={handleSubmit}>
+        <button className="col-6 btn btn-primary btn-lg bg-dark justify-content-center mt-3 w-100" type="submit" onClick={handleSubmit}>
           Edit info
         </button>
       </form>

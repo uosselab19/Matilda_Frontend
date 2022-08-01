@@ -26,8 +26,9 @@ export const Signin = () => {
 
   //const jwt ='eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzZW0xMzA4NCIsInJvbGUiOiJVU0VSIiwibmFtZSI6IuuvvOuRmCIsImlhdCI6MTY1MDg3NjY2NSwiZXhwIjoxNzc3Nzc3Nzc3fQ.0fuf-P0e4S1nfYxUwSCYf9C_t_gwCNcuqvlVZ0V6Yeg';
   const callback = async (values: LoginMember) => {
-    const { data } = await signinMember(values);
-    console.log(values);
+    const { data, error } = await signinMember(values);
+    if(error) alert(error);
+    console.log(error);
     console.log(data);
   };
 

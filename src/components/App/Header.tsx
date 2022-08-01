@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link, useNavigate, useLocation, To } from 'react-router-dom';
-import { cookies } from './App';
 import matildaWhite from '../../assets/images/matilda_white.png';
+import useCookie from '../../hooks/useCookie';
 
 export const Header = () => {
   const navigate = useNavigate(); //페이지 이동하는 훅
+
+  const {cookies} = useCookie();
 
   const linkTo = (link: To) => {
     window.scrollTo({ top: 0 });

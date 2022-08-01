@@ -4,7 +4,7 @@ import { selectItem } from '../../services/itemService';
 import CardList from '../Marketplace/CardList';
 import Pagination from '../Marketplace/Pagination';
 import Search from '../Marketplace/Search';
-import usePagination from '../../hooks/usePagination';
+import usePagination from '../../hooks/useItems';
 import { ModalDressupCard } from '../modal/ModalDressupCard';
 
 interface DressupMarketProps {
@@ -15,18 +15,30 @@ interface DressupMarketProps {
 export const Market = (props: DressupMarketProps) => {
   const [numShowItems, numShowPages] = [9, 5];
   const [selectCondition, setSelectCondition] = useState({});
-  const { itemList, page, setPage } = usePagination(selectItem(selectCondition));
+  const { items, page, setPage } = usePagination(selectItem(selectCondition));
   const [itemNum, setItemNum] = useState(-1);
 
   return (
     <div>
       <Search callback={setSelectCondition} />
-      {/* <Category /> */}
       <div className="my-3">
-        <CardList page={page} itemList={itemList} numShowItems={numShowItems} size="sm" handleCard={setItemNum} modalID={'modalDressup'} />
+        <CardList
+          page={page}
+          items={items}
+          numShowItems={numShowItems}
+          size="sm"
+          handleCard={setItemNum}
+          modalID={'modalDressup'} />
       </div>
-      <ModalDressupCard id={'modalDressup'} itemNum={itemNum} />
-      <Pagination page={page} setPage={setPage} numItems={itemList.length} numShowItems={numShowItems} numShowPages={numShowPages} />
+      <ModalDressupCard
+        id={'modalDressup'}
+        itemNum={itemNum} />
+      <Pagination
+        page={page}
+        setPage={setPage}
+        numItems={items.length}
+        numShowItems={numShowItems}
+        numShowPages={numShowPages} />
     </div>
   );
 };

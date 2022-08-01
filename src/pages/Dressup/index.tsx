@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Market } from '../../components/Dressup/Market';
 import { Preset } from '../../components/Dressup/Preset';
-import useView from '../../hooks/useView';
-import useModel from '../../hooks/useModel';
-import useFittingRoom from '../../hooks/useFittingRoom';
+import useView from '../../hooks/threejs/useView';
+import useModel from '../../hooks/threejs/useModel';
+import useFittingRoom from '../../hooks/threejs/useFittingRoom';
 import { Clothes } from '../../types/Clothes';
 
 export const Dressup = () => {

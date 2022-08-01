@@ -1,12 +1,11 @@
-import { Item, SelectItem, SelectItemwithMember } from '../types/Item';
+import { SelectItem, SelectItemwithMember } from '../types/Item';
 import { anonymousApiClient, apiClient } from './apiClient';
 
 export async function selectItem(item: SelectItem) {
-  let [data, error] = [[], undefined];
+  let [data, error] = [[], undefined] as any;
 
   try {
     const result = await anonymousApiClient.get('/items', { params: item });
-
     data = result?.data;
   } catch (err) {
     error = err?.response || err?.message;
@@ -16,11 +15,10 @@ export async function selectItem(item: SelectItem) {
 }
 
 export async function getItem(itemNum: number) {
-  let [data, error] = [undefined as Item | undefined, undefined];
+  let [data, error] = [undefined, undefined] as any;
 
   try {
     const result = await anonymousApiClient.get(`/items/${itemNum}`);
-
     data = result?.data;
   } catch (err) {
     error = err?.response || err?.message;
@@ -30,7 +28,7 @@ export async function getItem(itemNum: number) {
 }
 
 export async function selectItemwithMember(memberID: number, item: SelectItemwithMember) {
-  let [data, error] = [[], undefined];
+  let [data, error] = [[], undefined] as any;
 
   try {
     const result = await apiClient.get(`/items/user/${memberID}`, { data: item });

@@ -36,10 +36,7 @@ export default function Pagination(props: PagenationProps) {
             setPage(number - 1);
             window.scrollTo({ top: 0 });
           }}
-        >
-          {' '}
-          {number}
-        </button>
+        >{number}</button>
       </li>
     );
   };

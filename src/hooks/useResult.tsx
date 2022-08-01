@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
 export default function useResult() {
-  const loadedResult = useState(undefined);
-  const errorResult = useState(undefined);
-  const responseResult = useState(undefined);
+  const loadedResult = useState(undefined as any);
+  const errorResult = useState(undefined as any);
+  const responseResult = useState(undefined as any);
 
   return { loadedResult, errorResult, responseResult };
 }

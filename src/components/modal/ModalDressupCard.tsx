@@ -34,10 +34,6 @@ export const ModalDressupCard = (props: ModalDressupCardProps) => {
           <div className="modal-body">
             <img src={item?.imgUrl} width="100%" />
             <div>owned by {item?.memberNickName}</div>
-            <div className="row">
-              <h3 className="col-7">Price </h3>
-              <h3 className="col-5">{item?.price} Klay</h3>
-            </div>
           </div>
 
           <div className="modal-footer">

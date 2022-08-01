@@ -8,9 +8,7 @@ export default function Category() {
   const mountCat = searchParams.get('cat_code');
   //첫 마운트 시 카테고리 정보 없으면 정보를 넣어주는 코드
   useEffect(() => {
-    if (mountCat == null) {
-      setSearchParams({ cat_code: 'ALL' });
-    }
+    if (!mountCat) setSearchParams({ cat_code: 'ALL' });
   }, []);
 
   //실제 페이지, 그에 대한 함수

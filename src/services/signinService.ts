@@ -1,7 +1,7 @@
 import { anonymousApiClient } from './apiClient';
 
 export async function signinMember(info: any) {
-  let [data, error] = [undefined, undefined];
+  let [data, error] = [undefined, undefined] as any;
 
   try {
     const result = await anonymousApiClient.get(`/security/login`, info);

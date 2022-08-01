@@ -5,7 +5,7 @@ import { Item } from '../../types/Item';
 //컴포넌트가 받을 props
 interface CardListProps {
   page: number;
-  itemList: Item[];
+  items: Item[];
   numShowItems: number;
   size: string;
   handleCard?: Function;
@@ -13,11 +13,11 @@ interface CardListProps {
 }
 
 export default function CardList(props: CardListProps) {
-  const { page, itemList, numShowItems, size, handleCard, modalID } = props;
-  const [showList, setShowList] = useState([] as JSX.Element[]);
+  const { page, items, numShowItems, size, handleCard, modalID } = props;
+  const [showItems, setShowItems] = useState([] as JSX.Element[]);
 
-  const makeCard = (size: string, itemList: Item[]) => {
-    return itemList.map((e: Item) => {
+  const makeCard = (size: string, items: Item[]) => {
+    return items.map((e: Item) => {
       return (
         <Card key={e.itemNum} size={size} itemNum={e.itemNum} title={e.title} price={e.price} handleCard={handleCard} modalID={modalID} />
       );
@@ -25,12 +25,12 @@ export default function CardList(props: CardListProps) {
   };
 
   useEffect(() => {
-    setShowList(makeCard(size, itemList.slice(page * numShowItems, (page + 1) * numShowItems)));
-  }, [page, itemList]);
+    setShowItems(makeCard(size, items.slice(page * numShowItems, (page + 1) * numShowItems)));
+  }, [page, items]);
 
   return (
     <div className="container">
-      <div className={`row row-cols-1 row-cols-sm-2 row-cols-md-${size == 'lg' ? 4 : 3} align-items-around g-2`}>{showList}</div>
+      <div className={`row row-cols-1 row-cols-sm-2 row-cols-md-${size == 'lg' ? 4 : 3} align-items-around g-2`}>{showItems}</div>
     </div>
   );
 }
