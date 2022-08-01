@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Card from '../../components/Marketplace/Card';
+import Card from './Card';
 import { Item } from '../../types/Item';
 
 //컴포넌트가 받을 props

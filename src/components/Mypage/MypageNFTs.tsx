@@ -1,18 +1,11 @@
-//import { useState, useEffect } from "react";
-import { useEffect } from 'react';
-import CardList from '../Marketplace/CardList';
-import Pagination from '../Marketplace/Pagination';
+import CardList from '../Items/CardList';
+import Pagination from '../Items/Pagination';
 import useItems from '../../hooks/useItems';
 import { selectItemwithMember } from '../../services/itemService';
-
 
 export const MypageNFTs = () => {
   const { items, page, setPage } = useItems(selectItemwithMember(2, {}));
   const [numShowItems, numShowPages] = [15, 5];
-
-  //첫 마운트.
-  useEffect(() => {
-  }, []);
 
   return (
     <div className="row">

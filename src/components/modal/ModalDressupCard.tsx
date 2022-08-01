@@ -16,7 +16,7 @@ export const ModalDressupCard = (props: ModalDressupCardProps) => {
       const { data, error } = await getItem(itemNum);
 
       if (error) return console.log(error);
-      setItem(data as Item);
+      setItem(data);
     })();
   }, [itemNum]);
 

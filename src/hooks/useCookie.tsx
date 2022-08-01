@@ -6,7 +6,7 @@ export default function useCookie() {
 	const setCookie = (name: string, value: any, option: CookieSetOptions | undefined) => {
 		return cookies.set(name, value, { ...option });
 	}
-	
+
 	const getCookie = (name: string) => {
 		return cookies.get(name);
 	}

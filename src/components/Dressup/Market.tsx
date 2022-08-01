@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Clothes } from '../../types/Clothes';
 import { selectItem } from '../../services/itemService';
-import CardList from '../Marketplace/CardList';
-import Pagination from '../Marketplace/Pagination';
-import Search from '../Marketplace/Search';
+import CardList from '../Items/CardList';
+import Pagination from '../Items/Pagination';
+import Search from '../Items/Search';
 import usePagination from '../../hooks/useItems';
 import { ModalDressupCard } from '../modal/ModalDressupCard';
 

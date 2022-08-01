@@ -6,8 +6,8 @@ import testImage from '../../assets/images/NFTItem/mindul_NFT1.jpg';
 import { Item, UpdateItem } from '../../types/Item';
 import { isRequired, notMaxLength, notMinLength, isNumber } from '../../utils/validator';
 import { selectItemwithMember } from '../../services/itemService';
-import CardList from '../../components/Marketplace/CardList';
-import Pagination from '../../components/Marketplace/Pagination';
+import CardList from '../../components/Items/CardList';
+import Pagination from '../../components/Items/Pagination';
 import usePagination from '../../hooks/useItems';
 
 function validate(values: UpdateItem) {

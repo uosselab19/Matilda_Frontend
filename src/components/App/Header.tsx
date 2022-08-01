@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate, useLocation, To } from 'react-router-dom';
 import matildaWhite from '../../assets/images/matilda_white.png';
 import useCookie from '../../hooks/useCookie';
+import { NavButtons } from '../NavButtons';
 
 export const Header = () => {
   const navigate = useNavigate(); //페이지 이동하는 훅
 
-  const {cookies} = useCookie();
+  const { cookies } = useCookie();
+
+  const [selectedTap, setSelectedTap] = useState(0);
 
   const linkTo = (link: To) => {
     window.scrollTo({ top: 0 });
@@ -31,18 +34,14 @@ export const Header = () => {
           onClick={() => {
             cookies.get('userInfo') ? fetchSignout() : linkTo('/signin');
           }}
-        >
-          {' '}
-          {cookies.get('userInfo') ? 'sign-out' : 'Sign-in'}{' '}
+        >{cookies.get('userInfo') ? 'sign-out' : 'Sign-in'}
         </button>
         <button
           className="btn btn-secondary"
           onClick={() => {
             cookies.get('userInfo') ? linkTo('/mypage') : linkTo('/signup');
           }}
-        >
-          {' '}
-          {cookies.get('userInfo') ? 'My Page' : 'Sign-up'}{' '}
+        >{cookies.get('userInfo') ? 'My Page' : 'Sign-up'}
         </button>
       </div>
     );
@@ -57,8 +56,7 @@ export const Header = () => {
           linkTo(url);
         }}
       >
-        {' '}
-        {title}{' '}
+        {title}
       </button>
     );
   };
@@ -71,16 +69,25 @@ export const Header = () => {
   tapItemList.push(tapItem(4, '3D Conversion', '/3Dconversion'));
   tapItemList.push(tapItem(5, 'NFT Minting', '/NFTminting'));
 
+  const navItems = ['Home', 'Marketplace', 'Dress Up', '3D Conversion', 'NFT Minting'];
+
   return (
     <header className="p-2 bg-dark text-white sticky-top">
       <div className="container">
         <div className="d-flex flex-wrap align-items-center justify-content-between justify-content-lg-start">
           <Link to="/" className="mb-2 px-3">
-            <img src={matildaWhite} width="48" alt=""></img>
+            <img src={matildaWhite} width="48" alt="" />
           </Link>
 
           {/* lg 이상 클 때 */}
-          <div className="nav col-lg-auto me-lg-auto d-none d-lg-block align-items-center">{tapItemList}</div>
+          <div className="nav col-lg-auto me-lg-auto d-none d-lg-block align-items-center">
+            <NavButtons
+              navItems={navItems}
+              selectedTap={selectedTap}
+              setSelectedTap={setSelectedTap}
+              textBold={true}
+              textColor={"white"}/>
+          </div>
 
           {/* 검색바 */}
 

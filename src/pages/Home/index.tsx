@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import matilda from '../../assets/images/matilda.png';
 import matildaWhite from '../../assets/images/matilda_white.png';
-import { CapitalText } from '../../components/App/CapitalText';
+import { CapitalText } from '../../components/CapitalText';
 
 export const Home = () => {
   const navigate = useNavigate();

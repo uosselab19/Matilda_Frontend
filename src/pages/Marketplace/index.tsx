@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { selectItem } from '../../services/itemService';
-import CardList from '../../components/Marketplace/CardList';
-import Pagination from '../../components/Marketplace/Pagination';
-import Search from '../../components/Marketplace/Search';
+import CardList from '../../components/Items/CardList';
+import Pagination from '../../components/Items/Pagination';
+import Search from '../../components/Items/Search';
 import { useNavigate } from 'react-router-dom';
 import useItems from '../../hooks/useItems';
 
