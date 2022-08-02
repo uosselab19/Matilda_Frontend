@@ -81,7 +81,7 @@ export default function Card(props: CardProps) {
         <div className="card-img-overlay d-flex flex-column">
           <div className={`card-text mt-auto d-flex justify-content-between px-2 ${size == 'lg' ? 'py-2' : ''}`}>
             {size == 'lg' ? <img src={makerThumbImg1} alt="profile" width="32" height="32" className="rounded-circle me-3" /> : null}
-            <div>{`${title.slice(0, 5)}${title.length > 5 ? '...' : ''}`}</div>
+            <div>{`${title.slice(0, (1+Number(size=='md'))*5)}${title.length > (1+Number(size=='md'))*5 ? '...' : ''}`}</div>
             {size == 'lg' ? <div>{`${price} KLAY`}</div> : null}
           </div>
         </div>

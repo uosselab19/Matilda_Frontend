@@ -1,27 +1,15 @@
-import { useEffect, useState } from 'react';
-import { getItem } from '../../services/itemService';
 import { Item } from '../../types/Item';
 
 interface ModalItemProps {
   modalID: string;
-  itemNum: number;
+  item?: Item;
   footerButtons: JSX.Element[];
   footerDescription?:string;
   isStatic?: boolean;
 }
 
 export default function ModalItem (props: ModalItemProps) {
-  const { modalID, itemNum, footerDescription, footerButtons, isStatic } = props;
-  const [item, setItem] = useState(undefined as Item | undefined);
-  useEffect(() => {
-    (async () => {
-      if (itemNum < 0) return;
-      const { data, error } = await getItem(itemNum);
-
-      if (error) return console.log(error);
-      setItem(data);
-    })();
-  }, [itemNum]);
+  const { modalID, item, footerDescription, footerButtons, isStatic } = props;
 
   return (
     <div
@@ -37,7 +25,7 @@ export default function ModalItem (props: ModalItemProps) {
             <h5 className="modal-title" id={`${modalID}Label`}>
               {item?.title}
             </h5>
-            <button type="button" className="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" className="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" />
           </div>
 
           <div className="modal-body">
@@ -51,7 +39,7 @@ export default function ModalItem (props: ModalItemProps) {
             <div>{item?.description}</div>
           </div>
 
-          <div className="modal-footer w-100 d-flex justify-content-between" style={{ backgroundColor: "grey" }}>
+          <div className="modal-footer w-100 d-flex justify-content-between" style={{ backgroundColor: "lightgray" }}>
             <div>{footerDescription}</div>
             <div className='btn-group'>
               {footerButtons}

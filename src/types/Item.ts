@@ -31,6 +31,7 @@ export interface UpdateItem {
 
 export interface Item {
   itemNum: number;
+  catCode: string;
   price: number;
   title: string;
   imgUrl: string;

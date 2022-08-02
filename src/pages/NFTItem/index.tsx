@@ -1,6 +1,6 @@
 //import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Item } from '../../types/Item';
 import { getItem } from '../../services/itemService';
 import ModalItem from '../../components/modal/ModalItem';
@@ -11,18 +11,33 @@ interface NFTItemProps {
 
 export const NFTItem = (props: NFTItemProps) => {
   const { mode } = props;
+  const navigate = useNavigate();
   const [item, setItem] = useState({} as Item);
   const [searchParams] = useSearchParams();
   const itemNum = Number(searchParams.get('nft_id') as string);
 
   useEffect(() => {
     (async () => {
-      const { data } = await getItem(itemNum);
-      setItem(data as unknown as Item);
+      const { data, error } = await getItem(itemNum);
+
+      if (error) { console.log(error); return alert(error); }
+      setItem(data as Item);
     })();
   }, []);
 
-  const ModalFooterButtons = [<div className="btn btn-light">{mode}</div>];
+  const ModalFooterButtons = [
+    <div
+      className="btn btn-light btn-outline-dark w-25"
+      data-bs-dismiss="modal"
+      onClick={() => {
+        if(confirm(`구매했습니다~ 마이페이지로 갈래요?`)){
+          navigate('/mypage');
+        } else {
+          navigate('/marketplace');
+        }
+      }}
+    >구매하기</div>
+  ];
 
   return item ? (
     <main className="container">
@@ -63,7 +78,7 @@ export const NFTItem = (props: NFTItemProps) => {
               </button>
               <ModalItem
                 modalID={'ModalNFTItem'}
-                itemNum={itemNum}
+                item={item}
                 footerButtons={ModalFooterButtons}
                 footerDescription={`정말 ${mode == 'Buy' ? '구매' : '판매'}하시겠습니까?`}
                 isStatic={true} />

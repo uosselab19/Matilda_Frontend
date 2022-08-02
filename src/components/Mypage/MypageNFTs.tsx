@@ -1,19 +1,45 @@
 import CardList from '../Items/CardList';
 import Pagination from '../Items/Pagination';
 import useItems from '../../hooks/useItems';
-import { selectItemwithMember } from '../../services/itemService';
+import { getItem, selectItemwithMember } from '../../services/itemService';
 import ModalItem from '../modal/ModalItem';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Item } from '../../types/Item';
+import { useNavigate } from 'react-router-dom';
 
 export const MypageNFTs = () => {
+  const navigate = useNavigate();
   const { items, page, setPage } = useItems(selectItemwithMember(2, {}));
   const [itemNum, setItemNum] = useState(-1);
+  const [item, setItem] = useState({} as Item);
   const [numShowItems, numShowPages] = [15, 5];
 
   const ModalFooterButtons = [
-    <div className="btn btn-light w-25">등록하기</div>,
-    <div className="btn btn-dark w-25">판매하기</div>
+    (
+      (item.catCode) ?
+        <div
+          className="btn btn-light btn-outline-dark w-25"
+          data-bs-dismiss="modal"
+          onClick={() => { navigate("/NFTminting"); }}
+        >등록하기</div>
+        :
+        <div
+          className="btn btn-light w-25"
+          data-bs-dismiss="modal"
+          onClick={() => { navigate(`/mypage/NFTItem?nft_id=${itemNum}`); }}
+        >판매하기</div>
+    )
   ];
+
+  useEffect(() => {
+    (async () => {
+      if (itemNum < 0) return;
+      const { data, error } = await getItem(itemNum);
+      console.log(data);
+      if (error) { console.log(error); return alert(error); }
+      setItem(data as Item);
+    })();
+  }, [itemNum]);
 
   return (
     <div className="row">
@@ -21,13 +47,13 @@ export const MypageNFTs = () => {
         <CardList
           page={page}
           items={items}
-          size={"sm"}
+          size={"md"}
           numShowItems={numShowItems}
           handleCard={setItemNum}
           modalID={'modalMyNFTs'} />
         <ModalItem
           modalID={'modalMyNFTs'}
-          itemNum={itemNum}
+          item={item}
           footerButtons={ModalFooterButtons}
           isStatic={false} />
       </div>

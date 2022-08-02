@@ -31,7 +31,7 @@ export const Mypage = () => {
         navigate('/');
       } else {
         const { data, error } = await selectMember(cookieData.id);
-        if(error) {console.log(error); return alert(error);}
+        if (error) { console.log(error); return alert(error); }
         setUserInfo(data);
       }
     })();
@@ -43,10 +43,10 @@ export const Mypage = () => {
     <main className="container d-flex flex-column justify-content-center">
       <div className="row my-3">
         <div className="col-lg-4">
-          <img src={userInfo.profileImg?userInfo.profileImg:profileImage}
+          <img src={userInfo.profileImg ? userInfo.profileImg : profileImage}
             className="flex-column py-3 mt-5 mb-4 px-4 w-100"
             alt=""
-            style={{ borderRadius: '100%', width:"100%", height:"auto"}} />
+            style={{ borderRadius: '100%', width: "100%", height: "auto" }} />
           <h2>{userInfo.nickname}</h2>
           {userInfo.description}
         </div>
@@ -64,9 +64,11 @@ export const Mypage = () => {
           </div>
 
           {/* 이 부분이 My Page 핵심 부분 */}
-          <div className={`${selectedNavButton == "myNFTList" ? "d-block" : "d-none"}`}><MypageNFTs /></div>
-          <div className={`${selectedNavButton == "klaytnSetting" ? "d-block" : "d-none"}`}><MypageWallet /></div>
-          <div className={`${selectedNavButton == "editInfo" ? "d-block" : "d-none"}`}><MypageOption /></div>
+          <div className={`d-flex justify-content-center`}>
+            <div className={`${selectedNavButton == "myNFTList" ? "d-block" : "d-none"}`}><MypageNFTs /></div>
+            <div className={`${selectedNavButton == "klaytnSetting" ? "d-block" : "d-none"}`}><MypageWallet /></div>
+            <div className={`${selectedNavButton == "editInfo" ? "d-block" : "d-none"}`}><MypageOption /></div>
+          </div>
         </div>
       </div>
     </main>
