@@ -1,9 +1,9 @@
 //import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { ModalNFTItem } from '../../components/modal/ModalNFTItem';
 import { Item } from '../../types/Item';
 import { getItem } from '../../services/itemService';
+import ModalItem from '../../components/modal/ModalItem';
 
 interface NFTItemProps {
   mode: string;
@@ -21,6 +21,8 @@ export const NFTItem = (props: NFTItemProps) => {
       setItem(data as unknown as Item);
     })();
   }, []);
+
+  const ModalFooterButtons = [<div className="btn btn-light">{mode}</div>];
 
   return item ? (
     <main className="container">
@@ -59,7 +61,12 @@ export const NFTItem = (props: NFTItemProps) => {
               >
                 {mode}
               </button>
-              <ModalNFTItem item={item} mode={mode} id={'ModalNFTItem'} />
+              <ModalItem
+                modalID={'ModalNFTItem'}
+                itemNum={itemNum}
+                footerButtons={ModalFooterButtons}
+                footerDescription={`정말 ${mode == 'Buy' ? '구매' : '판매'}하시겠습니까?`}
+                isStatic={true} />
             </div>
 
             <h3>기타 정보</h3>

@@ -1,17 +1,10 @@
-import { selectItem } from '../../services/itemService';
-//import { selectMember } from '../../services/memberService';
+import useCookie from "../../hooks/useCookie";
 
 export const Footer = () => {
   //Footer는 현재는 디버그용 버튼으로 활용 중
   const scrollTop = async () => {
-    const { data, error } = await selectItem({
-      skip: 0,
-      sortKey: 'ID',
-      sortOrder: 'ASC',
-      take: 100
-    });
-    console.log(data);
-    console.log(error);
+    const {getCookie}=useCookie();
+    console.log(getCookie("userInfo"));
   };
 
   return (

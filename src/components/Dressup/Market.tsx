@@ -5,7 +5,7 @@ import CardList from '../Items/CardList';
 import Pagination from '../Items/Pagination';
 import Search from '../Items/Search';
 import usePagination from '../../hooks/useItems';
-import { ModalItem } from '../modal/ModalItem';
+import ModalItem from '../modal/ModalItem';
 
 interface DressupMarketProps {
   clothes: Clothes;
@@ -18,6 +18,11 @@ export const Market = (props: DressupMarketProps) => {
   const { items, page, setPage } = usePagination(selectItem(selectCondition));
   const [itemNum, setItemNum] = useState(-1);
 
+  const ModalFooterButtons = [
+    <div className="btn btn-light w-25" >입혀보기</div>,
+    <div className="btn btn-dark w-25">구매하기</div>
+  ];
+
   return (
     <div>
       <Search callback={setSelectCondition} />
@@ -25,13 +30,15 @@ export const Market = (props: DressupMarketProps) => {
         <CardList
           page={page}
           items={items}
+          size={"sm"}
           numShowItems={numShowItems}
-          size="sm"
           handleCard={setItemNum}
           modalID={'modalDressup'} />
         <ModalItem
           modalID={'modalDressup'}
-          itemNum={itemNum} />
+          itemNum={itemNum}
+          footerButtons={ModalFooterButtons}
+          isStatic={false} />
       </div>
       <Pagination
         page={page}

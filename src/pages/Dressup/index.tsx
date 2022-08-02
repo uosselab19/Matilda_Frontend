@@ -17,8 +17,8 @@ export const Dressup = () => {
 
   return (
     <main className="container d-flex justify-content-center">
-      <div className="row text-center">
-        <div className="col-12 fs-2 fw-bold my-4">dress up</div>
+      <div className="row">
+        <div className="col-12 fs-2 fw-bold my-4 text-center">dress up</div>
         <div id="Preset" className="col-1">
           <Preset clothes={clothes} setClothes={setClothes} />
         </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import matildaWhite from '../../assets/images/matilda_white.png';
 import useCookie from '../../hooks/useCookie';
@@ -8,12 +8,12 @@ export const Header = () => {
   const navigate = useNavigate(); //페이지 이동하는 훅
   const { getCookie, removeCookie } = useCookie();
   const location = useLocation(); // url 찍어주는 훅
-  const [selectedNavButton, setSelectedNavButton] = useState(location.pathname);
+  const pathname = location.pathname;
+  const [selectedNavButton, setSelectedNavButton] = useState(pathname);
 
   const linkTo = (link: string) => {
     window.scrollTo({ top: 0 });
     navigate(link, { replace: false });
-    setSelectedNavButton(link);
   };
 
   //로그아웃 버튼 기능
@@ -22,6 +22,10 @@ export const Header = () => {
     alert('sign out 하였습니다.'); // 로그아웃했다고 알림
     linkTo('/'); // 로그아웃하면 홈페이지로
   };
+
+  useEffect(() => {
+    setSelectedNavButton(pathname);
+  }, [pathname]);
 
   const sign = // 오른쪽 버튼 보여주기
     (

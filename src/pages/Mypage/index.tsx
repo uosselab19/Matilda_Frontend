@@ -7,6 +7,7 @@ import { NavButtons } from '../../components/NavButtons';
 import useCookie from '../../hooks/useCookie';
 import { SelectMember } from '../../types/Member';
 import { selectMember } from '../../services/memberService';
+import profileImage from "../../assets/images/Profile/profileImage.png"
 
 export const Mypage = () => {
   const navigate = useNavigate();
@@ -42,12 +43,12 @@ export const Mypage = () => {
     <main className="container d-flex flex-column justify-content-center">
       <div className="row my-3">
         <div className="col-lg-4">
-          {/* <img src={profileImage}
+          <img src={userInfo.profileImg?userInfo.profileImg:profileImage}
             className="flex-column py-3 mt-5 mb-4 px-4 w-100"
             alt=""
-            style={{ borderRadius: '100%' }} />
+            style={{ borderRadius: '100%', width:"100%", height:"auto"}} />
           <h2>{userInfo.nickname}</h2>
-          {userInfo.desc} */}
+          {userInfo.description}
         </div>
 
         {/* 네비게이션 바 */}
