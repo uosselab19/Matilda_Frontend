@@ -25,7 +25,7 @@ export const Mypage = () => {
   //URL로 마이페이지 접근을 막는 코드
   useEffect(() => {
     (async () => {
-      const cookieData = getCookie("userInfo");
+      const cookieData = getCookie();
       if (!cookieData) {
         alert('유저정보가 없어서 홈페이지로 이동합니다.');
         navigate('/');

@@ -18,12 +18,14 @@ export const MypageNFTs = () => {
     (
       (item.catCode) ?
         <div
+          key={"modalFooterButton1"}
           className="btn btn-light btn-outline-dark w-25"
           data-bs-dismiss="modal"
           onClick={() => { navigate("/NFTminting"); }}
         >등록하기</div>
         :
         <div
+          key={"modalFooterButton2"}
           className="btn btn-light w-25"
           data-bs-dismiss="modal"
           onClick={() => { navigate(`/mypage/NFTItem?nft_id=${itemNum}`); }}

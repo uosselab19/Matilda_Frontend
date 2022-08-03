@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import convertImage from '../../assets/images/Convert3D/convertImage.png';
 import useCategory from '../../hooks/useCategory';
 import ConvertBox from '../../components/forms/ConvertBox';
 import Spinner from '../../components/load/Spinner';
+import { useNavigate } from 'react-router-dom';
+import useCookie from '../../hooks/useCookie';
 
 interface categoryItem {
   catCode: string;
@@ -14,6 +16,18 @@ interface categoryItem {
 export const Convert3D = () => {
   const [clothes, setClothes] = useState({ catCode: '', image: convertImage, title: '' });
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { getCookie } = useCookie();
+
+  useEffect(() => {
+    (async () => {
+      const cookieData = getCookie();
+      if (!cookieData) {
+        alert('유저정보가 없어서 홈페이지로 이동합니다.');
+        navigate('/');
+      }
+    })();
+  }, []);
 
   //아코디언 항목 대응시켜주는 부분
   const categoryItems = useCategory().map((categoryElement: categoryItem, index: Number) => {

@@ -19,7 +19,14 @@ export default function CardList(props: CardListProps) {
   const makeCard = (size: string, items: Item[]) => {
     return items.map((e: Item) => {
       return (
-        <Card key={e.itemNum} size={size} itemNum={e.itemNum} title={e.title} price={e.price} handleCard={handleCard} modalID={modalID} />
+        <Card
+          key={e.itemNum}
+          size={size}
+          itemNum={e.itemNum}
+          title={e.title}
+          price={e.price}
+          handleCard={handleCard}
+          modalID={modalID} />
       );
     });
   };

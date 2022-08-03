@@ -1,3 +1,4 @@
+import { Clothes } from '../types/Clothes';
 import { anonymousApiClient, apiClient } from './apiClient';
 
 export async function insertMember(data: any) {
@@ -18,6 +19,19 @@ export async function selectMember(memberID: number) {
 
   try {
     const result = await apiClient.get(`/members/${memberID}`);
+    data = result?.data;
+  } catch (err) {
+    error = err?.response || err?.message;
+  }
+
+  return { data, error };
+}
+
+export async function putMemberPreset(memberID: number, presetList:Clothes[]) {
+  let [data, error] = [undefined, undefined] as any;
+
+  try {
+    const result = await apiClient.put(`/members/${memberID}`, { data: {presetList:presetList} });
     data = result?.data;
   } catch (err) {
     error = err?.response || err?.message;

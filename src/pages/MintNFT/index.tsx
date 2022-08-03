@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TextBox from '../../components/forms/TextBox';
 import TextArea from '../../components/forms/TextArea';
 import useForm from '../../hooks/useForm';
@@ -9,6 +9,8 @@ import { selectItemwithMember } from '../../services/itemService';
 import CardList from '../../components/Items/CardList';
 import Pagination from '../../components/Items/Pagination';
 import usePagination from '../../hooks/useItems';
+import { useNavigate } from 'react-router-dom';
+import useCookie from '../../hooks/useCookie';
 
 function validate(values: UpdateItem) {
   const errors = {
@@ -38,6 +40,8 @@ export const MintNFT = () => {
   const [itemImage, setItemImage] = useState('');
   const { items, page, setPage } = usePagination(selectItemwithMember(2, { stateCode: 'CR' }));
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
+  const navigate = useNavigate();
+  const { getCookie } = useCookie();
 
   const handleCard = (itemNum: number) => {
     const imgUrl = items.find((e: Item) => {
@@ -45,6 +49,16 @@ export const MintNFT = () => {
     }) as Item;
     setItemImage(imgUrl.imgUrl);
   };
+
+  useEffect(() => {
+    (async () => {
+      const cookieData = getCookie();
+      if (!cookieData) {
+        alert('유저정보가 없어서 홈페이지로 이동합니다.');
+        navigate('/');
+      }
+    })();
+  }, []);
 
   return (
     <main className="container">
@@ -119,3 +133,4 @@ export const MintNFT = () => {
     </main>
   );
 };
+

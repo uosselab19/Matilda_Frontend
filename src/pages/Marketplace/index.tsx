@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import useItems from '../../hooks/useItems';
 
 export const Marketplace = () => {
-  const [numShowItems, numShowPages] = [16, 10];
+  const [numShowItems, numShowPages] = [24, 10];
   const [selectCondition, setSelectCondition] = useState({});
   const { items, page, setPage } = useItems(selectItem(selectCondition));
 

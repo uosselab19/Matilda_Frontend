@@ -1,35 +1,42 @@
-import React, { useEffect, useState } from 'react';
-import { selectMember } from '../../services/memberService';
+import React, { useEffect } from 'react';
+import useCookie from '../../hooks/useCookie';
+import { putMemberPreset, selectMember } from '../../services/memberService';
 import { Clothes } from '../../types/Clothes';
 
 interface PresetProps {
   clothes: Clothes;
   setClothes: React.Dispatch<React.SetStateAction<Clothes>>;
+  presetList: Clothes[];
+  setPresetList: React.Dispatch<React.SetStateAction<Clothes[]>>
 }
 
 interface PresetCardProps {
   index: number;
-  entity: Clothes;
+  presetList: Clothes[];
   clothes: Clothes;
   setClothes: React.Dispatch<React.SetStateAction<Clothes>>;
 }
 
 const handleLoad = (props: PresetCardProps) => {
-  const { index, entity, clothes, setClothes } = props;
-  if (!entity) alert('놀랍게도 아무 옷도 남아있지 않았답니다.');
+  const { index, presetList, setClothes } = props;
+
+  if (!presetList) alert('놀랍게도 아무 옷도 남아있지 않았답니다.');
   else {
     if (!confirm(`Preset${index}에 저장된 옷을 불러오는 게 맞나요?`)) alert('놀랍게도 아무 일도 일어나지 않았답니다.');
     else {
-      console.log(clothes);
-      setClothes(entity);
+      setClothes(presetList[index]);
     }
   }
 };
+
 const handleSave = (props: PresetCardProps) => {
-  const { index, entity } = props;
+  const { index, presetList, clothes } = props;
+  const cookie = useCookie().getCookie();
+  if (!cookie) return;
   if (!confirm(`지금 입은 옷을 Preset${index}에 저장하는 게 맞나요?`)) alert('놀랍게도 아무 일도 일어나지 않았답니다.');
   else {
-    console.log(entity);
+    presetList[index] = clothes;
+    putMemberPreset(cookie.id, presetList);
     alert('저장했습니다~');
   }
 };
@@ -44,11 +51,9 @@ const handleReset = (props: PresetProps) => {
 };
 
 const handleBuy = (props: PresetProps) => {
-  const { clothes } = props;
   if (!confirm(`지금 입은 옷을 모두 구매하는 게 맞나요?`)) alert('놀랍게도 아무 일도 일어나지 않았답니다.');
   else {
-    console.log(clothes);
-    alert('뭔가 일어나긴 할 텐데;;');
+    alert('아이템 구매하는 버튼~');
   }
 };
 
@@ -93,48 +98,39 @@ const PresetCard = (props: PresetCardProps) => {
 };
 
 export const Preset = (props: PresetProps) => {
-  const { clothes, setClothes } = props;
-  const [presetItemList, setPresetItemList] = useState([] as Clothes[]);
+  const { clothes, setClothes, presetList, setPresetList } = props;
+
 
   useEffect(() => {
     (async () => {
       const { data, error } = await selectMember(2);
 
-      if (error) console.log(error);
+      if (error) { console.log(error); return alert(error); }
 
-      const presetList = data?.presetList as Clothes[];
-      setPresetItemList(presetList || []);
+      const presetList = data?.presetList;
+      setPresetList(presetList || []);
     })();
   }, []);
 
   return (
     <div className="h-100 d-flex flex-column justify-content-between">
+      {/* Preset 아코디언 */}
       <div className="btn-group-vertical">
-        <PresetCard index={1} entity={presetItemList[0]} clothes={clothes} setClothes={setClothes} />
-        <PresetCard index={2} entity={presetItemList[1]} clothes={clothes} setClothes={setClothes} />
-        <PresetCard index={3} entity={presetItemList[2]} clothes={clothes} setClothes={setClothes} />
+        <PresetCard index={1} presetList={presetList} clothes={clothes} setClothes={setClothes} />
+        <PresetCard index={2} presetList={presetList} clothes={clothes} setClothes={setClothes} />
+        <PresetCard index={3} presetList={presetList} clothes={clothes} setClothes={setClothes} />
       </div>
+
+      {/* Reset/Buy 버튼 */}
       <div className="btn-group-vertical">
-        <div className="card w-100">
-          <div
-            className="btn btn-danger"
-            onClick={() => {
-              handleReset(props);
-            }}
-          >
-            Reset
-          </div>
-        </div>
-        <div className="card w-100">
-          <div
-            className="btn btn-primary"
-            onClick={() => {
-              handleBuy(props);
-            }}
-          >
-            Buy All
-          </div>
-        </div>
+        <div
+          className="btn btn-danger"
+          onClick={() => { handleReset(props); }}
+        > Reset </div>
+        <div
+          className="btn btn-primary"
+          onClick={() => { handleBuy(props); }}
+        > Buy All </div>
       </div>
     </div>
   );

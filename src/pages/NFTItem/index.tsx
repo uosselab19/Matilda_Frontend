@@ -27,6 +27,7 @@ export const NFTItem = (props: NFTItemProps) => {
 
   const ModalFooterButtons = [
     <div
+      key={"modalFooterButton1"}
       className="btn btn-light btn-outline-dark w-25"
       data-bs-dismiss="modal"
       onClick={() => {

@@ -18,7 +18,7 @@ export const Header = () => {
 
   //로그아웃 버튼 기능
   const fetchSignout = () => {
-    removeCookie('userInfo'); // 로그인 기록 쿠키 지우기
+    removeCookie(); // 로그인 기록 쿠키 지우기
     alert('sign out 하였습니다.'); // 로그아웃했다고 알림
     linkTo('/'); // 로그아웃하면 홈페이지로
   };
@@ -33,16 +33,16 @@ export const Header = () => {
         <button
           className="btn btn-outline-light me-1"
           onClick={() => {
-            getCookie('userInfo') ? fetchSignout() : linkTo('/signin');
+            getCookie() ? fetchSignout() : linkTo('/signin');
           }}
-        >{getCookie('userInfo') ? 'sign-out' : 'Sign-in'}
+        >{getCookie() ? 'sign-out' : 'Sign-in'}
         </button>
         <button
           className="btn btn-secondary"
           onClick={() => {
-            getCookie('userInfo') ? linkTo('/mypage') : linkTo('/signup');
+            getCookie() ? linkTo('/mypage') : linkTo('/signup');
           }}
-        >{getCookie('userInfo') ? 'My Page' : 'Sign-up'}
+        >{getCookie() ? 'My Page' : 'Sign-up'}
         </button>
       </div>
     );

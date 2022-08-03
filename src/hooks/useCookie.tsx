@@ -4,16 +4,16 @@ import { userInfo } from '../types/Member';
 export default function useCookie() {
 	const cookies = new Cookies();
 
-	const setCookie = (name: string, value: any, option?: CookieSetOptions) => {
-		return cookies.set(name, value, { ...option });
+	const setCookie = (value: any, option?: CookieSetOptions) => {
+		return cookies.set("userInfo", value, { ...option });
 	}
 
-	const getCookie = (name: string): userInfo | undefined => {
-		return cookies.get(name);
+	const getCookie = (): userInfo | undefined => {
+		return cookies.get("userInfo");
 	}
 
-	const removeCookie = (name:string) =>{
-		return cookies.remove(name);
+	const removeCookie = () => {
+		return cookies.remove("userInfo");
 	}
 
 	return { setCookie, getCookie, removeCookie };

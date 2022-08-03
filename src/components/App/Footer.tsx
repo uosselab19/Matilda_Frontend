@@ -1,10 +1,17 @@
 import useCookie from "../../hooks/useCookie";
+import { selectMember } from "../../services/memberService";
 
 export const Footer = () => {
   //Footer는 현재는 디버그용 버튼으로 활용 중
   const scrollTop = async () => {
-    const {getCookie}=useCookie();
-    console.log(getCookie("userInfo"));
+    const { getCookie } = useCookie();
+    const cookie = getCookie();
+    console.log(cookie);
+    if (!cookie) return;
+
+    const { data, error } = await selectMember(cookie.id);
+    if (error) { alert(error); return console.log(error); }
+    console.log(data);
   };
 
   return (
