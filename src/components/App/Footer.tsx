@@ -1,10 +1,20 @@
-//navigate를 제외한 나머지 임포트는 디버그용으로 사용하는 버튼임
-//import { cookies } from "./App";
+import useCookie from "../../hooks/useCookie";
+import { apiClient } from "../../services/apiClient";
+import { selectMember } from "../../services/memberService";
 
 export const Footer = () => {
   //Footer는 현재는 디버그용 버튼으로 활용 중
-  const scrollTop = () => {
-    window.scrollTo({ top: 0 });
+  const scrollTop = async () => {
+    const { getCookie } = useCookie();
+    const cookie = getCookie();
+    console.log(cookie);
+    if (!cookie) return;
+
+    console.log(apiClient.defaults.headers);
+
+    const { data, error } = await selectMember(cookie.num);
+    if (error) { alert(error); return console.log(error); }
+    console.log(data);
   };
 
   return (
@@ -15,7 +25,6 @@ export const Footer = () => {
             Back to top
           </button>
         </p>
-        <p className="mb-1">Develop by Mindul-Mendul</p>
         <p className="mb-0">Copyright ©2022 by selab. All Rights Reserved.</p>
       </div>
     </footer>

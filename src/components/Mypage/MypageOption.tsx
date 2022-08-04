@@ -1,31 +1,34 @@
-import { ChangeEvent, useState } from "react";
+import { useEffect } from 'react';
+
+import TextBox from '../../components/forms/TextBox';
+import useForm from '../../hooks/useForm';
+import { UpdateMember } from '../../types/Member';
+import { isEmail, isPassword, notMaxLength, notMinLength } from '../../utils/validator';
+import TextArea from '../forms/TextArea';
+
+const validate = (values: UpdateMember) => {
+  const errors = {
+    password: isPassword(values?.password),
+    nickname:
+      notMinLength(values?.nickname, 2, '설명을 2글자 이상 입력해 주세요.') ||
+      notMaxLength(values?.nickname, 10, '설명을 10글자 이하로 입력해 주세요.'),
+    email: isEmail(values?.email),
+    description:
+      notMinLength(values?.description, 2, '설명을 2글자 이상 입력해 주세요.') ||
+      notMaxLength(values?.description, 10, '설명을 10글자 이하로 입력해 주세요.')
+  };
+
+  return errors;
+};
+const callback = () => {
+  console.log('asdf');
+};
 
 export const MypageOption = () => {
-  const [password, setPassword] = useState("qwer4321");
-  const [nickname, setNickname] = useState("mindul");
-  const [email, setEmail] = useState("pencake33@naver.com");
-  const [profileImg, setProfileImg] = useState("asdf");
-  const [walletAddr, setWalletAddr] = useState("asdf");
-  const [desc, setDesc] = useState("asdf");
+  //첫 마운트.
+  useEffect(() => { }, []);
 
-  const handlePassword = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
-  const handleNickname = (e: ChangeEvent<HTMLInputElement>) => {
-    setNickname(e.target.value);
-  };
-  const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-  const handleProfileImg = (e: ChangeEvent<HTMLInputElement>) => {
-    setProfileImg(e.target.value);
-  };
-  const handleWalletAddr = (e: ChangeEvent<HTMLInputElement>) => {
-    setWalletAddr(e.target.value);
-  };
-  const handleDesc = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setDesc(e.target.value);
-  };
+  const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
 
   return (
     <div>
@@ -33,87 +36,105 @@ export const MypageOption = () => {
         <h1>회원정보 수정</h1>
         <p>
           회원정보를 수정하는 부분입니다!
-          <br />
-          바꾸고 싶은 부분만 입력시면 알아서 바꿔드립니다.
         </p>
       </div>
 
-      <form id="signupForm" className="needs-validation" noValidate>
+      <form id="memberEditForm" className="" noValidate>
         <div className="row g-3">
           {/* 비밀번호 */}
-          <label htmlFor="id" className="form-label col-4 fs-3">
-            Password
-          </label>
-          <div className="col-8">
-            <input className="form-control border-dark" id="pw"
-              placeholder={password} type="password" required
-              onChange={handlePassword} />
-            <div className="invalid-feedback">Please enter a valid password</div>
-          </div>
+          <TextBox
+            name="password"
+            id="password"
+            label="Password"
+            type="password"
+            placeholder={''}
+            disabled={false}
+            readonly={false}
+            handleChange={handleChange}
+            handleClick={handleClick}
+            value={values['password']}
+            error={errors['password']}
+          />
 
           {/* 닉네임 */}
-          <label htmlFor="id" className="form-label col-4 fs-3">
-            Nickname
-          </label>
-          <div className="col-8">
-            <input className="form-control border-dark" id="nickname"
-              placeholder={nickname} type="text" required
-              onChange={handleNickname} />
-            <div className="invalid-feedback">Please enter a valid Nickname</div>
-          </div>
+          <TextBox
+            name="nickname"
+            id="nickname"
+            label="Nickname"
+            type="text"
+            placeholder={''}
+            disabled={false}
+            readonly={false}
+            handleChange={handleChange}
+            handleClick={handleClick}
+            value={values['nickname']}
+            error={errors['nickname']}
+          />
 
           {/* 이메일 */}
-          <label htmlFor="id" className="form-label col-4 fs-3">
-            E-mail
-          </label>
-          <div className="col-8">
-            <input className="form-control border-dark" id="email"
-              placeholder={email} type="email" required
-              onChange={handleEmail} />
-            <div className="invalid-feedback">Please enter a valid E-mail</div>
-          </div>
+          <TextBox
+            name="email"
+            id="email"
+            label="Email"
+            type="email"
+            placeholder={''}
+            disabled={false}
+            readonly={false}
+            handleChange={handleChange}
+            handleClick={handleClick}
+            value={values['email']}
+            error={errors['email']}
+          />
 
-          {/* 프사 */}
+          {/* 프사
           <label htmlFor="id" className="form-label col-4 fs-3">
             Profile Image
           </label>
           <div className="col-4">
-            <input className="form-control border-dark" id="profileImg"
-              type="file" accept="image/*" placeholder={profileImg}
-              onChange={handleProfileImg} />
-            <div className="invalid-feedback">Please enter a valid Profile Image</div>
+            <input
+              className="form-control border-dark"
+              id="profileImg"
+              type="file"
+              accept="image/*"
+              placeholder={inputProfileImg}
+              onChange={handleProfileImg}
+            />
           </div>
           <div className="col-4" />
 
-          {/* 지갑주소 */}
+          {/* 지갑주소
           <label htmlFor="id" className="form-label col-4 fs-3">
             Wallet Addr.
           </label>
           <div className="col-8">
-            <input className="form-control border-dark" id="walletAddr"
-              placeholder={walletAddr} type="text" required
-              onChange={handleWalletAddr} />
-            <div className="invalid-feedback">Please enter a valid Wallet Address</div>
-          </div>
+            <input
+              className="form-control border-dark"
+              id="walletAddr"
+              placeholder={inputWalletAddr}
+              type="text"
+              required
+              onChange={handleWalletAddr}
+            />
+          </div> */}
 
           {/* 설명 */}
-          <label htmlFor="id" className="form-label col-4 fs-3">
-            Description
-          </label>
-          <div className="col-8">
-            <textarea className="form-control border-dark" id="desc"
-              placeholder={desc}
-              rows={5}
-              style={{ resize: 'none' }}
-              onChange={handleDesc}
-            />
-            <div className="invalid-feedback">Please enter a valid Profile Image</div>
-          </div>
-
-          <button className="col-6 btn btn-primary btn-lg bg-dark justify-content-center" type="submit">
-            Edit info
-          </button>
+          <TextArea
+            name="description"
+            id="description"
+            label="Description"
+            rows={5}
+            placeholder={''}
+            disabled={false}
+            readonly={false}
+            handleChange={handleChange}
+            handleClick={handleClick}
+            value={values['description']}
+            error={errors['description']}
+          />
         </div>
+        <button className="col-6 btn btn-primary btn-lg bg-dark justify-content-center mt-3 w-100" type="submit" onClick={handleSubmit}>
+          Edit info
+        </button>
       </form>
     </div>
   );

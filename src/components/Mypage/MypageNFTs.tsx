@@ -1,70 +1,70 @@
-//import { useState, useEffect } from "react";
-import testImage1 from '../../assets/images/Mypage/testImage1.png';
-import testImage2 from '../../assets/images/Mypage/testImage2.png';
-import testImage3 from '../../assets/images/Mypage/testImage3.png';
+import CardList from '../Items/CardList';
+import Pagination from '../Items/Pagination';
+import useItems from '../../hooks/useItems';
+import { getItem, selectItemwithMember } from '../../services/itemService';
+import ModalItem from '../modal/ModalItem';
+import { useEffect, useState } from 'react';
+import { Item } from '../../types/Item';
 import { useNavigate } from 'react-router-dom';
-
-interface itemInfo {
-  id: number;
-  title: string;
-  thumbImg: '*.png';
-}
 
 export const MypageNFTs = () => {
   const navigate = useNavigate();
-  const cardList = () => {
-    const handleCard = (index: number) => {
-      navigate(`/mypage/NFTItem?nft_id=${index}`, { replace: false });
-    };
+  const { items, page, setPage } = useItems(selectItemwithMember(2, {}));
+  const [itemNum, setItemNum] = useState(-1);
+  const [item, setItem] = useState({} as Item);
+  const [numShowItems, numShowPages] = [15, 5];
 
-    const handleMouse = (e: React.MouseEvent): void => {
-      e.stopPropagation();
-      e.preventDefault();
-      if (e.type === 'mouseover') {
-        e.currentTarget.setAttribute('style', 'opacity: 0.7');
-      } else {
-        e.currentTarget.setAttribute('style', 'opacity: 1');
-      }
-    };
+  const ModalFooterButtons = [
+    (
+      (item.catCode) ?
+        <div
+          key={"modalFooterButton1"}
+          className="btn btn-light btn-outline-dark w-25"
+          data-bs-dismiss="modal"
+          onClick={() => { navigate("/NFTminting"); }}
+        >등록하기</div>
+        :
+        <div
+          key={"modalFooterButton2"}
+          className="btn btn-light w-25"
+          data-bs-dismiss="modal"
+          onClick={() => { navigate(`/mypage/NFTItem?nft_id=${itemNum}`); }}
+        >판매하기</div>
+    )
+  ];
 
-    const loadItemInfo = (index: number) => {
-      const img = (i: number) => {
-        if (i % 3 == 0) return testImage1;
-        else if (i % 3 == 1) return testImage2;
-        else if (i % 3 == 2) return testImage3;
-      };
-      return {
-        id: index,
-        title: `NFT ${index}`,
-        thumbImg: img(index)
-      };
-    };
+  useEffect(() => {
+    (async () => {
+      if (itemNum < 0) return;
+      const { data, error } = await getItem(itemNum);
+      console.log(data);
+      if (error) { console.log(error); return alert(error); }
+      setItem(data as Item);
+    })();
+  }, [itemNum]);
 
-    const cardItem = (index: number, info: itemInfo) => {
-      return (
-        <div className="col" key={index}>
-          <div
-            className="card text-white bg-dark rounded-0"
-            onMouseOver={handleMouse}
-            onMouseLeave={handleMouse}
-            onClick={() => {
-              handleCard(info.id);
-            }}
-          >
-            <img src={info.thumbImg} className="card-img rounded-0" alt="..." />
-            <div className="card-img-overlay">
-              <h5 className="card-title">{info.title}</h5>
-            </div>
-          </div>
-        </div>
-      );
-    };
-
-    const cardItems = new Array(3 * 100).fill(0);
-    return cardItems.map((_, i) => {
-      return cardItem(i, loadItemInfo(i));
-    });
-  };
-
-  return <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-0">{cardList()}</div>;
+  return (
+    <div className="row">
+      <div className='mb-3'>
+        <CardList
+          page={page}
+          items={items}
+          size={"md"}
+          numShowItems={numShowItems}
+          handleCard={setItemNum}
+          modalID={'modalMyNFTs'} />
+        <ModalItem
+          modalID={'modalMyNFTs'}
+          item={item}
+          footerButtons={ModalFooterButtons}
+          isStatic={false} />
+      </div>
+      <Pagination
+        page={page}
+        setPage={setPage}
+        numItems={items.length}
+        numShowItems={numShowItems}
+        numShowPages={numShowPages} />
+    </div>
+  );
 };
