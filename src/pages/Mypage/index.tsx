@@ -30,7 +30,7 @@ export const Mypage = () => {
         alert('유저정보가 없어서 홈페이지로 이동합니다.');
         navigate('/');
       } else {
-        const { data, error } = await selectMember(cookieData.id);
+        const { data, error } = await selectMember(cookieData.num);
         if (error) { console.log(error); return alert(error); }
         setUserInfo(data);
       }

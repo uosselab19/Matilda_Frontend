@@ -14,7 +14,7 @@ export async function selectItem(item: SelectItem) {
   return { data, error };
 }
 
-export async function getItem(itemNum: number) {
+export const getItem = async (itemNum: number) => {
   let [data, error] = [undefined, undefined] as any;
 
   try {
@@ -27,7 +27,7 @@ export async function getItem(itemNum: number) {
   return { data, error };
 }
 
-export async function selectItemwithMember(memberID: number, item: SelectItemwithMember) {
+export const selectItemwithMember = async (memberID: number, item: SelectItemwithMember) => {
   let [data, error] = [[], undefined] as any;
 
   try {

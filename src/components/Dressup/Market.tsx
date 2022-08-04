@@ -71,7 +71,7 @@ export const Market = (props: DressupMarketProps) => {
           handleCard={setItemNum}
           modalID={'modalDressup'} />
         <ModalItem
-          modalID={`modalDressup${itemNum}`}
+          modalID={`modalDressup`}
           item={item}
           footerButtons={ModalFooterButtons}
           isStatic={false} />

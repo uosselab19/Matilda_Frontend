@@ -1,4 +1,5 @@
 import useCookie from "../../hooks/useCookie";
+import { apiClient } from "../../services/apiClient";
 import { selectMember } from "../../services/memberService";
 
 export const Footer = () => {
@@ -9,7 +10,9 @@ export const Footer = () => {
     console.log(cookie);
     if (!cookie) return;
 
-    const { data, error } = await selectMember(cookie.id);
+    console.log(apiClient.defaults.headers);
+
+    const { data, error } = await selectMember(cookie.num);
     if (error) { alert(error); return console.log(error); }
     console.log(data);
   };

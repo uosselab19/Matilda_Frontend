@@ -16,7 +16,7 @@ interface categoryItem {
 export const Convert3D = () => {
   const [clothes, setClothes] = useState({ catCode: '', image: convertImage, title: '' });
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const navigate=useNavigate();
   const { getCookie } = useCookie();
 
   useEffect(() => {

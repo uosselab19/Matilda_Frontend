@@ -39,7 +39,8 @@ export interface SelectMember {
 }
 
 export interface userInfo {
-  id: number;
+  id: string;
+  num:number;
   role: string;
   iat: number;
   exp: number;

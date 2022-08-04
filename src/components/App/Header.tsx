@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import matildaWhite from '../../assets/images/matilda_white.png';
 import useCookie from '../../hooks/useCookie';
+import { signoutMember } from '../../services/securityService';
 import { NavButtons } from '../NavButtons';
 
 export const Header = () => {
@@ -18,8 +19,11 @@ export const Header = () => {
 
   //로그아웃 버튼 기능
   const fetchSignout = () => {
-    removeCookie(); // 로그인 기록 쿠키 지우기
+    const cookie=getCookie();
+    if(cookie)
+      signoutMember(cookie);
     alert('sign out 하였습니다.'); // 로그아웃했다고 알림
+    removeCookie(); // 로그인 기록 쿠키 지우기
     linkTo('/'); // 로그아웃하면 홈페이지로
   };
 

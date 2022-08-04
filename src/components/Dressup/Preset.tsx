@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import useCookie from '../../hooks/useCookie';
-import { putMemberPreset, selectMember } from '../../services/memberService';
+import { putMember, selectMember } from '../../services/memberService';
 import { Clothes } from '../../types/Clothes';
 
 interface PresetProps {
@@ -31,18 +31,20 @@ const handleLoad = (props: PresetCardProps) => {
 
 const handleSave = (props: PresetCardProps) => {
   const { index, presetList, clothes } = props;
+
   const cookie = useCookie().getCookie();
   if (!cookie) return;
   if (!confirm(`지금 입은 옷을 Preset${index}에 저장하는 게 맞나요?`)) alert('놀랍게도 아무 일도 일어나지 않았답니다.');
   else {
     presetList[index] = clothes;
-    putMemberPreset(cookie.id, presetList);
+    putMember(cookie.num, { presetList: presetList });
     alert('저장했습니다~');
   }
 };
 
 const handleReset = (props: PresetProps) => {
   const { setClothes } = props;
+
   if (!confirm(`지금 입은 옷을 리셋하는 게 맞나요?`)) alert('놀랍게도 아무 일도 일어나지 않았답니다.');
   else {
     setClothes({});
@@ -100,10 +102,12 @@ const PresetCard = (props: PresetCardProps) => {
 export const Preset = (props: PresetProps) => {
   const { clothes, setClothes, presetList, setPresetList } = props;
 
-
   useEffect(() => {
     (async () => {
-      const { data, error } = await selectMember(2);
+      const cookie = useCookie().getCookie();
+      if (!cookie) return;
+
+      const { data, error } = await selectMember(cookie.num);
 
       if (error) { console.log(error); return alert(error); }
 
@@ -114,6 +118,7 @@ export const Preset = (props: PresetProps) => {
 
   return (
     <div className="h-100 d-flex flex-column justify-content-between">
+
       {/* Preset 아코디언 */}
       <div className="btn-group-vertical">
         <PresetCard index={1} presetList={presetList} clothes={clothes} setClothes={setClothes} />

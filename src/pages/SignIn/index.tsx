@@ -7,6 +7,8 @@ import { SigninMember } from '../../types/Member';
 import { isRequired, isID, isPassword } from '../../utils/validator';
 import { Buffer } from 'buffer';
 import useCookie from '../../hooks/useCookie';
+import { useEffect } from 'react';
+import { signinMember } from '../../services/securityService';
 
 const validate = (values: SigninMember) => {
   const errors = {
@@ -18,13 +20,12 @@ const validate = (values: SigninMember) => {
 };
 
 export const Signin = () => {
-  const { setCookie } = useCookie();
+  const { setCookie, getCookie } = useCookie();
   const navigate = useNavigate();
   const callback = async (values: SigninMember) => {
-    // const { data, error } = await signinMember(values);
-    // if(error) alert(error);
-    // console.log(error);
-    // console.log(data);
+    const { data, error } = await signinMember(values);
+    if(error){ alert(error); return console.log(error);}
+    console.log(data);
 
     //base 64를 디코딩한 후에 parse 과정을 통해 json화 하는 함수
     const parseToken = (token: string) => {
@@ -32,10 +33,20 @@ export const Signin = () => {
       result.token = token;
       return result;
     };
-    const userInfo = parseToken("e.e.e");
+    const userInfo = parseToken(data.accessToken);
     setCookie(userInfo);
     navigate('/');
   };
+
+  useEffect(() => {
+    (async () => {
+      const cookieData = getCookie();
+      if (cookieData) {
+        alert('이미 로그인한 정보가 있어서 홈페이지로 이동합니다.');
+        navigate('/');
+      }
+    })();
+  }, []);
 
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
 
