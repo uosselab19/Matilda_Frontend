@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Clothes } from '../../types/Clothes';
-import { getItem, selectItem } from '../../services/itemService';
+import { getItem } from '../../services/itemService';
 import CardList from '../Items/CardList';
 import Pagination from '../Items/Pagination';
 import Search from '../Items/Search';
@@ -22,7 +22,7 @@ export const Market = (props: DressupMarketProps) => {
   const navigate = useNavigate();
 
   const [selectCondition, setSelectCondition] = useState({}); //stateCode:"OS"
-  const { items, page, setPage } = usePagination(selectItem(selectCondition));
+  const { items, page, setPage } = usePagination(selectCondition);
   const [itemNum, setItemNum] = useState(-1);
   const [item, setItem] = useState({} as Item);
 
@@ -65,7 +65,8 @@ export const Market = (props: DressupMarketProps) => {
 
   return (
     <div>
-      <Search callback={setSelectCondition} />
+      <Search
+        handleSearch={setSelectCondition} />
       <div className="my-3">
         <CardList
           page={page}
