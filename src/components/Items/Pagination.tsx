@@ -31,12 +31,14 @@ export default function Pagination(props: PagenationProps) {
     return (
       <li className="page-item" key={number}>
         <button
-          className={`page-link link-dark ${selected ? 'fw-bold' : ''}`}
+          type="button"
+          className={`btn page-link link-dark ${selected ? 'fw-bold' : ''}`}
           onClick={() => {
             setPage(number - 1);
             window.scrollTo({ top: 0 });
-          }}
-        >{number}</button>
+          }}>
+          {number}
+        </button>
       </li>
     );
   };
@@ -54,24 +56,24 @@ export default function Pagination(props: PagenationProps) {
       <ul className="pagination justify-content-center">
         <li className="page-item">
           <button
-            className="page-link link-dark"
+            type="button"
+            className="btn page-link link-dark"
             onClick={() => {
               prevPage();
               window.scrollTo({ top: 0 });
-            }}
-          >
+            }}>
             Prev
           </button>
         </li>
         {paginationManage(page)}
         <li className="page-item">
           <button
-            className="page-link link-dark"
+            type="button"
+            className="btn page-link link-dark"
             onClick={() => {
               nextPage();
               window.scrollTo({ top: 0 });
-            }}
-          >
+            }}>
             Next
           </button>
         </li>

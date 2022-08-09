@@ -65,12 +65,11 @@ export default function Search(props: SearchProps) {
           </div>
           <div className="col-3">
             <button
-              className="btn btn-outline-success w-100 h-100"
               type="submit"
+              className="btn btn-outline-success w-100 h-100"
               onClick={(e) => {
                 handleSubmit(e);
-              }}
-            >
+              }}>
               Search
             </button>
           </div>

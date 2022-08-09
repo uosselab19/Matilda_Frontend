@@ -21,11 +21,16 @@ export const Footer = () => {
     <footer className="text-muted text-center py-5">
       <div className="container">
         <p className="float mb-3">
-          <button className="btn btn-link link-dark" onClick={scrollTop}>
+          <button
+            type="button"
+            className="btn btn-link link-dark"
+            onClick={scrollTop}>
             Back to top
           </button>
         </p>
-        <p className="mb-0">Copyright ©2022 by selab. All Rights Reserved.</p>
+        <p className="mb-0">
+          Copyright ©2022 by selab. All Rights Reserved.
+        </p>
       </div>
     </footer>
   );

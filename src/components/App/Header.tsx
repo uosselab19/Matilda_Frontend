@@ -19,8 +19,8 @@ export const Header = () => {
 
   //로그아웃 버튼 기능
   const fetchSignout = () => {
-    const cookie=getCookie();
-    if(cookie)
+    const cookie = getCookie();
+    if (cookie)
       signoutMember(cookie);
     alert('sign out 하였습니다.'); // 로그아웃했다고 알림
     removeCookie(); // 로그인 기록 쿠키 지우기
@@ -33,20 +33,16 @@ export const Header = () => {
 
   const sign = // 오른쪽 버튼 보여주기
     (
-      <div className='btn-group'>
+      <div className='btn-group' role="group">
         <button
           className="btn btn-outline-light me-1"
-          onClick={() => {
-            getCookie() ? fetchSignout() : linkTo('/signin');
-          }}
-        >{getCookie() ? 'sign-out' : 'Sign-in'}
+          onClick={() => { getCookie() ? fetchSignout() : linkTo('/signin'); }}>
+          {getCookie() ? 'sign-out' : 'Sign-in'}
         </button>
         <button
           className="btn btn-secondary"
-          onClick={() => {
-            getCookie() ? linkTo('/mypage') : linkTo('/signup');
-          }}
-        >{getCookie() ? 'My Page' : 'Sign-up'}
+          onClick={() => { getCookie() ? linkTo('/mypage') : linkTo('/signup'); }}>
+          {getCookie() ? 'My Page' : 'Sign-up'}
         </button>
       </div>
     );
@@ -97,15 +93,14 @@ export const Header = () => {
             </div>
             <div className="navbar navbar-dark bg-dark d-flex justify-content-end">
               <button
-                className="navbar-toggler"
                 type="button"
+                className="btn navbar-toggler"
                 data-bs-toggle="collapse"
                 data-bs-target="#navbarToggleExternalContent"
                 aria-controls="navbarToggleExternalContent"
                 aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <span className="navbar-toggler-icon"></span>
+                aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon" />
               </button>
             </div>
           </div>

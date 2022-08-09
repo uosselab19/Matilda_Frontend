@@ -69,29 +69,26 @@ const PresetCard = (props: PresetCardProps) => {
         data-bs-toggle="collapse"
         data-bs-target={`#collapsePreset${index}`}
         aria-expanded="false"
-        aria-controls={`collapsePreset${index}`}
-      >
+        aria-controls={`collapsePreset${index}`}>
         Preset {index}
       </div>
-      <div className="collapse" id={`collapsePreset${index}`} role="group">
-        <div className="btn-group-vertical text-white w-100">
+      <div className="collapse" id={`collapsePreset${index}`}>
+        <div className="btn-group-vertical text-white w-100" role="group">
           <button
+            type="button"
             className="btn btn-dark"
             onClick={() => {
               handleLoad(props);
-            }}
-          >
-            {' '}
-            Load{' '}
+            }}>
+            Load
           </button>
           <button
+            type="button"
             className="btn btn-dark"
             onClick={() => {
               handleSave(props);
-            }}
-          >
-            {' '}
-            Save{' '}
+            }}>
+            Save
           </button>
         </div>
       </div>
@@ -120,22 +117,26 @@ export const Preset = (props: PresetProps) => {
     <div className="h-100 d-flex flex-column justify-content-between">
 
       {/* Preset 아코디언 */}
-      <div className="btn-group-vertical">
+      <div className="btn-group-vertical" role="group">
         <PresetCard index={1} presetList={presetList} clothes={clothes} setClothes={setClothes} />
         <PresetCard index={2} presetList={presetList} clothes={clothes} setClothes={setClothes} />
         <PresetCard index={3} presetList={presetList} clothes={clothes} setClothes={setClothes} />
       </div>
 
       {/* Reset/Buy 버튼 */}
-      <div className="btn-group-vertical">
-        <div
+      <div className="btn-group-vertical" role="group">
+        <button
+          type="button"
           className="btn btn-danger"
-          onClick={() => { handleReset(props); }}
-        > Reset </div>
-        <div
+          onClick={() => { handleReset(props); }}>
+          Reset
+        </button>
+        <button
+          type="button"
           className="btn btn-primary"
-          onClick={() => { handleBuy(props); }}
-        > Buy All </div>
+          onClick={() => { handleBuy(props); }}>
+          Buy All
+        </button>
       </div>
     </div>
   );

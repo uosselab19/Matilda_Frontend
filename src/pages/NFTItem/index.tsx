@@ -26,18 +26,20 @@ export const NFTItem = (props: NFTItemProps) => {
   }, []);
 
   const ModalFooterButtons = [
-    <div
+    <button
       key={"modalFooterButton1"}
+      type="button"
       className="btn btn-light btn-outline-dark w-25"
       data-bs-dismiss="modal"
       onClick={() => {
-        if(confirm(`구매했습니다~ 마이페이지로 갈래요?`)){
+        if (confirm(`구매했습니다~ 마이페이지로 갈래요?`)) {
           navigate('/mypage');
         } else {
           navigate('/marketplace');
         }
-      }}
-    >구매하기</div>
+      }}>
+      구매하기
+    </button>
   ];
 
   return item ? (
@@ -73,8 +75,7 @@ export const NFTItem = (props: NFTItemProps) => {
                 type="button"
                 className="btn btn-primary btn-lg p-3 mb-5 w-50"
                 data-bs-toggle="modal"
-                data-bs-target={`#${'ModalNFTItem'}`}
-              >
+                data-bs-target={`#${'ModalNFTItem'}`}>
                 {mode}
               </button>
               <ModalItem

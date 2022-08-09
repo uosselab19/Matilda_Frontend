@@ -20,8 +20,7 @@ function SpinnerUnit(props: SpinnerProps) {
         height: `${radius}em`,
         animationDuration: `${delay}s`,
         animationDelay: `${(delay / 6) * index}s`
-      }}
-    >
+      }}>
       <span className="visually-hidden">Converting 2D to 3D</span>
     </div>
   );

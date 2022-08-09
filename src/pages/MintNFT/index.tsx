@@ -92,8 +92,8 @@ export const MintNFT = () => {
                 handleChange={handleChange}
                 handleClick={handleClick}
                 value={values['title']}
-                error={errors['title']}
-              />
+                error={errors['title']} />
+
               {/* 설명 */}
               <TextArea
                 name="description"
@@ -106,8 +106,7 @@ export const MintNFT = () => {
                 handleChange={handleChange}
                 handleClick={handleClick}
                 value={values['description']}
-                error={errors['description']}
-              />
+                error={errors['description']} />
 
               {/* 가격 */}
               <TextBox
@@ -121,10 +120,12 @@ export const MintNFT = () => {
                 handleChange={handleChange}
                 handleClick={handleClick}
                 value={values['price']}
-                error={errors['price']}
-              />
+                error={errors['price']} />
             </div>
-            <button className="w-100 btn btn-primary btn-lg bg-dark" type="submit" onClick={handleSubmit}>
+            <button
+              type="submit"
+              className="w-100 btn btn-primary btn-lg bg-dark"
+              onClick={handleSubmit}>
               Mint NFT
             </button>
           </form>

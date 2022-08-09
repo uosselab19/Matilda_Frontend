@@ -27,17 +27,20 @@ export const Market = (props: DressupMarketProps) => {
   const [item, setItem] = useState({} as Item);
 
   const ModalFooterButtons = [
-    <div
+    <button
       key={"modalFooterButton1"}
+      type="button"
       className="btn btn-light btn-outline-dark w-25"
       data-bs-dismiss="modal"
       onClick={() => {
         setClothes((clothes) => ({ ...clothes, [item.catCode]: item }));
         console.log(clothes);
-      }}
-    >입혀보기</div>,
-    <div
+      }}>
+      입혀보기
+    </button>,
+    <button
       key={"modalFooterButton2"}
+      type="button"
       className="btn btn-dark w-25"
       data-bs-dismiss="modal"
       onClick={() => {
@@ -45,8 +48,9 @@ export const Market = (props: DressupMarketProps) => {
           if (!confirm("아직 저장이 되지 않았는데 괜찮을까요?"))
             alert("저장하고 오시는 게 더 좋을 듯싶네요 ㅎㅎ")
         navigate(`/marketplace/NFTitem?NFT_id=${itemNum}`);
-      }}
-    >구매하기</div>
+      }}>
+      구매하기
+    </button>
   ];
 
   useEffect(() => {

@@ -61,8 +61,7 @@ export const Signup = () => {
               handleChange={handleChange}
               handleClick={handleClick}
               value={values['id']}
-              error={errors['id']}
-            />
+              error={errors['id']} />
 
             {/*비밀번호*/}
             <TextBox
@@ -76,8 +75,7 @@ export const Signup = () => {
               handleChange={handleChange}
               handleClick={handleClick}
               value={values['password']}
-              error={errors['password']}
-            />
+              error={errors['password']} />
 
             {/*별명*/}
             <TextBox
@@ -91,8 +89,7 @@ export const Signup = () => {
               handleChange={handleChange}
               handleClick={handleClick}
               value={values['nickname']}
-              error={errors['nickname']}
-            />
+              error={errors['nickname']} />
 
             {/*이메일*/}
             <TextBox
@@ -106,8 +103,7 @@ export const Signup = () => {
               handleChange={handleChange}
               handleClick={handleClick}
               value={values['email']}
-              error={errors['email']}
-            />
+              error={errors['email']} />
           </div>
 
           <div className="col-12 my-4">
@@ -119,7 +115,10 @@ export const Signup = () => {
             </div>
           </div>
 
-          <button className="w-100 btn btn-primary btn-lg bg-dark" type="submit" onClick={handleSubmit}>
+          <button
+            type="submit"
+            className="w-100 btn btn-primary btn-lg bg-dark"
+            onClick={handleSubmit}>
             Continue to Sign-up
           </button>
         </form>

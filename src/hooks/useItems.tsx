@@ -11,7 +11,7 @@ export default function useItems(selectItem: Promise<any>) {
       if(error) {console.log(error); return alert(error);}
       setItems(data);
       
-      //timeout of 1000ms exceeded    -> handling은 어떻게 해야할까?
+      //timeout of 3000ms exceeded    -> handling은 어떻게 해야할까?
     })();
   }, []);
 

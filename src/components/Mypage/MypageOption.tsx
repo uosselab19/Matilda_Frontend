@@ -132,7 +132,10 @@ export const MypageOption = () => {
             error={errors['description']}
           />
         </div>
-        <button className="col-6 btn btn-primary btn-lg bg-dark justify-content-center mt-3 w-100" type="submit" onClick={handleSubmit}>
+        <button
+          className="col-6 btn btn-primary btn-lg bg-dark justify-content-center mt-3 w-100"
+          type="submit"
+          onClick={handleSubmit}>
           Edit info
         </button>
       </form>

@@ -1,14 +1,14 @@
 interface NavButtonsProps {
 	navItems: any[];
 	selectedNavButton: string;
-	onClick:Function;
+	onClick: Function;
 	textBold?: boolean;
 	textSize?: number;
 	textColor?: string;
 }
 
 interface NavButton {
-	key:string;
+	key: string;
 	title: string;
 	onClick: Function;
 }
@@ -19,6 +19,7 @@ export const NavButtons = (props: NavButtonsProps) => {
 		const { key, title } = data;
 		return (
 			<button
+				type="button"
 				key={key}
 				className={[
 					"btn btn-outline-white text-decoration-none",
@@ -26,14 +27,15 @@ export const NavButtons = (props: NavButtonsProps) => {
 					`${textBold ? "fw-bold" : ""}`,
 					`${textSize ? `fs-${textSize}` : ""}`
 				].join(" ")}
-				onClick={()=>{onClick(key)}}
-			> {title} </button>
+				onClick={() => { onClick(key) }}>
+				{title}
+			</button>
 		);
 	};
 
 	return (
 		<div className="d-flex justify-content-around">
-			{navItems.map((e) => {return NavButton(e);})}
+			{navItems.map((e) => { return NavButton(e); })}
 		</div>
 	);
 }

@@ -16,7 +16,7 @@ interface categoryItem {
 export const Convert3D = () => {
   const [clothes, setClothes] = useState({ catCode: '', image: convertImage, title: '' });
   const [loading, setLoading] = useState(false);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const { getCookie } = useCookie();
 
   useEffect(() => {
@@ -32,12 +32,13 @@ export const Convert3D = () => {
   //아코디언 항목 대응시켜주는 부분
   const categoryItems = useCategory().map((categoryElement: categoryItem, index: Number) => {
     return (
-      <div
+      <button
         key={`category${index}`}
-        className="btn btn-outline-secondary"
-        onClick={() => { setClothes(categoryElement); }}
-      >{categoryElement.title}
-      </div>
+        type="button"
+        className="btn btn-outline-secondary d-flex justify-content-center align-items-center"
+        onClick={() => { setClothes(categoryElement); }}>
+        {categoryElement.title}
+      </button>
     );
   });
   categoryItems.shift();
@@ -48,7 +49,7 @@ export const Convert3D = () => {
       <div className="row my-3">
         <div className="col-lg-3">
           {/* 아코디언 들어갈 부분 */}
-          <div className="btn-group-vertical my-5 w-75 h-100" id="btn-group">
+          <div className="btn-group-vertical my-5 w-75 h-100" role="group" id="btn-group">
             {categoryItems}
           </div>
         </div>

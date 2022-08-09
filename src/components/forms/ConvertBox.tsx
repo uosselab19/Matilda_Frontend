@@ -1,4 +1,4 @@
-import { convertFunction } from '../../hooks/ConvertFunction';
+import { convertFunction } from '../../utils/ConvertFunction';
 
 interface Clothes {
   catCode: string;
