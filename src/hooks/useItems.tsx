@@ -11,7 +11,6 @@ export default function useItems(promise:Function, initialSelectCondition:{}) {
       const { data, error } = await promise(selectCondition);
       if(error) {console.log(error); return alert(error);}
       setItems(data);
-      console.log(data);
       
       //timeout of 3000ms exceeded    -> handling은 어떻게 해야할까?
     })();

@@ -1,19 +1,22 @@
 import { useEffect, useState } from 'react';
-import Card from './Card';
+import Card from './ItemCard';
 import { Item } from '../../types/Item';
+import Pagination from './Pagination';
 
 //컴포넌트가 받을 props
-interface CardListProps {
-  page: number;
+interface ItemsProps {
   items: Item[];
+  page: number;
+  setPage: Function;
   numShowItems: number;
+  numShowPages: number;
   size: string;
   handleCard?: Function;
   modalID?: string;
 }
 
-export default function CardList(props: CardListProps) {
-  const { page, items, numShowItems, size, handleCard, modalID } = props;
+export default function Items(props: ItemsProps) {
+  const { items, page, setPage, numShowItems, numShowPages, size, handleCard, modalID } = props;
   const [showItems, setShowItems] = useState([] as JSX.Element[]);
 
   const makeCard = (size: string, items: Item[]) => {
@@ -37,7 +40,20 @@ export default function CardList(props: CardListProps) {
 
   return (
     <div className="container">
-      <div className={`row row-cols-1 row-cols-sm-2 row-cols-md-${size == 'lg' ? 4 : 3} align-items-around g-2`}>{showItems}</div>
+      <div className={[
+        `row align-items-around g-2`,
+        `row-cols-1 row-cols-sm-2`,
+        `row-cols-md-${size == 'lg' ? 4 : 3}`,
+        `mb-${size == 'lg' ? "5" : "3"}`
+        ].join(" ")} >
+        {showItems}
+      </div>
+      <Pagination
+        page={page}
+        setPage={setPage}
+        numItems={items.length}
+        numShowItems={numShowItems}
+        numShowPages={numShowPages} />
     </div>
   );
 }

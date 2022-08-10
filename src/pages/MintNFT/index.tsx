@@ -6,8 +6,7 @@ import testImage from '../../assets/images/NFTItem/mindul_NFT1.jpg';
 import { Item, UpdateItem } from '../../types/Item';
 import { isRequired, notMaxLength, notMinLength, isNumber } from '../../utils/validator';
 import { selectItemwithMember } from '../../services/itemService';
-import CardList from '../../components/Items/CardList';
-import Pagination from '../../components/Items/Pagination';
+import Items from '../../components/Items/Items';
 import useItems from '../../hooks/useItems';
 import { useNavigate } from 'react-router-dom';
 import useCookie from '../../hooks/useCookie';
@@ -39,6 +38,7 @@ export const MintNFT = () => {
 
   //3D 아이템 넣어주는 부분
   const [itemImage, setItemImage] = useState('');
+  const [numShowItems, numShowPages] = [3, 5];
   const { items, page, setPage } = useItems(selectItemwithMember, { memberNum: 2, stateCode: 'CR' });
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
   const navigate = useNavigate();
@@ -67,8 +67,14 @@ export const MintNFT = () => {
       <div className="row g-3 w-100 d-flex justify-content-between">
         <div className="col-6 d-flex justify-content-center flex-column">
           <img className="mb-3 align-self-center" src={testImage} style={{ width: 350, height: 350 }} />
-          <CardList page={page} items={items} numShowItems={3} size={'md'} handleCard={handleCard} />
-          <Pagination page={page} setPage={setPage} numItems={items.length} numShowItems={3} numShowPages={5} />
+          <Items
+            items={items}
+            page={page}
+            setPage={setPage}
+            size={'md'}
+            numShowItems={numShowItems}
+            numShowPages={numShowPages}
+            handleCard={handleCard} />
         </div>
         <div className="col-6">
           <p>

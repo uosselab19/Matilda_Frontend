@@ -1,5 +1,4 @@
-import CardList from '../Items/CardList';
-import Pagination from '../Items/Pagination';
+import Items from '../Items/Items';
 import useItems from '../../hooks/useItems';
 import { getItem, selectItemwithMember } from '../../services/itemService';
 import ModalItem from '../modal/ModalItem';
@@ -9,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const MypageNFTs = () => {
   const navigate = useNavigate();
-  const { items, page, setPage } = useItems(selectItemwithMember, {memberNum:2});
+  const { items, page, setPage } = useItems(selectItemwithMember, { memberNum: 2 });
   const [itemNum, setItemNum] = useState(-1);
   const [item, setItem] = useState({} as Item);
   const [numShowItems, numShowPages] = [15, 5];
@@ -49,26 +48,20 @@ export const MypageNFTs = () => {
 
   return (
     <div className="row">
-      <div className='mb-3'>
-        <CardList
-          page={page}
-          items={items}
-          size={"md"}
-          numShowItems={numShowItems}
-          handleCard={setItemNum}
-          modalID={'modalMyNFTs'} />
-        <ModalItem
-          modalID={'modalMyNFTs'}
-          item={item}
-          footerButtons={ModalFooterButtons}
-          isStatic={false} />
-      </div>
-      <Pagination
+      <Items
+        items={items}
         page={page}
         setPage={setPage}
-        numItems={items.length}
+        size={"md"}
         numShowItems={numShowItems}
-        numShowPages={numShowPages} />
+        numShowPages={numShowPages}
+        handleCard={setItemNum}
+        modalID={'modalMyNFTs'} />
+      <ModalItem
+        modalID={'modalMyNFTs'}
+        item={item}
+        footerButtons={ModalFooterButtons}
+        isStatic={false} />
     </div>
   );
 };

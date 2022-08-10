@@ -13,7 +13,7 @@ function validate(values: SelectItem) {
 }
 
 interface SearchProps {
-  size?: string;
+  size: string;
   handleSearch: Function;
 }
 
@@ -29,7 +29,7 @@ export default function Search(props: SearchProps) {
   const { handleChange, handleSubmit, values, errors } = useForm(serach, validate);
 
   return (
-    <div className="container text-center">
+    <div className={`container text-center mb-${size=="lg"?"4":"3"}`}>
       <form>
         <div className="row d-flex justify-content-between">
           <div className="col-3">

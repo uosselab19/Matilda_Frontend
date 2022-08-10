@@ -1,5 +1,4 @@
-import CardList from '../../components/Items/CardList';
-import Pagination from '../../components/Items/Pagination';
+import Items from '../../components/Items/Items';
 import Search from '../../components/Items/Search';
 import { useNavigate } from 'react-router-dom';
 import useItems from '../../hooks/useItems';
@@ -21,20 +20,14 @@ export const Marketplace = () => {
         size="lg"
         handleSearch={setSelectCondition} />
       {/* <Category /> */}
-      <div className="my-5">
-        <CardList
-          page={page}
-          items={items}
-          numShowItems={numShowItems}
-          size={'lg'}
-          handleCard={handleCard} />
-      </div>
-      <Pagination
+      <Items
+        items={items}
         page={page}
         setPage={setPage}
-        numItems={items.length}
+        size={"lg"}
         numShowItems={numShowItems}
-        numShowPages={numShowPages} />
+        numShowPages={numShowPages}
+        handleCard={handleCard} />
     </main>
   );
 };

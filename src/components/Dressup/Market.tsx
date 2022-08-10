@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Clothes } from '../../types/Clothes';
 import { getItem, selectItem } from '../../services/itemService';
-import CardList from '../Items/CardList';
-import Pagination from '../Items/Pagination';
+import Items from '../Items/Items';
 import Search from '../Items/Search';
 import ModalItem from '../modal/ModalItem';
 import { Item } from '../../types/Item';
@@ -34,7 +33,7 @@ export const Market = (props: DressupMarketProps) => {
       onClick={() => {
         setClothes((clothes) => ({ ...clothes, [item.catCode]: item }));
         console.log(clothes);
-      }}>
+      }} >
       입혀보기
     </button>,
     <button
@@ -47,7 +46,7 @@ export const Market = (props: DressupMarketProps) => {
           if (!confirm("아직 저장이 되지 않았는데 괜찮을까요?"))
             alert("저장하고 오시는 게 더 좋을 듯싶네요 ㅎㅎ")
         navigate(`/marketplace/NFTitem?NFT_id=${itemNum}`);
-      }}>
+      }} >
       구매하기
     </button>
   ];
@@ -65,27 +64,22 @@ export const Market = (props: DressupMarketProps) => {
   return (
     <div>
       <Search
+        size={"lg"}
         handleSearch={setSelectCondition} />
-      <div className="my-3">
-        <CardList
-          page={page}
-          items={items}
-          size={"sm"}
-          numShowItems={numShowItems}
-          handleCard={setItemNum}
-          modalID={'modalDressup'} />
-        <ModalItem
-          modalID={`modalDressup`}
-          item={item}
-          footerButtons={ModalFooterButtons}
-          isStatic={false} />
-      </div>
-      <Pagination
+      <Items
+        items={items}
         page={page}
         setPage={setPage}
-        numItems={items.length}
+        size={"sm"}
         numShowItems={numShowItems}
-        numShowPages={numShowPages} />
+        numShowPages={numShowPages}
+        handleCard={setItemNum}
+        modalID={'modalDressup'} />
+      <ModalItem
+        modalID={`modalDressup`}
+        item={item}
+        footerButtons={ModalFooterButtons}
+        isStatic={false} />
     </div>
   );
 };
