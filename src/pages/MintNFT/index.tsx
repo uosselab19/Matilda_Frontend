@@ -8,9 +8,10 @@ import { isRequired, notMaxLength, notMinLength, isNumber } from '../../utils/va
 import { selectItemwithMember } from '../../services/itemService';
 import CardList from '../../components/Items/CardList';
 import Pagination from '../../components/Items/Pagination';
-import usePagination from '../../hooks/useItems';
+import useItems from '../../hooks/useItems';
 import { useNavigate } from 'react-router-dom';
 import useCookie from '../../hooks/useCookie';
+import SubmitButton from '../../components/forms/SubmitButton';
 
 function validate(values: UpdateItem) {
   const errors = {
@@ -38,7 +39,7 @@ export const MintNFT = () => {
 
   //3D 아이템 넣어주는 부분
   const [itemImage, setItemImage] = useState('');
-  const { items, page, setPage } = usePagination(selectItemwithMember(2, { stateCode: 'CR' }));
+  const { items, page, setPage } = useItems(selectItemwithMember, { memberNum: 2, stateCode: 'CR' });
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
   const navigate = useNavigate();
   const { getCookie } = useCookie();
@@ -122,12 +123,15 @@ export const MintNFT = () => {
                 value={values['price']}
                 error={errors['price']} />
             </div>
-            <button
-              type="submit"
-              className="w-100 btn btn-primary btn-lg bg-dark"
-              onClick={handleSubmit}>
-              Mint NFT
-            </button>
+
+            <SubmitButton
+              title={"Mint NFT"}
+              handleSubmit={handleSubmit}
+              values={values}
+              errors={errors}
+              keys={["title", "description", "price"]}
+              allRequired={true} />
+
           </form>
         </div>
       </div>

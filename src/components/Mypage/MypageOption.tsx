@@ -1,33 +1,35 @@
-import { useEffect } from 'react';
-
 import TextBox from '../../components/forms/TextBox';
 import useForm from '../../hooks/useForm';
-import { UpdateMember } from '../../types/Member';
+import { SelectMember, UpdateMember } from '../../types/Member';
 import { isEmail, isPassword, notMaxLength, notMinLength } from '../../utils/validator';
+import ImageBox from '../forms/ImageBox';
+import SubmitButton from '../forms/SubmitButton';
 import TextArea from '../forms/TextArea';
 
 const validate = (values: UpdateMember) => {
   const errors = {
     password: isPassword(values?.password),
     nickname:
-      notMinLength(values?.nickname, 2, '설명을 2글자 이상 입력해 주세요.') ||
-      notMaxLength(values?.nickname, 10, '설명을 10글자 이하로 입력해 주세요.'),
+      notMinLength(values?.nickname, 2, '닉네임을 2글자 이상 입력해 주세요.') ||
+      notMaxLength(values?.nickname, 10, '닉네임을 10글자 이하로 입력해 주세요.'),
     email: isEmail(values?.email),
     description:
       notMinLength(values?.description, 2, '설명을 2글자 이상 입력해 주세요.') ||
-      notMaxLength(values?.description, 10, '설명을 10글자 이하로 입력해 주세요.')
+      notMaxLength(values?.description, 300, '설명을 300글자 이하로 입력해 주세요.')
   };
 
   return errors;
 };
-const callback = () => {
-  console.log('asdf');
+const callback = (values: {}) => {
+  console.log(values);
 };
 
-export const MypageOption = () => {
-  //첫 마운트.
-  useEffect(() => { }, []);
+interface MypageOptionProps {
+  userInfo: SelectMember;
+}
 
+export const MypageOption = (props: MypageOptionProps) => {
+  const { userInfo } = props;
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
 
   return (
@@ -40,21 +42,20 @@ export const MypageOption = () => {
       </div>
 
       <form id="memberEditForm" className="" noValidate>
-        <div className="row g-3">
+        <div className="row g-3 mb-4">
           {/* 비밀번호 */}
           <TextBox
             name="password"
             id="password"
             label="Password"
             type="password"
-            placeholder={''}
+            placeholder={""}
             disabled={false}
             readonly={false}
             handleChange={handleChange}
             handleClick={handleClick}
             value={values['password']}
-            error={errors['password']}
-          />
+            error={errors['password']} />
 
           {/* 닉네임 */}
           <TextBox
@@ -62,14 +63,12 @@ export const MypageOption = () => {
             id="nickname"
             label="Nickname"
             type="text"
-            placeholder={''}
+            placeholder={errors['nickname'] ? "" : userInfo.nickname || ""}
             disabled={false}
             readonly={false}
             handleChange={handleChange}
-            handleClick={handleClick}
             value={values['nickname']}
-            error={errors['nickname']}
-          />
+            error={errors['nickname']} />
 
           {/* 이메일 */}
           <TextBox
@@ -77,45 +76,25 @@ export const MypageOption = () => {
             id="email"
             label="Email"
             type="email"
-            placeholder={''}
+            placeholder={errors['email'] ? "" : userInfo.email || ""}
             disabled={false}
             readonly={false}
             handleChange={handleChange}
-            handleClick={handleClick}
             value={values['email']}
-            error={errors['email']}
+            error={errors['email']} />
+
+          {/* 프사*/}
+          <ImageBox
+            name="profileImg"
+            id="profileImg"
+            label="Profile Image"
+            placeholder={userInfo.profileImg || ""}
+            disabled={false}
+            readonly={false}
+            handleChange={handleChange}
+            value={values['profileImg']}
+            error={errors['profileImg']}
           />
-
-          {/* 프사
-          <label htmlFor="id" className="form-label col-4 fs-3">
-            Profile Image
-          </label>
-          <div className="col-4">
-            <input
-              className="form-control border-dark"
-              id="profileImg"
-              type="file"
-              accept="image/*"
-              placeholder={inputProfileImg}
-              onChange={handleProfileImg}
-            />
-          </div>
-          <div className="col-4" />
-
-          {/* 지갑주소
-          <label htmlFor="id" className="form-label col-4 fs-3">
-            Wallet Addr.
-          </label>
-          <div className="col-8">
-            <input
-              className="form-control border-dark"
-              id="walletAddr"
-              placeholder={inputWalletAddr}
-              type="text"
-              required
-              onChange={handleWalletAddr}
-            />
-          </div> */}
 
           {/* 설명 */}
           <TextArea
@@ -123,21 +102,21 @@ export const MypageOption = () => {
             id="description"
             label="Description"
             rows={5}
-            placeholder={''}
+            placeholder={errors['description'] ? "" : userInfo.description || ""}
             disabled={false}
             readonly={false}
             handleChange={handleChange}
-            handleClick={handleClick}
             value={values['description']}
-            error={errors['description']}
-          />
+            error={errors['description']} />
         </div>
-        <button
-          className="col-6 btn btn-primary btn-lg bg-dark justify-content-center mt-3 w-100"
-          type="submit"
-          onClick={handleSubmit}>
-          Edit info
-        </button>
+
+        <SubmitButton
+          title={"Edit info"}
+          handleSubmit={handleSubmit}
+          values={values}
+          errors={errors}
+          keys={["password", "nickname", "email", "profileImg", "description"]}
+          allRequired={false} />
       </form>
     </div>
   );

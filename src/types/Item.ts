@@ -44,7 +44,7 @@ export interface SelectItemwithMember {
   imgUrl?: string;
   itemNum?: number;
   memberNickName?: string;
-  memberNum?: number;
+  memberNum: number;
   memberThumbImgUrl?: null;
   objectUrl?: string;
   price?: number;

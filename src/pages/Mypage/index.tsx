@@ -48,7 +48,7 @@ export const Mypage = () => {
             src={userInfo.profileImg ? userInfo.profileImg : profileImage}
             alt=""
             style={{ borderRadius: '100%', width: "100%", height: "auto" }} />
-          <h2>{userInfo.nickname}</h2>
+          <h2 className='text-center'>{userInfo.nickname}</h2>
           {userInfo.description}
         </div>
 
@@ -68,7 +68,7 @@ export const Mypage = () => {
           <div className={`d-flex justify-content-center`}>
             <div className={`${selectedNavButton == "myNFTList" ? "d-block" : "d-none"}`}><MypageNFTs /></div>
             <div className={`${selectedNavButton == "klaytnSetting" ? "d-block" : "d-none"}`}><MypageWallet /></div>
-            <div className={`${selectedNavButton == "editInfo" ? "d-block" : "d-none"}`}><MypageOption /></div>
+            <div className={`${selectedNavButton == "editInfo" ? "d-block" : "d-none"}`}><MypageOption userInfo={userInfo} /></div>
           </div>
         </div>
       </div>

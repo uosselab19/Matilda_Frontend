@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Clothes } from '../../types/Clothes';
-import { getItem } from '../../services/itemService';
+import { getItem, selectItem } from '../../services/itemService';
 import CardList from '../Items/CardList';
 import Pagination from '../Items/Pagination';
 import Search from '../Items/Search';
-import usePagination from '../../hooks/useItems';
 import ModalItem from '../modal/ModalItem';
 import { Item } from '../../types/Item';
 import { useNavigate } from 'react-router-dom';
+import useItems from '../../hooks/useItems';
 
 interface DressupMarketProps {
   clothes: Clothes;
@@ -21,8 +21,7 @@ export const Market = (props: DressupMarketProps) => {
   const [numShowItems, numShowPages] = [9, 5];
   const navigate = useNavigate();
 
-  const [selectCondition, setSelectCondition] = useState({}); //stateCode:"OS"
-  const { items, page, setPage } = usePagination(selectCondition);
+  const { items, page, setPage, setSelectCondition } = useItems(selectItem, {});
   const [itemNum, setItemNum] = useState(-1);
   const [item, setItem] = useState({} as Item);
 

@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import matilda from '../../assets/images/matilda.png';
+import SubmitButton from '../../components/forms/SubmitButton';
 import TextBox from '../../components/forms/TextBox';
 import useForm from '../../hooks/useForm';
 import { insertMember } from '../../services/memberService';
@@ -115,12 +116,13 @@ export const Signup = () => {
             </div>
           </div>
 
-          <button
-            type="submit"
-            className="w-100 btn btn-primary btn-lg bg-dark"
-            onClick={handleSubmit}>
-            Continue to Sign-up
-          </button>
+          <SubmitButton
+            title={"Continue to Sign-up"}
+            handleSubmit={handleSubmit}
+            values={values}
+            errors={errors}
+            keys={["id", "password", "nickname", "email"]}
+            allRequired={true} />
         </form>
       </div>
     </main>

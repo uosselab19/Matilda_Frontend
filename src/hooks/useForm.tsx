@@ -15,8 +15,20 @@ export default function useForm(callback: Function, validate: Function) {
     }
   }, [errors, isSubmitting]);
 
+  const validObject = (obj: {}) => {
+    return Object.fromEntries(Object.entries(obj).filter((e) => { return e[1]; }));
+  }
+
   const handleSubmit = (event: ChangeEvent<any>) => {
     if (event) event.preventDefault();
+
+    const { name, value } = event.target;
+
+    setValues((oldValues) => {
+      const newValues = validObject({ ...oldValues, [name]: value });
+
+      return newValues;
+    });
 
     setIsSubmitting(true);
   };
@@ -30,7 +42,7 @@ export default function useForm(callback: Function, validate: Function) {
       const newValues = { ...oldValues, [name]: value };
       setErrors((errors) => ({ ...errors, [name]: validate(newValues)[name] }));
       setIsSubmitting(false);
-      return newValues;
+      return validObject(newValues);
     });
   };
 
@@ -43,7 +55,7 @@ export default function useForm(callback: Function, validate: Function) {
       const newValues = { ...oldValues, [name]: value };
       setErrors((errors) => ({ ...errors, [name]: validate(newValues)[name] }));
       setIsSubmitting(false);
-      return newValues;
+      return validObject(newValues);
     });
   };
 

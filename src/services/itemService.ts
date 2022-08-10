@@ -27,11 +27,11 @@ export const getItem = async (itemNum: number) => {
   return { data, error };
 }
 
-export const selectItemwithMember = async (memberID: number, item: SelectItemwithMember) => {
+export const selectItemwithMember = async (item: SelectItemwithMember) => {
   let [data, error] = [[], undefined] as any;
 
   try {
-    const result = await apiClient.get(`/items/user/${memberID}`, { data: item });
+    const result = await apiClient.get(`/items/user/${item.memberNum}`, { data: item });
 
     data = result?.data;
   } catch (err) {

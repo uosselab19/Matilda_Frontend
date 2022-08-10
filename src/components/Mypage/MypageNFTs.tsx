@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const MypageNFTs = () => {
   const navigate = useNavigate();
-  const { items, page, setPage } = useItems(selectItemwithMember(2, {}));
+  const { items, page, setPage } = useItems(selectItemwithMember, {memberNum:2});
   const [itemNum, setItemNum] = useState(-1);
   const [item, setItem] = useState({} as Item);
   const [numShowItems, numShowPages] = [15, 5];
