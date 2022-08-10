@@ -6,6 +6,7 @@ import imageBRA from '../assets/images/Convert3D/imageBRACELET.png';
 import imageNEC from '../assets/images/Convert3D/imageNECKLACE.png';
 import imageBAG from '../assets/images/Convert3D/imageBAG.png';
 import imageMAS from '../assets/images/Convert3D/imageMASK.png';
+import imageRIN from '../assets/images/Convert3D/imageRING.png';
 
 export default function useCategory() {
   return [
@@ -18,6 +19,6 @@ export default function useCategory() {
     { title: '목걸이', image: imageNEC, catCode: 'NEC' },
     { title: '가방', image: imageBAG, catCode: 'BAG' },
     { title: '마스크', image: imageMAS, catCode: 'MAS' },
-    { title: '반지', image: imageMAS, catCode: 'RIN' },
+    { title: '반지', image: imageRIN, catCode: 'RIN' },
   ];
 }

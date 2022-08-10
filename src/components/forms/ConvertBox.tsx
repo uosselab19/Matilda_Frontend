@@ -55,7 +55,7 @@ export default function ConvertBox(props: ConvertBoxProps) {
   return (
     <label htmlFor="file-input">
       <div className="card text-white border-white text-center" onDrop={handleDrop} onDragOver={handleDrag} onDragLeave={handleDrag}>
-        <img id="preview-image" className="w-100 h-100" alt="여기 맞아요, 사진을 넣어 주세요!" src={clothes.image} draggable="false" />
+        <img id="preview-image" style={{width:"768px", height:"600px"}} alt="여기 맞아요, 사진을 넣어 주세요!" src={clothes.image} draggable="false" />
         <div className="card-img-overlay h-75 d-flex flex-column justify-content-end">
           <h5 className="card-title text-dark fs-2 fw-bold">{clothes.title}</h5>
           <p className="card-text text-dark">
