@@ -11,6 +11,7 @@ import useItems from '../../hooks/useItems';
 import { useNavigate } from 'react-router-dom';
 import useCookie from '../../hooks/useCookie';
 import SubmitButton from '../../components/forms/SubmitButton';
+import Swal from 'sweetalert2';
 
 function validate(values: UpdateItem) {
   const errors = {
@@ -55,14 +56,20 @@ export const MintNFT = () => {
     (async () => {
       const cookieData = getCookie();
       if (!cookieData) {
-        alert('유저정보가 없어서 홈페이지로 이동합니다.');
+        Swal.fire({
+          icon: 'error',
+          title: '누구세요...?',
+          text: '유저정보가 없어서 홈페이지로 이동합니다.',
+        });
         navigate('/');
       }
     })();
   }, []);
 
   return (
-    <main className="container">
+    <main
+      className="container"
+      onKeyUp={(e) => { if (e.key == "Enter") handleSubmit(e); }} >
       <div className="d-flex justify-content-center align-items-center fw-bold fs-2 my-4">Marketplace</div>
       <div className="row g-3 w-100 d-flex justify-content-between">
         <div className="col-6 d-flex justify-content-center flex-column">

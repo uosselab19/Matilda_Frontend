@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { signinMember } from '../../services/securityService';
 import SigninBox from '../../components/forms/signinBox';
 import SubmitButton from '../../components/forms/SubmitButton';
+import Swal from 'sweetalert2';
 
 const validate = (values: SigninMember) => {
   const errors = {
@@ -24,7 +25,14 @@ export const Signin = () => {
   const navigate = useNavigate();
   const callback = async (values: SigninMember) => {
     const { data, error } = await signinMember(values);
-    if (error) { alert(error); return console.log(error); }
+    if (error) {
+      console.log(error);
+      return Swal.fire({
+        icon: 'error',
+        title: '에러가 발생했어요!',
+        text: error,
+      });
+    }
 
     //base 64를 디코딩한 후에 parse 과정을 통해 json화 하는 함수
     const parseToken = (token: string) => {
@@ -35,6 +43,7 @@ export const Signin = () => {
     const userInfo = parseToken(data.accessToken);
     setCookie(userInfo);
     navigate('/');
+    return;
   };
 
   useEffect(() => {
@@ -52,7 +61,8 @@ export const Signin = () => {
   return (
     <main
       className="container form-signin"
-      style={{ marginTop: '6%', width: '330px' }}>
+      style={{ marginTop: '6%', width: '330px' }}
+      onKeyUp={(e)=>{if(e.key=="Enter") handleSubmit(e);}} >
       <div className='row'>
         <div className="text-center my-3">
           <img src={matilda} width="128px" />

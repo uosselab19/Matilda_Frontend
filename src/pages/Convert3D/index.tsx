@@ -6,6 +6,7 @@ import ConvertBox from '../../components/forms/ConvertBox';
 import Spinner from '../../components/load/Spinner';
 import { useNavigate } from 'react-router-dom';
 import useCookie from '../../hooks/useCookie';
+import Swal from 'sweetalert2';
 
 interface categoryItem {
   catCode: string;
@@ -23,7 +24,11 @@ export const Convert3D = () => {
     (async () => {
       const cookieData = getCookie();
       if (!cookieData) {
-        alert('유저정보가 없어서 홈페이지로 이동합니다.');
+        Swal.fire({
+          icon: 'error',
+          title: '누구세요...?',
+          text: '유저정보가 없어서 홈페이지로 이동합니다.',
+        });
         navigate('/');
       }
     })();

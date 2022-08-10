@@ -17,6 +17,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",
     "solc": "^0.8.15",
+    "sweetalert2": "^11.4.26",
     "three": "^0.141.0",
     "truffle": "^5.5.25",
     "universal-cookie": "^4.0.4",

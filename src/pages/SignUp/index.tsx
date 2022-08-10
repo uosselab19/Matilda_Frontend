@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import matilda from '../../assets/images/matilda.png';
 import SubmitButton from '../../components/forms/SubmitButton';
 import TextBox from '../../components/forms/TextBox';
@@ -27,9 +28,17 @@ export const Signup = () => {
     const { error } = await insertMember(values);
 
     if (error) {
-      alert(error);
+      Swal.fire({
+        icon: 'error',
+        title: '에러가 발생했어요!',
+        text: error,
+      });
     } else {
-      alert('회원가입이 완료되었습니다!');
+      Swal.fire({
+        icon: 'success',
+        title: '회원가입이 완료되었습니다!',
+        text: '로그인을 하셔야 회원 서비스를 이용할 수 있습니다.',
+      });
       navigate('/signin', { replace: false });
     }
   };
@@ -37,7 +46,9 @@ export const Signup = () => {
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
 
   return (
-    <main className="container mb-5">
+    <main
+      className="container mb-5"
+      onKeyUp={(e) => { if (e.key == "Enter") handleSubmit(e); }} >
       <div className="py-5 col-lg-6 text-center mx-auto">
         <img className="d-block mx-auto my-5" src={matilda} width="128"></img>
         <h2>Sign Up Form</h2>

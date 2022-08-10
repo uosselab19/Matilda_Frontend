@@ -29,7 +29,9 @@ export default function Search(props: SearchProps) {
   const { handleChange, handleSubmit, values, errors } = useForm(serach, validate);
 
   return (
-    <div className={`container text-center mb-${size=="lg"?"4":"3"}`}>
+    <div
+    className={`container text-center mb-${size=="lg"?"4":"3"}`}
+    onKeyUp={(e)=>{if(e.key=="Enter") handleSubmit(e);}} >
       <form>
         <div className="row d-flex justify-content-between">
           <div className="col-3">

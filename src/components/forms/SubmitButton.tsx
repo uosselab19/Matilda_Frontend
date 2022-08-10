@@ -1,8 +1,8 @@
-import { MouseEventHandler } from 'react';
+import { EventHandler } from "react";
 
 interface SubmitButtonProps {
 	title: string;
-	handleSubmit: MouseEventHandler<HTMLButtonElement>;
+	handleSubmit: EventHandler<any>;
 	values: any;
 	errors: any;
 	keys: string[];
@@ -25,7 +25,6 @@ export default function SubmitButton(props: SubmitButtonProps) {
 			type="submit"
 			className={`w-100 btn btn-lg btn-dark`}
 			onClick={handleSubmit}
-			onKeyPress={(e) => { console.log(e); handleSubmit }}
 			disabled={disabled}>
 			{title}
 		</button>
