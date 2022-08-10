@@ -1,9 +1,10 @@
 import item_img1 from '../../assets/images/Explore/item_img.png';
 import makerThumbImg1 from '../../assets/images/Profile/thumbProfileImage.png';
+import { Item } from '../../types/Item';
 
 //컴포넌트가 받을 props
 interface CardProps {
-  itemNum: number;
+  item: Item;
   title: string;
   price: number;
   size: string;
@@ -12,7 +13,7 @@ interface CardProps {
 }
 
 export default function Card(props: CardProps) {
-  const { itemNum, title, price, size, handleCard, modalID } = props;
+  const { item, title, price, size, handleCard, modalID } = props;
 
   const handleMouse = (e: React.MouseEvent): void => {
     e.stopPropagation();
@@ -54,10 +55,10 @@ export default function Card(props: CardProps) {
 
   return (
     <div
-      key={itemNum}
-      className={`cardItemNum${itemNum}`}
-      onClick={() => {
-        if (handleCard) handleCard(itemNum);
+      key={item.itemNum}
+      className={`cardItemNum${item.itemNum}`}
+      onClick={(e) => {console.log(e);
+        if (handleCard) handleCard(item);
       }}
       draggable="false"
       data-bs-toggle={modalID ? 'modal' : undefined}

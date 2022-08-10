@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Clothes } from '../../types/Clothes';
-import { getItem, selectItem } from '../../services/itemService';
+import { selectItem } from '../../services/itemService';
 import Items from '../Items/Items';
 import Search from '../Items/Search';
 import ModalItem from '../modal/ModalItem';
@@ -21,7 +21,6 @@ export const Market = (props: DressupMarketProps) => {
   const navigate = useNavigate();
 
   const { items, page, setPage, setSelectCondition } = useItems(selectItem, {});
-  const [itemNum, setItemNum] = useState(-1);
   const [item, setItem] = useState({} as Item);
 
   const ModalFooterButtons = [
@@ -45,21 +44,11 @@ export const Market = (props: DressupMarketProps) => {
         if (!presetList.some((e) => { return e == clothes; }))
           if (!confirm("아직 저장이 되지 않았는데 괜찮을까요?"))
             alert("저장하고 오시는 게 더 좋을 듯싶네요 ㅎㅎ")
-        navigate(`/marketplace/NFTitem?NFT_id=${itemNum}`);
+        navigate(`/marketplace/NFTitem?NFT_id=${item.itemNum}`);
       }} >
       구매하기
     </button>
   ];
-
-  useEffect(() => {
-    (async () => {
-      if (itemNum < 0) return;
-      const { data, error } = await getItem(itemNum);
-
-      if (error) { console.log(error); return alert(error); }
-      setItem(data);
-    })();
-  }, [itemNum]);
 
   return (
     <div>
@@ -73,7 +62,7 @@ export const Market = (props: DressupMarketProps) => {
         size={"sm"}
         numShowItems={numShowItems}
         numShowPages={numShowPages}
-        handleCard={setItemNum}
+        handleCard={setItem}
         modalID={'modalDressup'} />
       <ModalItem
         modalID={`modalDressup`}

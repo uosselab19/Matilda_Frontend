@@ -23,9 +23,8 @@ export default function Items(props: ItemsProps) {
     return items.map((e: Item) => {
       return (
         <Card
-          key={e.itemNum}
           size={size}
-          itemNum={e.itemNum}
+          item={e}
           title={e.title}
           price={e.price}
           handleCard={handleCard}
