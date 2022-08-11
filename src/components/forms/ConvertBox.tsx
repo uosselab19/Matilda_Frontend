@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2';
 import { convertFunction } from '../../utils/ConvertFunction';
 
 interface Clothes {
@@ -16,8 +17,22 @@ export default function ConvertBox(props: ConvertBoxProps) {
 
   //프리뷰 보여주는 함수
   const setPreview = (input: File) => {
-    if (!clothes.title.length) return alert('왼쪽 카테고리에서 종류를 선택해주세요!');
-    if (!input) return alert('입력이 없어요, 다시 한 번 확인해보세요 ㅎㅎ;;'); // 도중에 취소하면 아무것도 없음
+    if (!clothes.title.length) {
+      return Swal.fire({
+        icon: 'error',
+        title: '카테고리를 골라주세요!',
+        text: '왼쪽 카테고리에서 종류를 선택해주세요!',
+      });
+    }
+
+    if (!input) {
+      return Swal.fire({
+        icon: 'error',
+        title: '취소했어요!',
+        text: '입력이 없어요, 다시 한 번 확인해보세요 ㅎㅎ;;',
+      }); // 도중에 취소하면 아무것도 없음
+    }
+
     setLoading(true);
 
     console.log(input);
@@ -42,7 +57,11 @@ export default function ConvertBox(props: ConvertBoxProps) {
     if (clothes.title.length == 0) {
       e.stopPropagation();
       e.preventDefault();
-      alert('왼쪽 카테고리에서 종류를 선택해주세요!');
+      Swal.fire({
+        icon: 'error',
+        title: '카테고리를 골라주세요!',
+        text: '왼쪽 카테고리에서 종류를 선택해주세요!',
+      });
     }
   };
 
@@ -55,7 +74,7 @@ export default function ConvertBox(props: ConvertBoxProps) {
   return (
     <label htmlFor="file-input">
       <div className="card text-white border-white text-center" onDrop={handleDrop} onDragOver={handleDrag} onDragLeave={handleDrag}>
-        <img id="preview-image" style={{width:"768px", height:"600px"}} alt="여기 맞아요, 사진을 넣어 주세요!" src={clothes.image} draggable="false" />
+        <img id="preview-image" style={{ width: "768px", height: "600px" }} alt="여기 맞아요, 사진을 넣어 주세요!" src={clothes.image} draggable="false" />
         <div className="card-img-overlay h-75 d-flex flex-column justify-content-end">
           <h5 className="card-title text-dark fs-2 fw-bold">{clothes.title}</h5>
           <p className="card-text text-dark">

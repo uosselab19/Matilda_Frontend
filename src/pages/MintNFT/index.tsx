@@ -34,7 +34,11 @@ export const MintNFT = () => {
     const { title, description, price } = values;
     if (title && description && price) {
       console.log(values);
-    } else alert('빈칸을 모두 다 채워주세요!');
+    } else Swal.fire({
+      icon: 'error',
+      title: '얼라리오?',
+      text: '빈칸을 모두 다 채워주세요!',
+    });
   };
 
   //3D 아이템 넣어주는 부분

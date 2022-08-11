@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Item } from '../../types/Item';
 import { getItem } from '../../services/itemService';
 import ModalItem from '../../components/modal/ModalItem';
+import Swal from 'sweetalert2';
 
 interface NFTItemProps {
   mode: string;
@@ -20,8 +21,16 @@ export const NFTItem = (props: NFTItemProps) => {
     (async () => {
       const { data, error } = await getItem(itemNum);
 
-      if (error) { console.log(error); return alert(error); }
-      setItem(data as Item);
+      if (error) {
+        console.log(error);
+        Swal.fire({
+          icon: 'error',
+          title: '아이템을 찾지 못 했어요!',
+          text: '아이템 목록이 없는 것 같아요.',
+        });
+      } else {
+        setItem(data as Item);
+      }
     })();
   }, []);
 

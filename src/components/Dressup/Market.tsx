@@ -7,6 +7,7 @@ import ModalItem from '../modal/ModalItem';
 import { Item } from '../../types/Item';
 import { useNavigate } from 'react-router-dom';
 import useItems from '../../hooks/useItems';
+import Swal from 'sweetalert2';
 
 interface DressupMarketProps {
   clothes: Clothes;
@@ -41,10 +42,29 @@ export const Market = (props: DressupMarketProps) => {
       className="btn btn-dark w-25"
       data-bs-dismiss="modal"
       onClick={() => {
-        if (!presetList.some((e) => { return e == clothes; }))
-          if (!confirm("아직 저장이 되지 않았는데 괜찮을까요?"))
-            alert("저장하고 오시는 게 더 좋을 듯싶네요 ㅎㅎ")
-        navigate(`/marketplace/NFTitem?NFT_id=${item.itemNum}`);
+        if (!presetList.some((e) => { return e == clothes; })) {
+          Swal.fire({
+            icon: 'warning',
+            title: `페이지 이동`,
+            text: "아직 입고 있는 착장 정보가 프리셋에 저장이 되지 않았는데 페이지를 이동할까요?",
+            showCancelButton: true,
+            confirmButtonText: '이동할게요.',
+            confirmButtonColor: '#81c147',
+            cancelButtonText: `저장하고 올게요.`,
+            cancelButtonColor: '#d33',
+          }).then(async (result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+              navigate(`/marketplace/NFTitem?NFT_id=${item.itemNum}`);
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: '멈췄어요!',
+                text: "저장하고 오시는 게 더 좋을 듯싶네요 ㅎㅎ",
+              });
+            }
+          })
+        }
       }} >
       구매하기
     </button>

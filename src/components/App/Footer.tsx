@@ -1,10 +1,26 @@
+import Swal from "sweetalert2";
 import useCookie from "../../hooks/useCookie";
+import { selectMember } from "../../services/memberService";
 
 export const Footer = () => {
   //Footer는 현재는 디버그용 버튼으로 활용 중
   const scrollTop = async () => {
-    const {getCookie}=useCookie();
-    console.log(getCookie());
+    const cookie = useCookie().getCookie();
+    console.log(cookie);
+    if (!cookie) return;
+
+    const { data, error } = await selectMember(cookie.num);
+
+    if (error) {
+      console.log(error);
+      Swal.fire({
+        icon: 'error',
+        title: '멤버정보 불러오기 에러',
+        text: error.data.error,
+      });
+    }
+
+    console.log(data?.presetList);
   };
 
   return (

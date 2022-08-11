@@ -54,7 +54,11 @@ export const Signin = () => {
     (async () => {
       const cookieData = getCookie();
       if (cookieData) {
-        alert('이미 로그인한 정보가 있어서 홈페이지로 이동합니다.');
+        Swal.fire({
+          icon: 'error',
+          title: `이미 로그인 되어있어요!`,
+          text: `이미 ${cookieData.id}로 로그인한 정보가 있어서 홈페이지로 이동합니다.`,
+        });
         navigate('/');
       }
     })();

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import matildaWhite from '../../assets/images/matilda_white.png';
 import useCookie from '../../hooks/useCookie';
 import { signoutMember } from '../../services/securityService';
@@ -22,7 +23,11 @@ export const Header = () => {
     const cookie = getCookie();
     if (cookie)
       signoutMember(cookie);
-    alert('sign out 하였습니다.'); // 로그아웃했다고 알림
+    Swal.fire({
+      icon: 'success',
+      title: '로그아웃',
+      text: `로그아웃했습니다!`,
+    });// 로그아웃했다고 알림
     removeCookie(); // 로그인 기록 쿠키 지우기
     linkTo('/'); // 로그아웃하면 홈페이지로
   };
