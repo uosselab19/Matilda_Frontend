@@ -1,5 +1,6 @@
 import TextBox from '../../components/forms/TextBox';
 import useForm from '../../hooks/useForm';
+import { putMember } from '../../services/memberService';
 import { SelectMember, UpdateMember } from '../../types/Member';
 import { isEmail, isPassword, notMaxLength, notMinLength } from '../../utils/validator';
 import ImageBox from '../forms/ImageBox';
@@ -20,16 +21,21 @@ const validate = (values: UpdateMember) => {
 
   return errors;
 };
-const callback = (values: {}) => {
-  console.log(values);
-};
 
 interface MypageOptionProps {
   userInfo: SelectMember;
+  setUserInfo: React.Dispatch<React.SetStateAction<SelectMember>>;
 }
 
 export const MypageOption = (props: MypageOptionProps) => {
-  const { userInfo } = props;
+  const { userInfo, setUserInfo } = props;
+
+  const callback = (values: {}) => {
+    console.log(values);
+    putMember({ memberNum: userInfo.memberNum, ...values } as UpdateMember);
+    setUserInfo({} as SelectMember);
+  };
+
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
 
   return (

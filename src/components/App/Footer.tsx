@@ -1,20 +1,10 @@
 import useCookie from "../../hooks/useCookie";
-import { apiClient } from "../../services/apiClient";
-import { selectMember } from "../../services/memberService";
 
 export const Footer = () => {
   //Footer는 현재는 디버그용 버튼으로 활용 중
   const scrollTop = async () => {
-    const { getCookie } = useCookie();
-    const cookie = getCookie();
-    console.log(cookie);
-    if (!cookie) return;
-
-    console.log(apiClient.defaults.headers);
-
-    const { data, error } = await selectMember(cookie.num);
-    if (error) { alert(error); return console.log(error); }
-    console.log(data);
+    const {getCookie}=useCookie();
+    console.log(getCookie());
   };
 
   return (

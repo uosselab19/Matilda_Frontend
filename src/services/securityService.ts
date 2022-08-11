@@ -1,4 +1,5 @@
-import { anonymousApiClient, apiClient } from './apiClient';
+import useCookie from '../hooks/useCookie';
+import { anonymousApiClient, apiClient, setApiClientHeader, setClientHeaders } from './apiClient';
 
 export const signinMember = async (info: any) => {
   let [data, error] = [undefined, undefined] as any;
@@ -7,10 +8,7 @@ export const signinMember = async (info: any) => {
     const result = await anonymousApiClient.post(`/security/login`, info);
 
     data = result?.data as SigninResponse | undefined;
-    apiClient.defaults.headers["REFRESH-TOKEN"] = data.refreshToken;
-    apiClient.defaults.headers["X-AUTH-TOKEN"] = data.accessToken;
-
-    console.log(data);
+    setApiClientHeader(data);
   } catch (err) {
     error = err?.response || err?.message;
   }
@@ -18,11 +16,13 @@ export const signinMember = async (info: any) => {
   return { data, error };
 }
 
-export const updateMember = async (info: any) => {
+export const refreshMember = async (info: any) => {
   let [data, error] = [undefined, undefined] as any;
+  const { getCookie } = useCookie();
 
   try {
     const result = await apiClient.post(`/security/refresh`, info);
+    setClientHeaders(getCookie());
 
     data = result?.data as SigninResponse | undefined;
   } catch (err) {
@@ -34,9 +34,11 @@ export const updateMember = async (info: any) => {
 
 export const signoutMember = async (info: any) => {
   let [data, error] = [undefined, undefined] as any;
+  const { getCookie } = useCookie();
 
   try {
     const result = await apiClient.post(`/security/auth/logout`);
+    setClientHeaders(getCookie());
 
     data = result?.data as SigninResponse | undefined;
   } catch (err) {

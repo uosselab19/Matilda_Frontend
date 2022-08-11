@@ -35,12 +35,16 @@ export const Signin = () => {
     }
 
     //base 64를 디코딩한 후에 parse 과정을 통해 json화 하는 함수
-    const parseToken = (token: string) => {
-      const result = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
-      result.token = token;
-      return result;
+    const parseToken = (data: SigninResponse) => {
+      const result = JSON.parse(Buffer.from(data.accessToken.split('.')[1], 'base64').toString());
+      return {
+        ...result,
+        accessToken: data.accessToken,
+        refreshToken: data.refreshToken
+      };
     };
-    const userInfo = parseToken(data.accessToken);
+
+    const userInfo = parseToken(data);
     setCookie(userInfo);
     navigate('/');
     return;
@@ -58,11 +62,12 @@ export const Signin = () => {
 
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
 
+
   return (
     <main
       className="container form-signin"
       style={{ marginTop: '6%', width: '330px' }}
-      onKeyUp={(e)=>{if(e.key=="Enter") handleSubmit(e);}} >
+      onKeyUp={(e) => { if (e.key == "Enter") handleSubmit(e); }} >
       <div className='row'>
         <div className="text-center my-3">
           <img src={matilda} width="128px" />

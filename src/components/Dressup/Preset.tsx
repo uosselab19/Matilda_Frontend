@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import useCookie from '../../hooks/useCookie';
 import { putMember, selectMember } from '../../services/memberService';
 import { Clothes } from '../../types/Clothes';
+import { UpdateMember } from '../../types/Member';
 
 interface PresetProps {
   clothes: Clothes;
@@ -37,7 +38,7 @@ const handleSave = (props: PresetCardProps) => {
   if (!confirm(`지금 입은 옷을 Preset${index}에 저장하는 게 맞나요?`)) alert('놀랍게도 아무 일도 일어나지 않았답니다.');
   else {
     presetList[index] = clothes;
-    putMember(cookie.num, { presetList: presetList });
+    putMember({ memberNum: cookie.num, presetList: presetList } as UpdateMember);
     alert('저장했습니다~');
   }
 };
