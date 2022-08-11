@@ -3,14 +3,15 @@ import Search from '../../components/Items/Search';
 import { useNavigate } from 'react-router-dom';
 import useItems from '../../hooks/useItems';
 import { selectItem } from '../../services/itemService';
+import { Item } from '../../types/Item';
 
 export const Marketplace = () => {
   const [numShowItems, numShowPages] = [24, 10];
   const { items, page, setPage, setSelectCondition } = useItems(selectItem, {});
 
   const navigate = useNavigate();
-  const handleCard = (id: number) => {
-    navigate(`/marketplace/NFTItem?nft_id=${id}`, { replace: false });
+  const handleCard = (item: Item) => {
+    navigate(`/marketplace/NFTItem?nft_id=${item.itemNum}`, { replace: false });
   };
 
   return (

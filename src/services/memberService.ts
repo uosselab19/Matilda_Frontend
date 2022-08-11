@@ -1,6 +1,7 @@
 import useCookie from '../hooks/useCookie';
 import { UpdateMember } from '../types/Member';
-import { anonymousApiClient, apiClient, setClientHeaders } from './apiClient';
+import { anonymousApiClient, apiClient } from './apiClient';
+import { setApiClientHeaders } from './axiosInterceptors';
 
 export const insertMember = async (member: any) => {
   let [data, error] = [undefined, undefined] as any;
@@ -20,7 +21,7 @@ export const selectMember = async (memberID: number) => {
 
   try {
     const result = await apiClient.get(`/members/${memberID}`);
-    
+
     data = result?.data;
   } catch (err) {
     error = err?.response || err?.message;
@@ -34,7 +35,7 @@ export const putMember = async (member: UpdateMember) => {
   const { getCookie } = useCookie();
 
   try {
-    setClientHeaders(getCookie());
+    setApiClientHeaders(getCookie());
     const result = await apiClient.put(`/members/auth/${member.memberNum}`, member);
 
     data = result?.data;

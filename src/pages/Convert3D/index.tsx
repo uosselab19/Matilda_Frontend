@@ -8,14 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import useCookie from '../../hooks/useCookie';
 import Swal from 'sweetalert2';
 
-interface categoryItem {
-  catCode: string;
-  image: '*.png';
-  title: string;
-}
-
 export const Convert3D = () => {
-  const [clothes, setClothes] = useState({ catCode: '', image: convertImage, title: '' });
+  const [category, setCategory] = useState({ catCode: '', image: convertImage, title: '' } as Category);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { getCookie } = useCookie();
@@ -35,13 +29,13 @@ export const Convert3D = () => {
   }, []);
 
   //아코디언 항목 대응시켜주는 부분
-  const categoryItems = useCategory().map((categoryElement: categoryItem, index: Number) => {
+  const categoryItems = useCategory().map((categoryElement: Category, index: Number) => {
     return (
       <button
         key={`category${index}`}
         type="button"
         className="btn btn-outline-secondary d-flex justify-content-center align-items-center"
-        onClick={() => { setClothes(categoryElement); }}>
+        onClick={() => { setCategory(categoryElement); }}>
         {categoryElement.title}
       </button>
     );
@@ -65,7 +59,7 @@ export const Convert3D = () => {
             {loading ? '변환 중입니다, 시간이 1분 이상 걸릴 수 있습니다.' : '사진을 넣으면 3D 패션아이템으로 재탄생합니다!'}
           </p>
           <div className="h-100 d-flex justify-content-center align-items-center">
-            {loading ? <Spinner delay={1.5} radius={1.5} /> : <ConvertBox clothes={clothes} setLoading={setLoading} />}
+            {loading ? <Spinner delay={1.5} radius={1.5} /> : <ConvertBox category={category} setLoading={setLoading} />}
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import useCookie from '../hooks/useCookie';
-import { anonymousApiClient, apiClient, setApiClientHeader, setClientHeaders } from './apiClient';
+import { anonymousApiClient, apiClient } from './apiClient';
+import { setApiClientHeaders } from './axiosInterceptors';
 
 export const signinMember = async (info: any) => {
   let [data, error] = [undefined, undefined] as any;
@@ -8,7 +9,6 @@ export const signinMember = async (info: any) => {
     const result = await anonymousApiClient.post(`/security/login`, info);
 
     data = result?.data as SigninResponse | undefined;
-    setApiClientHeader(data);
   } catch (err) {
     error = err?.response || err?.message;
   }
@@ -22,7 +22,7 @@ export const refreshMember = async (info: any) => {
 
   try {
     const result = await apiClient.post(`/security/refresh`, info);
-    setClientHeaders(getCookie());
+    setApiClientHeaders(getCookie());
 
     data = result?.data as SigninResponse | undefined;
   } catch (err) {
@@ -38,7 +38,7 @@ export const signoutMember = async (info: any) => {
 
   try {
     const result = await apiClient.post(`/security/auth/logout`);
-    setClientHeaders(getCookie());
+    setApiClientHeaders(getCookie());
 
     data = result?.data as SigninResponse | undefined;
   } catch (err) {
