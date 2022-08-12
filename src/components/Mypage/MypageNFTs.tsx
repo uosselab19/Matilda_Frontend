@@ -8,9 +8,10 @@ import { useNavigate } from 'react-router-dom';
 
 export const MypageNFTs = () => {
   const navigate = useNavigate();
-  const { items, page, setPage } = useItems(selectItemMember, { memberNum: 2 });
-  const [item, setItem] = useState({} as Item);
   const [numShowItems, numShowPages] = [15, 5];
+  const { count, items, page, setPage } = useItems(selectItemMember, { memberNum: 2 }, numShowItems);
+  const [item, setItem] = useState({} as Item);
+  
 
   const ModalFooterButtons = [
     (
@@ -41,6 +42,7 @@ export const MypageNFTs = () => {
         items={items}
         page={page}
         setPage={setPage}
+        count={count}
         size={"md"}
         numShowItems={numShowItems}
         numShowPages={numShowPages}

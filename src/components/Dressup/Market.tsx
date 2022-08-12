@@ -21,7 +21,7 @@ export const Market = (props: DressupMarketProps) => {
   const [numShowItems, numShowPages] = [9, 5];
   const navigate = useNavigate();
 
-  const { items, page, setPage, setSelectCondition } = useItems(selectItem, {});
+  const { count, items, page, setPage, setSelectCondition } = useItems(selectItem, {}, numShowItems);
   const [item, setItem] = useState({} as Item);
 
   const ModalFooterButtons = [
@@ -79,6 +79,7 @@ export const Market = (props: DressupMarketProps) => {
         items={items}
         page={page}
         setPage={setPage}
+        count={count}
         size={"sm"}
         numShowItems={numShowItems}
         numShowPages={numShowPages}

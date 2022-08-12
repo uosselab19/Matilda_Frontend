@@ -61,7 +61,8 @@ const handleLoad = (props: PresetCardProps) => {
 const handleSave = (props: PresetCardProps) => {
   const { index, presetList, clothes } = props;
 
-  const cookie = useCookie().getCookie();
+  const { getCookie } = useCookie();
+  const cookie = getCookie();
   if (!cookie) return;
   Swal.fire({
     icon: 'warning',
@@ -77,9 +78,9 @@ const handleSave = (props: PresetCardProps) => {
     if (result.isConfirmed) {
       presetList[index] = clothes;
       console.log(presetList);
-      const {data, error} = await putMember({ memberNum: cookie.num, presetList: presetList } as UpdateMember);
+      const { data, error } = await putMember({ memberNum: cookie.num, presetList: presetList } as UpdateMember);
       console.log(error);
-      if(!error){
+      if (!error) {
         console.log(data);
         Swal.fire({
           icon: 'success',
@@ -87,7 +88,6 @@ const handleSave = (props: PresetCardProps) => {
           text: `Preset${index}에 지금 입은 옷을 모두 저장했습니다.`,
         });
       } else {
-        
         Swal.fire({
           icon: 'error',
           title: '얼라리요?',
@@ -103,65 +103,6 @@ const handleSave = (props: PresetCardProps) => {
     }
   });
 }
-
-const handleReset = (props: PresetProps) => {
-  const { setClothes } = props;
-
-  Swal.fire({
-    icon: 'warning',
-    title: `옷을 벗겨버릴 거에요!`,
-    text: `지금 입은 옷을 리셋하는 게 맞나요?`,
-    showCancelButton: true,
-    confirmButtonText: '맞아요!',
-    confirmButtonColor: '#81c147',
-    cancelButtonText: `아니에요;;`,
-    cancelButtonColor: '#d33',
-  }).then(async (result) => {
-    /* Read more about isConfirmed, isDenied below */
-    if (result.isConfirmed) {
-      setClothes({});
-      Swal.fire({
-        icon: 'success',
-        title: '리셋되었습니다!',
-        text: `지금 입은 옷을 모두 벗겨버렸습니다~`,
-      });
-    } else {
-      Swal.fire({
-        icon: 'error',
-        title: '어이쿠!',
-        text: '놀랍게도 아무 일도 일어나지 않았답니다.',
-      });
-    }
-  });
-};
-
-const handleBuy = (props: PresetProps) => {
-  Swal.fire({
-    icon: 'warning',
-    title: `flex해버릴 거에요!`,
-    text: `지금 입은 옷을 구매하는 게 맞나요?`,
-    showCancelButton: true,
-    confirmButtonText: '맞아요!',
-    confirmButtonColor: '#81c147',
-    cancelButtonText: `아니에요;;`,
-    cancelButtonColor: '#d33',
-  }).then(async (result) => {
-    /* Read more about isConfirmed, isDenied below */
-    if (result.isConfirmed) {
-      Swal.fire({
-        icon: 'success',
-        title: '아이템 구매하는 버튼~',
-        text: `옷을 전부 flex해버렸지 뭐얌~`,
-      });
-    } else {
-      Swal.fire({
-        icon: 'error',
-        title: '어이쿠!',
-        text: '놀랍게도 아무 일도 일어나지 않았답니다.',
-      });
-    }
-  });
-};
 
 const PresetCard = (props: PresetCardProps) => {
   const { index } = props;
@@ -221,30 +162,10 @@ export const Preset = (props: PresetProps) => {
   }, []);
 
   return (
-    <div className="h-100 d-flex flex-column justify-content-between">
-
-      {/* Preset 아코디언 */}
-      <div className="btn-group-vertical" role="group">
-        <PresetCard index={1} presetList={presetList} clothes={clothes} setClothes={setClothes} />
-        <PresetCard index={2} presetList={presetList} clothes={clothes} setClothes={setClothes} />
-        <PresetCard index={3} presetList={presetList} clothes={clothes} setClothes={setClothes} />
-      </div>
-
-      {/* Reset/Buy 버튼 */}
-      <div className="btn-group-vertical" role="group">
-        <button
-          type="button"
-          className="btn btn-danger"
-          onClick={() => { handleReset(props); }}>
-          Reset
-        </button>
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={() => { handleBuy(props); }}>
-          Buy All
-        </button>
-      </div>
+    <div className="btn-group-vertical" role="group">
+      <PresetCard index={1} presetList={presetList} clothes={clothes} setClothes={setClothes} />
+      <PresetCard index={2} presetList={presetList} clothes={clothes} setClothes={setClothes} />
+      <PresetCard index={3} presetList={presetList} clothes={clothes} setClothes={setClothes} />
     </div>
   );
 };

@@ -44,7 +44,7 @@ export const MintNFT = () => {
   //3D 아이템 넣어주는 부분
   const [itemImage, setItemImage] = useState('');
   const [numShowItems, numShowPages] = [3, 5];
-  const { items, page, setPage } = useItems(selectItemMember, { memberNum: 2, stateCode: 'CR' });
+  const { count, items, page, setPage } = useItems(selectItemMember, { memberNum: 2, stateCode: 'CR' }, numShowItems);
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
   const navigate = useNavigate();
   const { getCookie } = useCookie();
@@ -82,6 +82,7 @@ export const MintNFT = () => {
             items={items}
             page={page}
             setPage={setPage}
+            count={count}
             size={'md'}
             numShowItems={numShowItems}
             numShowPages={numShowPages}

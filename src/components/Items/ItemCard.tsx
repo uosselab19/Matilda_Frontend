@@ -37,9 +37,9 @@ export default function Card(props: CardProps) {
       childImg.setAttribute(
         'style',
         'transition-property: width height;' +
-          'transition-duration: 01.25s;' +
-          'transition-timing-function: easy-in;' +
-          'transform:scale(1,1);'
+        'transition-duration: 01.25s;' +
+        'transition-timing-function: easy-in;' +
+        'transform:scale(1,1);'
       );
       childEffect.setAttribute(
         'style',
@@ -57,15 +57,15 @@ export default function Card(props: CardProps) {
     <div
       key={item.itemNum}
       className={`cardItemNum${item.itemNum}`}
-      onClick={(e) => {console.log(e);
+      onClick={(e) => {
+        console.log(e);
         if (handleCard) handleCard(item);
       }}
       draggable="false"
       data-bs-toggle={modalID ? 'modal' : undefined}
       data-bs-target={modalID ? `#${modalID}` : undefined}
       aria-controls={modalID ? `${modalID}` : undefined}
-      aria-expanded="false"
-    >
+      aria-expanded="false" >
       <div
         className="card overflow-hidden text-white d-flex flex-column"
         onMouseOver={handleMouse}
@@ -75,14 +75,13 @@ export default function Card(props: CardProps) {
           borderTopLeftRadius: 30,
           borderBottomRightRadius: 10,
           borderBottomLeftRadius: 10
-        }}
-      >
-        <img alt="" className="card-img" src={item_img1}></img>
-        <div className="card-img-overlay" style={{ top: '70%', backgroundColor: 'black', opacity: 0.8 }}></div>
+        }} >
+        <img alt="" className="card-img" src={item_img1} />
+        <div className="card-img-overlay" style={{ top: '70%', backgroundColor: 'black', opacity: 0.8 }} />
         <div className="card-img-overlay d-flex flex-column">
           <div className={`card-text mt-auto d-flex justify-content-between px-2 ${size == 'lg' ? 'py-2' : ''}`}>
             {size == 'lg' ? <img src={makerThumbImg1} alt="profile" width="32" height="32" className="rounded-circle me-3" /> : null}
-            <div>{`${title.slice(0, (1+Number(size=='md'))*5)}${title.length > (1+Number(size=='md'))*5 ? '...' : ''}`}</div>
+            <div>{`${title.slice(0, (1 + Number(size == 'md')) * 5)}${title.length > (1 + Number(size == 'md')) * 5 ? '...' : ''}`}</div>
             {/* text-truncate */}
             {size == 'lg' ? <div>{`${price} KLAY`}</div> : null}
           </div>

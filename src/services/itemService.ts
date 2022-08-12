@@ -31,7 +31,7 @@ export const selectItemMember = async (item: SelectItemwithMember) => {
   let [data, error] = [[], undefined] as any;
 
   try {
-    const result = await apiClient.get(`/items/user/${item.memberNum}`, { data: item });
+    const result = await apiClient.get(`/items/user/${item.memberNum}`, { params: item });
 
     data = result?.data;
   } catch (err) {
@@ -39,4 +39,18 @@ export const selectItemMember = async (item: SelectItemwithMember) => {
   }
 
   return { data, error };
+}
+
+export const countItems = async (item: SelectItem) => {
+  let [count, countError] = [[], undefined] as any;
+
+  try {
+    const result = await apiClient.get(`/items/count`, { params: item });
+
+    count = result?.data;
+  } catch (err) {
+    countError = err?.response || err?.message;
+  }
+
+  return { count, countError };
 }
