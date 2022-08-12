@@ -8,7 +8,6 @@ export async function postImage(image: any) {
 
     try {
         setImageApiClientHeaders(getCookie());
-        console.log(image);
         const result = await imageApiClient.post('/convert', image);
         data = result?.data;
     } catch (err) {

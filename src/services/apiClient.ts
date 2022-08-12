@@ -12,5 +12,5 @@ export const apiClient = axios.create({
 
 export const imageApiClient = axios.create({
   baseURL: 'http://3.133.233.81:8000',
-  timeout: 1*1000,
+  timeout: 60*1000,
 })
