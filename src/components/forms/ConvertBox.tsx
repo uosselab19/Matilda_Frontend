@@ -31,9 +31,7 @@ export default function ConvertBox(props: ConvertBoxProps) {
 
     setLoading(true);
 
-    console.log("asdf");
     await convertFunction(input, category);
-    console.log("qwer")
   };
 
   //드래그 & 드랍시 사용되는 핸들러 함수들

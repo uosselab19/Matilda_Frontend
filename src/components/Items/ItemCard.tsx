@@ -76,11 +76,21 @@ export default function Card(props: CardProps) {
           borderBottomRightRadius: 10,
           borderBottomLeftRadius: 10
         }} >
-        <img alt="" className="card-img" src={item_img1} />
+        <img
+        alt=""
+        className="card-img"
+        src={(item.imgUrl) ? `${item.imgUrl}`: item_img1} />
         <div className="card-img-overlay" style={{ top: '70%', backgroundColor: 'black', opacity: 0.8 }} />
         <div className="card-img-overlay d-flex flex-column">
           <div className={`card-text mt-auto d-flex justify-content-between px-2 ${size == 'lg' ? 'py-2' : ''}`}>
-            {size == 'lg' ? <img src={makerThumbImg1} alt="profile" width="32" height="32" className="rounded-circle me-3" /> : null}
+            {(size == 'lg') ?
+              <img
+                src={(item.memberThumbImgUrl) ? item.memberThumbImgUrl : makerThumbImg1}
+                alt="profile"
+                width="32"
+                height="32"
+                className="rounded-circle me-3" />
+              : null}
             <div>{`${title.slice(0, (1 + Number(size == 'md')) * 5)}${title.length > (1 + Number(size == 'md')) * 5 ? '...' : ''}`}</div>
             {/* text-truncate */}
             {size == 'lg' ? <div>{`${price} KLAY`}</div> : null}

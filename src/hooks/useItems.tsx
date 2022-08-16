@@ -1,18 +1,36 @@
 import { useState, useEffect } from 'react';
 import { Item } from '../types/Item';
 import Swal from 'sweetalert2'
+import { apiClient } from '../services/apiClient';
 import { countItems } from '../services/itemService';
 
 export default function useItems(promise: Function, initialSelectCondition: {}, numShowItems: number) {
   const [selectCondition, setSelectCondition] = useState(initialSelectCondition);
-  const [count, setCount] = useState(0);
   const [items, setItems] = useState([] as Item[]);
+  const [count, setCount] = useState(0);
   const [page, setPage] = useState(0);
 
   useEffect(() => {
     (async () => {
-      const { count, countError } = await countItems(selectCondition);
-      if (countError) {
+      let { count, countError } = await countItems(selectCondition);
+      if (countError == `timeout of ${apiClient.defaults.timeout}ms exceeded`) {
+        let maxRetryCount = 0;
+
+        while (maxRetryCount < 10 && countError == `timeout of ${apiClient.defaults.timeout}ms exceeded`) {
+          const retry = await countItems(selectCondition);
+          count = retry.count;
+          countError = retry.countError;
+          maxRetryCount++;
+        }
+        if(maxRetryCount==10){
+          Swal.fire({
+            icon: 'error',
+            title: '서버 통신 오류',
+            text: '홈페이지 담당자가 일을 하지 않았나보네요!',
+          });
+          return;
+        }
+      } else if (countError) {
         console.log(countError);
         Swal.fire({
           icon: 'error',
@@ -22,10 +40,29 @@ export default function useItems(promise: Function, initialSelectCondition: {}, 
         return;
       }
       setCount(count);
+      console.log("헤으응...");
 
-      const { data, error } = await promise({ ...selectCondition, ["skip"]: page*numShowItems, ["take"]: (page+1)*numShowItems-1 });
-      if (error) {
+      let { data, error } = await promise({ ...selectCondition, ["skip"]: page * numShowItems, ["take"]: (page + 1) * numShowItems - 1 });
+
+      if (error == `timeout of ${apiClient.defaults.timeout}ms exceeded`) {
+        let maxRetryCount = 0;
+        while (maxRetryCount < 10 && error == `timeout of ${apiClient.defaults.timeout}ms exceeded`) {
+          const retry = await promise({ ...selectCondition, ["skip"]: page * numShowItems, ["take"]: (page + 1) * numShowItems - 1 });
+          data = retry.data;
+          error = retry.error;
+          maxRetryCount++;
+        }
+        if(maxRetryCount==10){
+          Swal.fire({
+            icon: 'error',
+            title: '서버 통신 오류',
+            text: '홈페이지 담당자가 일을 하지 않았나보네요!',
+          });
+          return;
+        }
+      } else if (error) {
         console.log(error);
+        console.log(error == "timeout of 18F0ms exceeded");
         Swal.fire({
           icon: 'error',
           title: '아이템을 찾지 못 했어요!',
@@ -34,6 +71,7 @@ export default function useItems(promise: Function, initialSelectCondition: {}, 
         return;
       }
       setItems(data);
+      console.log("응기잇!");
       return;
       //timeout of 3000ms exceeded    -> handling은 어떻게 해야할까?
     })();

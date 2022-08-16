@@ -15,8 +15,8 @@
     "rootDir": "./", //루트경로 바꾸기 (js 파일 아웃풋 경로에 영향줌)
     "removeComments": true, //컴파일시 주석제거 
 
-    "typeRoots": ["src/types"],
-    
+    "typeRoots": ["./src/types", "./node_modules/@types"],
+    "types": ["ts-node"],
     // "strict": false, //strict 관련, noimplicit 어쩌구 관련 모드 전부 켜기
     "strictNullChecks": true, //null, undefined 타입에 이상한 짓 할시 에러내기 
     "strictFunctionTypes": true, //함수파라미터 타입체크 강하게 

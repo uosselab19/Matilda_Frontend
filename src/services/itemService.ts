@@ -42,10 +42,10 @@ export const selectItemMember = async (item: SelectItemwithMember) => {
 }
 
 export const countItems = async (item: SelectItem) => {
-  let [count, countError] = [[], undefined] as any;
+  let [count, countError] = [undefined, undefined] as any;
 
   try {
-    const result = await apiClient.get(`/items/count`, { params: item });
+    const result = await anonymousApiClient.get(`/items/count`, { params: item });
 
     count = result?.data;
   } catch (err) {

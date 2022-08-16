@@ -37,6 +37,7 @@ export interface Item {
   imgUrl: string;
   description: string;
   memberNickName: string;
+  memberThumbImgUrl: string;
 }
 
 export interface SelectItemwithMember {
