@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import Card from './ItemCard';
 import { Item } from '../../types/Item';
 import Pagination from './Pagination';
-import CardPlaceHolder from './ItemCardPlaceholder';
 
 //컴포넌트가 받을 props
 interface ItemsProps {
@@ -19,26 +18,31 @@ interface ItemsProps {
 
 export default function Items(props: ItemsProps) {
   const { items, page, setPage, count, size, numShowItems, numShowPages, handleCard, modalID } = props;
-  const [showItems, setShowItems] = useState(new Array(items.length).fill(<CardPlaceHolder display={items.length > 0} />) as JSX.Element[]);
 
-  const makeCard = (size: string, items: Item[]) => {
-    return items.map((e: Item) => {
+  const makeCards = (size: string, items: any[]) => {
+    return items.map((e,i) => {
       return (
         <Card
-          key={e.itemNum}
-          size={size}
+          key={e?e.itemNum:i}
           item={e}
-          title={e.title}
-          price={e.price}
+          size={size}
           handleCard={handleCard}
           modalID={modalID} />
       );
     });
   };
 
+  const [showItems, setShowItems] = useState([] as JSX.Element[]);
+
   useEffect(() => {
-    setShowItems(makeCard(size, items));
-  }, [page, items]);
+    if (!items.length) {
+      const initNum = (Math.floor(count/numShowItems)==page)?count%numShowItems:numShowItems;
+      setShowItems(makeCards(size, new Array(initNum).fill(undefined)));
+    } else {
+      setShowItems(makeCards(size, items));
+    }
+
+  }, [page, items, count]);
 
   return (
     <div className="container">
@@ -54,6 +58,7 @@ export default function Items(props: ItemsProps) {
         page={page}
         setPage={setPage}
         numItems={count}
+        items={items}
         numShowItems={numShowItems}
         numShowPages={numShowPages} />
     </div>

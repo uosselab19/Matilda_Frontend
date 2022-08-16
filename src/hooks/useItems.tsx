@@ -12,6 +12,7 @@ export default function useItems(promise: Function, initialSelectCondition: {}, 
 
   useEffect(() => {
     (async () => {
+      setItems([]);
       let { count, countError } = await countItems(selectCondition);
       if (countError == `timeout of ${apiClient.defaults.timeout}ms exceeded`) {
         let maxRetryCount = 0;
@@ -22,7 +23,7 @@ export default function useItems(promise: Function, initialSelectCondition: {}, 
           countError = retry.countError;
           maxRetryCount++;
         }
-        if(maxRetryCount==10){
+        if (maxRetryCount == 10) {
           Swal.fire({
             icon: 'error',
             title: '서버 통신 오류',
@@ -39,19 +40,20 @@ export default function useItems(promise: Function, initialSelectCondition: {}, 
         });
         return;
       }
+
       setCount(count);
 
-      let { data, error } = await promise({ ...selectCondition, ["skip"]: page * numShowItems, ["take"]: (page + 1) * numShowItems - 1 });
+      let { data, error } = await promise({ ...selectCondition, ["skip"]: page * numShowItems, ["take"]: numShowItems });
 
       if (error == `timeout of ${apiClient.defaults.timeout}ms exceeded`) {
         let maxRetryCount = 0;
         while (maxRetryCount < 10 && error == `timeout of ${apiClient.defaults.timeout}ms exceeded`) {
-          const retry = await promise({ ...selectCondition, ["skip"]: page * numShowItems, ["take"]: (page + 1) * numShowItems - 1 });
+          const retry = await promise({ ...selectCondition, ["skip"]: page * numShowItems, ["take"]: numShowItems });
           data = retry.data;
           error = retry.error;
           maxRetryCount++;
         }
-        if(maxRetryCount==10){
+        if (maxRetryCount == 10) {
           Swal.fire({
             icon: 'error',
             title: '서버 통신 오류',
@@ -70,8 +72,8 @@ export default function useItems(promise: Function, initialSelectCondition: {}, 
         return;
       }
       setItems(data);
+
       return;
-      //timeout of 3000ms exceeded    -> handling은 어떻게 해야할까?
     })();
   }, [selectCondition, page]);
 

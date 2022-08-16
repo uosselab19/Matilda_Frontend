@@ -1,12 +1,12 @@
-import itemPlaceholder from '../../assets/images/Explore/item_placeholder.png';
+import itemPlaceholder from '../../assets/images/Marketplace/item_placeholder.png';
 
-interface CardPlaceHolderProps {
-  display: boolean;
+interface CardPlaceholderProps {
+  loaded: boolean;
 }
 
-export default function CardPlaceHolder(props: CardPlaceHolderProps) {
-  const { display } = props;
-
+export default function CardPlaceholder(props: CardPlaceholderProps) {
+  const { loaded } = props;
+  
   return (
     <div>
       <div
@@ -17,7 +17,7 @@ export default function CardPlaceHolder(props: CardPlaceHolderProps) {
           borderTopLeftRadius: 30,
           borderBottomRightRadius: 10,
           borderBottomLeftRadius: 10,
-          display: (display) ? "none" : "block"
+          display: (loaded) ? "none" : "block"
         }}>
         <img alt="" className="card-img placeholder" src={itemPlaceholder} />
       </div>
