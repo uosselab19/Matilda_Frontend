@@ -40,7 +40,6 @@ export default function useItems(promise: Function, initialSelectCondition: {}, 
         return;
       }
       setCount(count);
-      console.log("헤으응...");
 
       let { data, error } = await promise({ ...selectCondition, ["skip"]: page * numShowItems, ["take"]: (page + 1) * numShowItems - 1 });
 
@@ -71,7 +70,6 @@ export default function useItems(promise: Function, initialSelectCondition: {}, 
         return;
       }
       setItems(data);
-      console.log("응기잇!");
       return;
       //timeout of 3000ms exceeded    -> handling은 어떻게 해야할까?
     })();
