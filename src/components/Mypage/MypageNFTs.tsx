@@ -1,6 +1,6 @@
 import Items from '../Items/Items';
 import useItems from '../../hooks/useItems';
-import { selectItemMember } from '../../services/itemService';
+import { selectItems } from '../../services/itemService';
 import ModalItem from '../modal/ModalItem';
 import { useState } from 'react';
 import { Item } from '../../types/Item';
@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 export const MypageNFTs = () => {
   const navigate = useNavigate();
   const [numShowItems, numShowPages] = [15, 5];
-  const { count, items, page, setPage } = useItems(selectItemMember, { memberNum: 2 }, numShowItems);
+  const { count, items, page, setPage } = useItems(selectItems, { memberNum: 2 }, numShowItems);
   const [item, setItem] = useState({} as Item);
   
 

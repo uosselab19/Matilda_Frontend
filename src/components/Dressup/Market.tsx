@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Clothes } from '../../types/Clothes';
-import { selectItem } from '../../services/itemService';
+import { selectItems } from '../../services/itemService';
 import Items from '../Items/Items';
 import Search from '../Items/Search';
 import ModalItem from '../modal/ModalItem';
@@ -21,7 +21,7 @@ export const Market = (props: DressupMarketProps) => {
   const [numShowItems, numShowPages] = [9, 5];
   const navigate = useNavigate();
 
-  const { count, items, page, setPage, setSelectCondition } = useItems(selectItem, {}, numShowItems);
+  const { count, items, page, setPage, setSelectCondition } = useItems(selectItems, {}, numShowItems);
   const [item, setItem] = useState({} as Item);
 
   const ModalFooterButtons = [

@@ -2,12 +2,12 @@ import Items from '../../components/Items/Items';
 import Search from '../../components/Items/Search';
 import { useNavigate } from 'react-router-dom';
 import useItems from '../../hooks/useItems';
-import { selectItem } from '../../services/itemService';
+import { selectItems } from '../../services/itemService';
 import { Item } from '../../types/Item';
 
 export const Marketplace = () => {
-  const [numShowItems, numShowPages] = [24, 10];
-  const { count, items, page, setPage, setSelectCondition } = useItems(selectItem, {}, numShowItems);
+  const [numShowItems, numShowPages] = [20, 10];
+  const { count, items, page, setPage, setSelectCondition } = useItems(selectItems, {}, numShowItems);
 
   const navigate = useNavigate();
   const handleCard = (item: Item) => {

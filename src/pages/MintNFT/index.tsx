@@ -5,7 +5,7 @@ import useForm from '../../hooks/useForm';
 import testImage from '../../assets/images/NFTItem/mindul_NFT1.jpg';
 import { Item, UpdateItem } from '../../types/Item';
 import { isRequired, notMaxLength, notMinLength, isNumber } from '../../utils/validator';
-import { selectItemMember } from '../../services/itemService';
+import { selectItems } from '../../services/itemService';
 import Items from '../../components/Items/Items';
 import useItems from '../../hooks/useItems';
 import { useNavigate } from 'react-router-dom';
@@ -43,8 +43,8 @@ export const MintNFT = () => {
 
   //3D 아이템 넣어주는 부분
   const [itemImage, setItemImage] = useState('');
-  const [numShowItems, numShowPages] = [3, 5];
-  const { count, items, page, setPage } = useItems(selectItemMember, { memberNum: 2, stateCode: 'CR' }, numShowItems);
+  const [numShowItems, numShowPages] = [3, 3];
+  const { count, items, page, setPage } = useItems(selectItems, { memberNum: 2, stateCode: 'CR' }, numShowItems);
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
   const navigate = useNavigate();
   const { getCookie } = useCookie();

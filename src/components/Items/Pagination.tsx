@@ -17,23 +17,23 @@ export default function Pagination(props: PagenationProps) {
   const firstPage = page - remainder; //페이지네이션에서 현재 보일 숫자들 중에 가장 작은 숫자
 
   const prevPage = () => {
-    if(!items.length) return;
-    if (page > numShowPages - 1)
+    if (!items.length) return;
+    if (page + 1 > numShowPages)
       // 맨 첫 줄에 있는 친구들보다는 커야 함
       setPage(firstPage - 1); // 다음 수열 중에 가장 큰 숫자로 이동.
     // ex) 6 7 8 9 10 => 1 2 3 4 5 면 page는 4
     window.scrollTo({ top: 0 });
   };
   const nextPage = () => {
-    if(!items.length) return;
-    if (maxPageNumber - firstPage > numShowPages)
+    if (!items.length) return;
+    if (maxPageNumber - firstPage + 1 > numShowPages)
       // 마지막 페이지 숫자랑 줄에 있는 친구들보다는 커야 함
       setPage(firstPage + numShowPages); // 다음 수열 중에 가장 작은 숫자로 이동.
     // ex) 1 2 3 4 5 => 6 7 8 9 10 면 page는 5
     window.scrollTo({ top: 0 });
   };
   const handlePage = (number) => {
-    if(!items.length) return;
+    if (!items.length) return;
     setPage(number - 1);
     window.scrollTo({ top: 0 });
   }
@@ -45,7 +45,7 @@ export default function Pagination(props: PagenationProps) {
         <button
           type="button"
           className={`btn page-link link-dark ${selected ? 'fw-bold' : ''}`}
-          onClick={() => {handlePage(number)}}>
+          onClick={() => { handlePage(number) }}>
           {number}
         </button>
       </li>
@@ -67,7 +67,7 @@ export default function Pagination(props: PagenationProps) {
           <button
             type="button"
             className="btn page-link link-dark"
-            onClick={() => {prevPage();}}>
+            onClick={() => { prevPage(); }}>
             Prev
           </button>
         </li>
@@ -76,7 +76,7 @@ export default function Pagination(props: PagenationProps) {
           <button
             type="button"
             className="btn page-link link-dark"
-            onClick={() => {nextPage();}}>
+            onClick={() => { nextPage(); }}>
             Next
           </button>
         </li>

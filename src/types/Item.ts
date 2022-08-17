@@ -39,16 +39,3 @@ export interface Item {
   memberNickName: string;
   memberThumbImgUrl: string;
 }
-
-export interface SelectItemwithMember {
-  catCode?: string;
-  imgUrl?: string;
-  itemNum?: number;
-  memberNickName?: string;
-  memberNum: number;
-  memberThumbImgUrl?: null;
-  objectUrl?: string;
-  price?: number;
-  stateCode?: string;
-  title?: string;
-}
