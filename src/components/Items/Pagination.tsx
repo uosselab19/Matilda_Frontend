@@ -44,6 +44,7 @@ export default function Pagination(props: PagenationProps) {
       <li className="page-item" key={number}>
         <button
           type="button"
+          disabled={!items.length}
           className={`btn page-link link-dark ${selected ? 'fw-bold' : ''}`}
           onClick={() => { handlePage(number) }}>
           {number}
@@ -66,6 +67,7 @@ export default function Pagination(props: PagenationProps) {
         <li className="page-item">
           <button
             type="button"
+            disabled={!items.length}
             className="btn page-link link-dark"
             onClick={() => { prevPage(); }}>
             Prev
@@ -75,6 +77,7 @@ export default function Pagination(props: PagenationProps) {
         <li className="page-item">
           <button
             type="button"
+            disabled={!items.length}
             className="btn page-link link-dark"
             onClick={() => { nextPage(); }}>
             Next
