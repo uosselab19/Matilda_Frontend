@@ -52,11 +52,8 @@ export const MintNFT = () => {
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
 
 
-  const handleCard = (itemNum: number) => {
-    const imgUrl = items.find((e: Item) => {
-      return e.itemNum == itemNum;
-    }) as Item;
-    setItemImage(imgUrl.imgUrl);
+  const handleCard = (item: Item) => {
+    setItemImage((item.imgUrl) ? item.imgUrl : "");
   };
 
   useEffect(() => {
@@ -77,10 +74,10 @@ export const MintNFT = () => {
     <main
       className="container"
       onKeyUp={(e) => { if (e.key == "Enter") handleSubmit(e); }} >
-      <div className="d-flex justify-content-center align-items-center fw-bold fs-2 my-4">Marketplace</div>
-      <div className="row g-3 w-100 d-flex justify-content-between">
+      <div className="row">
+        <div className="d-flex justify-content-center align-items-center fw-bold fs-2 my-4">NFT Minting</div>
         <div className="col-6 d-flex justify-content-center flex-column">
-          <img className="mb-3 align-self-center" src={testImage} style={{ width: 350, height: 350 }} />
+          <img className="mb-3 align-self-center" src={itemImage ? itemImage : testImage} style={{ width: 350, height: 350 }} />
           <Items
             items={items}
             page={page}

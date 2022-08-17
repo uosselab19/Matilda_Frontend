@@ -22,11 +22,11 @@ export const Dressup = () => {
   }, []);
 
   return (
-    <main className="container d-flex justify-content-center">
+    <main className="container">
       <div className="row">
-        <div className="col-12 fs-2 fw-bold my-4 text-center">dress up</div>
-        <div className='col-1 d-flex'>
-          <div id="Preset" className={`${(cookie ? "d-block" : "d-none")}`}>
+      <div className="col-12 fs-2 fw-bold my-4 text-center">dress up</div>
+        <div className='col-1 row g-1'>
+          <div id="Preset" className={`${(cookie ? "d-block" : "d-none")} align-self-start`}>
             <Preset
               clothes={clothes}
               setClothes={setClothes}

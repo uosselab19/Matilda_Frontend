@@ -13,7 +13,7 @@ function SpinnerUnit(props: SpinnerProps) {
   const { index, delay, radius } = props;
   return (
     <div
-      className="spinner-grow m-3"
+      className="spinner-grow mx-3"
       role="status"
       style={{
         width: `${radius}em`,

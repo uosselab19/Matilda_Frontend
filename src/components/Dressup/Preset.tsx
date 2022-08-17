@@ -61,6 +61,10 @@ const handleLoad = (props: PresetCardProps) => {
 const handleSave = (props: PresetCardProps) => {
   const { index, presetList, clothes } = props;
 
+  console.log(clothes);
+  console.log(Object.getOwnPropertyNames(clothes))
+  console.log(Object.is(clothes,{}));
+
   const { getCookie } = useCookie();
   const cookie = getCookie();
   if (!cookie) return;
@@ -110,7 +114,7 @@ const PresetCard = (props: PresetCardProps) => {
   return (
     <div className="card">
       <div
-        className="card-header"
+        className="card-header text-center"
         data-bs-toggle="collapse"
         data-bs-target={`#collapsePreset${index}`}
         aria-expanded="false"
@@ -122,17 +126,13 @@ const PresetCard = (props: PresetCardProps) => {
           <button
             type="button"
             className="btn btn-dark"
-            onClick={() => {
-              handleLoad(props);
-            }}>
+            onClick={() => { handleLoad(props); }}>
             Load
           </button>
           <button
             type="button"
             className="btn btn-dark"
-            onClick={() => {
-              handleSave(props);
-            }}>
+            onClick={() => { handleSave(props); }}>
             Save
           </button>
         </div>
@@ -146,7 +146,8 @@ export const Preset = (props: PresetProps) => {
 
   useEffect(() => {
     (async () => {
-      const cookie = useCookie().getCookie();
+      const {getCookie}= useCookie();
+      const cookie = getCookie();
       if (!cookie) return;
 
       const { data, error } = await selectMember(cookie.num);

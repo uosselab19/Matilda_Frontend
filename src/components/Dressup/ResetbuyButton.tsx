@@ -65,7 +65,7 @@ const handleBuy = () => {
 export const ResetbuyButton = (props: resetbuyButtonProps) => {
   const { setClothes } = props;
   return (
-    < div className="btn-group-vertical" role="group" >
+    < div className="btn-group-vertical w-100" role="group" >
       <button
         type="button"
         className="btn btn-danger"

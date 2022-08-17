@@ -45,19 +45,20 @@ export const Convert3D = () => {
   //컴포넌트 출력 결과
   return (
     <main className="container text-center d-flex flex-column justify-content-center">
-      <div className="row my-3">
+      <div className="row">
+      <div className="d-flex justify-content-center align-items-center fw-bold fs-2 my-4">3D Conversion</div>
         <div className="col-lg-3">
           {/* 아코디언 들어갈 부분 */}
-          <div className="btn-group-vertical my-5 w-75 h-100" role="group" id="btn-group">
+          <div className="btn-group-vertical w-75 h-100" role="group" id="btn-group">
             {categoryItems}
           </div>
         </div>
 
         {/* Convert 들어갈 부분 */}
         <div className="col-lg-9 d-flex flex-column">
-          <p className="mt-5 fs-4">
+          <span className="my-2 fs-4">
             {loading ? '변환 중입니다.' : '사진을 넣으면 3D 패션아이템으로 재탄생합니다!'}
-          </p>
+          </span>
           <div className="h-100 d-flex justify-content-center align-items-center">
             {loading ? <Spinner delay={1.5} radius={1.5} /> : <ConvertBox category={category} setLoading={setLoading} />}
           </div>
