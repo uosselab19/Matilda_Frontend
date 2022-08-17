@@ -8,9 +8,12 @@ export async function postImage(image: {}) {
 
     try {
         const form = new FormData();
-        Object.keys(image).forEach((e) => {form.append(e, image[e]);})
-        
-        setImageApiClientHeaders(getCookie());
+        Object.keys(image).forEach((e) => { form.append(e, image[e]); })
+
+        const cookie = getCookie();
+        if (!cookie) throw "noCookie";
+
+        setImageApiClientHeaders(cookie);
         const result = await imageApiClient.post('/convert', form);
         data = result?.data;
     } catch (err) {

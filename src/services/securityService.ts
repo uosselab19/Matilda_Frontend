@@ -21,8 +21,11 @@ export const refreshMember = async (info: any) => {
   const { getCookie } = useCookie();
 
   try {
+    const cookie=getCookie();
+    if(!cookie) throw "noCookie";
+
     const result = await apiClient.post(`/security/refresh`, info);
-    setApiClientHeaders(getCookie());
+    setApiClientHeaders(cookie);
 
     data = result?.data as SigninResponse | undefined;
   } catch (err) {
@@ -37,8 +40,11 @@ export const signoutMember = async (info: any) => {
   const { getCookie } = useCookie();
 
   try {
+    const cookie=getCookie();
+    if(!cookie) throw "noCookie";
+
     const result = await apiClient.post(`/security/auth/logout`);
-    setApiClientHeaders(getCookie());
+    setApiClientHeaders(cookie);
 
     data = result?.data as SigninResponse | undefined;
   } catch (err) {

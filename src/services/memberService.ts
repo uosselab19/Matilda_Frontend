@@ -35,7 +35,10 @@ export const putMember = async (member: UpdateMember) => {
   const { getCookie } = useCookie();
 
   try {
-    setApiClientHeaders(getCookie());
+    const cookie=getCookie();
+    if(!cookie) throw "noCookie";
+
+    setApiClientHeaders(cookie);
     const result = await apiClient.put(`/members/auth/${member.memberNum}`, member);
 
     data = result?.data;

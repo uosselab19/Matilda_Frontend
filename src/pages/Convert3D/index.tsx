@@ -56,7 +56,7 @@ export const Convert3D = () => {
         {/* Convert 들어갈 부분 */}
         <div className="col-lg-9 d-flex flex-column">
           <p className="mt-5 fs-4">
-            {loading ? '변환 중입니다, 시간이 1분 이상 걸릴 수 있습니다.' : '사진을 넣으면 3D 패션아이템으로 재탄생합니다!'}
+            {loading ? '변환 중입니다.' : '사진을 넣으면 3D 패션아이템으로 재탄생합니다!'}
           </p>
           <div className="h-100 d-flex justify-content-center align-items-center">
             {loading ? <Spinner delay={1.5} radius={1.5} /> : <ConvertBox category={category} setLoading={setLoading} />}
