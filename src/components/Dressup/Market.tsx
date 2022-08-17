@@ -13,7 +13,6 @@ interface DressupMarketProps {
   clothes: Clothes;
   setClothes: React.Dispatch<React.SetStateAction<Clothes>>;
   presetList: Clothes[];
-  setPresetList: React.Dispatch<React.SetStateAction<Clothes[]>>;
 }
 
 export const Market = (props: DressupMarketProps) => {
@@ -32,7 +31,7 @@ export const Market = (props: DressupMarketProps) => {
       data-bs-dismiss="modal"
       onClick={() => {
         setClothes((clothes) => ({ ...clothes, [item.catCode]: item }));
-        console.log(clothes);
+        console.log({ ...clothes, [item.catCode]: item });
       }} >
       입혀보기
     </button>,

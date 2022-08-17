@@ -10,6 +10,7 @@ export interface UpdateMember {
   password?: string;
   nickname?: string;
   email?: string;
+  clothesList?: [{}];
   profileImg?: string;
   walletAddress?: string;
   description?: string;
@@ -27,7 +28,7 @@ export interface SelectMember {
   email?: string;
   id?: string;
   nickname?: string;
-  presetList?: [{}];
+  clothesList?: [{}];
   profileImg?: string;
   thumbProfileImg?: string;
   walletAddress?: string;

@@ -8,7 +8,6 @@ export const Footer = () => {
 
     //console.log(process.env.REACT_APP_IMAGESTORAGE);
     const cookie = useCookie().getCookie();
-    console.log(cookie);
     if (!cookie) return;
 
     const { data, error } = await selectMember(cookie.num);
@@ -18,10 +17,9 @@ export const Footer = () => {
       Swal.fire({
         icon: 'error',
         title: '멤버정보 불러오기 에러',
-        text: error.data.error,
+        text: error.data.message,
       });
     }
-
     console.log(data?.presetList);
   };
 

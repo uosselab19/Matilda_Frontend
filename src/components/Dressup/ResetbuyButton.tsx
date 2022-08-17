@@ -8,7 +8,7 @@ interface resetbuyButtonProps {
 const handleReset = (setClothes: React.Dispatch<React.SetStateAction<Clothes>>) => {
   Swal.fire({
     icon: 'warning',
-    title: `옷을 벗겨버릴 거에요!`,
+    title: `리셋할 거에요!`,
     text: `지금 입은 옷을 리셋하는 게 맞나요?`,
     showCancelButton: true,
     confirmButtonText: '맞아요!',
@@ -21,14 +21,14 @@ const handleReset = (setClothes: React.Dispatch<React.SetStateAction<Clothes>>) 
       setClothes({});
       Swal.fire({
         icon: 'success',
-        title: '리셋되었습니다!',
-        text: `지금 입은 옷을 모두 벗겨버렸습니다~`,
+        title: '리셋했습니다!',
+        text: `리셋했습니다!`,
       });
     } else {
       Swal.fire({
         icon: 'error',
-        title: '어이쿠!',
-        text: '놀랍게도 아무 일도 일어나지 않았답니다.',
+        title: '취소했어요!',
+        text: '아무 일도 일어나지 않았습니다.',
       });
     }
   });
@@ -36,7 +36,7 @@ const handleReset = (setClothes: React.Dispatch<React.SetStateAction<Clothes>>) 
 
 const handleBuy = () => {
   Swal.fire({
-    icon: 'warning',
+    icon: 'question',
     title: `flex해버릴 거에요!`,
     text: `지금 입은 옷을 구매하는 게 맞나요?`,
     showCancelButton: true,
@@ -50,13 +50,13 @@ const handleBuy = () => {
       Swal.fire({
         icon: 'success',
         title: '아이템 구매하는 버튼~',
-        text: `옷을 전부 flex해버렸지 뭐얌~`,
+        text: `옷을 전부 산 시나리오`,
       });
     } else {
       Swal.fire({
         icon: 'error',
-        title: '어이쿠!',
-        text: '놀랍게도 아무 일도 일어나지 않았답니다.',
+        title: '취소했어요!',
+        text: '아무 일도 일어나지 않았습니다.',
       });
     }
   });

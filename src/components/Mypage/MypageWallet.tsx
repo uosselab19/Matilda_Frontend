@@ -22,6 +22,63 @@ export const MypageWallet = () => {
             <input className="form-control border-dark" id="walletAddress" placeholder="" type="text" required />
             <div className="invalid-feedback">Please enter a valid Wallet Address</div>
           </div>
+
+          <label htmlFor="id" className="form-label col-4 fs-3">
+            Wallet Addr.
+          </label>
+          <div className="col-8">
+            <input className="form-control border-dark" id="walletAddress" placeholder="" type="text" required />
+            <div className="invalid-feedback">Please enter a valid Wallet Address</div>
+          </div>
+          <label htmlFor="id" className="form-label col-4 fs-3">
+            Wallet Addr.
+          </label>
+          <div className="col-8">
+            <input className="form-control border-dark" id="walletAddress" placeholder="" type="text" required />
+            <div className="invalid-feedback">Please enter a valid Wallet Address</div>
+          </div>
+          <label htmlFor="id" className="form-label col-4 fs-3">
+            Wallet Addr.
+          </label>
+          <div className="col-8">
+            <input className="form-control border-dark" id="walletAddress" placeholder="" type="text" required />
+            <div className="invalid-feedback">Please enter a valid Wallet Address</div>
+          </div>
+          <label htmlFor="id" className="form-label col-4 fs-3">
+            Wallet Addr.
+          </label>
+          <div className="col-8">
+            <input className="form-control border-dark" id="walletAddress" placeholder="" type="text" required />
+            <div className="invalid-feedback">Please enter a valid Wallet Address</div>
+          </div>
+          <label htmlFor="id" className="form-label col-4 fs-3">
+            Wallet Addr.
+          </label>
+          <div className="col-8">
+            <input className="form-control border-dark" id="walletAddress" placeholder="" type="text" required />
+            <div className="invalid-feedback">Please enter a valid Wallet Address</div>
+          </div>
+          <label htmlFor="id" className="form-label col-4 fs-3">
+            Wallet Addr.
+          </label>
+          <div className="col-8">
+            <input className="form-control border-dark" id="walletAddress" placeholder="" type="text" required />
+            <div className="invalid-feedback">Please enter a valid Wallet Address</div>
+          </div>
+          <label htmlFor="id" className="form-label col-4 fs-3">
+            Wallet Addr.
+          </label>
+          <div className="col-8">
+            <input className="form-control border-dark" id="walletAddress" placeholder="" type="text" required />
+            <div className="invalid-feedback">Please enter a valid Wallet Address</div>
+          </div>
+          <label htmlFor="id" className="form-label col-4 fs-3">
+            Wallet Addr.
+          </label>
+          <div className="col-8">
+            <input className="form-control border-dark" id="walletAddress" placeholder="" type="text" required />
+            <div className="invalid-feedback">Please enter a valid Wallet Address</div>
+          </div>
         </div>
       </form>
     </div>

@@ -24,7 +24,8 @@ export const Dressup = () => {
   return (
     <main className="container">
       <div className="row">
-      <div className="col-12 fs-2 fw-bold my-4 text-center">dress up</div>
+      <div className="col-12 fs-2 fw-bold my-4 text-center">Dress Up</div>
+      <div className="col-12 mb-4 text-center">{Object.entries(clothes).map((elem) => { return [elem[0], elem[1].title].join(":") }).join(" ")}</div>
         <div className='col-1 row g-1'>
           <div id="Preset" className={`${(cookie ? "d-block" : "d-none")} align-self-start`}>
             <Preset
@@ -42,8 +43,7 @@ export const Dressup = () => {
           <Market
             clothes={clothes}
             setClothes={setClothes}
-            presetList={presetList}
-            setPresetList={setPresetList} />
+            presetList={presetList} />
         </div>
       </div>
     </main>
