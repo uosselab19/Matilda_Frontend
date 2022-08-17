@@ -5,14 +5,19 @@ import ModalItem from '../modal/ModalItem';
 import { useState } from 'react';
 import { Item } from '../../types/Item';
 import { useNavigate } from 'react-router-dom';
+import useCookie from '../../hooks/useCookie';
+import { userInfo } from '../../types/Member';
 
 export const MypageNFTs = () => {
   const navigate = useNavigate();
   const [numShowItems, numShowPages] = [15, 5];
-  const { count, items, page, setPage } = useItems(selectItems, { memberNum: 2 }, numShowItems);
+
+  const { getCookie } = useCookie();
+  const cookie = getCookie() as userInfo;
+  
+  const { count, items, page, setPage } = useItems(selectItems, { memberNum: cookie.num }, numShowItems);
   const [item, setItem] = useState({} as Item);
   
-
   const ModalFooterButtons = [
     (
       (item.catCode) ?

@@ -41,13 +41,16 @@ export const MintNFT = () => {
     });
   };
 
-  //3D 아이템 넣어주는 부분
+  const navigate = useNavigate();
   const [itemImage, setItemImage] = useState('');
   const [numShowItems, numShowPages] = [3, 3];
-  const { count, items, page, setPage } = useItems(selectItems, { memberNum: 2, stateCode: 'CR' }, numShowItems);
-  const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
-  const navigate = useNavigate();
+
   const { getCookie } = useCookie();
+  const cookie = getCookie();
+
+  const { count, items, page, setPage } = useItems(selectItems, { memberNum: cookie?.num, stateCode: 'CR' }, numShowItems);
+  const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
+
 
   const handleCard = (itemNum: number) => {
     const imgUrl = items.find((e: Item) => {
@@ -58,8 +61,8 @@ export const MintNFT = () => {
 
   useEffect(() => {
     (async () => {
-      const cookieData = getCookie();
-      if (!cookieData) {
+      const cookie = getCookie();
+      if (!cookie) {
         Swal.fire({
           icon: 'error',
           title: '누구세요...?',
