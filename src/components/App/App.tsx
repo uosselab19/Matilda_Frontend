@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 //component import
@@ -14,6 +13,7 @@ import { Signup } from '../../pages/SignUp';
 import { Mypage } from '../../pages/Mypage';
 import { NFTItem } from '../../pages/NFTItem';
 import { NotFound } from '../../pages/NotFound';
+import { Test } from '../Test/Test';
 
 export const App = () => {
   return (
@@ -32,6 +32,7 @@ export const App = () => {
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/mypage" element={<Mypage />} />
+          <Route path="/test" element={<Test />} />
 
           <Route path="/marketplace/NFTItem" element={<NFTItem mode={'Buy'} />} />
           <Route path="/mypage/NFTItem" element={<NFTItem mode={'Sell'} />} />
