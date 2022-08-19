@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Market } from '../../components/Dressup/Market';
 import { Preset } from '../../components/Dressup/Preset';
 import useView from '../../hooks/threejs/useView';

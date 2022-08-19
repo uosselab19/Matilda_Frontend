@@ -4,12 +4,24 @@
  * Klaytn 풀노드를 운용 중이라면 rpcURL을 운용 중인 풀노드의 URL로 설정하세요.
  * ex) rpcURL: 'http://localhost:7551'
  */
- import Caver from 'caver-js';
 
- export const config = {
-   rpcURL: 'https://127.0.0.1:8545/'
- };
+ // @ts-ignore
+ import Caver from "caver-js";
  
- export const cav = new Caver(config.rpcURL);
+ const BAOBAB_TESTNET_RPC_URL = "wss://api.baobab.klaytn.net:8652";
  
- export default cav;
+// const rpcURL = BAOBAB_TESTNET_RPC_URL;
+ 
+ const ws = new Caver.providers.WebsocketProvider(
+   "wss://api.baobab.klaytn.net:8652/",
+   { reconnect: { auto: true } }
+ );
+ 
+ const caver = new Caver(ws);
+ 
+ /* const caverContract = new Caver(rpcURL).klay.Contract(
+   DEPLOYED_ABI,
+   DEPLOYED_ADDRESS
+ ); */
+ 
+ export default caver;

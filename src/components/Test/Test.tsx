@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { cav } from './Caver.js'
+import cav from './Caver.js'
 
 export function Test() {
 	const [count, setCount] = useState(0);

@@ -24,3 +24,5 @@ yarn-error.log*
 
 #environment variables
 .env
+deployedABI
+deployedAddress

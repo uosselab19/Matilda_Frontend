@@ -1,4 +1,4 @@
-pragma solidity 0.5.6;
+pragma solidity >=0.4.22 <0.9.0;
 
 contract Count {
   // 컨트랙트의 이름을 "Count"로 합니다.

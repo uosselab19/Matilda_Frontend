@@ -5,9 +5,9 @@
     
     "moduleResolution": "node", // react-router-dom 에서 에러띄워서 넣는 기능 
     "allowSyntheticDefaultImports": true, // import react 쪽에서 에러남 
-    "allowJs": false, // js 파일들 ts에서 import해서 쓸 수 있는지 
+    "allowJs": true, // js 파일들 ts에서 import해서 쓸 수 있는지 
     "checkJs": false, // 일반 js 파일에서도 에러체크 여부 
-    "jsx": "preserve", // tsx 파일을 jsx로 어떻게 컴파일할 것인지 'preserve', 'react-native', 'react'
+    "jsx": "react-jsx", // tsx 파일을 jsx로 어떻게 컴파일할 것인지 'preserve', 'react-native', 'react'
     "declaration": true, //컴파일시 .d.ts 파일도 자동으로 함께생성 (현재쓰는 모든 타입이 정의된 파일)
     
     // "outFile": "./", 모든 ts파일을 js파일 하나로 컴파일해줌 (module이 none, amd, system일 때만 가능)
@@ -15,7 +15,7 @@
     "rootDir": "./", //루트경로 바꾸기 (js 파일 아웃풋 경로에 영향줌)
     "removeComments": true, //컴파일시 주석제거 
 
-    "typeRoots": ["./src/types", "./node_modules/@types"],
+    "typeRoots": ["types", "node_modules/@types"],
     "types": ["ts-node"],
     // "strict": false, //strict 관련, noimplicit 어쩌구 관련 모드 전부 켜기
     "strictNullChecks": true, //null, undefined 타입에 이상한 짓 할시 에러내기 
@@ -28,11 +28,12 @@
     // "noUnusedParameters": true, //쓰지않는 파라미터 있으면 에러내기
     "noImplicitReturns": true, //함수에서 return 빼먹으면 에러내기 
     "noFallthroughCasesInSwitch": true, //switch문 이상하면 에러내기
-    "esModuleInterop": true
-    
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+
   },
   "exclude": [
-    "node_modules"
+    "node_modules/**/*"
   ],
   "include": [
     "**/*.ts",
