@@ -1,5 +1,5 @@
 import Swal from 'sweetalert2';
-import { convertFunction } from '../../utils/ConvertFunction';
+import { postImage } from '../../services/imageService';
 
 interface ConvertBoxProps {
   category: Category;
@@ -31,7 +31,7 @@ export default function ConvertBox(props: ConvertBoxProps) {
 
     setLoading(true);
 
-    await convertFunction(input, category);
+    await postImage({ file: input, category: category.catCode });
   };
 
   //드래그 & 드랍시 사용되는 핸들러 함수들
