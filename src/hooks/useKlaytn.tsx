@@ -2,8 +2,6 @@ import { Contract } from "caver-js";
 import caver from "../configs/Caver";
 
 export default function useKlaytn() {
-	
-
 	const createPrivateKey = () => {
 		return caver.klay.accounts.create();
 	}

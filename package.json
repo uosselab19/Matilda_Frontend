@@ -2,15 +2,19 @@
   "name": "matilda",
   "version": "0.2.0",
   "private": true,
+  "scripts": {
+    "dev": "webpack serve",
+    "build": "webpack build",
+    "start": "webpack",
+    "pretty": "prettier --config .prettierrc --write src/**/*.ts src/**/*.tsx"
+  },
   "dependencies": {
-    "@klaytn/contracts": "^1.0.2",
     "@openzeppelin/contracts": "^4.7.3",
     "axios": "^0.27.2",
     "babel-loader": "^8.2.5",
     "bootstrap": "^5.1.3",
     "buffer": "^6.0.3",
     "caver-js": "^1.8.2",
-    "caver-js-ext-kas": "^1.12.0",
     "crypto-browserify": "^3.12.0",
     "css-loader": "^6.7.1",
     "customize-cra": "^1.0.0",
@@ -34,21 +38,16 @@
     "web-vitals": "^2.1.4",
     "web3": "^1.7.5"
   },
-  "scripts": {
-    "dev": "webpack serve ",
-    "build": "webpack build",
-    "start": "webpack",
-    "test": "react-app-rewired test",
-    "pretty": "prettier --config .prettierrc --write src/**/*.ts src/**/*.tsx"
-  },
   "devDependencies": {
     "@types/bootstrap": "^5.1.12",
+    "@types/node": "^18.7.5",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@types/react-router-dom": "^5.3.3",
     "@types/three": "^0.141.0",
-    "@types/node": "^18.7.5",
+    "caver-js-ext-kas": "^1.12.0",
     "npm": "^8.13.1",
+    "openzeppelin-solidity": "^4.6.0",
     "prettier": "^2.6.2",
     "typescript": "^4.7.4",
     "webpack-cli": "^4.10.0"
