@@ -1,7 +1,9 @@
 declare namespace NodeJS {
     interface ProcessEnv {
         IMAGESTORAGE: string;
-        address: string;
-        privateKey: string;
+        add1: string;
+        pk1: string;
+        add2: string;
+        pk2: string;
     }
 }

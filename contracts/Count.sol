@@ -14,4 +14,8 @@ contract Count {
     count = count - 1;
     lastParticipant = msg.sender; // msg.sender의 값을 lastParticipant에 저장합니다.
   }
+
+  function getCount() public view returns (uint) {
+    return count;
+  }
 }
