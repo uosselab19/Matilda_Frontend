@@ -23,8 +23,8 @@ yarn-debug.log*
 yarn-error.log*
 
 #environment variables
-.env
 dev.env
+prod.env
 deployedABI
 deployedAddress
 

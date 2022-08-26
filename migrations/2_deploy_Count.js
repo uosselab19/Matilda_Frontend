@@ -1,9 +1,6 @@
 const Count = artifacts.require("Count");
 const Caver = require("caver-js");
 const fs = require('fs');
-const dotenv = require('dotenv');
-
-dotenv.config({path:'./dev.env'});
 
 module.exports = async function (deployer) {
   await deployer.deploy(Count);
