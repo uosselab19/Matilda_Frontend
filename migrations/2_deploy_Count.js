@@ -13,22 +13,25 @@ module.exports = async function (deployer) {
     )
   );
 
-  const contract = caver.contract.create(Count._json.abi);
+  const keyring = caver.wallet.newKeyring(process.env.address, process.env.privateKey);
+	caver.wallet.updateKeyring(keyring);
+
+  const contract = new caver.contract(Count._json.abi);
   const myContract = await contract.deploy(
     {
-      from: process.env.address,
-      gas: 3000000,
+      from: keyring.address,
+      gas: 8500000,
     },
-    Count._json.deployedBytecode
+    Count._json.bytecode
   )
 
   //필요한 정보를 local에 남기기 위한 코드
   fs.writeFile(
-    "deployedContract",
+    "./src/configs/deployedContract.json",
     JSON.stringify(
       {
         abi: Count._json.abi,
-        bytecode: Count._json.deployedBytecode,
+        bytecode: Count._json.bytecode,
         contractAddress: myContract.options.address
       }
     ),
