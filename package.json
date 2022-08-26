@@ -44,7 +44,6 @@
     "@klaytn/contracts": "^1.0.3",
     "@truffle/hdwallet-provider": "^2.0.14",
     "@types/bootstrap": "^5.1.12",
-    "@types/history": "^5.0.0",
     "@types/node": "^18.7.5",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",

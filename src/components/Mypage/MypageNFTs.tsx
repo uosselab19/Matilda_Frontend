@@ -5,15 +5,13 @@ import ModalItem from '../modal/ModalItem';
 import { useState } from 'react';
 import { Item } from '../../types/Item';
 import { useNavigate } from 'react-router-dom';
-import useCookie from '../../hooks/useCookie';
-import { userInfo } from '../../types/Member';
+import { getUserInfo } from '../../configs/Cookie';
 
 export const MypageNFTs = () => {
   const navigate = useNavigate();
   const [numShowItems, numShowPages] = [15, 5];
 
-  const { getCookie } = useCookie();
-  const cookie = getCookie() as userInfo;
+  const cookie = getUserInfo();
   
   const { count, items, page, setPage } = useItems(selectItems, { memberNum: cookie.num }, numShowItems);
   const [item, setItem] = useState({} as Item);

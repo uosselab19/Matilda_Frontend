@@ -1,5 +1,5 @@
 import Swal from "sweetalert2";
-import useCookie from "../../hooks/useCookie";
+import { getUserInfo } from "../../configs/Cookie";
 import { getItem } from "../../services/itemService";
 import { putMember } from "../../services/memberService";
 import { Clothes } from "../../types/Clothes";
@@ -75,9 +75,6 @@ const handleSave = (props: PresetCardProps) => {
 		return;
 	}
 
-	const { getCookie } = useCookie();
-	const cookie = getCookie();
-	if (!cookie) return;
 	Swal.fire({
 		icon: 'question',
 		title: `Preset${index + 1}에 저장`,
@@ -90,6 +87,8 @@ const handleSave = (props: PresetCardProps) => {
 	}).then(async (result) => {
 		if (result.isConfirmed) {
 			presetList[index] = clothes;
+
+			const cookie = getUserInfo();
 
 			const putpresetList = presetList.map((e) => {
 				if (e) return Object.fromEntries(Object.entries(e).map((elem) => { return [elem[0], elem[1].itemNum] }));

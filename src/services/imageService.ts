@@ -1,19 +1,11 @@
-import useCookie from "../hooks/useCookie";
-import { imageApiClient } from "./apiClient";
-import { setImageApiClientHeaders } from "./axiosInterceptors";
+import { imageApiClient } from "../configs/apiClient";
 
 export async function postImage(image: {}) {
     let [data, error] = [undefined, undefined] as any;
-    const { getCookie } = useCookie();
-
     try {
         const form = new FormData();
         Object.keys(image).forEach((e) => { form.append(e, image[e]); })
 
-        const cookie = getCookie();
-        if (!cookie) throw "noCookie";
-
-        setImageApiClientHeaders(cookie);
         const result = await imageApiClient.post('/convert', form);
         data = result?.data;
     } catch (err) {

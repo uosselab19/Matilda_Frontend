@@ -5,18 +5,17 @@ import useCategory from '../../hooks/useCategory';
 import ConvertBox from '../../components/forms/ConvertBox';
 import Spinner from '../../components/load/Spinner';
 import { useNavigate } from 'react-router-dom';
-import useCookie from '../../hooks/useCookie';
 import Swal from 'sweetalert2';
+import { getUserInfo } from '../../configs/Cookie';
 
 export const Convert3D = () => {
   const [category, setCategory] = useState({ catCode: '', image: convertImage, title: '' } as Category);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { getCookie } = useCookie();
 
   useEffect(() => {
     (async () => {
-      const cookieData = getCookie();
+      const cookieData = getUserInfo();
       if (!cookieData) {
         Swal.fire({
           icon: 'error',

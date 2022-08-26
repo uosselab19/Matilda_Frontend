@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Item } from '../types/Item';
 import Swal from 'sweetalert2'
-import { apiClient } from '../services/apiClient';
+import { apiClient } from '../configs/apiClient';
 import { countItems } from '../services/itemService';
 
 export default function useItems(promise: Function, initialSelectCondition: {}, numShowItems: number) {

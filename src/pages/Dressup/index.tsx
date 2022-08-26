@@ -5,14 +5,13 @@ import useView from '../../hooks/threejs/useView';
 import useModel from '../../hooks/threejs/useModel';
 import useFittingRoom from '../../hooks/threejs/useFittingRoom';
 import { Clothes } from '../../types/Clothes';
-import useCookie from '../../hooks/useCookie';
 import { ResetbuyButton } from '../../components/Dressup/ResetbuyButton';
+import { getUserInfo } from '../../configs/Cookie';
 
 export const Dressup = () => {
   const [clothes, setClothes] = useState({} as Clothes);
   const [presetList, setPresetList] = useState([] as Clothes[]);
-  const { getCookie } = useCookie();
-  const cookie = getCookie();
+  const cookie = getUserInfo();
 
   useEffect(() => {
     const [modelHeight, roomWidth, roomHeight] = [60, 1024, 350];

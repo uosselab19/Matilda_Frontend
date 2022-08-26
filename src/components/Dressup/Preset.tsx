@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Swal from 'sweetalert2';
-import useCookie from '../../hooks/useCookie';
+import { getUserInfo } from '../../configs/Cookie';
 import { selectMember } from '../../services/memberService';
 import { Clothes } from '../../types/Clothes';
 import { PresetCard } from './PresetCard';
@@ -17,10 +17,7 @@ export const Preset = (props: PresetProps) => {
 
   useEffect(() => {
     (async () => {
-      const { getCookie } = useCookie();
-      const cookie = getCookie();
-      if (!cookie) return;
-
+      const cookie = getUserInfo();
       const { data, error } = await selectMember(cookie.num);
 
       if (error) {

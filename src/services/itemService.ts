@@ -1,5 +1,5 @@
 import { SelectItem } from '../types/Item';
-import { anonymousApiClient } from './apiClient';
+import { anonymousApiClient } from '../configs/apiClient';
 
 export async function selectItems(item: SelectItem) {
   let [data, error] = [[], undefined] as any;

@@ -9,9 +9,9 @@ import { selectItems } from '../../services/itemService';
 import Items from '../../components/Items/Items';
 import useItems from '../../hooks/useItems';
 import { useNavigate } from 'react-router-dom';
-import useCookie from '../../hooks/useCookie';
 import SubmitButton from '../../components/forms/SubmitButton';
 import Swal from 'sweetalert2';
+import { getUserInfo } from '../../configs/Cookie';
 
 function validate(values: UpdateItem) {
   const errors = {
@@ -45,8 +45,7 @@ export const MintNFT = () => {
   const [itemImage, setItemImage] = useState('');
   const [numShowItems, numShowPages] = [3, 3];
 
-  const { getCookie } = useCookie();
-  const cookie = getCookie();
+  const cookie = getUserInfo();
 
   const { count, items, page, setPage } = useItems(selectItems, { memberNum: cookie?.num, stateCode: 'CR' }, numShowItems);
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
@@ -58,7 +57,7 @@ export const MintNFT = () => {
 
   useEffect(() => {
     (async () => {
-      const cookie = getCookie();
+      const cookie = getUserInfo();
       if (!cookie) {
         Swal.fire({
           icon: 'error',

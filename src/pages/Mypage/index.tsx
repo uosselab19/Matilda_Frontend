@@ -4,15 +4,14 @@ import { MypageWallet } from '../../components/Mypage/MypageWallet';
 import { MypageOption } from '../../components/Mypage/MypageOption';
 import { useNavigate } from 'react-router-dom';
 import { NavButtons } from '../../components/NavButtons';
-import useCookie from '../../hooks/useCookie';
 import { SelectMember } from '../../types/Member';
 import profileImage from "../../assets/images/Profile/profileImage.png"
 import Swal from 'sweetalert2';
 import { selectMember } from '../../services/memberService';
+import { getUserInfo } from '../../configs/Cookie';
 
 export const Mypage = () => {
   const navigate = useNavigate();
-  const { getCookie } = useCookie();
   const [selectedNavButton, setSelectedNavButton] = useState("myNFTList");
   const [userInfo, setUserInfo] = useState({} as SelectMember);
 
@@ -24,7 +23,7 @@ export const Mypage = () => {
 
   useEffect(() => {
     (async () => {
-      const cookieData = getCookie();
+      const cookieData = getUserInfo();
       if (!cookieData) {
         Swal.fire({
           icon: 'error',
