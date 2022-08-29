@@ -6,9 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import { NavButtons } from '../../components/NavButtons';
 import { SelectMember } from '../../types/Member';
 import profileImage from "../../assets/images/Profile/profileImage.png"
-import Swal from 'sweetalert2';
 import { selectMember } from '../../services/memberService';
 import { getUserInfo } from '../../configs/Cookie';
+import { alertError } from '../../utils/alertUtil';
 
 export const Mypage = () => {
   const navigate = useNavigate();
@@ -25,22 +25,14 @@ export const Mypage = () => {
     (async () => {
       const cookieData = getUserInfo();
       if (!cookieData) {
-        Swal.fire({
-          icon: 'error',
-          title: '누구세요...?',
-          text: '유저정보가 없어서 홈페이지로 이동합니다.',
-        });
+        alertError('누구세요...?', '유저정보가 없어서 홈페이지로 이동합니다.');
         navigate('/');
       } else {
         if (!Object.keys(userInfo).length) {
           const { data, error } = await selectMember(cookieData.num);
           if (error) {
             console.log(error);
-            Swal.fire({
-              icon: 'error',
-              title: '누구셨죠...?',
-              text: '유저정보를 불러오는 중 에러가 발생했습니다.',
-            });
+            alertError('누구셨죠...?', '유저정보를 불러오는 중 에러가 발생했습니다.');
           } else {
             setUserInfo(data);
           }

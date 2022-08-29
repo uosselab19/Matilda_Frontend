@@ -8,8 +8,8 @@ import { useEffect } from 'react';
 import { signinMember } from '../../services/securityService';
 import SigninBox from '../../components/forms/signinBox';
 import SubmitButton from '../../components/forms/SubmitButton';
-import Swal from 'sweetalert2';
 import { setUserInfo, getUserInfo } from '../../configs/Cookie';
+import { alertError } from '../../utils/alertUtil';
 
 const validate = (values: SigninMember) => {
   const errors = {
@@ -27,11 +27,8 @@ export const Signin = () => {
     const { data, error } = await signinMember(values);
     if (error) {
       console.log(error);
-      return Swal.fire({
-        icon: 'error',
-        title: '에러가 발생했어요!',
-        text: error,
-      });
+      alertError('로그인 에러', `로그인에 실패했어요.`);
+      return;
     }
 
     //base 64를 디코딩한 후에 parse 과정을 통해 json화 하는 함수
@@ -54,11 +51,7 @@ export const Signin = () => {
     (async () => {
       const userInfoData = getUserInfo();
       if (userInfoData) {
-        Swal.fire({
-          icon: 'error',
-          title: `이미 로그인 되어있어요!`,
-          text: `이미 ${userInfoData.id}로 로그인한 정보가 있어서 홈페이지로 이동합니다.`,
-        });
+        alertError(`이미 로그인 되어있어요!`, `이미 ${userInfoData.id}로 로그인한 정보가 있어서 홈페이지로 이동합니다.`);
         navigate('/');
       }
     })();

@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-
 import convertImage from '../../assets/images/Convert3D/convertImage.png';
 import useCategory from '../../hooks/useCategory';
 import ConvertBox from '../../components/forms/ConvertBox';
 import Spinner from '../../components/load/Spinner';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
 import { getUserInfo } from '../../configs/Cookie';
+import { alertError } from '../../utils/alertUtil';
 
 export const Convert3D = () => {
   const [category, setCategory] = useState({ catCode: '', image: convertImage, title: '' } as Category);
@@ -17,11 +16,7 @@ export const Convert3D = () => {
     (async () => {
       const cookieData = getUserInfo();
       if (!cookieData) {
-        Swal.fire({
-          icon: 'error',
-          title: '누구세요...?',
-          text: '유저정보가 없어서 홈페이지로 이동합니다.',
-        });
+        alertError('누구세요...?', '유저정보가 없어서 홈페이지로 이동합니다.');
         navigate('/');
       }
     })();

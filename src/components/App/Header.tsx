@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import Swal from 'sweetalert2';
 import matildaWhite from '../../assets/images/matilda_white.png';
 import { getUserInfo, removeUserInfo } from '../../configs/Cookie';
 import { signoutMember } from '../../services/securityService';
+import { alertSuccess } from '../../utils/alertUtil';
 import { NavButtons } from '../NavButtons';
 
 export const Header = () => {
@@ -20,13 +20,8 @@ export const Header = () => {
   //로그아웃 버튼 기능
   const fetchSignout = () => {
     const cookie = getUserInfo();
-    if (cookie)
-      signoutMember(cookie);
-    Swal.fire({
-      icon: 'success',
-      title: '로그아웃',
-      text: `로그아웃했습니다!`,
-    });// 로그아웃했다고 알림
+    signoutMember(cookie);
+    alertSuccess('로그아웃', `로그아웃했습니다!`);// 로그아웃했다고 알림
     removeUserInfo(); // 로그인 기록 쿠키 지우기
     linkTo('/'); // 로그아웃하면 홈페이지로
   };

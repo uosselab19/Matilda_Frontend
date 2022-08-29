@@ -1,10 +1,9 @@
-//import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Item } from '../../types/Item';
 import { getItem } from '../../services/itemService';
 import ModalItem from '../../components/modal/ModalItem';
-import Swal from 'sweetalert2';
+import { alertError } from '../../utils/alertUtil';
 
 interface NFTItemProps {
   mode: string;
@@ -23,11 +22,7 @@ export const NFTItem = (props: NFTItemProps) => {
 
       if (error) {
         console.log(error);
-        Swal.fire({
-          icon: 'error',
-          title: '아이템을 찾지 못 했어요!',
-          text: '아이템 목록이 없는 것 같아요.',
-        });
+        alertError('아이템을 찾지 못 했어요!', '아이템 목록이 없는 것 같아요.');
       } else {
         setItem(data as Item);
       }

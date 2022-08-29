@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import Swal from 'sweetalert2';
 import { getUserInfo } from '../../configs/Cookie';
 import { selectMember } from '../../services/memberService';
 import { Clothes } from '../../types/Clothes';
+import { alertError } from '../../utils/alertUtil';
 import { PresetCard } from './PresetCard';
 
 interface PresetProps {
@@ -22,11 +22,7 @@ export const Preset = (props: PresetProps) => {
 
       if (error) {
         console.log(error);
-        Swal.fire({
-          icon: 'error',
-          title: '멤버정보 오류',
-          text: "멤버정보를 불러오는데 오류가 일어났어요.",
-        });
+        alertError('멤버정보 오류',"멤버정보를 불러오는데 오류가 일어났어요.");
         return;
       }
 

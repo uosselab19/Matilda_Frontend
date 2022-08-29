@@ -10,8 +10,8 @@ import Items from '../../components/Items/Items';
 import useItems from '../../hooks/useItems';
 import { useNavigate } from 'react-router-dom';
 import SubmitButton from '../../components/forms/SubmitButton';
-import Swal from 'sweetalert2';
 import { getUserInfo } from '../../configs/Cookie';
+import { alertError } from '../../utils/alertUtil';
 
 function validate(values: UpdateItem) {
   const errors = {
@@ -32,13 +32,8 @@ function validate(values: UpdateItem) {
 export const MintNFT = () => {
   const callback = (values: UpdateItem) => {
     const { title, description, price } = values;
-    if (title && description && price) {
-      console.log(values);
-    } else Swal.fire({
-      icon: 'error',
-      title: '얼라리오?',
-      text: '빈칸을 모두 다 채워주세요!',
-    });
+    if (title && description && price) console.log(values);
+    else alertError('얼라리오?', '빈칸을 모두 다 채워주세요!');
   };
 
   const navigate = useNavigate();
@@ -59,11 +54,7 @@ export const MintNFT = () => {
     (async () => {
       const cookie = getUserInfo();
       if (!cookie) {
-        Swal.fire({
-          icon: 'error',
-          title: '누구세요...?',
-          text: '유저정보가 없어서 홈페이지로 이동합니다.',
-        });
+        alertError('누구세요...?', '유저정보가 없어서 홈페이지로 이동합니다.');
         navigate('/');
       }
     })();
