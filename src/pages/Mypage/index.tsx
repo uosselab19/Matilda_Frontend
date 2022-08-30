@@ -7,7 +7,7 @@ import { NavButtons } from '../../components/NavButtons';
 import { SelectMember } from '../../types/Member';
 import profileImage from "../../assets/images/Profile/profileImage.png"
 import { selectMember } from '../../services/memberService';
-import { getUserInfo } from '../../configs/Cookie';
+import { getUserInfo } from '../../utils/cookieUtil';
 import { alertError } from '../../utils/alertUtil';
 
 export const Mypage = () => {

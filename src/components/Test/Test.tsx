@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { caver } from "../../configs/Caver";
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 export function Test() {
 	const [count] = useState(-1);
@@ -13,6 +14,20 @@ export function Test() {
 		})();
 	}, [])
 
+	const handleBlob = async () => {
+		const url = "./assets/model/matilda/scene.gltf";
+		const loader = new GLTFLoader();
+		loader.load(
+			url,
+			// called when the resource is loaded
+			async (gltf) => {
+				const buffer = await gltf.parser.loadBuffer(0);
+				const blob = new Blob([buffer]);
+				console.log(blob);
+			}
+		);
+	}
+
 	return (
 		<div
 			className="d-flex flex-column justify-content-center align-items-center"
@@ -22,8 +37,8 @@ export function Test() {
 				<button
 					type="button"
 					className="col-4 btn btn-primary btn-lg"
-					onClick={() => { ; }}>
-					plus
+					onClick={() => { handleBlob(); }}>
+					blob
 				</button>
 				<button
 					type="button"

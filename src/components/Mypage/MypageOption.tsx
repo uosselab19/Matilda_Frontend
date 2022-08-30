@@ -2,7 +2,7 @@ import TextBox from '../../components/forms/TextBox';
 import useForm from '../../hooks/useForm';
 import { putMember } from '../../services/memberService';
 import { SelectMember, UpdateMember } from '../../types/Member';
-import { isEmail, isPassword, notMaxLength, notMinLength } from '../../utils/validator';
+import { isEmail, isPassword, notMaxLength, notMinLength } from '../../utils/validatorUtil';
 import ImageBox from '../forms/ImageBox';
 import SubmitButton from '../forms/SubmitButton';
 import TextArea from '../forms/TextArea';

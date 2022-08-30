@@ -4,13 +4,13 @@ import TextArea from '../../components/forms/TextArea';
 import useForm from '../../hooks/useForm';
 import testImage from '../../assets/images/NFTItem/mindul_NFT1.jpg';
 import { Item, UpdateItem } from '../../types/Item';
-import { isRequired, notMaxLength, notMinLength, isNumber } from '../../utils/validator';
+import { isRequired, notMaxLength, notMinLength, isNumber } from '../../utils/validatorUtil';
 import { selectItems } from '../../services/itemService';
 import Items from '../../components/Items/Items';
 import useItems from '../../hooks/useItems';
 import { useNavigate } from 'react-router-dom';
 import SubmitButton from '../../components/forms/SubmitButton';
-import { getUserInfo } from '../../configs/Cookie';
+import { getUserInfo } from '../../utils/cookieUtil';
 import { alertError } from '../../utils/alertUtil';
 
 function validate(values: UpdateItem) {

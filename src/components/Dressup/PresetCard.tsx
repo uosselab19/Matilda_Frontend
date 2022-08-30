@@ -1,4 +1,4 @@
-import { getUserInfo } from "../../configs/Cookie";
+import { getUserInfo } from "../../utils/cookieUtil";
 import { getItem } from "../../services/itemService";
 import { putMember } from "../../services/memberService";
 import { Clothes } from "../../types/Clothes";

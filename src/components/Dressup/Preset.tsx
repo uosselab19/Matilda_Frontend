@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { getUserInfo } from '../../configs/Cookie';
+import { getUserInfo } from '../../utils/cookieUtil';
 import { selectMember } from '../../services/memberService';
 import { Clothes } from '../../types/Clothes';
 import { alertError } from '../../utils/alertUtil';

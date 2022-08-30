@@ -8,11 +8,10 @@ interface CardProps {
   item?: Item;
   size: string;
   handleCard?: Function;
-  modalID?: string;
 }
 
 export default function Card(props: CardProps) {
-  const { item, size, handleCard, modalID } = props;
+  const { item, size, handleCard } = props;
 
   const handleMouse = (e: React.MouseEvent): void => {
     e.stopPropagation();
@@ -59,9 +58,6 @@ export default function Card(props: CardProps) {
         className={`cardItemNum${item?item.itemNum:""}`}
         onClick={() => { if (handleCard) handleCard(item); }}
         draggable="false"
-        data-bs-toggle={modalID ? 'modal' : undefined}
-        data-bs-target={modalID ? `#${modalID}` : undefined}
-        aria-controls={modalID ? `${modalID}` : undefined}
         aria-expanded="false"
         style={{display:(item)?"block":"none"}} >
         <div

@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { UserInfo } from '../types/Member';
-import { getCookie, removeCookie } from './Cookie';
-import { history } from './history';
+import { getCookie, removeCookie } from '../utils/cookieUtil';
 
 const anonymousApiClient = axios.create({
   baseURL: 'http://3.133.233.81:8080',
@@ -36,14 +36,15 @@ function interceptRequest(config: AxiosRequestConfig) {
 }
 
 function interceptError(error: AxiosError) {
+  const navigate = useNavigate();
   const response = error?.response;
 
   if (response?.status === 401) {
     console.log("error 401");
     if (confirm("인증이 만료되었습니다. 이동하시겠습니까?")) {
       removeCookie("userInfo");
-      history.push("/");
-      return
+      navigate("/");
+      return;
     }
   }
 

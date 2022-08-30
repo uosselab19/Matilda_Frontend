@@ -2,14 +2,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import matilda from '../../assets/images/matilda.png';
 import useForm from '../../hooks/useForm';
 import { SigninMember } from '../../types/Member';
-import { isRequired, isID, isPassword } from '../../utils/validator';
-import { Buffer } from 'buffer';
+import { isRequired, isID, isPassword } from '../../utils/validatorUtil';
 import { useEffect } from 'react';
 import { signinMember } from '../../services/securityService';
 import SigninBox from '../../components/forms/signinBox';
 import SubmitButton from '../../components/forms/SubmitButton';
-import { setUserInfo, getUserInfo } from '../../configs/Cookie';
+import { setUserInfo, getUserInfo } from '../../utils/cookieUtil';
 import { alertError } from '../../utils/alertUtil';
+import { getUserInfoByToken } from '../../utils/tokenUils';
 
 const validate = (values: SigninMember) => {
   const errors = {
@@ -30,16 +30,6 @@ export const Signin = () => {
       alertError('로그인 에러', `로그인에 실패했어요.`);
       return;
     }
-
-    //base 64를 디코딩한 후에 parse 과정을 통해 json화 하는 함수
-    const getUserInfoByToken = (data: SigninResponse) => {
-      const result = JSON.parse(Buffer.from(data.accessToken.split('.')[1], 'base64').toString());
-      return {
-        ...result,
-        accessToken: data.accessToken,
-        refreshToken: data.refreshToken
-      };
-    };
 
     const userInfo = getUserInfoByToken(data);
     setUserInfo(userInfo);

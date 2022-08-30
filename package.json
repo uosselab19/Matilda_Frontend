@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "truffle": "truffle migrate --network development -compile-all -reset",
+    "truffle:dev": "truffle migrate --network development -compile-all -reset",
+    "truffle:prod": "truffle migrate --network production -compile-all -reset",
     "dev": "webpack serve --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
     "start": "webpack serve --open --config webpack.dev.js",

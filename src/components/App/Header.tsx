@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import matildaWhite from '../../assets/images/matilda_white.png';
-import { getUserInfo, removeUserInfo } from '../../configs/Cookie';
+import { getUserInfo, removeUserInfo } from '../../utils/cookieUtil';
 import { signoutMember } from '../../services/securityService';
 import { alertSuccess } from '../../utils/alertUtil';
 import { NavButtons } from '../NavButtons';

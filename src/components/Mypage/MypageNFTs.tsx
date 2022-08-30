@@ -1,43 +1,30 @@
 import Items from '../Items/Items';
 import useItems from '../../hooks/useItems';
 import { selectItems } from '../../services/itemService';
-import ModalItem from '../modal/ModalItem';
-import { useState } from 'react';
 import { Item } from '../../types/Item';
 import { useNavigate } from 'react-router-dom';
-import { getUserInfo } from '../../configs/Cookie';
+import { getUserInfo } from '../../utils/cookieUtil';
+import { confirmModal } from '../../utils/alertUtil';
+import { SweetAlertResult } from 'sweetalert2';
 
 export const MypageNFTs = () => {
   const navigate = useNavigate();
   const [numShowItems, numShowPages] = [15, 5];
 
   const cookie = getUserInfo();
-  
+
   const { count, items, page, setPage } = useItems(selectItems, { memberNum: cookie.num }, numShowItems);
-  const [item, setItem] = useState({} as Item);
-  
-  const ModalFooterButtons = [
-    (
-      (item.catCode) ?
-        <button
-          key={"modalFooterButton1"}
-          type="button"
-          className="btn btn-light btn-outline-dark w-25"
-          data-bs-dismiss="modal"
-          onClick={() => { navigate("/NFTminting"); }}>
-          등록하기
-        </button>
-        :
-        <button
-          key={"modalFooterButton2"}
-          type="button"
-          className="btn btn-light w-25"
-          data-bs-dismiss="modal"
-          onClick={() => { navigate(`/mypage/NFTItem?nft_id=${item.itemNum}`); }}>
-          판매하기
-        </button>
-    )
-  ];
+
+  const handleCard = async (item: Item) => {
+    let result: SweetAlertResult<any>;
+    if (item.catCode) {
+      result = await confirmModal('변환 성공', '변환이 이뤄진 모습을 확인해보세요!', "등록하기", "돌아가기", item.imgUrl, 'Not NFT Image', 500);
+      if (result.isConfirmed) navigate("/NFTminting");
+    } else {
+      result = await confirmModal('판매하기', '판매를 위한 페이지입니다.', "판매하기", "돌아가기", item.imgUrl, 'Completely NFT Image', 500);
+      if (result.isConfirmed) navigate(`/mypage/NFTItem?nft_id=${item.itemNum}`);
+    }
+  }
 
   return (
     <div className="row">
@@ -49,13 +36,7 @@ export const MypageNFTs = () => {
         size={"md"}
         numShowItems={numShowItems}
         numShowPages={numShowPages}
-        handleCard={setItem}
-        modalID={'modalMyNFTs'} />
-      <ModalItem
-        modalID={'modalMyNFTs'}
-        item={item}
-        footerButtons={ModalFooterButtons}
-        isStatic={false} />
+        handleCard={handleCard} />
     </div>
   );
 };

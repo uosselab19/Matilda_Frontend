@@ -18,4 +18,4 @@ fi
 
 echo 'Process start'
 npm install
-nohup npm start >> nohup.out 2>&1 &
+nohup npm run dev >> nohup.out 2>&1 &

@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Item } from '../../types/Item';
 import { getItem } from '../../services/itemService';
-import ModalItem from '../../components/modal/ModalItem';
-import { alertError } from '../../utils/alertUtil';
+import { alertError, confirmModal, confirmWarning } from '../../utils/alertUtil';
 
 interface NFTItemProps {
   mode: string;
@@ -11,40 +10,37 @@ interface NFTItemProps {
 
 export const NFTItem = (props: NFTItemProps) => {
   const { mode } = props;
-  const navigate = useNavigate();
   const [item, setItem] = useState({} as Item);
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+
   const itemNum = Number(searchParams.get('nft_id') as string);
 
   useEffect(() => {
     (async () => {
+      console.log(itemNum);
       const { data, error } = await getItem(itemNum);
 
       if (error) {
         console.log(error);
-        alertError('아이템을 찾지 못 했어요!', '아이템 목록이 없는 것 같아요.');
+        alertError('아이템을 찾지 못 했어요!', '아이템 정보를 불러오는 중 문제가 발생했어요!');
+        navigate(-1);
       } else {
         setItem(data as Item);
       }
     })();
   }, []);
 
-  const ModalFooterButtons = [
-    <button
-      key={"modalFooterButton1"}
-      type="button"
-      className="btn btn-light btn-outline-dark w-25"
-      data-bs-dismiss="modal"
-      onClick={() => {
-        if (confirm(`구매했습니다~ 마이페이지로 갈래요?`)) {
-          navigate('/mypage');
-        } else {
-          navigate('/marketplace');
-        }
-      }}>
-      구매하기
-    </button>
-  ];
+  const handleButton = async () => {
+    const result = await confirmModal("구매할까요?", "구매하기를 누르시면 구매가 확정됩니다. 주의해주세요!", "구매하기", "돌아가기", item.imgUrl, "Selling NFT", 500);
+    if (result.isConfirmed) {
+      const result = await confirmWarning("구매할까요?", "구매하기를 누르시면 구매가 확정됩니다. 주의해주세요!", "이동하기", "취소하기");
+      if (result.isConfirmed) navigate('/mypage');
+      else alertError("취소했어요!", "다시 한 번 생각해주시고 찾아와주세요 ㅎㅎ");
+    } else {
+      alertError("취소했어요!", "다시 한 번 생각해주시고 찾아와주세요 ㅎㅎ");
+    }
+  }
 
   return item ? (
     <main className="container">
@@ -78,16 +74,9 @@ export const NFTItem = (props: NFTItemProps) => {
               <button
                 type="button"
                 className="btn btn-primary btn-lg p-3 mb-5 w-50"
-                data-bs-toggle="modal"
-                data-bs-target={`#${'ModalNFTItem'}`}>
+                onClick={handleButton}>
                 {mode}
               </button>
-              <ModalItem
-                modalID={'ModalNFTItem'}
-                item={item}
-                footerButtons={ModalFooterButtons}
-                footerDescription={`정말 ${mode == 'Buy' ? '구매' : '판매'}하시겠습니까?`}
-                isStatic={true} />
             </div>
 
             <h3>기타 정보</h3>

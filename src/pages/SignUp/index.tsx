@@ -6,7 +6,7 @@ import useForm from '../../hooks/useForm';
 import { insertMember } from '../../services/memberService';
 import { InsertMember } from '../../types/Member';
 import { alertError, alertSuccess } from '../../utils/alertUtil';
-import { isRequired, isID, isPassword, isEmail, notMaxLength, notMinLength } from '../../utils/validator';
+import { isRequired, isID, isPassword, isEmail, notMaxLength, notMinLength } from '../../utils/validatorUtil';
 
 const validate = (values: InsertMember) => {
   const errors = {

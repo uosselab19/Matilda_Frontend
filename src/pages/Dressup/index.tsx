@@ -6,7 +6,7 @@ import useModel from '../../hooks/threejs/useModel';
 import useFittingRoom from '../../hooks/threejs/useFittingRoom';
 import { Clothes } from '../../types/Clothes';
 import { ResetbuyButton } from '../../components/Dressup/ResetbuyButton';
-import { getUserInfo } from '../../configs/Cookie';
+import { getUserInfo } from '../../utils/cookieUtil';
 
 export const Dressup = () => {
   const [clothes, setClothes] = useState({} as Clothes);
