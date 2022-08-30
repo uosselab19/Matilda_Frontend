@@ -1,6 +1,11 @@
 stages:
   - run
 
+cache:
+  key: node
+  paths:
+    - ./node_modules
+
 run:
   tags:
     - main
