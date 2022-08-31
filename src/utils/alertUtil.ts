@@ -32,15 +32,15 @@ export const alertInfo = (title: string, text: string) => {
 	});
 }
 
-export const alertModal = async (title:string, text:string, url:string, alt:string, width:number) => {
+export const alertModal = async (title:string, text:string, url:string, alt?:string, width?:number) => {
 	return Swal.fire({
 		title: title,
 		text: text,
 		imageUrl: url,
-		imageWidth: width,
-		imageHeight: width,
-		width:width+60,
-		imageAlt: alt,
+		imageAlt: alt?alt:"Modal Image",
+		imageWidth: width?width:500,
+		imageHeight: width?width:500,
+		width:width?width+60:560,
 	})
 }
 
@@ -57,9 +57,9 @@ export const confirmSuccess = async (title: string, text: string, confirmText: s
 	});
 }
 
-export const confirmQuestion = async (title: string, text: string, confirmText: string, cancelText: string) => {
+export const confirmWarning = async (title: string, text: string, confirmText: string, cancelText: string) => {
 	return Swal.fire({
-		icon: 'question',
+		icon: 'warning',
 		title: title,
 		text: text,
 		showCancelButton: true,
@@ -70,9 +70,9 @@ export const confirmQuestion = async (title: string, text: string, confirmText: 
 	});
 }
 
-export const confirmWarning = async (title: string, text: string, confirmText: string, cancelText: string) => {
+export const confirmQuestion = async (title: string, text: string, confirmText: string, cancelText: string) => {
 	return Swal.fire({
-		icon: 'warning',
+		icon: 'question',
 		title: title,
 		text: text,
 		showCancelButton: true,

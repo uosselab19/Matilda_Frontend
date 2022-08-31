@@ -17,7 +17,7 @@ export const Convert3D = () => {
     (async () => {
       const cookieData = getUserInfo();
       if (!cookieData) {
-        alertError('누구세요...?', '유저정보가 없어서 홈페이지로 이동합니다.');
+        alertError('누구세요...?', '로그인이 필요한 페이지입니다. 유저정보가 없어서 홈페이지로 이동합니다.');
         navigate('/');
       }
     })();
@@ -41,12 +41,6 @@ export const Convert3D = () => {
   return (
     <main className="container text-center d-flex flex-column justify-content-center">
       <div className="align-items-center fw-bold fs-2 my-4">3D Conversion</div>
-      
-      <button
-      className='btn btn-lg btn-primary'
-      onClick={()=>{}}>
-        쿠쿠루삥빵뽀룽뽀룽삥빵뽀룽뽀룽삥빵뽕
-      </button>
 
       <div className="row g-0">
         <div className="col-lg-4">

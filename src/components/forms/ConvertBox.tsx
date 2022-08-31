@@ -26,13 +26,13 @@ export default function ConvertBox(props: ConvertBoxProps) {
 
     const { data, error } = await postImage({ file: input, category: category.catCode });
     if (error) {
-      alertError("변환 실패","변환이 제대로 이뤄지지 않았어요, 다시 한 번 시도해보세요!");
       console.log(error);
+      alertError("변환 실패", "변환이 제대로 이뤄지지 않았어요, 다시 한 번 시도해보세요!");
     } else {
-      alertModal('변환 성공', '변환이 이뤄진 모습을 확인해보세요!', data, 'Completely Converted Image', 500);
       console.log(data);
+      alertModal('변환 성공', '변환이 이뤄진 모습을 확인해보세요!', data, 'Completely Converted Image');
     }
-   
+
     setLoading(false);
   };
 
