@@ -21,23 +21,23 @@ export const App = () => {
       <BrowserRouter basename='/'>
         <Header />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="" element={<Home />} />
 
           {/*header에 연결된 component*/}
-          <Route path="/marketplace" element={<Marketplace />} />
-          <Route path="/3Dconversion" element={<Convert3D />} />
-          <Route path="/NFTminting" element={<MintNFT />} />
-          <Route path="/dressup" element={<Dressup />} />
+          <Route path="marketplace" element={<Marketplace />} />
+          <Route path="3Dconversion" element={<Convert3D />} />
+          <Route path="NFTminting" element={<MintNFT />} />
+          <Route path="dressup" element={<Dressup />} />
 
-          <Route path="/signin" element={<Signin />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/mypage" element={<Mypage />} />
-          <Route path="/test" element={<Test />} />
+          <Route path="signin" element={<Signin />} />
+          <Route path="signup" element={<Signup />} />
+          <Route path="mypage" element={<Mypage />} />
+          <Route path="test" element={<Test />} />
 
-          <Route path="/marketplace/NFTItem" element={<NFTItem mode={'Buy'} />} />
-          <Route path="/mypage/NFTItem" element={<NFTItem mode={'Sell'} />} />
+          <Route path="marketplace/NFTItem" element={<NFTItem mode={'Buy'}/>} />
+          <Route path="mypage/NFTItem" element={<NFTItem mode={'Sell'} />} />
 
-          <Route path="*" element={<NotFound />} />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
         <Footer />
       </BrowserRouter>

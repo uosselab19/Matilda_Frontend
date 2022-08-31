@@ -45,7 +45,7 @@ export const Mypage = () => {
   return userInfo ? (
     <main className="container d-flex flex-column justify-content-center">
       <div className="row my-3">
-        <div className="col-lg-4">
+        <div className="col-md-4">
           <img
             className="flex-column py-3 mt-5 mb-4 px-4 w-100"
             src={userInfo.profileImg ? userInfo.profileImg : profileImage}
@@ -56,7 +56,7 @@ export const Mypage = () => {
         </div>
 
         {/* 네비게이션 바 */}
-        <div className="col-lg-8">
+        <div className="col-md-8">
           <div className="my-3">
             <NavButtons
               navItems={navItems}
