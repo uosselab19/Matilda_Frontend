@@ -2,7 +2,7 @@
 import useCategory from '../../hooks/useCategory';
 import useForm from '../../hooks/useForm';
 import { SelectItem } from '../../types/Item';
-import { isRequired } from '../../utils/validator';
+import { isRequired } from '../../utils/validatorUtil';
 import SearchBox from '../forms/SearchBox';
 import SelectBox from '../forms/SelectBox';
 

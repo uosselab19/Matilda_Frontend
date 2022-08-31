@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import Swal from 'sweetalert2';
 import matildaWhite from '../../assets/images/matilda_white.png';
-import useCookie from '../../hooks/useCookie';
+import { getUserInfo, removeUserInfo } from '../../utils/cookieUtil';
 import { signoutMember } from '../../services/securityService';
+import { alertSuccess } from '../../utils/alertUtil';
 import { NavButtons } from '../NavButtons';
 
 export const Header = () => {
   const navigate = useNavigate(); //페이지 이동하는 훅
-  const { getCookie, removeCookie } = useCookie();
   const location = useLocation(); // url 찍어주는 훅
   const pathname = location.pathname;
   const [selectedNavButton, setSelectedNavButton] = useState(pathname);
@@ -20,15 +19,10 @@ export const Header = () => {
 
   //로그아웃 버튼 기능
   const fetchSignout = () => {
-    const cookie = getCookie();
-    if (cookie)
-      signoutMember(cookie);
-    Swal.fire({
-      icon: 'success',
-      title: '로그아웃',
-      text: `로그아웃했습니다!`,
-    });// 로그아웃했다고 알림
-    removeCookie(); // 로그인 기록 쿠키 지우기
+    const cookie = getUserInfo();
+    signoutMember(cookie);
+    alertSuccess('로그아웃', `로그아웃했습니다!`);// 로그아웃했다고 알림
+    removeUserInfo(); // 로그인 기록 쿠키 지우기
     linkTo('/'); // 로그아웃하면 홈페이지로
   };
 
@@ -41,13 +35,13 @@ export const Header = () => {
       <div className='btn-group' role="group">
         <button
           className="btn btn-outline-light me-1"
-          onClick={() => { getCookie() ? fetchSignout() : linkTo('/signin'); }}>
-          {getCookie() ? 'sign-out' : 'Sign-in'}
+          onClick={() => { getUserInfo() ? fetchSignout() : linkTo('/signin'); }}>
+          {getUserInfo() ? 'sign-out' : 'Sign-in'}
         </button>
         <button
           className="btn btn-secondary"
-          onClick={() => { getCookie() ? linkTo('/mypage') : linkTo('/signup'); }}>
-          {getCookie() ? 'My Page' : 'Sign-up'}
+          onClick={() => { getUserInfo() ? linkTo('/mypage') : linkTo('/signup'); }}>
+          {getUserInfo() ? 'My Page' : 'Sign-up'}
         </button>
       </div>
     );

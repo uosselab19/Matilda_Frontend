@@ -1,9 +1,6 @@
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 const dotenv = require('dotenv');
 
-dotenv.config({path:'./dev.env'});
-const [privateKey, providerURL] = [process.env.privateKey.slice(2), process.env.providerURL];
-
 module.exports = {
   /**
    * Networks define how you connect to your ethereum client and let you set the
@@ -17,14 +14,20 @@ module.exports = {
 
   networks: {
     development: {
-      provider: new HDWalletProvider(privateKey, providerURL),
+      provider: () => {
+        dotenv.config({path:'./dev.env'});
+        return new HDWalletProvider(process.env.privateKey.slice(2), "https://api.baobab.klaytn.net:8651")
+      },
       network_id: '1001', //Klaytn baobab testnet's network id
       gas: '8500000',
       gasPrice: null
     },
 
     production: {
-      provider: new HDWalletProvider(privateKey, providerURL),
+      provider: () => {
+        dotenv.config({path:'./prod.env'});
+        return new HDWalletProvider(process.env.privateKey.slice(2), "https://public-node-api.klaytnapi.com/v1/cypress")
+      },
       network_id: '8217', //Klaytn 
       gas: '8500000',
       gasPrice: null

@@ -1,35 +1,28 @@
 import React, { useEffect } from 'react';
-import Swal from 'sweetalert2';
-import useCookie from '../../hooks/useCookie';
+import { getUserInfo } from '../../utils/cookieUtil';
 import { selectMember } from '../../services/memberService';
 import { Clothes } from '../../types/Clothes';
+import { alertError } from '../../utils/alertUtil';
 import { PresetCard } from './PresetCard';
 
-interface PresetProps {
+interface DressupPresetProps {
   clothes: Clothes;
   setClothes: React.Dispatch<React.SetStateAction<Clothes>>;
   presetList: Clothes[];
   setPresetList: React.Dispatch<React.SetStateAction<Clothes[]>>
 }
 
-export const Preset = (props: PresetProps) => {
+export const DressupPreset = (props: DressupPresetProps) => {
   const { clothes, setClothes, presetList, setPresetList } = props;
 
   useEffect(() => {
     (async () => {
-      const { getCookie } = useCookie();
-      const cookie = getCookie();
-      if (!cookie) return;
-
+      const cookie = getUserInfo();
       const { data, error } = await selectMember(cookie.num);
 
       if (error) {
         console.log(error);
-        Swal.fire({
-          icon: 'error',
-          title: '멤버정보 오류',
-          text: "멤버정보를 불러오는데 오류가 일어났어요.",
-        });
+        alertError('멤버정보 오류',"멤버정보를 불러오는데 오류가 일어났어요.");
         return;
       }
 

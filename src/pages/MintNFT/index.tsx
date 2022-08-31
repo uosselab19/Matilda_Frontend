@@ -4,14 +4,14 @@ import TextArea from '../../components/forms/TextArea';
 import useForm from '../../hooks/useForm';
 import testImage from '../../assets/images/NFTItem/mindul_NFT1.jpg';
 import { Item, UpdateItem } from '../../types/Item';
-import { isRequired, notMaxLength, notMinLength, isNumber } from '../../utils/validator';
+import { isRequired, notMaxLength, notMinLength, isNumber } from '../../utils/validatorUtil';
 import { selectItems } from '../../services/itemService';
 import Items from '../../components/Items/Items';
 import useItems from '../../hooks/useItems';
 import { useNavigate } from 'react-router-dom';
-import useCookie from '../../hooks/useCookie';
 import SubmitButton from '../../components/forms/SubmitButton';
-import Swal from 'sweetalert2';
+import { getUserInfo } from '../../utils/cookieUtil';
+import { alertError } from '../../utils/alertUtil';
 
 function validate(values: UpdateItem) {
   const errors = {
@@ -22,7 +22,7 @@ function validate(values: UpdateItem) {
     description:
       isRequired(values?.description) ||
       notMinLength(values?.description, 2, '설명을 2글자 이상 입력해 주세요.') ||
-      notMaxLength(values?.description, 10, '설명을 10글자 이하로 입력해 주세요.'),
+      notMaxLength(values?.description, 300, '설명을 300글자 이하로 입력해 주세요.'),
     price: isRequired(values?.price) || isNumber(values?.price)
   };
 
@@ -31,22 +31,14 @@ function validate(values: UpdateItem) {
 
 export const MintNFT = () => {
   const callback = (values: UpdateItem) => {
-    const { title, description, price } = values;
-    if (title && description && price) {
-      console.log(values);
-    } else Swal.fire({
-      icon: 'error',
-      title: '얼라리오?',
-      text: '빈칸을 모두 다 채워주세요!',
-    });
+
   };
 
   const navigate = useNavigate();
   const [itemImage, setItemImage] = useState('');
   const [numShowItems, numShowPages] = [3, 3];
 
-  const { getCookie } = useCookie();
-  const cookie = getCookie();
+  const cookie = getUserInfo();
 
   const { count, items, page, setPage } = useItems(selectItems, { memberNum: cookie?.num, stateCode: 'CR' }, numShowItems);
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
@@ -58,13 +50,9 @@ export const MintNFT = () => {
 
   useEffect(() => {
     (async () => {
-      const cookie = getCookie();
+      const cookie = getUserInfo();
       if (!cookie) {
-        Swal.fire({
-          icon: 'error',
-          title: '누구세요...?',
-          text: '유저정보가 없어서 홈페이지로 이동합니다.',
-        });
+        alertError('누구세요...?', '로그인이 필요한 페이지입니다. 유저정보가 없어서 홈페이지로 이동합니다.');
         navigate('/');
       }
     })();

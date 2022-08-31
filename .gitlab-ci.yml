@@ -1,19 +1,14 @@
 stages:
   - run
 
-# cache:
-#   key: target_folder
-#   paths:
-#     - ./target
-
-# deploy:
-#   only:
-#     - main
-#   stage: deploy
-#   script:
-#     - sh ./shellscripts/deploy.sh
+cache:
+  key: node
+  paths:
+    - ./node_modules
 
 run:
+  tags:
+    - main
   only:
     - main
   stage: run

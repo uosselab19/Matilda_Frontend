@@ -13,11 +13,10 @@ interface ItemsProps {
   numShowItems: number;
   numShowPages: number;
   handleCard?: Function;
-  modalID?: string;
 }
 
 export default function Items(props: ItemsProps) {
-  const { items, page, setPage, count, size, numShowItems, numShowPages, handleCard, modalID } = props;
+  const { items, page, setPage, count, size, numShowItems, numShowPages, handleCard } = props;
 
   const makeCards = (size: string, items: any[]) => {
     return items.map((e,i) => {
@@ -26,8 +25,7 @@ export default function Items(props: ItemsProps) {
           key={e?e.itemNum:i}
           item={e}
           size={size}
-          handleCard={handleCard}
-          modalID={modalID} />
+          handleCard={handleCard} />
       );
     });
   };

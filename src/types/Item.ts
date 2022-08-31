@@ -38,4 +38,5 @@ export interface Item {
   description: string;
   memberNickName: string;
   memberThumbImgUrl: string;
+  stateCode: string;
 }

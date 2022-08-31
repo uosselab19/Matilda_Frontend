@@ -23,10 +23,8 @@ yarn-debug.log*
 yarn-error.log*
 
 #environment variables
-.env
 dev.env
-deployedABI
-deployedAddress
+prod.env
 
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode

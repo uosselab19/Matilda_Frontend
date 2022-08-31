@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
 import matilda from '../../assets/images/matilda.png';
 import SubmitButton from '../../components/forms/SubmitButton';
 import TextBox from '../../components/forms/TextBox';
 import useForm from '../../hooks/useForm';
 import { insertMember } from '../../services/memberService';
 import { InsertMember } from '../../types/Member';
-import { isRequired, isID, isPassword, isEmail, notMaxLength, notMinLength } from '../../utils/validator';
+import { alertError, alertSuccess } from '../../utils/alertUtil';
+import { isRequired, isID, isPassword, isEmail, notMaxLength, notMinLength } from '../../utils/validatorUtil';
 
 const validate = (values: InsertMember) => {
   const errors = {
@@ -28,17 +28,9 @@ export const Signup = () => {
     const { error } = await insertMember(values);
 
     if (error) {
-      Swal.fire({
-        icon: 'error',
-        title: '에러가 발생했어요!',
-        text: error,
-      });
+      alertError('에러가 발생했어요!', error);
     } else {
-      Swal.fire({
-        icon: 'success',
-        title: '회원가입이 완료되었습니다!',
-        text: '로그인을 하셔야 회원 서비스를 이용할 수 있습니다.',
-      });
+      alertSuccess('회원가입이 완료되었습니다!', '로그인을 하셔야 회원 서비스를 이용할 수 있습니다.');
       navigate('/signin', { replace: false });
     }
   };

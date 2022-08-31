@@ -34,7 +34,7 @@ export interface SelectMember {
   walletAddress?: string;
 }
 
-export interface userInfo {
+export interface UserInfo {
   id: string;
   num:number;
   role: string;

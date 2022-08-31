@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Item } from '../types/Item';
-import Swal from 'sweetalert2'
-import { apiClient } from '../services/apiClient';
+import { apiClient } from '../configs/apiClient';
 import { countItems } from '../services/itemService';
+import { alertError } from '../utils/alertUtil';
 
 export default function useItems(promise: Function, initialSelectCondition: {}, numShowItems: number) {
   const [selectCondition, setSelectCondition] = useState(initialSelectCondition);
@@ -24,20 +24,12 @@ export default function useItems(promise: Function, initialSelectCondition: {}, 
           maxRetryCount++;
         }
         if (maxRetryCount == 10) {
-          Swal.fire({
-            icon: 'error',
-            title: '서버 통신 오류',
-            text: '홈페이지 담당자가 일을 하지 않았나보네요!',
-          });
+          alertError('서버 통신 오류', '홈페이지 담당자가 일을 하지 않았나보네요!');
           return;
         }
       } else if (countError) {
         console.log(countError);
-        Swal.fire({
-          icon: 'error',
-          title: '아이템을 찾지 못 했어요!',
-          text: '아이템 목록이 없는 것 같아요.',
-        });
+        alertError('아이템을 찾지 못 했어요!', '아이템 목록이 없는 것 같아요.');
         return;
       }
 
@@ -54,21 +46,12 @@ export default function useItems(promise: Function, initialSelectCondition: {}, 
           maxRetryCount++;
         }
         if (maxRetryCount == 10) {
-          Swal.fire({
-            icon: 'error',
-            title: '서버 통신 오류',
-            text: '홈페이지 담당자가 일을 하지 않았나보네요!',
-          });
+          alertError('서버 통신 오류', '홈페이지 담당자가 일을 하지 않았나보네요!');
           return;
         }
       } else if (error) {
         console.log(error);
-        console.log(error == "timeout of 18F0ms exceeded");
-        Swal.fire({
-          icon: 'error',
-          title: '아이템을 찾지 못 했어요!',
-          text: '아이템 목록이 없는 것 같아요.',
-        });
+        alertError('아이템을 찾지 못 했어요!', '아이템 목록이 없는 것 같아요.');
         return;
       }
       setItems(data);

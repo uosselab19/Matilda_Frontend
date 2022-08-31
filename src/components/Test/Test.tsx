@@ -1,50 +1,32 @@
 import { useEffect, useState } from "react";
 import { caver } from "../../configs/Caver";
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 export function Test() {
 	const [count] = useState(-1);
 	const [address, privateKey] = [process.env.address, process.env.privateKey];
 
-	let keyring = caver.wallet.getKeyring(address);
-	if (!caver.wallet.isExisted(address)) keyring = caver.wallet.newKeyring(address, privateKey);
-	else keyring = caver.wallet.updateKeyring(keyring);
-
-	console.log(caver.wallet);
-
-	// const plus = async () => {
-	// 	const newContract = await contract.methods.plus().send(
-	// 		{
-	// 			from: keyring.address,
-	// 			gas: 3000000
-	// 		}
-	// 	)
-	// 	console.log(newContract);
-
-	// 	console.log("Execution is successfully finished");
-	// }
-
-	// const minus = async () => {
-	// 	const newContract = await contract.methods.minus().send(
-	// 		{
-	// 			from: keyring.address,
-	// 			gas: 3000000
-	// 		}
-	// 	)
-	// 	console.log(newContract);
-
-	// 	console.log("Execution is successfully finished");
-	// }
-
-	// const check = async () => {
-	// 	setCount(await contract.methods.getCount().call());
-
-	// 	console.log("Call is successfully finished");
-	// }
+	const keyring = caver.wallet.newKeyring(address, privateKey);
+	caver.wallet.updateKeyring(keyring);
 
 	useEffect(() => {
 		(async () => {
 		})();
 	}, [])
+
+	const handleBlob = async () => {
+		const url = "./assets/model/matilda/scene.gltf";
+		const loader = new GLTFLoader();
+		loader.load(
+			url,
+			// called when the resource is loaded
+			async (gltf) => {
+				const buffer = await gltf.parser.loadBuffer(0);
+				const blob = new Blob([buffer]);
+				console.log(blob);
+			}
+		);
+	}
 
 	return (
 		<div
@@ -55,8 +37,8 @@ export function Test() {
 				<button
 					type="button"
 					className="col-4 btn btn-primary btn-lg"
-					onClick={() => { ; }}>
-					plus
+					onClick={() => { handleBlob(); }}>
+					blob
 				</button>
 				<button
 					type="button"
@@ -66,7 +48,7 @@ export function Test() {
 				</button>
 				<button
 					type="button"
-					className="col=4 btn btn-danger btn-lg"
+					className="col-4 btn btn-danger btn-lg"
 					onClick={() => { ; }}>
 					check
 				</button>
