@@ -22,7 +22,7 @@ function validate(values: UpdateItem) {
     description:
       isRequired(values?.description) ||
       notMinLength(values?.description, 2, '설명을 2글자 이상 입력해 주세요.') ||
-      notMaxLength(values?.description, 10, '설명을 10글자 이하로 입력해 주세요.'),
+      notMaxLength(values?.description, 300, '설명을 300글자 이하로 입력해 주세요.'),
     price: isRequired(values?.price) || isNumber(values?.price)
   };
 

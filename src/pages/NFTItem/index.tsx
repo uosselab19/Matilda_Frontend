@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Item } from '../../types/Item';
 import { getItem } from '../../services/itemService';
-import { alertError, confirmModal, confirmWarning } from '../../utils/alertUtil';
+import { alertError, confirmModal, confirmSuccess, confirmWarning } from '../../utils/alertUtil';
 
 interface NFTItemProps {
   mode: string;
@@ -18,13 +18,12 @@ export const NFTItem = (props: NFTItemProps) => {
 
   useEffect(() => {
     (async () => {
-      console.log(itemNum);
       const { data, error } = await getItem(itemNum);
 
       if (error) {
         console.log(error);
         alertError('아이템을 찾지 못 했어요!', '아이템 정보를 불러오는 중 문제가 발생했어요!');
-        navigate(-1);
+        navigate("/marketplace");
       } else {
         setItem(data as Item);
       }
@@ -32,16 +31,18 @@ export const NFTItem = (props: NFTItemProps) => {
   }, []);
 
   const handleButton = async () => {
-    const result = await confirmModal("구매할까요?", "구매하기를 누르시면 구매가 확정됩니다. 주의해주세요!", "구매하기", "돌아가기", item.imgUrl, "Selling NFT", 500);
+    const result = await confirmModal("구매할까요?", "마음에 드신다면 구매하기 버튼을 누르세요!", "구매하기", "돌아가기", item.imgUrl, "Selling NFT");
+    if (result.isDismissed) alertError("취소했어요!", "다시 한 번 생각해주시고 찾아와주세요 ㅎㅎ");
     if (result.isConfirmed) {
-      const result = await confirmWarning("구매할까요?", "구매하기를 누르시면 구매가 확정됩니다. 주의해주세요!", "이동하기", "취소하기");
-      if (result.isConfirmed) navigate('/mypage');
-      else alertError("취소했어요!", "다시 한 번 생각해주시고 찾아와주세요 ㅎㅎ");
-    } else {
-      alertError("취소했어요!", "다시 한 번 생각해주시고 찾아와주세요 ㅎㅎ");
+      const result = await confirmWarning("정말 구매할까요?", "구매하기를 누르시면 구매가 확정됩니다. 주의해주세요!", "구매하기", "취소하기");
+      if (result.isDismissed) alertError("취소했어요!", "다시 한 번 생각해주시고 찾아와주세요 ㅎㅎ");
+      if (result.isConfirmed) {
+        const result = await confirmSuccess("페이지 이동", "구매가 완료되었습니다! 마켓플레이스로 페이지를 이동할까요?", "이동하기", "취소하기");
+        if (result.isConfirmed) navigate('/mypage');
+      }
     }
   }
-
+  
   return item ? (
     <main className="container">
       <div className="row my-5">

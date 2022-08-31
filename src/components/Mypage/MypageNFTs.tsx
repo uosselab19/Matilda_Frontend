@@ -18,10 +18,10 @@ export const MypageNFTs = () => {
   const handleCard = async (item: Item) => {
     let result: SweetAlertResult<any>;
     if (item.catCode) {
-      result = await confirmModal('변환 성공', '변환이 이뤄진 모습을 확인해보세요!', "등록하기", "돌아가기", item.imgUrl, 'Not NFT Image', 500);
+      result = await confirmModal('NFT 등록', '아직 민팅하지 않은 3D 오브젝트에요. 해당 오브젝트를 NFT로 만들까요?', "민팅하기", "돌아가기", item.imgUrl, 'Not NFT Image');
       if (result.isConfirmed) navigate("/NFTminting");
     } else {
-      result = await confirmModal('판매하기', '판매를 위한 페이지입니다.', "판매하기", "돌아가기", item.imgUrl, 'Completely NFT Image', 500);
+      result = await confirmModal('판매하기', '해당 NFT를 판매할 수 있어요. 판매할까요?', "판매하기", "돌아가기", item.imgUrl, 'Completely NFT Image');
       if (result.isConfirmed) navigate(`/mypage/NFTItem?nft_id=${item.itemNum}`);
     }
   }

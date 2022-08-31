@@ -5,14 +5,14 @@ import { Clothes } from '../../types/Clothes';
 import { alertError } from '../../utils/alertUtil';
 import { PresetCard } from './PresetCard';
 
-interface PresetProps {
+interface DressupPresetProps {
   clothes: Clothes;
   setClothes: React.Dispatch<React.SetStateAction<Clothes>>;
   presetList: Clothes[];
   setPresetList: React.Dispatch<React.SetStateAction<Clothes[]>>
 }
 
-export const Preset = (props: PresetProps) => {
+export const DressupPreset = (props: DressupPresetProps) => {
   const { clothes, setClothes, presetList, setPresetList } = props;
 
   useEffect(() => {

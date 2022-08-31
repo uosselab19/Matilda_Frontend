@@ -14,12 +14,12 @@ interface DressupMarketProps {
   presetList: Clothes[];
 }
 
-export const Market = (props: DressupMarketProps) => {
+export const DressupMarket = (props: DressupMarketProps) => {
   const { clothes, setClothes, presetList } = props;
   const [numShowItems, numShowPages] = [9, 5];
   const navigate = useNavigate();
 
-  const { count, items, page, setPage, setSelectCondition } = useItems(selectItems, {}, numShowItems);
+  const { count, items, page, setPage, setSelectCondition } = useItems(selectItems, {catCode: "OS"}, numShowItems);
   
   const handleCard = async (item: Item) => {
     const result = await confirmModal(item.title, item.description, "입혀보기", "구매하기", 'https://unsplash.it/400/200', item.title, 400);
@@ -29,12 +29,8 @@ export const Market = (props: DressupMarketProps) => {
     } else {
       if (!presetList.some((e) => { return e == clothes; })) {
         const result = await confirmWarning(`페이지 이동`, "아직 입고 있는 착장 정보가 프리셋에 저장이 되지 않았는데 페이지를 이동할까요?", '이동할게요.', `저장하고 올게요.`);
-        if (result.isConfirmed) {
-          console.log(item);
-          navigate(`/marketplace/NFTitem?nft_id=${item.itemNum}`);
-        } else {
-          alertError('멈췄어요!', "저장하고 오시는 게 더 좋을 듯싶네요 ㅎㅎ");
-        }
+        if (result.isDismissed) alertError('멈췄어요!', "저장하고 오시는 게 더 좋을 듯싶네요 ㅎㅎ");
+        if (result.isConfirmed) navigate(`/marketplace/NFTitem?nft_id=${item.itemNum}`);
       }
     }
   }

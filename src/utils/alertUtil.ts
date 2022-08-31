@@ -83,15 +83,15 @@ export const confirmWarning = async (title: string, text: string, confirmText: s
 	});
 }
 
-export const confirmModal = async (title:string, text:string, confirmText: string, cancelText: string, url:string, alt:string, width:number) => {
+export const confirmModal = async (title:string, text:string, confirmText: string, cancelText: string, url:string, alt?:string, width?:number) => {
 	return Swal.fire({
 		title: title,
 		text: text,
 		imageUrl: url,
-		imageWidth: width,
-		imageHeight: width,
-		width:width+60,
-		imageAlt: alt,
+		imageWidth: width?width:500,
+		imageHeight: width?width:500,
+		width:width?width+60:560,
+		imageAlt: alt?alt:"Modal Image",
 		showCancelButton: true,
 		confirmButtonText: confirmText,
 		confirmButtonColor: '#81c147',

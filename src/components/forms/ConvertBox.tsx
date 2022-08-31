@@ -54,7 +54,7 @@ export default function ConvertBox(props: ConvertBoxProps) {
     if (!category.title.length) {
       e.stopPropagation();
       e.preventDefault();
-      alertError('카테고리를 골라주세요!', '왼쪽 카테고리에서 종류를 선택해주세요!');
+      alertError('카테고리를 골라주세요!', '카테고리에서 종류를 선택해주세요!');
     }
   };
 
@@ -78,7 +78,7 @@ export default function ConvertBox(props: ConvertBoxProps) {
         <div className="card-img-overlay h-75 d-flex flex-column justify-content-end">
           <h5 className="card-title text-dark fs-2 fw-bold">{category.title}</h5>
           <p className="card-text text-dark">
-            {category.title.length ? '여기에 사진을 넣어 주세요!' : '왼쪽 카테고리에서 종류를 선택해주세요!'}
+            {category.title.length ? '여기에 사진을 넣어 주세요!' : '카테고리에서 종류를 선택해주세요!'}
           </p>
         </div>
       </div>
