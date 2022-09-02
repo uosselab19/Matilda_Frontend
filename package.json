@@ -11,6 +11,7 @@
     "pretty": "prettier --config .prettierrc --write src/**/*.ts src/**/*.tsx"
   },
   "dependencies": {
+    "aws-sdk": "^2.1208.0",
     "axios": "^0.27.2",
     "babel-loader": "^8.2.5",
     "bootstrap": "^5.1.3",

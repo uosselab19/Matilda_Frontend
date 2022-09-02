@@ -23,9 +23,9 @@ const handleLoad = async (props: PresetCardProps) => {
 			let result = {};
 
 			for (const [catCode, item] of getClothes) {
-				let { data, error } = await getItem(item.itemNum);
-				if (error) alertError('아이템 불러오기 에러', `옷 데이터를 가져오는 데 실패했어요.`);
-				else result[catCode] = data;
+				const {data, error} = await getItem(item.itemNum);
+				if(error) console.log(error);
+				result[catCode] = data;
 			}
 			setClothes(result);
 

@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-//component import
 import { Header } from './Header';
 import { Footer } from './Footer';
 import { Home } from '../../pages/Home';
@@ -14,33 +13,33 @@ import { Mypage } from '../../pages/Mypage';
 import { NFTItem } from '../../pages/NFTItem';
 import { NotFound } from '../../pages/NotFound';
 import { Test } from '../Test/Test';
+import AxiosInterceptorNavigate from '../../configs/Interceptor';
 
 export const App = () => {
   return (
-    <div className="App">
-      <BrowserRouter basename='/'>
-        <Header />
-        <Routes>
-          <Route path="" element={<Home />} />
+    <BrowserRouter basename='/'>
+      {<AxiosInterceptorNavigate />}
+      <Header />
+      <Routes>
+        <Route path="" element={<Home />} />
 
-          {/*header에 연결된 component*/}
-          <Route path="marketplace" element={<Marketplace />} />
-          <Route path="3Dconversion" element={<Convert3D />} />
-          <Route path="NFTminting" element={<MintNFT />} />
-          <Route path="dressup" element={<Dressup />} />
+        {/*header에 연결된 component*/}
+        <Route path="marketplace" element={<Marketplace />} />
+        <Route path="3Dconversion" element={<Convert3D />} />
+        <Route path="NFTminting" element={<MintNFT />} />
+        <Route path="dressup" element={<Dressup />} />
 
-          <Route path="signin" element={<Signin />} />
-          <Route path="signup" element={<Signup />} />
-          <Route path="mypage" element={<Mypage />} />
-          <Route path="test" element={<Test />} />
+        <Route path="signin" element={<Signin />} />
+        <Route path="signup" element={<Signup />} />
+        <Route path="mypage" element={<Mypage />} />
+        <Route path="test" element={<Test />} />
 
-          <Route path="marketplace/NFTItem" element={<NFTItem mode={'Buy'}/>} />
-          <Route path="mypage/NFTItem" element={<NFTItem mode={'Sell'} />} />
+        <Route path="marketplace/NFTItem" element={<NFTItem mode={'Buy'} />} />
+        <Route path="mypage/NFTItem" element={<NFTItem mode={'Sell'} />} />
 
-          <Route path="/*" element={<NotFound />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
-    </div>
+        <Route path="/*" element={<NotFound />} />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
   );
 };

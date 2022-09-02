@@ -41,7 +41,6 @@ export default function useView(modelHeight: number, roomWidth: number) {
   const animate = () => {
     //need to load model
     controls.update();
-    //const distance = camera.position.distanceTo(controls.target); //모델과 카메라 사이의 거리
     const minPan = new THREE.Vector3(0, 1, 0); // 카메라 최소위치 고정
     const maxPan = new THREE.Vector3(0, 2 * modelHeight, 0); // 카메라 최대위치 고정, 모델 키에 비례하여 달라짐.
     controls.target.clamp(minPan, maxPan); // 카메라 위치 고정하는 함수

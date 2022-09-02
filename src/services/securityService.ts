@@ -8,7 +8,7 @@ export const signinMember = async (info: any) => {
 
     data = result?.data as SigninResponse | undefined;
   } catch (err) {
-    error = err?.response || err?.message;
+    error = err;
   }
 
   return { data, error };
@@ -22,7 +22,7 @@ export const refreshMember = async (info: any) => {
 
     data = result?.data as SigninResponse | undefined;
   } catch (err) {
-    error = err?.response || err?.message;
+    error = err;
   }
 
   return { data, error };
@@ -36,7 +36,7 @@ export const signoutMember = async (info: any) => {
 
     data = result?.data as SigninResponse | undefined;
   } catch (err) {
-    error = err?.response || err?.message;
+    error = err;
   }
 
   return { data, error };

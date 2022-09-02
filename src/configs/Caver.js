@@ -6,6 +6,5 @@ const ws = new Caver.providers.WebsocketProvider(
   { reconnect: { auto: true } }
 );
 
-
 export const caver = new Caver(ws);
 // export const contract = new caver.contract(ABI, contractAddress);

@@ -1,7 +1,7 @@
 import { CookieSetOptions } from "universal-cookie";
 import { cookies, userInfoKey } from "../configs/Cookie";
 
-export function setCookie (name: string, value: any, option?: CookieSetOptions) {
+export function setCookie(name: string, value: any, option?: CookieSetOptions) {
     return cookies.set(name, value, { ...option });
 }
 

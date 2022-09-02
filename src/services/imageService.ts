@@ -9,7 +9,7 @@ export async function postImage(image: {}) {
         const result = await imageApiClient.post('/convert', form);
         data = result?.data;
     } catch (err) {
-        error = err?.response || err?.message;
+        error = err;
     }
 
     return { data, error };
