@@ -14,6 +14,7 @@ export default function useItems(promise: Function, initialSelectCondition: {}, 
     (async () => {
       setItems([]);
       let { count, countError } = await countItems(selectCondition);
+      
       if (countError == `timeout of ${apiClient.defaults.timeout}ms exceeded`) {
         let maxRetryCount = 0;
 

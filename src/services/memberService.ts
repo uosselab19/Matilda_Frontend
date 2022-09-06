@@ -8,9 +8,8 @@ export const insertMember = async (member: any) => {
     const result = await anonymousApiClient.post(`/members`, member);
     data = result?.data;
   } catch (err) {
-    error = err?.response || err?.message;
+    error = err;
   }
-  console.log(error);
   return { data, error };
 }
 
@@ -22,7 +21,7 @@ export const selectMember = async (memberID: number) => {
 
     data = result?.data;
   } catch (err) {
-    error = err?.response || err?.message;
+    error = err;
   }
 
   return { data, error };
@@ -36,7 +35,7 @@ export const putMember = async (member: UpdateMember) => {
 
     data = result?.data;
   } catch (err) {
-    error = err?.response || err?.message;
+    error = err;
   }
 
   return { data, error };

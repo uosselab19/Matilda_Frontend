@@ -7,7 +7,7 @@ import { Item } from '../../types/Item';
 
 export const Marketplace = () => {
   const [numShowItems, numShowPages] = [20, 10];
-  const { count, items, page, setPage, setSelectCondition } = useItems(selectItems, {catCode: "OS"}, numShowItems);
+  const { count, items, page, setPage, setSelectCondition } = useItems(selectItems, {}, numShowItems);
 
   const navigate = useNavigate();
   const handleCard = (item: Item) => {

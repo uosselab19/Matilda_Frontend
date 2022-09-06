@@ -19,7 +19,7 @@ export const DressupMarket = (props: DressupMarketProps) => {
   const [numShowItems, numShowPages] = [9, 5];
   const navigate = useNavigate();
 
-  const { count, items, page, setPage, setSelectCondition } = useItems(selectItems, {catCode: "OS"}, numShowItems);
+  const { count, items, page, setPage, setSelectCondition } = useItems(selectItems, {}, numShowItems);
   
   const handleCard = async (item: Item) => {
     const result = await confirmModal(item.title, item.description, "입혀보기", "구매하기", 'https://unsplash.it/400/200', item.title, 400);
