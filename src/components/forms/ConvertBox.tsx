@@ -1,3 +1,4 @@
+import { getS3ImgUrl } from '../../configs/S3';
 import { postImage } from '../../services/imageService';
 import { alertError, alertModal } from '../../utils/alertUtil';
 
@@ -24,13 +25,24 @@ export default function ConvertBox(props: ConvertBoxProps) {
 
     setLoading(true);
 
+    console.log({ file: input, category: category.catCode });
     const { data, error } = await postImage({ file: input, category: category.catCode });
     if (error) {
       console.log(error);
       alertError("변환 실패", "변환이 제대로 이뤄지지 않았어요, 다시 한 번 시도해보세요!");
-    } else {
+    }
+    
+    else if(data) {
       console.log(data);
-      alertModal('변환 성공', '변환이 이뤄진 모습을 확인해보세요!', data, 'Completely Converted Image');
+
+      if(!data.imgUrl) {
+        alertError("변환 실패", "변환이 제대로 이뤄지지 않았어요, 다시 한 번 시도해보세요!");
+        return;
+      }
+      
+      const imgUrl = getS3ImgUrl(data.imgUrl);
+      console.log(imgUrl);
+      alertModal('변환 성공', '변환이 이뤄진 모습을 확인해보세요!', imgUrl, 'Completely Converted Image');
     }
 
     setLoading(false);

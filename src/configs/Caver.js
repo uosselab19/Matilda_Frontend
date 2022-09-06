@@ -7,4 +7,3 @@ const ws = new Caver.providers.WebsocketProvider(
 );
 
 export const caver = new Caver(ws);
-// export const contract = new caver.contract(ABI, contractAddress);
