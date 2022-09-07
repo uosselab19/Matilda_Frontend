@@ -1,120 +1,102 @@
-import { useEffect, useState } from "react";
-import { apiClient } from "../../configs/apiClient";
-import { caver } from "../../configs/Caver";
-import { interceptorHandledError } from "../../configs/Interceptor";
-import { getS3ImgUrl } from "../../configs/S3";
-import { UserInfo } from "../../types/Member";
-import { alertError, alertModal, alertSuccess } from "../../utils/alertUtil";
-import { getUserInfo } from "../../utils/cookieUtil";
+import useForm from "../../hooks/useForm";
+import SubmitButton from "../forms/SubmitButton";
+import TextBox from "../forms/TextBox";
+
+function validate(values: any) {
+	return {};
+}
+
+interface TestButtonProps {
+	color: string;
+	disabled: boolean;
+	handleFunction: Function;
+	title: string;
+}
+
+const TestButton = (props: TestButtonProps) => {
+	const { color, disabled, handleFunction, title } = props;
+	return (
+		<button
+			type="button"
+			disabled={disabled}
+			className={`btn btn-${color} btn-lg`}
+			onClick={() => { handleFunction() }}>
+			{title}
+		</button>
+	);
+}
 
 export function Test() {
-	const [count] = useState(-1);
-	const [address, privateKey] = [process.env.address, process.env.privateKey];
-	const [address2, privateKey2] = [process.env.address2 as string, process.env.privateKey2 as string];
-	const contractAddress = "0x0aae7b18f64b0eeaf9b7a0d5fd9612d655569526";
-
-	const wallet = caver.wallet;
-	const keyring = wallet.newKeyring(address, privateKey);
-	const keyring2 = wallet.newKeyring(address2, privateKey2);
-
-	wallet.updateKeyring(keyring);
-	wallet.updateKeyring(keyring2);
-
-	useEffect(() => {
-		(async () => {
-		})();
-	}, []);
-
-	const handleObjURL = async () => {
-		const getItem = async (itemNum: number) => {
-			let [data, error] = [undefined, undefined] as any;
-
-			try {
-				const result = await apiClient.get(`/objects/auth/objUrl/${itemNum}`);
-				data = result?.data;
-			} catch (err) {
-				error = err?.response || err?.message;
-			}
-
-			return { data, error };
-		}
-		const { data, error } = await getItem(43);
-		if (error) {
-			console.log(error);
-			alertError("error", "objURL error");
-		}
-
-		console.log(data);
+	const callback = async (values: any) => {
+		const address1 = values["address1"];
+		const address2 = values["address2"];
+		console.log(address1);
+		console.log(address2);
+	}
+	const handleFunc = () => {
+		
 	}
 
-	const handleSignin = async () => {
-		const validateToken = async (cookie: UserInfo) => {
-			let [data, error] = [undefined, undefined] as any;
-
-			try {
-				const result = await apiClient.post('/security/validCheck', { headers: { "X-AUTH-TOKEN": cookie.accessToken } })
-				data = result?.data;
-			} catch (err) {
-				error = err;
-				console.log(error);
-				if (error === interceptorHandledError) console.log("This error is already handled by interceptor");
-			}
-
-			return { data, error };
-		}
-
-		const { data, error } = await validateToken(getUserInfo());
-		if (!error) alertSuccess("validateToken Success", data);
-	}
-
-	const handleURL = async () => {
-		const imgUrl = getS3ImgUrl("items/img/TOP/1662095517_KakaoTalk_20220802_131803767.jpg");
-		console.log(imgUrl);
-		alertModal('변환 성공', '변환이 이뤄진 모습을 확인해보세요!', imgUrl, 'Completely Converted Image');
-	}
-
-	const handleMint = async () => {
-		const mtd = new caver.kct.kip17(contractAddress);
-		mtd.options.from=address;
-		mtd.options.gas=8500000;
-		mtd.setWallet(wallet);
-		console.log(mtd);
-		console.log(await mtd.isMinter(address));
-		console.log(await mtd.detectInterface());
-		console.log(await mtd.mintWithTokenURI(address, 50, "mindul test"));
-		console.log("asdf");
-	}
-
+	const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
 	return (
 		<div
 			className="d-flex flex-column justify-content-center align-items-center"
 			style={{ height: "600px" }}>
 			<div className="row">
-				<div className="col-12 text-center mb-3">카운팅 스타 {count}</div>
-				<button
-					type="button"
-					className="col-6 btn btn-primary btn-lg"
-					onClick={() => { handleObjURL(); }}>
-					ObjURL
-				</button>
-				<button
-					type="button"
-					className="col-6 btn btn-danger btn-lg"
-					onClick={() => { handleSignin(); }}>
-					Signin
-				</button>
-				<button
-					type="button"
-					className="col-6 btn btn-success btn-lg"
-					onClick={() => { handleURL(); }}>
-					URL
-				</button>
-				<button
-					type="button"
-					className="col-6 btn btn-secondary btn-lg"
-					onClick={() => { handleMint(); }}>
-					Mint
-				</button>
+				<div className="col-12 w-100 btn-group">
+					<TestButton
+						color={'secondary'}
+						disabled={true}
+						handleFunction={handleFunc}
+						title={"ObjURL"} />
+					<TestButton
+						color={'secondary'}
+						disabled={true}
+						handleFunction={handleFunc}
+						title={"Signin"} />
+					<TestButton
+						color={'secondary'}
+						disabled={true}
+						handleFunction={handleFunc}
+						title={"URL"} />
+				</div>
+				<div className="col-12 row">
+					<div className="col-6">
+						<TextBox
+							name="address1"
+							id="address1"
+							label="address1"
+							type="text"
+							placeholder="address1"
+							disabled={false}
+							readonly={false}
+							handleChange={handleChange}
+							handleClick={handleClick}
+							value={values['address1']}
+							error={errors['address1']} />
+					</div>
+					<div className="col-6">
+						<TextBox
+							name="address2"
+							id="address2"
+							label="address2"
+							type="text"
+							placeholder="address2"
+							disabled={false}
+							readonly={false}
+							handleChange={handleChange}
+							handleClick={handleClick}
+							value={values['address2']}
+							error={errors['address2']} />
+					</div>
+					<SubmitButton
+						title={"Test"}
+						handleSubmit={handleSubmit}
+						values={values}
+						errors={errors}
+						keys={["address1", "address2"]}
+						allRequired={false} />
+				</div>
 			</div>
 		</div>
 	);
