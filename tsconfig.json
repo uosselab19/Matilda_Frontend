@@ -4,6 +4,7 @@
     "module": "esnext", //무슨 import 문법 쓸건지 'commonjs', 'amd', 'es2015', 'esnext'
     
     "moduleResolution": "node", // react-router-dom 에서 에러띄워서 넣는 기능 
+    "resolveJsonModule": true, // json 읽기 가능
     "allowSyntheticDefaultImports": true, // import react 쪽에서 에러남 
     "allowJs": true, // js 파일들 ts에서 import해서 쓸 수 있는지 
     "checkJs": false, // 일반 js 파일에서도 에러체크 여부 

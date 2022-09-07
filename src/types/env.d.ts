@@ -7,5 +7,6 @@ declare namespace NodeJS {
 		privateKey: string;
 		s3AccessKeyID: string;
 		s3SecretAccessKey: string;
+		USER: string;
 	}
 }
