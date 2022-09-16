@@ -37,7 +37,7 @@ function validate(values: any) {
 
 export function Test() {
 	const { handleChange, handleClick, values, errors } = useForm(callback, validate);
-	const { count1, count2, count3, check, addWallet, deleteWallet, printWallet, mint, checkInterface, isMinter, setForSale, removeTokenOnSale, buyNFT, test } = useKlaytn();
+	const { count1, check, addWallet, deleteWallet, printWallet, mint, checkInterface, isMinter, setForSale, removeTokenOnSale, buyNFT, test } = useKlaytn();
 	useEffect(() => {
 		(async () => {
 			addWallet(process.env.address, process.env.privateKey)
@@ -55,8 +55,6 @@ export function Test() {
 			style={{ height: "600px" }}>
 			<div className="row">
 				<div className="col-12 text-center mb-3">address1 balance: {count1}</div>
-				<div className="col-12 text-center mb-3">address2 balance: {count2}</div>
-				<div className="col-12 text-center mb-3">address3 balance: {count3}</div>
 				<div className="col-12 w-100 btn-group">
 					<TestButton
 						color={'primary'}

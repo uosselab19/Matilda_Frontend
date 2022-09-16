@@ -1,15 +1,11 @@
 import { useState, useEffect } from 'react';
 import { caver, wallet } from '../configs/Caver';
-import MatildaToken from '../../build/deployed/MatildaToken.json';
+import MatildaToken from './MatildaToken.json';
 import { AbiItem } from 'caver-js'; 
-// import { getCID } from '../services/imageService';
-// import { alertError } from '../utils/alertUtil';
 
 export default function useKlaytn() {
     const { abi, contractAddress } = MatildaToken;
     const [count1, setCount1] = useState('-1');
-    const [count2, setCount2] = useState('-1');
-    const [count3, setCount3] = useState('-1');
 
     const mtn = new caver.kct.kip17(contractAddress);
     const mtt = new caver.contract(abi as AbiItem[], contractAddress);
@@ -34,8 +30,6 @@ export default function useKlaytn() {
 
     const check = async () => {
         setCount1(await getBalance(process.env.address));
-        setCount2(await getBalance(process.env.address2));
-        setCount3(await getBalance(process.env.address3));
         console.log('잔액을 갱신하였습니다.');
     };
     /*
@@ -158,8 +152,6 @@ export default function useKlaytn() {
 
     return {
         count1,
-        count2,
-        count3,
         check,
         addWallet,
         deleteWallet,

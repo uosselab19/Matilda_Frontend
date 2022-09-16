@@ -8,3 +8,5 @@ const ws = new Caver.providers.WebsocketProvider(
 
 export const caver = new Caver(ws);
 export const wallet = caver.wallet;
+
+if(!wallet.isExisted(process.env.address)) wallet.newKeyring(process.env.address, process.env.privateKey);
