@@ -16,6 +16,10 @@ else
     fi
 fi
 
+origin="/home/ec2-user/Matilda_Frontend"
+cp ${origin}/dev.env ./dev.env
+
+
 echo 'Process start'
 npm install
 nohup npm run dev >> nohup.out 2>&1 &
