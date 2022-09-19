@@ -1,4 +1,4 @@
-import { getS3ImgUrl } from '../../configs/S3';
+import { getS3ImgUrl } from '../../utils/S3';
 import { postImage } from '../../services/imageService';
 import { alertError, alertModal } from '../../utils/alertUtil';
 

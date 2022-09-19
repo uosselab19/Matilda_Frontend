@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Item } from '../../types/Item';
 import { getItem } from '../../services/itemService';
 import { alertError, confirmModal, confirmSuccess, confirmWarning } from '../../utils/alertUtil';
+import { getS3ImgUrl } from '../../utils/S3';
 
 interface NFTItemProps {
   mode: string;
@@ -49,7 +50,7 @@ export const NFTItem = (props: NFTItemProps) => {
         {/* NFT 왼쪽 설명 부분 */}
         <div className="col-lg-5">
           <article className="blog-post m-4">
-            <img src={item.imgUrl} width="100%" />
+            <img src={getS3ImgUrl(item.imgUrl)} width="100%" />
             <p />
             <h2 className="blog-post-title">Description</h2>
             <p>{item.description}</p>

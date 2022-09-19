@@ -1,6 +1,6 @@
 import item_img1 from '../../assets/images/Marketplace/item_img.png';
 import makerThumbImg1 from '../../assets/images/Profile/thumbProfileImage.png';
-import { getS3ImgUrl } from '../../configs/S3';
+import { getS3ImgUrl } from '../../utils/S3';
 import { Item } from '../../types/Item';
 import CardPlaceholder from './ItemCardPlaceholder';
 

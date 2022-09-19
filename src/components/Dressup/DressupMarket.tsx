@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import useItems from '../../hooks/useItems';
 import { confirmModal } from '../../utils/alertUtil';
 import { alertError, confirmWarning } from '../../utils/alertUtil';
+import { getS3ImgUrl } from '../../utils/S3';
 
 interface DressupMarketProps {
   clothes: Clothes;
@@ -22,7 +23,7 @@ export const DressupMarket = (props: DressupMarketProps) => {
   const { count, items, page, setPage, setSelectCondition } = useItems(selectItems, {}, numShowItems);
   
   const handleCard = async (item: Item) => {
-    const result = await confirmModal(item.title, item.description, "입혀보기", "구매하기", 'https://unsplash.it/400/200', item.title, 400);
+    const result = await confirmModal(item.title, item.description, "입혀보기", "구매하기", getS3ImgUrl(item.imgUrl), item.title, 400);
     if (result.isConfirmed) {
       setClothes((clothes) => ({ ...clothes, [item.catCode]: item }));
       console.log({ ...clothes, [item.catCode]: item });

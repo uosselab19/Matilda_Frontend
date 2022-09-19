@@ -38,9 +38,10 @@ export const alertModal = async (title:string, text:string, url:string, alt?:str
 		text: text,
 		imageUrl: url,
 		imageAlt: alt?alt:"Modal Image",
-		imageWidth: width?width:500,
-		imageHeight: width?width:500,
-		width:width?width+60:560,
+		imageWidth: width?width:380,
+		imageHeight: width?width:380,
+		width:width?width+60:470,
+
 	})
 }
 

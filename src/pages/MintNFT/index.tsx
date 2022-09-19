@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import SubmitButton from '../../components/forms/SubmitButton';
 import { getUserInfo } from '../../utils/cookieUtil';
 import { alertError } from '../../utils/alertUtil';
+import { getS3ImgUrl } from '../../utils/S3';
 
 function validate(values: UpdateItem) {
   const errors = {
@@ -36,7 +37,7 @@ export const MintNFT = () => {
 
   const navigate = useNavigate();
   const [itemImage, setItemImage] = useState('');
-  const [numShowItems, numShowPages] = [3, 3];
+  const [numShowItems, numShowPages] = [3, 5];
 
   const cookie = getUserInfo();
 
@@ -45,7 +46,7 @@ export const MintNFT = () => {
 
 
   const handleCard = (item: Item) => {
-    setItemImage((item.imgUrl) ? item.imgUrl : "");
+    setItemImage((item.imgUrl) ? getS3ImgUrl(item.imgUrl) : "");
   };
 
   useEffect(() => {
