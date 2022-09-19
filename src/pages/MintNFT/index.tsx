@@ -8,10 +8,8 @@ import { isRequired, notMaxLength, notMinLength, isNumber } from '../../utils/va
 import { selectItems } from '../../services/itemService';
 import Items from '../../components/Items/Items';
 import useItems from '../../hooks/useItems';
-import { useNavigate } from 'react-router-dom';
 import SubmitButton from '../../components/forms/SubmitButton';
 import { getUserInfo } from '../../utils/cookieUtil';
-import { alertError } from '../../utils/alertUtil';
 import { getS3ImgUrl } from '../../utils/S3';
 
 function validate(values: UpdateItem) {
@@ -35,7 +33,6 @@ export const MintNFT = () => {
 
   };
 
-  const navigate = useNavigate();
   const [itemImage, setItemImage] = useState('');
   const [numShowItems, numShowPages] = [3, 5];
 
@@ -51,11 +48,6 @@ export const MintNFT = () => {
 
   useEffect(() => {
     (async () => {
-      const cookie = getUserInfo();
-      if (!cookie) {
-        alertError('누구세요...?', '로그인이 필요한 페이지입니다. 유저정보가 없어서 홈페이지로 이동합니다.');
-        navigate('/');
-      }
     })();
   }, []);
 
@@ -65,7 +57,7 @@ export const MintNFT = () => {
       onKeyUp={(e) => { if (e.key == "Enter") handleSubmit(e); }} >
       <div className="row">
         <div className="d-flex justify-content-center align-items-center fw-bold fs-2 my-4">NFT Minting</div>
-        <div className="col-6 d-flex justify-content-center flex-column">
+        <div className="col-5 d-flex justify-content-center flex-column">
           <img className="mb-3 align-self-center" src={itemImage ? itemImage : testImage} style={{ width: 350, height: 350 }} />
           <Items
             items={items}
@@ -78,13 +70,8 @@ export const MintNFT = () => {
             handleCard={handleCard} />
         </div>
         <div className="col-6">
-          <p>
-            당신이 가지고 있던 3D 패션아이템을 NFT로 만들어주는 페이지입니다!
-            <br />
-            먼저, 왼쪽에서 NFT로 만들고 싶은 3D 패션아이템을 선택해주세요.
-            <br />
-            오른쪽에 필요한 내용을 모두 기입하고 Mint NFT 버튼을 눌러주세요. <br />
-            그러면 3D 패션아이템이 NFT가 될 거에요!
+          <p className="fs-4 fw-bold">
+            3D 패션아이템을 NFT로 발행해주는 페이지에요
           </p>
           <form id="signupForm" className="needs-validation" noValidate>
             <div className="row g-3 mb-4">
@@ -107,7 +94,7 @@ export const MintNFT = () => {
                 name="description"
                 id="description"
                 label="Description"
-                rows={7}
+                rows={4}
                 placeholder="description"
                 disabled={!itemImage.length}
                 readonly={false}

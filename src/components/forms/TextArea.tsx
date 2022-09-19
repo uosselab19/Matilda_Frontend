@@ -21,7 +21,7 @@ export default function TextArea(props: TextAreaProps) {
 
   return (
     <div>
-      <label htmlFor={id} className="form-label">
+      <label htmlFor={id} className="form-label fs-2 fw-bold">
         {label}
       </label>
       <textarea
