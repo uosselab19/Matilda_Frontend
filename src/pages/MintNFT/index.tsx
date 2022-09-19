@@ -4,13 +4,15 @@ import TextArea from '../../components/forms/TextArea';
 import useForm from '../../hooks/useForm';
 import testImage from '../../assets/images/NFTItem/mindul_NFT1.jpg';
 import { Item, UpdateItem } from '../../types/Item';
-import { isRequired, notMaxLength, notMinLength, isNumber } from '../../utils/validator';
-import { selectItemwithMember } from '../../services/itemService';
-import CardList from '../../components/Items/CardList';
-import Pagination from '../../components/Items/Pagination';
-import usePagination from '../../hooks/useItems';
+import { isRequired, notMaxLength, notMinLength, isNumber } from '../../utils/validatorUtil';
+import { selectItems } from '../../services/itemService';
+import Items from '../../components/Items/Items';
+import useItems from '../../hooks/useItems';
 import { useNavigate } from 'react-router-dom';
-import useCookie from '../../hooks/useCookie';
+import SubmitButton from '../../components/forms/SubmitButton';
+import { getUserInfo } from '../../utils/cookieUtil';
+import { alertError } from '../../utils/alertUtil';
+import { getS3ImgUrl } from '../../utils/S3';
 
 function validate(values: UpdateItem) {
   const errors = {
@@ -21,7 +23,7 @@ function validate(values: UpdateItem) {
     description:
       isRequired(values?.description) ||
       notMinLength(values?.description, 2, '설명을 2글자 이상 입력해 주세요.') ||
-      notMaxLength(values?.description, 10, '설명을 10글자 이하로 입력해 주세요.'),
+      notMaxLength(values?.description, 300, '설명을 300글자 이하로 입력해 주세요.'),
     price: isRequired(values?.price) || isNumber(values?.price)
   };
 
@@ -30,44 +32,50 @@ function validate(values: UpdateItem) {
 
 export const MintNFT = () => {
   const callback = (values: UpdateItem) => {
-    const { title, description, price } = values;
-    if (title && description && price) {
-      console.log(values);
-    } else alert('빈칸을 모두 다 채워주세요!');
+
   };
 
-  //3D 아이템 넣어주는 부분
-  const [itemImage, setItemImage] = useState('');
-  const { items, page, setPage } = usePagination(selectItemwithMember(2, { stateCode: 'CR' }));
-  const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
   const navigate = useNavigate();
-  const { getCookie } = useCookie();
+  const [itemImage, setItemImage] = useState('');
+  const [numShowItems, numShowPages] = [3, 5];
 
-  const handleCard = (itemNum: number) => {
-    const imgUrl = items.find((e: Item) => {
-      return e.itemNum == itemNum;
-    }) as Item;
-    setItemImage(imgUrl.imgUrl);
+  const cookie = getUserInfo();
+
+  const { count, items, page, setPage } = useItems(selectItems, { memberNum: cookie?.num, stateCode: 'CR' }, numShowItems);
+  const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
+
+
+  const handleCard = (item: Item) => {
+    setItemImage((item.imgUrl) ? getS3ImgUrl(item.imgUrl) : "");
   };
 
   useEffect(() => {
     (async () => {
-      const cookieData = getCookie();
-      if (!cookieData) {
-        alert('유저정보가 없어서 홈페이지로 이동합니다.');
+      const cookie = getUserInfo();
+      if (!cookie) {
+        alertError('누구세요...?', '로그인이 필요한 페이지입니다. 유저정보가 없어서 홈페이지로 이동합니다.');
         navigate('/');
       }
     })();
   }, []);
 
   return (
-    <main className="container">
-      <div className="d-flex justify-content-center align-items-center fw-bold fs-2 my-4">Marketplace</div>
-      <div className="row g-3 w-100 d-flex justify-content-between">
+    <main
+      className="container"
+      onKeyUp={(e) => { if (e.key == "Enter") handleSubmit(e); }} >
+      <div className="row">
+        <div className="d-flex justify-content-center align-items-center fw-bold fs-2 my-4">NFT Minting</div>
         <div className="col-6 d-flex justify-content-center flex-column">
-          <img className="mb-3 align-self-center" src={testImage} style={{ width: 350, height: 350 }} />
-          <CardList page={page} items={items} numShowItems={3} size={'md'} handleCard={handleCard} />
-          <Pagination page={page} setPage={setPage} numItems={items.length} numShowItems={3} numShowPages={5} />
+          <img className="mb-3 align-self-center" src={itemImage ? itemImage : testImage} style={{ width: 350, height: 350 }} />
+          <Items
+            items={items}
+            page={page}
+            setPage={setPage}
+            count={count}
+            size={'md'}
+            numShowItems={numShowItems}
+            numShowPages={numShowPages}
+            handleCard={handleCard} />
         </div>
         <div className="col-6">
           <p>
@@ -92,8 +100,8 @@ export const MintNFT = () => {
                 handleChange={handleChange}
                 handleClick={handleClick}
                 value={values['title']}
-                error={errors['title']}
-              />
+                error={errors['title']} />
+
               {/* 설명 */}
               <TextArea
                 name="description"
@@ -106,8 +114,7 @@ export const MintNFT = () => {
                 handleChange={handleChange}
                 handleClick={handleClick}
                 value={values['description']}
-                error={errors['description']}
-              />
+                error={errors['description']} />
 
               {/* 가격 */}
               <TextBox
@@ -121,12 +128,17 @@ export const MintNFT = () => {
                 handleChange={handleChange}
                 handleClick={handleClick}
                 value={values['price']}
-                error={errors['price']}
-              />
+                error={errors['price']} />
             </div>
-            <button className="w-100 btn btn-primary btn-lg bg-dark" type="submit" onClick={handleSubmit}>
-              Mint NFT
-            </button>
+
+            <SubmitButton
+              title={"Mint NFT"}
+              handleSubmit={handleSubmit}
+              values={values}
+              errors={errors}
+              keys={["title", "description", "price"]}
+              allRequired={true} />
+
           </form>
         </div>
       </div>

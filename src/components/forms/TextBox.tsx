@@ -8,7 +8,7 @@ interface TextBoxProps {
   disabled: boolean;
   readonly: boolean;
   handleChange: ChangeEventHandler<HTMLInputElement>;
-  handleClick: MouseEventHandler<HTMLInputElement>;
+  handleClick?: MouseEventHandler<HTMLInputElement>;
   name: string;
   value: any;
   error?: string;
@@ -26,7 +26,7 @@ export default function TextBox(props: TextBoxProps) {
       </label>
       <input
         type={type || 'text'}
-        className={[boxClass, 'border-dark', `input ${error && 'is-danger'}`].join(' ')}
+        className={[boxClass, `border-${error?"danger":"dark"}`, `input ${error && 'is-danger'}`].join(' ')}
         name={name}
         id={id}
         placeholder={placeholder}
@@ -34,9 +34,8 @@ export default function TextBox(props: TextBoxProps) {
         readOnly={readonly}
         onClick={handleClick}
         onChange={handleChange}
-        value={value || ''}
-      />
-      {error && <p className="help is-danger">{error}</p>}
+        value={value || ''} />
+      {error && <span className="help is-danger text-danger">{error}</span>}
     </div>
   );
 }

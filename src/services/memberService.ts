@@ -1,16 +1,16 @@
-import { anonymousApiClient, apiClient } from './apiClient';
+import { UpdateMember } from '../types/Member';
+import { anonymousApiClient, apiClient } from '../configs/apiClient';
 
-export const insertMember = async (data: any) => {
-  let [response, error] = [undefined, undefined] as any;
+export const insertMember = async (member: any) => {
+  let [data, error] = [undefined, undefined] as any;
 
   try {
-    const result = await anonymousApiClient.post(`/members`, data);
-    response = result?.data;
+    const result = await anonymousApiClient.post(`/members`, member);
+    data = result?.data;
   } catch (err) {
-    error = err?.response || err?.message;
+    error = err;
   }
-  console.log(error);
-  return { response, error };
+  return { data, error };
 }
 
 export const selectMember = async (memberID: number) => {
@@ -18,23 +18,24 @@ export const selectMember = async (memberID: number) => {
 
   try {
     const result = await apiClient.get(`/members/${memberID}`);
-    data = result?.data;
 
+    data = result?.data;
   } catch (err) {
-    error = err?.response || err?.message;
+    error = err;
   }
 
   return { data, error };
 }
 
-export const putMember = async (memberID: number, info: any) => {
+export const putMember = async (member: UpdateMember) => {
   let [data, error] = [undefined, undefined] as any;
 
   try {
-    const result = await apiClient.put(`/members/${memberID}`, { data: info });
+    const result = await apiClient.put(`/members/auth/${member.memberNum}`, member);
+
     data = result?.data;
   } catch (err) {
-    error = err?.response || err?.message;
+    error = err;
   }
 
   return { data, error };

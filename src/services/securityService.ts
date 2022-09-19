@@ -1,4 +1,4 @@
-import { anonymousApiClient, apiClient } from './apiClient';
+import { anonymousApiClient, apiClient } from '../configs/apiClient';
 
 export const signinMember = async (info: any) => {
   let [data, error] = [undefined, undefined] as any;
@@ -7,18 +7,14 @@ export const signinMember = async (info: any) => {
     const result = await anonymousApiClient.post(`/security/login`, info);
 
     data = result?.data as SigninResponse | undefined;
-    apiClient.defaults.headers["REFRESH-TOKEN"] = data.refreshToken;
-    apiClient.defaults.headers["X-AUTH-TOKEN"] = data.accessToken;
-
-    console.log(data);
   } catch (err) {
-    error = err?.response || err?.message;
+    error = err;
   }
 
   return { data, error };
 }
 
-export const updateMember = async (info: any) => {
+export const refreshMember = async (info: any) => {
   let [data, error] = [undefined, undefined] as any;
 
   try {
@@ -26,7 +22,7 @@ export const updateMember = async (info: any) => {
 
     data = result?.data as SigninResponse | undefined;
   } catch (err) {
-    error = err?.response || err?.message;
+    error = err;
   }
 
   return { data, error };
@@ -40,7 +36,7 @@ export const signoutMember = async (info: any) => {
 
     data = result?.data as SigninResponse | undefined;
   } catch (err) {
-    error = err?.response || err?.message;
+    error = err;
   }
 
   return { data, error };

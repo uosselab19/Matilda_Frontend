@@ -1,14 +1,15 @@
 import { Link, useNavigate } from 'react-router-dom';
 import matilda from '../../assets/images/matilda.png';
-
-import TextBox from '../../components/forms/TextBox';
 import useForm from '../../hooks/useForm';
 import { SigninMember } from '../../types/Member';
-import { isRequired, isID, isPassword } from '../../utils/validator';
-import { Buffer } from 'buffer';
-import useCookie from '../../hooks/useCookie';
+import { isRequired, isID, isPassword } from '../../utils/validatorUtil';
 import { useEffect } from 'react';
 import { signinMember } from '../../services/securityService';
+import SigninBox from '../../components/forms/signinBox';
+import SubmitButton from '../../components/forms/SubmitButton';
+import { setUserInfo, getUserInfo } from '../../utils/cookieUtil';
+import { alertError } from '../../utils/alertUtil';
+import { getUserInfoByToken } from '../../utils/tokenUils';
 
 const validate = (values: SigninMember) => {
   const errors = {
@@ -20,29 +21,27 @@ const validate = (values: SigninMember) => {
 };
 
 export const Signin = () => {
-  const { setCookie, getCookie } = useCookie();
   const navigate = useNavigate();
+
   const callback = async (values: SigninMember) => {
     const { data, error } = await signinMember(values);
-    if(error){ alert(error); return console.log(error);}
-    console.log(data);
+    if (error) {
+      console.log(error);
+      alertError('로그인 에러', `로그인에 실패했어요.`);
+      return;
+    }
 
-    //base 64를 디코딩한 후에 parse 과정을 통해 json화 하는 함수
-    const parseToken = (token: string) => {
-      const result = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
-      result.token = token;
-      return result;
-    };
-    const userInfo = parseToken(data.accessToken);
-    setCookie(userInfo);
+    const userInfo = getUserInfoByToken(data);
+    setUserInfo(userInfo);
     navigate('/');
+    return;
   };
 
   useEffect(() => {
     (async () => {
-      const cookieData = getCookie();
-      if (cookieData) {
-        alert('이미 로그인한 정보가 있어서 홈페이지로 이동합니다.');
+      const userInfoData = getUserInfo();
+      if (userInfoData) {
+        alertError(`이미 로그인 되어있어요!`, `이미 ${userInfoData.id}로 로그인한 정보가 있어서 홈페이지로 이동합니다.`);
         navigate('/');
       }
     })();
@@ -50,15 +49,19 @@ export const Signin = () => {
 
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
 
+
   return (
-    <main className="form-signin d-flex justify-content-center">
-      <div style={{ margin: '5.8%', width: '330px' }}>
-        <div className="text-center my-4">
-          <img src={matilda} width="128"></img>
+    <main
+      className="container form-signin"
+      style={{ marginTop: '6%', width: '330px' }}
+      onKeyUp={(e) => { if (e.key == "Enter") handleSubmit(e); }} >
+      <div className='row'>
+        <div className="text-center my-3">
+          <img src={matilda} width="128px" />
         </div>
-        <h1 className="h3 mb-5 fw-normal text-center">Sign-in</h1>
+        <h1 className="h3 mb-3 fw-normal text-center">Sign-in</h1>
         {/* ID 입력란 */}
-        <TextBox
+        <SigninBox
           name="id"
           id="id"
           label="ID"
@@ -69,13 +72,13 @@ export const Signin = () => {
           handleChange={handleChange}
           handleClick={handleClick}
           value={values['id']}
-          error={errors['id']}
-        />
+          error={errors['id']} />
+
         {/* Password 입력란 */}
-        <TextBox
+        <SigninBox
           name="password"
           id="password"
-          label="Password"
+          label="PW"
           type="password"
           placeholder="Password"
           disabled={false}
@@ -83,8 +86,8 @@ export const Signin = () => {
           handleChange={handleChange}
           handleClick={handleClick}
           value={values['password']}
-          error={errors['password']}
-        />
+          error={errors['password']} />
+
         {/* remember ID 체크 */}
         <div className="checkbox mt-4 mb-3">
           <input type="checkbox" className="form-checkbox" id="floatingCheckbox" value="remember-me" tabIndex={-1}></input>
@@ -92,10 +95,15 @@ export const Signin = () => {
         </div>
 
         {/* Sign in 버튼 */}
-        <button className="w-100 btn btn-lg btn-secondary mb-5" type="submit" onClick={handleSubmit} onKeyPress={handleSubmit}>
-          Sign in
-        </button>
-        <div className="text-center">
+        <SubmitButton
+          title={"Sign in"}
+          handleSubmit={handleSubmit}
+          values={values}
+          errors={errors}
+          keys={["id", "password"]}
+          allRequired={true} />
+
+        <div className="text-center mt-3">
           <Link to="/signup" className="text-muted">
             회원이 아니세요?
           </Link>

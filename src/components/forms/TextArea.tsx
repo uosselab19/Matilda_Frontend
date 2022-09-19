@@ -9,7 +9,7 @@ interface TextAreaProps {
   disabled: boolean;
   readonly: boolean;
   handleChange: ChangeEventHandler<HTMLTextAreaElement>;
-  handleClick: MouseEventHandler<HTMLTextAreaElement>;
+  handleClick?: MouseEventHandler<HTMLTextAreaElement>;
   value: any;
   error: string;
 }
@@ -25,7 +25,7 @@ export default function TextArea(props: TextAreaProps) {
         {label}
       </label>
       <textarea
-        className={[boxClass, 'border-dark', `input ${error && 'is-danger'}`].join(' ')}
+        className={[boxClass, `border-${error?"danger":"dark"}`, `input ${error && 'is-danger'}`].join(' ')}
         id={id}
         name={name}
         rows={rows}
@@ -37,7 +37,7 @@ export default function TextArea(props: TextAreaProps) {
         value={value}
         style={{ resize: 'none' }}
       />
-      {error && <p className="help is-danger">{error}</p>}
+      {error && <span className="help is-danger text-danger">{error}</span>}
     </div>
   );
 }

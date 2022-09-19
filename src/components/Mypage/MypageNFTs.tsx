@@ -1,70 +1,42 @@
-import CardList from '../Items/CardList';
-import Pagination from '../Items/Pagination';
+import Items from '../Items/Items';
 import useItems from '../../hooks/useItems';
-import { getItem, selectItemwithMember } from '../../services/itemService';
-import ModalItem from '../modal/ModalItem';
-import { useEffect, useState } from 'react';
+import { selectItems } from '../../services/itemService';
 import { Item } from '../../types/Item';
 import { useNavigate } from 'react-router-dom';
+import { getUserInfo } from '../../utils/cookieUtil';
+import { confirmModal } from '../../utils/alertUtil';
+import { SweetAlertResult } from 'sweetalert2';
 
 export const MypageNFTs = () => {
   const navigate = useNavigate();
-  const { items, page, setPage } = useItems(selectItemwithMember(2, {}));
-  const [itemNum, setItemNum] = useState(-1);
-  const [item, setItem] = useState({} as Item);
   const [numShowItems, numShowPages] = [15, 5];
 
-  const ModalFooterButtons = [
-    (
-      (item.catCode) ?
-        <div
-          key={"modalFooterButton1"}
-          className="btn btn-light btn-outline-dark w-25"
-          data-bs-dismiss="modal"
-          onClick={() => { navigate("/NFTminting"); }}
-        >등록하기</div>
-        :
-        <div
-          key={"modalFooterButton2"}
-          className="btn btn-light w-25"
-          data-bs-dismiss="modal"
-          onClick={() => { navigate(`/mypage/NFTItem?nft_id=${itemNum}`); }}
-        >판매하기</div>
-    )
-  ];
+  const cookie = getUserInfo();
 
-  useEffect(() => {
-    (async () => {
-      if (itemNum < 0) return;
-      const { data, error } = await getItem(itemNum);
-      console.log(data);
-      if (error) { console.log(error); return alert(error); }
-      setItem(data as Item);
-    })();
-  }, [itemNum]);
+  const { count, items, page, setPage } = useItems(selectItems, { memberNum: cookie.num }, numShowItems);
+
+  const handleCard = async (item: Item) => {
+    let result: SweetAlertResult<any>;
+    if (item.catCode) {
+      result = await confirmModal('NFT 등록', '아직 민팅하지 않은 3D 오브젝트에요. 해당 오브젝트를 NFT로 만들까요?', "민팅하기", "돌아가기", item.imgUrl, 'Not NFT Image');
+      if (result.isConfirmed) navigate("/NFTminting");
+    } else {
+      result = await confirmModal('판매하기', '해당 NFT를 판매할 수 있어요. 판매할까요?', "판매하기", "돌아가기", item.imgUrl, 'Completely NFT Image');
+      if (result.isConfirmed) navigate(`/mypage/NFTItem?nft_id=${item.itemNum}`);
+    }
+  }
 
   return (
     <div className="row">
-      <div className='mb-3'>
-        <CardList
-          page={page}
-          items={items}
-          size={"md"}
-          numShowItems={numShowItems}
-          handleCard={setItemNum}
-          modalID={'modalMyNFTs'} />
-        <ModalItem
-          modalID={'modalMyNFTs'}
-          item={item}
-          footerButtons={ModalFooterButtons}
-          isStatic={false} />
-      </div>
-      <Pagination
+      <Items
+        items={items}
         page={page}
         setPage={setPage}
-        numItems={items.length}
+        count={count}
+        size={"md"}
         numShowItems={numShowItems}
-        numShowPages={numShowPages} />
+        numShowPages={numShowPages}
+        handleCard={handleCard} />
     </div>
   );
 };

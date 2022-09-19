@@ -1,10 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import matilda from '../../assets/images/matilda.png';
+import SubmitButton from '../../components/forms/SubmitButton';
 import TextBox from '../../components/forms/TextBox';
 import useForm from '../../hooks/useForm';
 import { insertMember } from '../../services/memberService';
 import { InsertMember } from '../../types/Member';
-import { isRequired, isID, isPassword, isEmail, notMaxLength, notMinLength } from '../../utils/validator';
+import { alertError, alertSuccess } from '../../utils/alertUtil';
+import { isRequired, isID, isPassword, isEmail, notMaxLength, notMinLength } from '../../utils/validatorUtil';
 
 const validate = (values: InsertMember) => {
   const errors = {
@@ -26,9 +28,9 @@ export const Signup = () => {
     const { error } = await insertMember(values);
 
     if (error) {
-      alert(error);
+      alertError('에러가 발생했어요!', error);
     } else {
-      alert('회원가입이 완료되었습니다!');
+      alertSuccess('회원가입이 완료되었습니다!', '로그인을 하셔야 회원 서비스를 이용할 수 있습니다.');
       navigate('/signin', { replace: false });
     }
   };
@@ -36,7 +38,9 @@ export const Signup = () => {
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
 
   return (
-    <main className="container mb-5">
+    <main
+      className="container mb-5"
+      onKeyUp={(e) => { if (e.key == "Enter") handleSubmit(e); }} >
       <div className="py-5 col-lg-6 text-center mx-auto">
         <img className="d-block mx-auto my-5" src={matilda} width="128"></img>
         <h2>Sign Up Form</h2>
@@ -61,8 +65,7 @@ export const Signup = () => {
               handleChange={handleChange}
               handleClick={handleClick}
               value={values['id']}
-              error={errors['id']}
-            />
+              error={errors['id']} />
 
             {/*비밀번호*/}
             <TextBox
@@ -76,8 +79,7 @@ export const Signup = () => {
               handleChange={handleChange}
               handleClick={handleClick}
               value={values['password']}
-              error={errors['password']}
-            />
+              error={errors['password']} />
 
             {/*별명*/}
             <TextBox
@@ -91,8 +93,7 @@ export const Signup = () => {
               handleChange={handleChange}
               handleClick={handleClick}
               value={values['nickname']}
-              error={errors['nickname']}
-            />
+              error={errors['nickname']} />
 
             {/*이메일*/}
             <TextBox
@@ -106,8 +107,7 @@ export const Signup = () => {
               handleChange={handleChange}
               handleClick={handleClick}
               value={values['email']}
-              error={errors['email']}
-            />
+              error={errors['email']} />
           </div>
 
           <div className="col-12 my-4">
@@ -119,9 +119,13 @@ export const Signup = () => {
             </div>
           </div>
 
-          <button className="w-100 btn btn-primary btn-lg bg-dark" type="submit" onClick={handleSubmit}>
-            Continue to Sign-up
-          </button>
+          <SubmitButton
+            title={"Continue to Sign-up"}
+            handleSubmit={handleSubmit}
+            values={values}
+            errors={errors}
+            keys={["id", "password", "nickname", "email"]}
+            allRequired={true} />
         </form>
       </div>
     </main>

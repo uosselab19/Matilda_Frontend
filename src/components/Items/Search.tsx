@@ -2,7 +2,7 @@
 import useCategory from '../../hooks/useCategory';
 import useForm from '../../hooks/useForm';
 import { SelectItem } from '../../types/Item';
-import { isRequired } from '../../utils/validator';
+import { isRequired } from '../../utils/validatorUtil';
 import SearchBox from '../forms/SearchBox';
 import SelectBox from '../forms/SelectBox';
 
@@ -13,14 +13,14 @@ function validate(values: SelectItem) {
 }
 
 interface SearchProps {
-  size?: string;
-  callback: Function;
+  size: string;
+  handleSearch: Function;
 }
 
 export default function Search(props: SearchProps) {
-  const { size, callback } = props;
+  const { size, handleSearch } = props;
   const serach = () => {
-    callback(values);
+    handleSearch(values);
   };
 
   // 3D 아이템 목록이 들어가는 리스트 생성하는 부분
@@ -29,7 +29,9 @@ export default function Search(props: SearchProps) {
   const { handleChange, handleSubmit, values, errors } = useForm(serach, validate);
 
   return (
-    <div className="container text-center">
+    <div
+    className={`container text-center mb-${size=="lg"?"4":"3"}`}
+    onKeyUp={(e)=>{if(e.key=="Enter") handleSubmit(e);}} >
       <form>
         <div className="row d-flex justify-content-between">
           <div className="col-3">
@@ -46,8 +48,7 @@ export default function Search(props: SearchProps) {
               }}
               value={values['catCode']}
               keyProperty="title"
-              valueProperty="catCode"
-            />
+              valueProperty="catCode" />
           </div>
           <div className="col-6">
             <SearchBox
@@ -60,17 +61,15 @@ export default function Search(props: SearchProps) {
                 handleChange(e);
               }}
               value={values['title']}
-              error={errors['title']}
-            />
+              error={errors['title']} />
           </div>
           <div className="col-3">
             <button
-              className="btn btn-outline-success w-100 h-100"
               type="submit"
+              className="btn btn-outline-success w-100 h-100"
               onClick={(e) => {
                 handleSubmit(e);
-              }}
-            >
+              }}>
               Search
             </button>
           </div>

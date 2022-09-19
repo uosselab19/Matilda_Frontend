@@ -5,7 +5,7 @@ export const NotFound = () => {
   return (
     <main className="cover-container d-flex p-5 text-center my-5 flex-column justify-content-center">
       <p className="my-3">
-        <img src={matilda} width="128"></img>
+        <img src={matilda} width="128" />
       </p>
       <h1 className="my-3">Page is Not Found</h1>
       <p className="lead my-3">

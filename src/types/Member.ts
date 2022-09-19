@@ -6,9 +6,11 @@ export interface InsertMember {
 }
 
 export interface UpdateMember {
+  memberNum: number;
   password?: string;
   nickname?: string;
   email?: string;
+  clothesList?: [{}];
   profileImg?: string;
   walletAddress?: string;
   description?: string;
@@ -20,29 +22,24 @@ export interface SigninMember {
 }
 
 export interface SelectMember {
+  memberNum: number;
   createdAt?: string;
   description?: string;
   email?: string;
   id?: string;
-  memberNum?: 0;
   nickname?: string;
-  presetList?: [
-    {
-      additionalProp1?: 0;
-      additionalProp2?: 0;
-      additionalProp3?: 0;
-    }
-  ];
+  clothesList?: [{}];
   profileImg?: string;
   thumbProfileImg?: string;
   walletAddress?: string;
 }
 
-export interface userInfo {
+export interface UserInfo {
   id: string;
   num:number;
   role: string;
   iat: number;
   exp: number;
-  token: string;
+  refreshToken: string;
+  accessToken: string;
 }
