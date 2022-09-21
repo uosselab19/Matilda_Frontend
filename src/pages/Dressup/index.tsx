@@ -17,7 +17,7 @@ export const Dressup = () => {
   useEffect(() => {
     const scene = useView(modelHeight, roomWidth);
     useFittingRoom('wooden', roomWidth, roomHeight, scene);
-    useModel('./assets/model/matilda/scene.gltf', modelHeight, scene);
+    useModel('./assets/model/BaseMesh.glb', modelHeight, scene);
   }, []);
 
   useEffect(() => {

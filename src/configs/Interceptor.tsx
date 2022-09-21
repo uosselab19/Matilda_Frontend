@@ -89,7 +89,8 @@ const AxiosInterceptorSetup = (navigate: NavigateFunction) => {
 		(error: AxiosError) => interceptError(error));
 	apiClient.interceptors.response.use(
 		(response: any) => interceptResponse(response),
-		(error: AxiosError) => interceptError(error));
+		(error: AxiosError) => {interceptError(error); console.log("bbbb")});
+
 	imageApiClient.interceptors.request.use(
 		(config: AxiosRequestConfig) => interceptRequest(config),
 		(error: AxiosError) => interceptError(error));
