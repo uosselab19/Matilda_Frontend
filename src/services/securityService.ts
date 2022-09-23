@@ -28,12 +28,12 @@ export const refreshMember = async (info: any) => {
   return { data, error };
 }
 
-export const signoutMember = async (info: any) => {
+export const signoutMember = async () => {
   let [data, error] = [undefined, undefined] as any;
 
   try {
     const result = await apiClient.post(`/security/auth/logout`);
-
+    console.log("qwerqwer");
     data = result?.data as SigninResponse | undefined;
   } catch (err) {
     error = err;

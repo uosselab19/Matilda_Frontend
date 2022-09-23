@@ -42,7 +42,7 @@ export default function ConvertBox(props: ConvertBoxProps) {
       
       const imgUrl = getS3Url(data.imgUrl);
       console.log(imgUrl);
-      alertModal('변환 성공', '변환이 이뤄진 모습을 확인해보세요!', imgUrl, 'Completely Converted Image');
+      alertModal("<span style='font-size:40px;'>변환 성공</span>", "변환이 이뤄진 모습을 확인해보세요!", imgUrl, 'Completely Converted Image', 440);
     }
 
     setLoading(false);

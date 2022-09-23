@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import matildaWhite from '../../assets/images/matilda_white.png';
+import { alertSuccess } from '../../utils/alertUtil';
 import { getUserInfo, removeUserInfo } from '../../utils/cookieUtil';
 import { signoutMember } from '../../services/securityService';
-import { alertSuccess } from '../../utils/alertUtil';
 import { NavButtons } from '../NavButtons';
 
 export const Header = () => {
@@ -18,9 +18,10 @@ export const Header = () => {
   };
 
   //로그아웃 버튼 기능
-  const fetchSignout = () => {
+  const fetchSignout = async () => {
     const cookie = getUserInfo();
-    signoutMember(cookie);
+    console.log(cookie);
+    await signoutMember();
     alertSuccess('로그아웃', `로그아웃했습니다!`);// 로그아웃했다고 알림
     removeUserInfo(); // 로그인 기록 쿠키 지우기
     linkTo('/'); // 로그아웃하면 홈페이지로

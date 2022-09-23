@@ -6,7 +6,7 @@ export const anonymousApiClient = axios.create({
 });
 
 export const imageApiClient = axios.create({
-  baseURL: 'http://3.133.233.81:8100',
+  baseURL: 'http://3.133.233.81:8000',
   timeout: 30000,
 })
 
