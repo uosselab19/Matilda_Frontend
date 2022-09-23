@@ -1,6 +1,6 @@
 import item_img1 from '../../assets/images/Marketplace/item_img.png';
 import makerThumbImg1 from '../../assets/images/Profile/thumbProfileImage.png';
-import { getS3ImgUrl } from '../../utils/S3';
+import { getS3Url } from '../../utils/S3';
 import { Item } from '../../types/Item';
 import CardPlaceholder from './ItemCardPlaceholder';
 
@@ -101,7 +101,7 @@ export default function Card(props: CardProps) {
           <img
             alt=""
             className="card-img"
-            src={item?getS3ImgUrl(item.imgUrl):item_img1} />
+            src={item?getS3Url(item.imgUrl):item_img1} />
           <div className="card-img-overlay" style={{ top: '70%', backgroundColor: (item?.stateCode != "CR") ? 'black' : 'white', opacity: 0.8 }} />
           <div className="card-img-overlay d-flex flex-column">
             <div className={`card-text mt-auto d-flex justify-content-between px-2 ${size == 'lg' ? 'py-2' : ''}`}>

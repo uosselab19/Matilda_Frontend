@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Item } from '../../types/Item';
 import { getItem } from '../../services/itemService';
 import { alertError, confirmModal, confirmSuccess, confirmWarning } from '../../utils/alertUtil';
-import { getS3ImgUrl } from '../../utils/S3';
+import { getS3Url } from '../../utils/S3';
 
 interface NFTItemProps {
   mode: string;
@@ -32,7 +32,7 @@ export const NFTItem = (props: NFTItemProps) => {
   }, []);
 
   const handleButton = async () => {
-    const result = await confirmModal("구매할까요?", "마음에 드신다면 구매하기 버튼을 누르세요!", "구매하기", "돌아가기", item.imgUrl, "Selling NFT");
+    const result = await confirmModal("구매할까요?", "마음에 드신다면 구매하기 버튼을 누르세요!", "구매하기", "돌아가기", getS3Url(item.imgUrl), "Selling NFT");
     if (result.isDismissed) alertError("취소했어요!", "다시 한 번 생각해주시고 찾아와주세요 ㅎㅎ");
     if (result.isConfirmed) {
       const result = await confirmWarning("정말 구매할까요?", "구매하기를 누르시면 구매가 확정됩니다. 주의해주세요!", "구매하기", "취소하기");
@@ -50,7 +50,7 @@ export const NFTItem = (props: NFTItemProps) => {
         {/* NFT 왼쪽 설명 부분 */}
         <div className="col-lg-5">
           <article className="blog-post m-4">
-            <img src={getS3ImgUrl(item.imgUrl)} width="100%" />
+            <img src={getS3Url(item.imgUrl)} width="100%" />
             <p />
             <h2 className="blog-post-title">Description</h2>
             <p>{item.description}</p>

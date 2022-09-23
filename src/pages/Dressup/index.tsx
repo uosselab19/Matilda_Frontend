@@ -1,54 +1,128 @@
 import { useEffect, useState } from 'react';
 import { DressupMarket } from '../../components/Dressup/DressupMarket';
 import { DressupPreset } from '../../components/Dressup/DressupPreset';
-import useView from '../../hooks/threejs/useView';
-import useModel from '../../hooks/threejs/useModel';
-import useFittingRoom from '../../hooks/threejs/useFittingRoom';
+import { DressupInfo } from '../../components/Dressup/DressupInfo';
+import createView from '../../utils/threejs/threeViewUtil';
+import { loadModel } from '../../utils/threejs/threeModelUtil';
+import createFittingRoom from '../../utils/threejs/threeRoomUtil';
 import { Clothes } from '../../types/Clothes';
-import { ResetbuyButton } from '../../components/Dressup/ResetbuyButton';
-import { getUserInfo } from '../../utils/cookieUtil';
+import { Scene } from 'three';
+import { getS3Url } from '../../utils/S3';
+import { NavButtons } from '../../components/NavButtons';
+import { Item } from '../../types/Item';
+
 
 export const Dressup = () => {
+  const [scene] = useState(new Scene() as Scene);
   const [clothes, setClothes] = useState({} as Clothes);
+  const [changedClothes, setChangedClothes] = useState({} as Item);
   const [presetList, setPresetList] = useState([] as Clothes[]);
-  const cookie = getUserInfo();
-  const [modelHeight, roomWidth, roomHeight] = [60, 1024, 350];
+  const [selectedNavButton, setSelectedNavButton] = useState("Market");
+  const [modelHeight, roomWidth, roomHeight] = [60, 512, 200];
+
+  const navItems = [
+    { key: "Market", title: "Market" },
+    { key: "Info", title: "Wear I am" },
+    { key: "Preset", title: "Preset" },
+  ];
 
   useEffect(() => {
-    const scene = useView(modelHeight, roomWidth);
-    useFittingRoom('wooden', roomWidth, roomHeight, scene);
-    useModel('./assets/model/matilda/scene.gltf', modelHeight, scene);
+    (async () => {
+      createView(modelHeight, roomWidth, roomHeight, scene);
+      createFittingRoom('wooden', roomWidth, roomHeight, scene);
+      loadModel('BaseMesh', './assets/model/BaseMesh.glb', modelHeight, scene, 0);
+    })();
   }, []);
 
   useEffect(() => {
     (async () => {
-      // useModel('./assets/model/matilda/scene.gltf', modelHeight, scene);
+      if (!Object.entries(clothes).length) return;
+
+      const sceneMesh = scene.children.filter((_, i) => { return (i > 11); });
+      const sceneCatCode = sceneMesh.map((e) => { return clothes[e.name]; });
+      console.log(sceneCatCode);
+      console.log(changedClothes);
+
+      const index = Object.entries(clothes).findIndex(async (e) => {
+        return e[1].catCode === changedClothes.catCode;
+      });
+
+      if (index > -1) {
+        scene.remove(sceneMesh[index]);
+        console.log(sceneMesh[index]);
+      }
+
+      loadModel(changedClothes.catCode, await getS3Url(changedClothes.objectUrl),
+        changedClothes.catCode == "TOP" ? 0.4 * modelHeight : 0.55 * modelHeight, scene,
+        changedClothes.catCode == "TOP" ? 40 : 20);
     })();
-  }, []);
+  }, [changedClothes]);
+
+  // const handleInfo = async () => {
+  //   const footer=`
+  //   <div className="card" style="width: 18rem;">
+  //     <ul className="list-group list-group-flush">
+  //       <li className="list-group-item">옷 1</li>
+  //       <li className="list-group-item">바지</li>
+  //       <li className="list-group-item"></li>
+  //     </ul>
+  //   </div>
+  //   `;
+  //   const result = await alertInfo(`입은 옷들이에요!`, footer);
+  //   if(result.isConfirmed){
+
+  //   }
+  // };
+
+  // <div className='col-1 row g-1'>
+  //         <div id="Preset" className={`${(cookie ? "d-block" : "d-none")} align-self-start`}>
+  //           <DressupPreset
+  //             clothes={clothes}
+  //             setClothes={setClothes}
+  //             presetList={presetList}
+  //             setPresetList={setPresetList} />
+  //         </div>
+  //         <div className={`align-self-end my-5 w-100`}>
+  //           <button type="button" className="btn btn-primary w-100" onClick={() => { handleInfo(); }}> Info </button>
+  //         </div>
+  //       </div>
 
   return (
     <main className="container">
       <div className="row">
         <div className="col-12 fs-2 fw-bold my-4 text-center">Dress Up</div>
-        <div className="col-12 mb-4 text-center">{Object.entries(clothes).map((elem) => { return [elem[0], elem[1].title].join(":") }).join(" ")}</div>
-        <div className='col-1 row g-1'>
-          <div id="Preset" className={`${(cookie ? "d-block" : "d-none")} align-self-start`}>
+        <div id="View" className="col-5" />
+        <div id="page" className="col-7">
+          <div className="my-3">
+            <NavButtons
+              navItems={navItems}
+              selectedNavButton={selectedNavButton}
+              onClick={setSelectedNavButton}
+              textBold={true}
+              textSize={5}
+              textColor={"black"} />
+          </div>
+          <div className={`${selectedNavButton == "Market" ? "d-block" : "d-none"}`}>
+            <DressupMarket
+              clothes={clothes}
+              setClothes={setClothes}
+              presetList={presetList}
+              setChangedClothes={setChangedClothes} />
+          </div>
+          <div className={`${selectedNavButton == "Info" ? "d-block" : "d-none"}`}>
+            <DressupInfo
+              clothes={clothes}
+              setClothes={setClothes}
+              presetList={presetList}
+              setPresetList={setPresetList} />
+          </div>
+          <div className={`${selectedNavButton == "Preset" ? "d-block" : "d-none"}`}>
             <DressupPreset
               clothes={clothes}
               setClothes={setClothes}
               presetList={presetList}
               setPresetList={setPresetList} />
           </div>
-          <div className={`align-self-end my-5 w-100`}>
-            <ResetbuyButton setClothes={setClothes} />
-          </div>
-        </div>
-        <div id="View" className="col-5" />
-        <div id="Market" className="col-6">
-          <DressupMarket
-            clothes={clothes}
-            setClothes={setClothes}
-            presetList={presetList} />
         </div>
       </div>
     </main>

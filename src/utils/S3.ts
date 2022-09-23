@@ -1,7 +1,7 @@
 import AWS from 'aws-sdk';
 import item_img1 from '../assets/images/Marketplace/item_img.png';
 
-export const getS3ImgUrl = (key: string | undefined) => {
+export const getS3Url = (key: string | undefined) => {
     if(!key) return item_img1;
     
     const s3 = new AWS.S3({

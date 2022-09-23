@@ -1,4 +1,4 @@
-import { getS3ImgUrl } from '../../utils/S3';
+import { getS3Url } from '../../utils/S3';
 import { postImage } from '../../services/imageService';
 import { alertError, alertModal } from '../../utils/alertUtil';
 
@@ -40,7 +40,7 @@ export default function ConvertBox(props: ConvertBoxProps) {
         return;
       }
       
-      const imgUrl = getS3ImgUrl(data.imgUrl);
+      const imgUrl = getS3Url(data.imgUrl);
       console.log(imgUrl);
       alertModal('변환 성공', '변환이 이뤄진 모습을 확인해보세요!', imgUrl, 'Completely Converted Image');
     }

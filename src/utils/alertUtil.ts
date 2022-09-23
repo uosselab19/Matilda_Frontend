@@ -24,7 +24,7 @@ export const alertError = (title: string, text: string) => {
 	});
 }
 
-export const alertInfo = (title: string, text: string) => {
+export const alertInfo = (title: string, text: any) => {
 	return Swal.fire({
 		icon: 'info',
 		title: title,

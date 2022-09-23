@@ -35,6 +35,7 @@ export interface Item {
   price: number;
   title: string;
   imgUrl: string;
+  objectUrl: string;
   description: string;
   memberNickName: string;
   memberThumbImgUrl: string;

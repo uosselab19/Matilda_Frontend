@@ -18,6 +18,7 @@ export const DressupPreset = (props: DressupPresetProps) => {
   useEffect(() => {
     (async () => {
       const cookie = getUserInfo();
+      if(!cookie) return;
       const { data, error } = await selectMember(cookie.num);
 
       if (error) {

@@ -34,12 +34,12 @@ export default function Search(props: SearchProps) {
     onKeyUp={(e)=>{if(e.key=="Enter") handleSubmit(e);}} >
       <form>
         <div className="row d-flex justify-content-between">
-          <div className="col-3">
+          <div className="col-4">
             <SelectBox
               id="test"
               label=""
               placeholder=""
-              helpText="Please enter a valid TEST"
+              helpText="Please enter"
               disabled={false}
               size={size}
               options={categoryList}
@@ -63,7 +63,7 @@ export default function Search(props: SearchProps) {
               value={values['title']}
               error={errors['title']} />
           </div>
-          <div className="col-3">
+          <div className="col-2">
             <button
               type="submit"
               className="btn btn-outline-success w-100 h-100"
