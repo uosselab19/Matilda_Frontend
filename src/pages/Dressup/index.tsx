@@ -21,15 +21,18 @@ export const Dressup = () => {
   const [modelHeight, roomWidth, roomHeight] = [60, 512, 200];
 
   const navItems = [
-    { key: "Market", title: "Market" },
+    { key: "Marketplace", title: "Marketplace" },
+    { key: "Mypage", title: "My page" },
     { key: "Info", title: "Wear I am" },
     { key: "Preset", title: "Preset" },
   ];
 
   useEffect(() => {
-    const scene = useView(modelHeight, roomWidth);
-    useFittingRoom('wooden', roomWidth, roomHeight, scene);
-    useModel('./assets/model/matilda/scene.gltf', modelHeight, scene);
+    (async () => {
+      createView(modelHeight, roomWidth, roomHeight, scene);
+      createFittingRoom('wooden', roomWidth, roomHeight, scene);
+      loadModel('BaseMesh', './assets/model/BaseMesh.glb', modelHeight, scene, 0);
+    })();
   }, []);
 
   useEffect(() => {
@@ -100,7 +103,14 @@ export const Dressup = () => {
               textSize={5}
               textColor={"black"} />
           </div>
-          <div className={`${selectedNavButton == "Market" ? "d-block" : "d-none"}`}>
+          <div className={`${selectedNavButton == "Marketplace" ? "d-block" : "d-none"}`}>
+            <DressupMarket
+              clothes={clothes}
+              setClothes={setClothes}
+              presetList={presetList}
+              setChangedClothes={setChangedClothes} />
+          </div>
+          <div className={`${selectedNavButton == "Mypage" ? "d-block" : "d-none"}`}>
             <DressupMarket
               clothes={clothes}
               setClothes={setClothes}
@@ -111,7 +121,6 @@ export const Dressup = () => {
             <DressupInfo
               clothes={clothes}
               setClothes={setClothes}
-              presetList={presetList}
               setPresetList={setPresetList} />
           </div>
           <div className={`${selectedNavButton == "Preset" ? "d-block" : "d-none"}`}>
