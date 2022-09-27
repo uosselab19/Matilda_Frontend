@@ -10,7 +10,6 @@ export const interceptorHandledError = "Interceptor Handled Error";
 const AxiosInterceptorSetup = (navigate: NavigateFunction) => {
 	function interceptError(error: AxiosError) {
 		const response = error?.response as AxiosResponse;
-		console.log(error);
 
 		// error code 로 분석하는 것도 괜찮을 것 같음.
 		// "ECONNABORTED" : timeout error
@@ -89,7 +88,7 @@ const AxiosInterceptorSetup = (navigate: NavigateFunction) => {
 		(error: AxiosError) => interceptError(error));
 	apiClient.interceptors.response.use(
 		(response: any) => interceptResponse(response),
-		(error: AxiosError) => {interceptError(error); console.log("bbbb")});
+		(error: AxiosError) => {interceptError(error);});
 
 	imageApiClient.interceptors.request.use(
 		(config: AxiosRequestConfig) => interceptRequest(config),

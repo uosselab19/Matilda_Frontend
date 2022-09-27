@@ -21,11 +21,11 @@ export default function TextArea(props: TextAreaProps) {
 
   return (
     <div>
-      <label htmlFor={id} className="form-label fs-2 fw-bold">
+      <label htmlFor={id} className="form-label">
         {label}
       </label>
       <textarea
-        className={[boxClass, `border-${error?"danger":"dark"}`, `input ${error && 'is-danger'}`, `fs-4 fw-bold`].join(' ')}
+        className={[boxClass, `border-${error?"danger":"dark"}`, `input ${error && 'is-danger'}`, ``].join(' ')}
         id={id}
         name={name}
         rows={rows}

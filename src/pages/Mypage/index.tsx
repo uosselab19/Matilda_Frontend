@@ -12,12 +12,12 @@ import { alertError } from '../../utils/alertUtil';
 
 export const Mypage = () => {
   const navigate = useNavigate();
-  const [selectedNavButton, setSelectedNavButton] = useState("myNFTList");
+  const [selectedNavButton, setSelectedNavButton] = useState("myItemList");
   const [userInfo, setUserInfo] = useState({} as SelectMember);
 
   const navItems = [
-    { key: "myNFTList", title: "My NFT List" },
-    { key: "klaytnSetting", title: "Klaytn setting" },
+    { key: "myItemList", title: "My Item List" },
+    { key: "klaytn", title: "Klaytn" },
     { key: "editInfo", title: "Edit Info" }
   ];
 
@@ -69,10 +69,10 @@ export const Mypage = () => {
 
           {/* 이 부분이 My Page 핵심 부분 */}
           <div className={`d-flex justify-content-center`}>
-            <div className={`${selectedNavButton == "myNFTList" ? "d-block" : "d-none"}`}>
+            <div className={`${selectedNavButton == "myItemList" ? "d-block" : "d-none"}`}>
               <MypageNFTs />
             </div>
-            <div className={`${selectedNavButton == "klaytnSetting" ? "d-block" : "d-none"}`}>
+            <div className={`${selectedNavButton == "klaytn" ? "d-block" : "d-none"}`}>
               <MypageWallet />
             </div>
             <div className={`${selectedNavButton == "editInfo" ? "d-block" : "d-none"}`}>

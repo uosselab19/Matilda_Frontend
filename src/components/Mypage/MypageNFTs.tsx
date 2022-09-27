@@ -4,7 +4,7 @@ import { selectItems } from '../../services/itemService';
 import { Item } from '../../types/Item';
 import { useNavigate } from 'react-router-dom';
 import { getUserInfo } from '../../utils/cookieUtil';
-import { alertSuccess, confirmModal } from '../../utils/alertUtil';
+import { confirmModal } from '../../utils/alertUtil';
 
 export const MypageNFTs = () => {
   const navigate = useNavigate();
@@ -18,9 +18,6 @@ export const MypageNFTs = () => {
     const result = await confirmModal(item.title, item.description, "NFT 발행하기", "수정하기", item.imgUrl, 'Not NFT Image');
     if (result.isConfirmed) {
       navigate("/NFTminting");
-    } else {
-      const result = await insertModal(item.title, item.description, "수정하기", item.imgUrl, 'Not NFT Image'); // 수정하기
-      if (result.isConfirmed) alertSuccess("수정 완료!", "수정되었습니다.");
     }
   }
 

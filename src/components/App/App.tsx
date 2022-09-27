@@ -34,8 +34,8 @@ export const App = () => {
         <Route path="mypage" element={<Mypage />} />
         <Route path="test" element={<Test />} />
 
-        <Route path="marketplace/NFTItem" element={<NFTItem mode={'Buy'} />} />
-        <Route path="mypage/NFTItem" element={<NFTItem mode={'Sell'} />} />
+        <Route path="marketplace/NFTItem" element={<NFTItem />} />
+        <Route path="mypage/NFTItem" element={<NFTItem />} />
 
         <Route path="/*" element={<NotFound />} />
       </Routes>

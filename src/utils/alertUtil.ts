@@ -32,16 +32,15 @@ export const alertInfo = (title: string, text: any) => {
 	});
 }
 
-export const alertModal = async (title:string, text:string, url:string, alt?:string, width?:number) => {
+export const alertModal = async (title: string, text: string, url: string, alt?: string, width?: number) => {
 	return Swal.fire({
 		title: title,
 		text: text,
 		imageUrl: url,
-		imageAlt: alt?alt:"Modal Image",
-		imageWidth: width?width:500,
-		imageHeight: width?width:500,
-		width:width?width+60:560,
-
+		imageAlt: alt ? alt : "Modal Image",
+		imageWidth: width ? width : 500,
+		imageHeight: width ? width : 500,
+		width: width ? width + 60 : 560,
 	})
 }
 
@@ -50,6 +49,7 @@ export const confirmSuccess = async (title: string, text: string, confirmText: s
 		icon: 'success',
 		title: title,
 		text: text,
+		allowOutsideClick: false,
 		showCancelButton: true,
 		confirmButtonText: confirmText,
 		confirmButtonColor: '#81c147',
@@ -63,6 +63,7 @@ export const confirmWarning = async (title: string, text: string, confirmText: s
 		icon: 'warning',
 		title: title,
 		text: text,
+		allowOutsideClick: false,
 		showCancelButton: true,
 		confirmButtonText: confirmText,
 		confirmButtonColor: '#81c147',
@@ -76,6 +77,7 @@ export const confirmQuestion = async (title: string, text: string, confirmText: 
 		icon: 'question',
 		title: title,
 		text: text,
+		allowOutsideClick: false,
 		showCancelButton: true,
 		confirmButtonText: confirmText,
 		confirmButtonColor: '#81c147',
@@ -84,15 +86,16 @@ export const confirmQuestion = async (title: string, text: string, confirmText: 
 	});
 }
 
-export const confirmModal = async (title:string, text:string, confirmText: string, cancelText: string, url:string, alt?:string, width?:number) => {
+export const confirmModal = async (title: string, text: string, confirmText: string, cancelText: string, url: string, alt?: string, width?: number) => {
 	return Swal.fire({
 		title: title,
 		text: text,
 		imageUrl: url,
-		imageWidth: width?width:500,
-		imageHeight: width?width:500,
-		width:width?width+60:560,
-		imageAlt: alt?alt:"Modal Image",
+		imageWidth: width ? width : 500,
+		imageHeight: width ? width : 500,
+		width: width ? width + 60 : 560,
+		imageAlt: alt ? alt : "Modal Image",
+		allowOutsideClick: false,
 		showCancelButton: true,
 		confirmButtonText: confirmText,
 		confirmButtonColor: '#81c147',
@@ -101,3 +104,22 @@ export const confirmModal = async (title:string, text:string, confirmText: strin
 	})
 }
 
+export const alertText = async () => {
+	const { value: formValues } = await Swal.fire({
+		title: 'Multiple inputs',
+		html:
+		  '<input id="swal-input1" class="swal2-input">' +
+		  '<input id="swal-input2" class="swal2-input">',
+		focusConfirm: false,
+		preConfirm: () => {
+		  return [
+			document.getElementById('swal-input1').value,
+			document.getElementById('swal-input2').value
+		  ]
+		}
+	  })
+	  
+	  if (formValues) {
+		Swal.fire(JSON.stringify(formValues))
+	  }
+}
