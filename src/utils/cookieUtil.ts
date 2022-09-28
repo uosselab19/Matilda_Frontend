@@ -9,10 +9,10 @@ export const getCookie = (name: string) => {
     return cookies.get(name);
 };
 
-export const removeCookie = (name: string, path: string = "/") => {
-    return cookies.remove(name, { path });
+export const removeCookie = (name: string, option?: CookieSetOptions) => {
+    return cookies.remove(name, { ...option });
 };
 
 export const setUserInfo = (value: any, option?: any) => setCookie(userInfoKey, value, { ...option });
 export const getUserInfo = () => getCookie(userInfoKey);
-export const removeUserInfo = (path: string = "/") => removeCookie(userInfoKey, path = path);
+export const removeUserInfo = (option?: any) => removeCookie(userInfoKey, {...option});

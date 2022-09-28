@@ -104,22 +104,20 @@ export const confirmModal = async (title: string, text: string, confirmText: str
 	})
 }
 
-export const alertText = async () => {
-	const { value: formValues } = await Swal.fire({
-		title: 'Multiple inputs',
-		html:
-		  '<input id="swal-input1" class="swal2-input">' +
-		  '<input id="swal-input2" class="swal2-input">',
-		focusConfirm: false,
-		preConfirm: () => {
-		  return [
-			document.getElementById('swal-input1').value,
-			document.getElementById('swal-input2').value
-		  ]
+export const alertInput = async (title: string, text: string, placeholder: string) => {
+	const { value: newValue } = await Swal.fire({
+		title: title,
+		input: 'text',
+		inputLabel: text,
+		inputPlaceholder: placeholder,
+		showCancelButton: true,
+		inputValidator: (value) => {
+			if (!value) {
+				return 'You need to write something!'
+			}
+			return "";
 		}
-	  })
-	  
-	  if (formValues) {
-		Swal.fire(JSON.stringify(formValues))
-	  }
+	})
+
+	return newValue;
 }

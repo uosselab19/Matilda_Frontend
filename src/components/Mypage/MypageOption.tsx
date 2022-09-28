@@ -31,7 +31,6 @@ export const MypageOption = (props: MypageOptionProps) => {
   const { userInfo, setUserInfo } = props;
 
   const callback = (values: {}) => {
-    console.log(values);
     putMember({ memberNum: userInfo.memberNum, ...values } as UpdateMember);
     setUserInfo({} as SelectMember);
   };

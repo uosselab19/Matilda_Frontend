@@ -24,6 +24,7 @@ export interface SelectItem {
 }
 
 export interface UpdateItem {
+  itemNum: number;
   title?: string;
   description?: string;
   price?: number;

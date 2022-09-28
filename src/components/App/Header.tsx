@@ -53,7 +53,6 @@ export const Header = () => {
     { key: '/marketplace', title: 'Marketplace' },
     { key: '/dressup', title: 'Dress Up' },
     { key: '/3Dconversion', title: '3D Conversion' },
-    { key: '/NFTminting', title: 'NFT Minting' }
   ];
 
   return (

@@ -1,40 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { Item } from '../../types/Item';
-import { getItem } from '../../services/itemService';
-import { alertError, confirmModal, confirmSuccess, confirmWarning } from '../../utils/alertUtil';
+import { Item, UpdateItem } from '../../types/Item';
+import { getItem, putItem } from '../../services/itemService';
+import { alertError, alertInput, alertSuccess, confirmModal, confirmSuccess, confirmWarning } from '../../utils/alertUtil';
 import { getS3Url } from '../../utils/S3';
 import { getUserInfo } from '../../utils/cookieUtil';
 import { selectMember } from '../../services/memberService';
-
-interface ReceiptCard {
-  index: number;
-  title: string;
-}
-
-const ReceiptCard = (props: ReceiptCard) => {
-  const { index, title } = props;
-  return (
-    <div className="card col-12 px-0 w-100 ms-0 my-1" key={index}>
-      <div
-        className="card-header w-100 p-0 bg-white"
-        data-bs-toggle="collapse"
-        data-bs-target={`#collapseReceipt${index + 1}`}
-        aria-expanded="false"
-        aria-controls={`collapseReceipt${index + 1}`}>
-        <div className='w-100 my-1 ms-0'>
-          <span className="fs-5 fw-bold ps-3 py-2">Receipt {index + 1} </span>
-          <span className="ps-3 py-2"> Method: {title}</span>
-        </div>
-      </div>
-      <div className='card-body collapse py-1 row' id={`collapseReceipt${index + 1}`}>
-        <div className='col-4'>txHash: {"asdf"}</div>
-        <div className='col-12'>seller address: {"0x64469e021f23353a3e0757bc4d211a6f9756d37a"}</div>
-        <div className='col-12'>buyer address: {"0x04c1499f9fa23668c08c5322992a8e9bba709ede"}</div>
-      </div>
-    </div>
-  );
-}
+import { ReceiptCard } from '../../components/NFTItem/ReceiptCard';
 
 export const NFTItem = () => {
   const [mode, setMode] = useState("");
@@ -42,8 +14,8 @@ export const NFTItem = () => {
   const [searchParams] = useSearchParams();
   const location = useLocation().pathname.split("/")[1];
   const navigate = useNavigate();
-
   const itemNum = Number(searchParams.get('nft_id') as string);
+
   useEffect(() => {
     (async () => {
       const { data, error } = await getItem(itemNum);
@@ -52,31 +24,47 @@ export const NFTItem = () => {
         alertError('아이템을 찾지 못 했어요!', '아이템 정보를 불러오는 중 문제가 발생했어요!');
         navigate(`/${location}`);
       } else {
-        setItem(data as Item);
         const memberNickName = data.memberNickName;
         if (location == "marketplace") {
           const cookie = getUserInfo();
           if (cookie) {
             const { data, error } = await selectMember(cookie.num);
-            console.log(data.nickname);
-            console.log(memberNickName);
             if (error) { alertError("회원정보 에러", "회원정보를 불러오는 중에 문제가 발생했어요!"); }
             else if (data.nickname == memberNickName) setMode("cancel");
           }
           else setMode("buy");
         } else if (location == "mypage") {
           if (data.stateCode == "CR") setMode("mint");
-          else setMode("sell")
+          else if (data.stateCode == "NOS") setMode("sell");
+          else if (data.stateCode == "OS") setMode("cancel");
         }
+        setItem(data as Item);
       }
     })();
   }, []);
 
-  const editButton = () => {
-    const result = await alertText("구매할까요?", "마음에 드신다면 구매하기 버튼을 누르세요!", "구매하기", "돌아가기", getS3Url(item.imgUrl), "Selling NFT");
+  const editButton = async (title: string, text: string, placeholder: string, key: string) => {
+    const newValue = await alertInput(title, text, placeholder);
+
+    const { data, error } = await putItem({ itemNum: itemNum, [key]: newValue } as UpdateItem);
+    if (error) { return alertError("수정실패", "정보를 수정하는 중에 문제가 발생했습니다."); }
+    else {
+      setItem(data);
+      if (newValue) return alertSuccess("수정완료", "수정이 완료되었습니다.");
+      else return alertError("수정실패", "수정이 완료되지 않았습니다.");
+    }
   }
 
   const handleButton = async () => {
+    switch (mode) {
+      case "buy": handleBuy(); break;
+      case "sell": handleSell(); break;
+      case "cancel": handleCancel(); break;
+      case "mint": handleMint(); break;
+    }
+  }
+
+  const handleBuy = async () => {
     const result = await confirmModal("구매할까요?", "마음에 드신다면 구매하기 버튼을 누르세요!", "구매하기", "돌아가기", getS3Url(item.imgUrl), "Selling NFT");
     if (result.isDismissed) alertError("취소했어요!", "다시 한 번 생각해주시고 찾아와주세요 ㅎㅎ");
     if (result.isConfirmed) {
@@ -89,6 +77,30 @@ export const NFTItem = () => {
     }
   }
 
+  const handleSell = async () => {
+    const result = await confirmModal("판매 등록하기", "판매를 등록하고 싶으면 등록하기 버튼을 눌러주세요!", "등록하기", "돌아가기", getS3Url(item.imgUrl), "cancel on sale");
+    if (result.isDismissed) alertError("취소했어요!", "다시 한 번 생각해보시고 찾아와주세요 ㅎㅎ");
+    if (result.isConfirmed) {
+      alertSuccess("등록 완료", "지금부터 Marketplace에 당신이 올려놓은 NFT가 보일 거에요!");
+    }
+  }
+
+  const handleCancel = async () => {
+    const result = await confirmModal("거래 무르기", "거래 등록을 해제하고 싶으면 해제하기 버튼을 눌러주세요!", "해제하기", "돌아가기", getS3Url(item.imgUrl), "cancel on sale");
+    if (result.isDismissed) alertError("취소했어요!", "다시 한 번 생각해보시고 찾아와주세요 ㅎㅎ");
+    if (result.isConfirmed) {
+      alertSuccess("무름~", "거래 등록을 해제했습니다.");
+    }
+  }
+
+  const handleMint = async () => {
+    const result = await confirmModal("NFT 발행", "NFT를 발행하고 싶으면 발행하기 버튼을 눌러주세요!", "발행하기", "돌아가기", getS3Url(item.imgUrl), "Minting NFT");
+    if (result.isDismissed) alertError("취소했어요!", "다시 한 번 생각해주시고 찾아와주세요 ㅎㅎ");
+    if (result.isConfirmed) {
+      alertSuccess("발행 완료", "해당 아이템에 NFT 발행이 완료되었습니다!");
+  }
+  }
+
   return item ? (
     <main className="container">
       <div className="row my-5">
@@ -97,7 +109,16 @@ export const NFTItem = () => {
           <article className="blog-post m-4">
             <img src={getS3Url(item.imgUrl)} width="100%" />
             <p />
-            <h2 className="blog-post-title">Description</h2>
+            <h2 className="blog-post-title">Description
+              <button
+                type='button'
+                className={`btn btn-sm btn-secondary ms-3 ${(mode.length > 0 && mode != "buy") ? "" : "d-none"}`}
+                onClick={() => {
+                  editButton("설명 수정", "아이템의 설명을 수정하는 모달입니다.", item.description, "description");
+                }}>
+                edit
+              </button>
+            </h2>
             <p>{item.description ? item.description : "설명이 없습니다."}</p>
           </article>
         </div>
@@ -105,7 +126,16 @@ export const NFTItem = () => {
         {/* NFT 오른쪽 설명 부분 */}
         <div className="col-lg-7">
           <article className="blog-post">
-            <h1 className="blog-post-title mt-5 mb-3">{item.title}</h1>
+            <h1 className="blog-post-title mt-5 mb-3">{item.title}
+              <button
+                type='button'
+                className={`btn btn-sm btn-secondary ms-3 ${(mode.length > 0 && mode != "buy") ? "" : "d-none"}`}
+                onClick={() => {
+                  editButton("이름 수정", "아이템의 이름을 수정하는 모달입니다.", item.title, "title");
+                }}>
+                edit
+              </button>
+            </h1>
             <p className="blog-post-meta">owned by {item.memberNickName}</p>
 
             <div className="row my-5">
@@ -118,11 +148,11 @@ export const NFTItem = () => {
             </div>
 
             <div className="row">
-              <div className='col-6 d-flex justify-content-center'>
+              <div className='col-12'>
                 {(mode.length > 0) ? (
                   <button
                     type="button"
-                    className="btn btn-primary btn-lg p-3 mb-5 w-100"
+                    className="btn btn-primary btn-lg p-3 mb-5 w-50"
                     onClick={handleButton}>
                     {mode}
                   </button>
@@ -130,28 +160,20 @@ export const NFTItem = () => {
                   <button
                     type="button"
                     disabled={true}
-                    className="btn btn-secondary btn-lg p-3 mb-5 w-100">
+                    className="btn btn-secondary btn-lg p-3 mb-5 w-50">
                     wait
                   </button>
                 )}
-              </div>
-              <div className='col-6 d-flex justify-content-center'>
-                <button
-                  type="button"
-                  className="btn btn-secondary btn-lg p-3 mb-5 w-50"
-                  onClick={editButton}>
-                  edit
-                </button>
               </div>
             </div>
 
             <h3>NFT Receipt</h3>
             <div className='card py-2 px-1 mt-3'>
-              <ReceiptCard index={5} title={"setForSale"} />
+              {/* <ReceiptCard index={5} title={"setForSale"} />
               <ReceiptCard index={4} title={"butNFT"} />
               <ReceiptCard index={3} title={"setForSale"} />
               <ReceiptCard index={2} title={"unsetForSale"} />
-              <ReceiptCard index={1} title={"setForSale"} />
+              <ReceiptCard index={1} title={"setForSale"} /> */}
               <ReceiptCard index={0} title={"create"} />
             </div>
           </article>

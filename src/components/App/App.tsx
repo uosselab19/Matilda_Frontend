@@ -5,7 +5,6 @@ import { Footer } from './Footer';
 import { Home } from '../../pages/Home';
 import { Marketplace } from '../../pages/Marketplace';
 import { Convert3D } from '../../pages/Convert3D';
-import { MintNFT } from '../../pages/MintNFT';
 import { Dressup } from '../../pages/Dressup';
 import { Signin } from '../../pages/SignIn';
 import { Signup } from '../../pages/SignUp';
@@ -26,7 +25,6 @@ export const App = () => {
         {/*header에 연결된 component*/}
         <Route path="marketplace" element={<Marketplace />} />
         <Route path="3Dconversion" element={<Convert3D />} />
-        <Route path="NFTminting" element={<MintNFT />} />
         <Route path="dressup" element={<Dressup />} />
 
         <Route path="signin" element={<Signin />} />

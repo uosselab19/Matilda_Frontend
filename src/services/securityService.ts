@@ -33,7 +33,6 @@ export const signoutMember = async () => {
 
   try {
     const result = await apiClient.post(`/security/auth/logout`);
-    console.log("qwerqwer");
     data = result?.data as SigninResponse | undefined;
   } catch (err) {
     error = err;

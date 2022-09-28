@@ -17,7 +17,7 @@ export const MypageNFTs = () => {
   const handleCard = async (item: Item) => {
     const result = await confirmModal(item.title, item.description, "NFT 발행하기", "수정하기", item.imgUrl, 'Not NFT Image');
     if (result.isConfirmed) {
-      navigate("/NFTminting");
+      navigate(`/mypage/NFTItem?nft_id=${item.itemNum}`);
     }
   }
 
