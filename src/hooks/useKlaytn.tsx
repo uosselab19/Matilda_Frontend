@@ -7,6 +7,8 @@ export default function useKlaytn() {
     const { abi, contractAddress } = MatildaToken;
     const [count1, setCount1] = useState('-1');
 
+    const admin = process.env.address;
+
     const mtn = new caver.kct.kip17(contractAddress);
     const mtt = new caver.contract(abi as AbiItem[], contractAddress);
 
@@ -16,77 +18,29 @@ export default function useKlaytn() {
         })();
     }, []);
 
-    const peb2Klay = async (peb: string) => {
+    const _peb2Klay = async (peb: string) => {
         return caver.utils.convertFromPeb(peb, 'KLAY');
     };
 
-    const klay2Peb = async (klay: string) => {
+    const _klay2Peb = async (klay: string) => {
         return caver.utils.convertToPeb(klay, "KLAY")
     }
 
-    const getBalance = async (address: string) => {
-        return peb2Klay(await caver.rpc.klay.getBalance(address));
+    const _getBalance = async (address: string) => {
+        return _peb2Klay(await caver.rpc.klay.getBalance(address));
     };
 
     const check = async () => {
+<<<<<<< HEAD
         setCount1(await getBalance(process.env.address));
+=======
+        setCount1(await _getBalance(process.env.address));
+        setCount2(await _getBalance(process.env.address2));
+        setCount3(await _getBalance(process.env.address3));
+>>>>>>> 369f113b133be4218961a983a191c3b8c5c688f2
         console.log('잔액을 갱신하였습니다.');
     };
-    /*
-        const deployKIP17 = async () => {
-            caver.kct.kip17
-            .deploy(
-                {
-                name: 'Matilda Test NFT',
-                symbol: 'MTN'
-                },
-                address
-            )
-            .then(console.log);
-        };
 
-        const getList = async () => {
-            const mtn = new caver.kct.kip17('0x6249368B27D8245D0Ba58A7fc7B7989166dD5eCa');
-            mtn.options.from = address;
-            const res = await mtn.safeTransferFrom(address, '0x64469e021f23353a3e0757bc4d211a6f9756d37a', 44, 0x753);
-            console.log(res);
-        };
-
-        const mintNFTfunc = async () => {
-            const mtn = new caver.kct.kip17('0x6249368B27D8245D0Ba58A7fc7B7989166dD5eCa');
-            mtn.options.from = address;
-            const res = await mtn.mintWithTokenURI(address, 44, 'im not fine');
-            console.log(res);
-        };
-
-        const mintNFT = async () => {
-            // WAS로부터 cid 생성 요청 및 불러옴
-            const { data, error } = await getCID({ num: 48 });
-
-            if (error) {
-            alertError('error', 'getCID Error');
-            console.log(error);
-            }
-
-            const cid = data;
-
-            // 초기 발행자(운영자)에 의해 mint 실행
-            const totalNum = await mtn.totalSupply();
-            mtn.mintWithTokenURI(address, totalNum.plus(1), cid);
-
-            // 사용자에게 NFT 소유권 전달
-            mtn.safeTransferFrom(address, user, totalNum.plus(1));
-        };
-
-        const payment = async (from_: string, to_: string, value_: string) => {
-            return await caver.transaction.valueTransfer.create({
-            from: from_,
-            to: to_,
-            value: value_,
-            gas: 1000000000
-            });
-        };
-        */
     const addWallet = async (address: string, privateKey: string) => {
         if (!wallet.isExisted(address)) {
         wallet.newKeyring(address, privateKey);
@@ -109,19 +63,9 @@ export default function useKlaytn() {
 
     const mint = async (minter: string, tokenID: string, tokenURI: string) => {
         // const result = await mtn.mintWithTokenURI(minter, tokenID, tokenURI, { from: process.env.address });
-        const result = await mtt.methods.mintNFT(minter, tokenURI).send({from: process.env.address, gas: 150000000});
+        const result = await mtt.methods.mintNFT(minter, tokenURI).send({from: admin, gas: 150000000});
         console.log('mint에 성공하였습니다.');
         console.log(result);
-    };
-
-    const checkInterface = async (address: string, option: boolean) => {
-        if (option) {
-        const result = await mtn.detectInterface();
-        console.log(result);
-        } else {
-        const result = await caver.kct.kip17.detectInterface(address);
-        console.log(result);
-        }
     };
 
     const isMinter = async (address: string) => {
@@ -129,26 +73,56 @@ export default function useKlaytn() {
         console.log(res);
     };
 
+    const checkInterface = async (address: string, option: boolean) => {
+        if (option) {
+            const result = await mtn.detectInterface();
+            console.log(result);
+        }
+        else {
+            const result = await caver.kct.kip17.detectInterface(address);
+            console.log(result);
+        }
+    };
+
     const setForSale = async (address: string, tokenID: Number, price: Number) => {
-        const value = await klay2Peb(price.toString());
+        const value = await _klay2Peb(price.toString());
         const res = await mtt.methods.setForSale(tokenID, value).send({from: address, gas: 150000000});
         console.log(res);
     };
 
-    const removeTokenOnSale = async (address: string, tokenID: Number) => {
-        const res = await mtt.methods.removeTokenOnSale(tokenID).send({from: address, gas: 150000000});
+    const unsetForSale = async (address: string, tokenID: Number) => {
+        const res = await mtt.methods.unsetForSale(tokenID).send({from: address, gas: 150000000});
         console.log(res);
     };
 
     const buyNFT = async (address: string, tokenID: Number, _price: Number) => {
-        const price = await klay2Peb(_price.toString())
+        const price = await _klay2Peb(_price.toString())
         const res = await mtt.methods.buyNFT(tokenID).send({from: address, gas: 150000000, value: price});
         console.log(res);
     };
 
     const test = async () => {
-        console.log(mtt.methods);
+        const role = '0x00'
+        const res = await mtt.methods.getRoleAdmin(role).call({from: admin, gas: 150000000})
+        console.log(res);
     };
+
+    const getOnSale = async () => {
+        const res = await mtt.methods.getOnSale().call({from: admin, gas: 150000000})
+        console.log(res);
+    };
+
+    const getOnSaleInfo = async (tokenID: Number) => {
+        const res = await mtt.methods.getOnSaleInfo(tokenID).call({from: admin, gas: 150000000})
+        console.log(res);
+    };
+
+    const addMinter = async (address: string) => {
+        // const role = '0x00'
+        // const res = await mtt.methods.getRoleMember(role, 0).call({from: admin, gas: 150000000})
+        const res = await mtn.addMinter(admin, {from: admin, gas: 150000000})
+        console.log(res)
+    }
 
     return {
         count1,
@@ -160,8 +134,11 @@ export default function useKlaytn() {
         checkInterface,
         isMinter,
         setForSale,
-        removeTokenOnSale,
+        unsetForSale,
         buyNFT,
-        test
+        test,
+        getOnSale,
+		getOnSaleInfo,
+        addMinter
     };
 }
