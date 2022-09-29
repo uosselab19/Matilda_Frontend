@@ -90,8 +90,8 @@ export const Signin = () => {
 
         {/* remember ID 체크 */}
         <div className="checkbox mt-4 mb-3">
-          <input type="checkbox" className="form-checkbox" id="floatingCheckbox" value="remember-me" tabIndex={-1}></input>
-          <label htmlFor="floatingCheckbox">Remember ID 부분</label>
+          <input type="checkbox" className="form-checkbox me-2" id="floatingCheckbox" value="remember-me" tabIndex={-1}></input>
+          <label htmlFor="floatingCheckbox">Remember ID</label>
         </div>
 
         {/* Sign in 버튼 */}
