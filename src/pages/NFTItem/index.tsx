@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import { Item, UpdateItem } from '../../types/Item';
+import { DetailItem, UpdateItem } from '../../types/Item';
 import { getItem, putItem } from '../../services/itemService';
-import { alertError, alertInput, alertSuccess, confirmModal, confirmSuccess, confirmWarning } from '../../utils/alertUtil';
+import { alertError, alertInput, alertSuccess, alertWarning, confirmModal, confirmSuccess, confirmWarning } from '../../utils/alertUtil';
 import { getS3Url } from '../../utils/S3';
 import { getUserInfo } from '../../utils/cookieUtil';
 import { selectMember } from '../../services/memberService';
@@ -10,7 +10,7 @@ import { ReceiptCard } from '../../components/NFTItem/ReceiptCard';
 
 export const NFTItem = () => {
   const [mode, setMode] = useState("");
-  const [item, setItem] = useState({} as Item);
+  const [item, setItem] = useState({} as DetailItem);
   const [searchParams] = useSearchParams();
   const location = useLocation().pathname.split("/")[1];
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ export const NFTItem = () => {
           else if (data.stateCode == "NOS") setMode("sell");
           else if (data.stateCode == "OS") setMode("cancel");
         }
-        setItem(data as Item);
+        setItem(data as DetailItem);
       }
     })();
   }, []);
@@ -65,14 +65,18 @@ export const NFTItem = () => {
   }
 
   const handleBuy = async () => {
-    const result = await confirmModal("구매할까요?", "마음에 드신다면 구매하기 버튼을 누르세요!", "구매하기", "돌아가기", getS3Url(item.imgUrl), "Selling NFT");
-    if (result.isDismissed) alertError("취소했어요!", "다시 한 번 생각해주시고 찾아와주세요 ㅎㅎ");
-    if (result.isConfirmed) {
-      const result = await confirmWarning("정말 구매할까요?", "구매하기를 누르시면 구매가 확정됩니다. 주의해주세요!", "구매하기", "취소하기");
+    const cookie = getUserInfo();
+    if (!cookie) alertWarning("로그인이 필요해요!", "로그인 후 이용해주세요!");
+    else {
+      const result = await confirmModal("구매할까요?", "마음에 드신다면 구매하기 버튼을 누르세요!", "구매하기", "돌아가기", getS3Url(item.imgUrl), "Selling NFT");
       if (result.isDismissed) alertError("취소했어요!", "다시 한 번 생각해주시고 찾아와주세요 ㅎㅎ");
       if (result.isConfirmed) {
-        const result = await confirmSuccess("페이지 이동", "구매가 완료되었습니다! 마켓플레이스로 페이지를 이동할까요?", "이동하기", "취소하기");
-        if (result.isConfirmed) navigate('/mypage');
+        const result = await confirmWarning("정말 구매할까요?", "구매하기를 누르시면 구매가 확정됩니다. 주의해주세요!", "구매하기", "취소하기");
+        if (result.isDismissed) alertError("취소했어요!", "다시 한 번 생각해주시고 찾아와주세요 ㅎㅎ");
+        if (result.isConfirmed) {
+          const result = await confirmSuccess("페이지 이동", "구매가 완료되었습니다! 마켓플레이스로 페이지를 이동할까요?", "이동하기", "취소하기");
+          if (result.isConfirmed) navigate('/mypage');
+        }
       }
     }
   }
@@ -97,8 +101,10 @@ export const NFTItem = () => {
     const result = await confirmModal("NFT 발행", "NFT를 발행하고 싶으면 발행하기 버튼을 눌러주세요!", "발행하기", "돌아가기", getS3Url(item.imgUrl), "Minting NFT");
     if (result.isDismissed) alertError("취소했어요!", "다시 한 번 생각해주시고 찾아와주세요 ㅎㅎ");
     if (result.isConfirmed) {
+      // const {data, error} = selectMember();
+      // await mint();
       alertSuccess("발행 완료", "해당 아이템에 NFT 발행이 완료되었습니다!");
-  }
+    }
   }
 
   return item ? (

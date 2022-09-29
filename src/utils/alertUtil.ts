@@ -1,4 +1,5 @@
 import Swal from "sweetalert2";
+import item_img1 from '../assets/images/Marketplace/item_img.png';
 
 export const alertSuccess = (title: string, text: string) => {
 	return Swal.fire({
@@ -36,7 +37,7 @@ export const alertModal = async (title: string, text: string, url: string, alt?:
 	return Swal.fire({
 		title: title,
 		text: text,
-		imageUrl: url,
+		imageUrl: (url.length>0 && url!="no img")?url:item_img1,
 		imageAlt: alt ? alt : "Modal Image",
 		imageWidth: width ? width : 500,
 		imageHeight: width ? width : 500,
@@ -90,7 +91,7 @@ export const confirmModal = async (title: string, text: string, confirmText: str
 	return Swal.fire({
 		title: title,
 		text: text,
-		imageUrl: url,
+		imageUrl: (url.length>0 && url!="no img")?url:item_img1,
 		imageWidth: width ? width : 500,
 		imageHeight: width ? width : 500,
 		width: width ? width + 60 : 560,

@@ -36,6 +36,17 @@ export interface Item {
   price: number;
   title: string;
   imgUrl: string;
+  memberThumbImgUrl: string;
+  stateCode: string;
+  tokenID: number;
+}
+
+export interface DetailItem {
+  itemNum: number;
+  catCode: string;
+  price: number;
+  title: string;
+  imgUrl: string;
   objectUrl: string;
   description: string;
   memberNickName: string;

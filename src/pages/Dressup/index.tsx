@@ -9,15 +9,17 @@ import { Clothes } from '../../types/Clothes';
 import { Scene } from 'three';
 import { getS3Url } from '../../utils/S3';
 import { NavButtons } from '../../components/NavButtons';
-import { Item } from '../../types/Item';
+import { DetailItem } from '../../types/Item';
+import { getObjectUrl } from '../../services/objectService';
+import { alertError } from '../../utils/alertUtil';
 
 
 export const Dressup = () => {
   const [scene] = useState(new Scene() as Scene);
   const [clothes, setClothes] = useState({} as Clothes);
-  const [changedClothes, setChangedClothes] = useState({} as Item);
+  const [changedClothes, setChangedClothes] = useState({} as DetailItem);
   const [presetList, setPresetList] = useState([] as Clothes[]);
-  const [selectedNavButton, setSelectedNavButton] = useState("Market");
+  const [selectedNavButton, setSelectedNavButton] = useState("Marketplace");
   const [modelHeight, roomWidth, roomHeight] = [60, 512, 200];
 
   const navItems = [
@@ -44,18 +46,22 @@ export const Dressup = () => {
       console.log(sceneCatCode);
       console.log(changedClothes);
 
-      const index = Object.entries(clothes).findIndex(async (e) => {
-        return e[1].catCode === changedClothes.catCode;
-      });
+      const { data, error } = await getObjectUrl(changedClothes.itemNum);
 
-      if (index > -1) {
-        scene.remove(sceneMesh[index]);
-        console.log(sceneMesh[index]);
+      if (error) {
+        console.log(error);
+        alertError("URL 에러", "오브젝트를 불러오는 중 문제가 발생했습니다.");
+      } else {
+        const index = Object.entries(clothes).findIndex(async (e) => {
+          return e[1].catCode === changedClothes.catCode;
+        });
+
+        if (index > -1) scene.remove(sceneMesh[index]);
+
+        loadModel(changedClothes.catCode, await getS3Url(data),
+          changedClothes.catCode == "TOP" ? 0.4 * modelHeight : 0.55 * modelHeight, scene,
+          changedClothes.catCode == "TOP" ? 40 : 20);
       }
-
-      loadModel(changedClothes.catCode, await getS3Url(changedClothes.objectUrl),
-        changedClothes.catCode == "TOP" ? 0.4 * modelHeight : 0.55 * modelHeight, scene,
-        changedClothes.catCode == "TOP" ? 40 : 20);
     })();
   }, [changedClothes]);
 

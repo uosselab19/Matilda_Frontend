@@ -71,8 +71,8 @@ const AxiosInterceptorSetup = (navigate: NavigateFunction) => {
 			}
 
 			anonymousApiClient.defaults.headers["X-AUTH-TOKEN"] = userInfo.accessToken;
-			await anonymousApiClient.post('/security/validCheck', { headers: { "X-AUTH-TOKEN": userInfo.accessToken } })
-
+			const result = await anonymousApiClient.post('/security/validCheck', { headers: { "X-AUTH-TOKEN": userInfo.accessToken } })
+			console.log(result);
 		} catch (err) {
 			error = err;
 		}

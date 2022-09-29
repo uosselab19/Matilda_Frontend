@@ -11,7 +11,6 @@ import { Signup } from '../../pages/SignUp';
 import { Mypage } from '../../pages/Mypage';
 import { NFTItem } from '../../pages/NFTItem';
 import { NotFound } from '../../pages/NotFound';
-import { Test } from '../Test/Test';
 import AxiosInterceptorNavigate from '../../configs/Interceptor';
 
 export const App = () => {
@@ -30,7 +29,6 @@ export const App = () => {
         <Route path="signin" element={<Signin />} />
         <Route path="signup" element={<Signup />} />
         <Route path="mypage" element={<Mypage />} />
-        <Route path="test" element={<Test />} />
 
         <Route path="marketplace/NFTItem" element={<NFTItem />} />
         <Route path="mypage/NFTItem" element={<NFTItem />} />

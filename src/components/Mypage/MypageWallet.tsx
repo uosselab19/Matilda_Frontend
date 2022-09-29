@@ -1,9 +1,8 @@
 import useItems from "../../hooks/useItems";
 import { getUserInfo } from "../../utils/cookieUtil";
 import Items from "../Items/Items";
-import { selectItems } from '../../services/itemService';
-import { confirmModal } from "../../utils/alertUtil";
-import { Item } from "../../types/Item";
+import { getItem, selectItems } from '../../services/itemService';
+import { alertError, confirmModal } from "../../utils/alertUtil";
 import { useNavigate } from "react-router-dom";
 
 export const MypageWallet = () => {
@@ -13,10 +12,16 @@ export const MypageWallet = () => {
   const cookie = getUserInfo();
   const { count, items, page, setPage } = useItems(selectItems, { memberNum: cookie.num }, numShowItems);
 
-  const handleCard = async (item: Item) => {
-    const result = await confirmModal(item.title, item.description, "판매하기", "수정하기", item.imgUrl, 'Not NFT Image');
-    if (result.isConfirmed) {
-      navigate(`/mypage/NFTItem?nft_id=${item.itemNum}`);
+  const handleCard = async (itemNum: number) => {
+    const { data, error } = await getItem(itemNum);
+    if (error) {
+      console.log(error);
+      alertError('아이템을 찾지 못 했어요!', '아이템 정보를 불러오는 중 문제가 발생했어요!');
+    } else {
+      const result = await confirmModal(data.title, data.description, "판매하기", "수정하기", data.imgUrl, 'Not NFT Image');
+      if (result.isConfirmed) {
+        navigate(`/mypage/NFTItem?nft_id=${data.itemNum}`);
+      }
     }
   }
 
@@ -44,7 +49,7 @@ export const MypageWallet = () => {
             klay
           </label>
           <div className="col-8">
-            <input className="form-control border-dark" id="walletAddress1" placeholder="" type="text" required />
+            <input className="form-control border-dark" id="walletAddress2" placeholder="" type="text" required />
             <div className="invalid-feedback">Please enter a valid Wallet Address</div>
           </div>
 

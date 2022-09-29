@@ -79,12 +79,11 @@ export default function Card(props: CardProps) {
     }
   };
 
-
   return (
     <div>
       <div
         className={`cardItemNum${item ? item.itemNum : ""}`}
-        onClick={() => { if (handleCard) handleCard(item); }}
+        onClick={() => { if (handleCard) handleCard(item?.itemNum); }}
         draggable="false"
         aria-expanded="false"
         style={{ display: (item) ? "block" : "none" }} >
@@ -101,7 +100,7 @@ export default function Card(props: CardProps) {
           <img
             alt=""
             className="card-img"
-            src={item?getS3Url(item.imgUrl):item_img1} />
+            src={(item&&item.imgUrl!="no img")?getS3Url(item.imgUrl):item_img1} />
           <div className="card-img-overlay" style={{ top: '70%', backgroundColor: (item?.stateCode != "CR") ? 'black' : 'white', opacity: 0.8 }} />
           <div className="card-img-overlay d-flex flex-column">
             <div className={`card-text mt-auto d-flex justify-content-between px-2 ${size == 'lg' ? 'py-2' : ''}`}>
