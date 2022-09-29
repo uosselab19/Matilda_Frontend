@@ -19,8 +19,6 @@ export const Header = () => {
 
   //로그아웃 버튼 기능
   const fetchSignout = async () => {
-    const cookie = getUserInfo();
-    console.log(cookie);
     await signoutMember();
     alertSuccess('로그아웃', `로그아웃했습니다!`);// 로그아웃했다고 알림
     removeUserInfo(); // 로그인 기록 쿠키 지우기

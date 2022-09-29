@@ -49,7 +49,9 @@ export interface DetailItem {
   imgUrl: string;
   objectUrl: string;
   description: string;
+  tokenID: number;
   memberNickName: string;
+  memberNum:number;
   memberThumbImgUrl: string;
   stateCode: string;
 }

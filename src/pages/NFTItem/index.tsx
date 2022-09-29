@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { DetailItem, UpdateItem } from '../../types/Item';
 import { getItem, putItem } from '../../services/itemService';
-import { alertError, alertInput, alertSuccess, alertWarning, confirmModal, confirmSuccess, confirmWarning } from '../../utils/alertUtil';
+import { alertError, alertInput, alertSuccess, alertWarning, confirmModal, confirmWarning } from '../../utils/alertUtil';
 import { getS3Url } from '../../utils/S3';
 import { getUserInfo } from '../../utils/cookieUtil';
-import { selectMember } from '../../services/memberService';
 import { ReceiptCard } from '../../components/NFTItem/ReceiptCard';
+import { buyNFT, setForSale, mint, unsetForSale } from '../../utils/caverUtil';
 
 export const NFTItem = () => {
   const [mode, setMode] = useState("");
@@ -24,14 +24,8 @@ export const NFTItem = () => {
         alertError('아이템을 찾지 못 했어요!', '아이템 정보를 불러오는 중 문제가 발생했어요!');
         navigate(`/${location}`);
       } else {
-        const memberNickName = data.memberNickName;
         if (location == "marketplace") {
-          const cookie = getUserInfo();
-          if (cookie) {
-            const { data, error } = await selectMember(cookie.num);
-            if (error) { alertError("회원정보 에러", "회원정보를 불러오는 중에 문제가 발생했어요!"); }
-            else if (data.nickname == memberNickName) setMode("cancel");
-          }
+          if(getUserInfo()?.num == data.memberNum) setMode("cancel");
           else setMode("buy");
         } else if (location == "mypage") {
           if (data.stateCode == "CR") setMode("mint");
@@ -74,8 +68,8 @@ export const NFTItem = () => {
         const result = await confirmWarning("정말 구매할까요?", "구매하기를 누르시면 구매가 확정됩니다. 주의해주세요!", "구매하기", "취소하기");
         if (result.isDismissed) alertError("취소했어요!", "다시 한 번 생각해주시고 찾아와주세요 ㅎㅎ");
         if (result.isConfirmed) {
-          const result = await confirmSuccess("페이지 이동", "구매가 완료되었습니다! 마켓플레이스로 페이지를 이동할까요?", "이동하기", "취소하기");
-          if (result.isConfirmed) navigate('/mypage');
+          buyNFT(address, item.tokenID, item.price);
+          await alertSuccess("페이지 이동", "구매가 완료되었습니다!");
         }
       }
     }
@@ -85,6 +79,7 @@ export const NFTItem = () => {
     const result = await confirmModal("판매 등록하기", "판매를 등록하고 싶으면 등록하기 버튼을 눌러주세요!", "등록하기", "돌아가기", getS3Url(item.imgUrl), "cancel on sale");
     if (result.isDismissed) alertError("취소했어요!", "다시 한 번 생각해보시고 찾아와주세요 ㅎㅎ");
     if (result.isConfirmed) {
+      await setForSale(address, item.tokenID, item.price);
       alertSuccess("등록 완료", "지금부터 Marketplace에 당신이 올려놓은 NFT가 보일 거에요!");
     }
   }
@@ -93,6 +88,7 @@ export const NFTItem = () => {
     const result = await confirmModal("거래 무르기", "거래 등록을 해제하고 싶으면 해제하기 버튼을 눌러주세요!", "해제하기", "돌아가기", getS3Url(item.imgUrl), "cancel on sale");
     if (result.isDismissed) alertError("취소했어요!", "다시 한 번 생각해보시고 찾아와주세요 ㅎㅎ");
     if (result.isConfirmed) {
+      await unsetForSale(address, item.tokenID);
       alertSuccess("무름~", "거래 등록을 해제했습니다.");
     }
   }
@@ -101,8 +97,7 @@ export const NFTItem = () => {
     const result = await confirmModal("NFT 발행", "NFT를 발행하고 싶으면 발행하기 버튼을 눌러주세요!", "발행하기", "돌아가기", getS3Url(item.imgUrl), "Minting NFT");
     if (result.isDismissed) alertError("취소했어요!", "다시 한 번 생각해주시고 찾아와주세요 ㅎㅎ");
     if (result.isConfirmed) {
-      // const {data, error} = selectMember();
-      // await mint();
+      await mint(minter, tokenURI);
       alertSuccess("발행 완료", "해당 아이템에 NFT 발행이 완료되었습니다!");
     }
   }
@@ -173,7 +168,7 @@ export const NFTItem = () => {
               </div>
             </div>
 
-            <h3>NFT Receipt</h3>
+            <h3>History</h3>
             <div className='card py-2 px-1 mt-3'>
               {/* <ReceiptCard index={5} title={"setForSale"} />
               <ReceiptCard index={4} title={"butNFT"} />
