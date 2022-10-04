@@ -1,4 +1,4 @@
-import { UpdateMember } from '../types/Member';
+import { UpdateMember, UpdateMemberKlaytn } from '../types/Member';
 import { anonymousApiClient, apiClient } from '../configs/apiClient';
 
 export const insertMember = async (member: any) => {
@@ -40,3 +40,18 @@ export const putMember = async (member: UpdateMember) => {
 
   return { data, error };
 }
+
+export const putMemberKlaytn = async (memberNum:number, member: UpdateMemberKlaytn) => {
+  let [data, error] = [undefined, undefined] as any;
+
+  try {
+    const result = await apiClient.put(`/members/auth/klaytn/${memberNum}`, member);
+
+    data = result?.data;
+  } catch (err) {
+    error = err;
+  }
+
+  return { data, error };
+}
+

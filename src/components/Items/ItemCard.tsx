@@ -14,6 +14,16 @@ interface CardProps {
 export default function Card(props: CardProps) {
   const { item, size, handleCard } = props;
 
+  const chooseColor = (stateCode: string|undefined): [string, string] => {
+    switch (stateCode) {
+      case "CR": return ["white", "black"];
+      case "OS": return ["green", "black"];
+      case "NOS": return ["black", "white"];
+      default: return ["red", "white"];
+    }
+  }
+  const [bgColor, textColor] = chooseColor(item?.stateCode);
+
   const handleMouse = (e: React.MouseEvent): void => {
     e.stopPropagation();
     e.preventDefault();
@@ -33,7 +43,7 @@ export default function Card(props: CardProps) {
         'style',
         'transition-duration: 1.25s;' +
         'transition-timing-function: easy-in;' +
-        `background-color: ${(item?.stateCode != "CR") ? 'black' : 'white'};` +
+        `background-color: ${bgColor};` +
         'top: 0%;' +
         'opacity: 0.8;'
       );
@@ -60,7 +70,7 @@ export default function Card(props: CardProps) {
         'style',
         'transition-duration: 1.25s;' +
         'transition-timing-function: easy-in;' +
-        `background-color:${(item?.stateCode != "CR") ? 'black' : 'white'};` +
+        `background-color:${bgColor};` +
         'opacity:0.8;' +
         'top: 70%;'
       );
@@ -88,7 +98,7 @@ export default function Card(props: CardProps) {
         aria-expanded="false"
         style={{ display: (item) ? "block" : "none" }} >
         <div
-          className={`card overflow-hidden text-${(item?.stateCode != "CR") ? 'white' : 'black'} d-flex flex-column`}
+          className={`card overflow-hidden text-${textColor} d-flex flex-column`}
           onMouseOver={handleMouse}
           onMouseLeave={handleMouse}
           style={{
@@ -100,8 +110,8 @@ export default function Card(props: CardProps) {
           <img
             alt=""
             className="card-img"
-            src={(item&&item.imgUrl!="no img")?getS3Url(item.imgUrl):item_img1} />
-          <div className="card-img-overlay" style={{ top: '70%', backgroundColor: (item?.stateCode != "CR") ? 'black' : 'white', opacity: 0.8 }} />
+            src={(item && item.imgUrl != "no img") ? getS3Url(item.imgUrl) : item_img1}/>
+          <div className="card-img-overlay" style={{ top: '70%', backgroundColor: bgColor, opacity: 0.8 }} />
           <div className="card-img-overlay d-flex flex-column">
             <div className={`card-text mt-auto d-flex justify-content-between px-2 ${size == 'lg' ? 'py-2' : ''}`}>
               {(size == 'lg') ?

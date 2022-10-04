@@ -49,9 +49,19 @@ export interface DetailItem {
   imgUrl: string;
   objectUrl: string;
   description: string;
-  tokenID: number;
+  tokenId: number;
+  tokenUri: string;
   memberNickName: string;
   memberNum:number;
   memberThumbImgUrl: string;
   stateCode: string;
+}
+
+export interface ChangeItem {
+  buyerNum: number;
+  option: string;
+  price: number;
+  tokenId: number;
+  tokenUri: string;
+  transactionHash: string;
 }

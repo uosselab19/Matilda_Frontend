@@ -1,26 +1,39 @@
 import { caver, mtt, wallet } from '../configs/Caver';
 
-// const _peb2Klay = async (peb: string) => {
-//     return caver.utils.convertFromPeb(peb, 'KLAY');
-// };
-
-// const _getBalance = async (address: string) => {
-//     return _peb2Klay(await caver.rpc.klay.getBalance(address));
-// };
+const _peb2Klay = async (peb: string) => {
+    return caver.utils.convertFromPeb(peb, 'KLAY');
+};
 
 const _klay2Peb = async (klay: string) => {
 	return caver.utils.convertToPeb(klay, "KLAY");
 }
 
+export const createAccount = () => {
+	const [address]=caver.wallet.generate(1, caver.utils.randomHex(32));
+	const keyring=caver.wallet.getKeyring(address)
+	const privateKey=Object.entries(keyring)[1][1].privateKey;
+	updateKeyring(address, privateKey);
+	return {address, privateKey};
+}
+
 export const removeKeyring = (address: string) => {
 	if (wallet.isExisted(address)) wallet.remove(address);
 }
+
 export const updateKeyring = (address: string, privateKey: string) => {
-	removeKeyring(address)
+	removeKeyring(address);
 	return wallet.newKeyring(address, privateKey);
 }
 
-export const mint = async (minter: string, tokenURI: string) => {
+export const getBalance = async (address: string) => {
+	return _peb2Klay(await caver.rpc.klay.getBalance(address));
+}
+
+export const mint = async (minter: string, objectURL: string) => {
+	console.log(minter);
+	console.log(objectURL);
+	const tokenURI="hello mindul";
+	
 	return await mtt.methods.mintNFT(minter, tokenURI).send({ from: process.env.address });;
 };
 

@@ -10,20 +10,20 @@ import { alertError, confirmWarning } from '../../utils/alertUtil';
 import { getS3Url } from '../../utils/S3';
 import { getUserInfo } from '../../utils/cookieUtil';
 
-interface DressupMarketProps {
+interface DressupItemsProps {
   clothes: Clothes;
   setClothes: React.Dispatch<React.SetStateAction<Clothes>>;
   presetList: Clothes[];
-
+  options: {};
   setChangedClothes: React.Dispatch<React.SetStateAction<DetailItem>>;
 }
 
-export const DressupMarket = (props: DressupMarketProps) => {
-  const { clothes, setClothes, presetList, setChangedClothes } = props;
+export const DressupItems = (props: DressupItemsProps) => {
+  const { clothes, setClothes, presetList, options, setChangedClothes } = props;
   const [numShowItems, numShowPages] = [12, 10];
   const navigate = useNavigate();
 
-  const { count, items, page, setPage, setSelectCondition } = useItems(selectItems, {}, numShowItems);
+  const { count, items, page, setPage, setSelectCondition } = useItems(selectItems, options, numShowItems);
 
   const handleCard = async (itemNum: number) => {
     const { data, error } = await getItem(itemNum);

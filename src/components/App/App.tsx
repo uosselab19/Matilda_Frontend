@@ -29,9 +29,8 @@ export const App = () => {
         <Route path="signin" element={<Signin />} />
         <Route path="signup" element={<Signup />} />
         <Route path="mypage" element={<Mypage />} />
-
-        <Route path="marketplace/NFTItem" element={<NFTItem />} />
-        <Route path="mypage/NFTItem" element={<NFTItem />} />
+        
+        <Route path="NFTItem" element={<NFTItem />} />
 
         <Route path="/*" element={<NotFound />} />
       </Routes>

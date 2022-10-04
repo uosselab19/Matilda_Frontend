@@ -1,4 +1,4 @@
-import { SelectItem, UpdateItem } from '../types/Item';
+import { ChangeItem, SelectItem, UpdateItem } from '../types/Item';
 import { anonymousApiClient, apiClient } from '../configs/apiClient';
 
 export async function selectItems(item: SelectItem) {
@@ -46,6 +46,20 @@ export const putItem = async (item: UpdateItem) => {
 
   try {
     const result = await apiClient.put(`/items/auth/${item.itemNum}`, item);
+
+    data = result?.data;
+  } catch (err) {
+    error = err;
+  }
+
+  return { data, error };
+}
+
+export const changeItem = async (itemNum:number, item: ChangeItem) => {
+  let [data, error] = [undefined, undefined] as any;
+
+  try {
+    const result = await apiClient.put(`/items/auth/change/${itemNum}`, item);
 
     data = result?.data;
   } catch (err) {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { MypageNFTs } from '../../components/Mypage/MypageNFTs';
-import { MypageWallet } from '../../components/Mypage/MypageWallet';
+import { MypageKlaytn } from '../../components/Mypage/MypageKlaytn';
 import { MypageOption } from '../../components/Mypage/MypageOption';
 import { useNavigate } from 'react-router-dom';
 import { NavButtons } from '../../components/NavButtons';
@@ -33,6 +33,7 @@ export const Mypage = () => {
           if (error) {
             console.log(error);
             alertError('누구셨죠...?', '유저정보를 불러오는 중 에러가 발생했습니다.');
+            navigate('/');
           } else {
             setUserInfo(data);
           }
@@ -73,7 +74,9 @@ export const Mypage = () => {
               <MypageNFTs />
             </div>
             <div className={`${selectedNavButton == "klaytn" ? "d-block" : "d-none"}`}>
-              <MypageWallet />
+              <MypageKlaytn
+                userInfo={userInfo}
+                setUserInfo={setUserInfo} />
             </div>
             <div className={`${selectedNavButton == "editInfo" ? "d-block" : "d-none"}`}>
               <MypageOption

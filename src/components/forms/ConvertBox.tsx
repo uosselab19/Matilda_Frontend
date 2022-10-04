@@ -25,7 +25,6 @@ export default function ConvertBox(props: ConvertBoxProps) {
 
     setLoading(true);
 
-    console.log({ file: input, category: category.catCode });
     const { data, error } = await postImage({ file: input, category: category.catCode });
     if (error) {
       console.log(error);

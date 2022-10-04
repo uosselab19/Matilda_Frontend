@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { DressupMarket } from '../../components/Dressup/DressupMarket';
+import { DressupItems } from '../../components/Dressup/DressupItems';
 import { DressupPreset } from '../../components/Dressup/DressupPreset';
 import { DressupInfo } from '../../components/Dressup/DressupInfo';
 import createView from '../../utils/threejs/threeViewUtil';
@@ -12,6 +12,7 @@ import { NavButtons } from '../../components/NavButtons';
 import { DetailItem } from '../../types/Item';
 import { getObjectUrl } from '../../services/objectService';
 import { alertError } from '../../utils/alertUtil';
+import { getUserInfo } from '../../utils/cookieUtil';
 
 
 export const Dressup = () => {
@@ -52,15 +53,16 @@ export const Dressup = () => {
         console.log(error);
         alertError("URL 에러", "오브젝트를 불러오는 중 문제가 발생했습니다.");
       } else {
-        const index = Object.entries(clothes).findIndex(async (e) => {
-          return e[1].catCode === changedClothes.catCode;
-        });
-
-        if (index > -1) scene.remove(sceneMesh[index]);
+        // const index = Object.entries(clothes).findIndex(async (e) => {
+        //   return e[1].catCode === changedClothes.catCode;
+        // });
+        // console.log(index);
+        // console.log(sceneMesh);
+        // if (index > -1) scene.remove(sceneMesh[index]);
 
         loadModel(changedClothes.catCode, await getS3Url(data),
           changedClothes.catCode == "TOP" ? 0.4 * modelHeight : 0.55 * modelHeight, scene,
-          changedClothes.catCode == "TOP" ? 40 : 20);
+          changedClothes.catCode == "TOP" ? 40 : 17);
       }
     })();
   }, [changedClothes]);
@@ -110,17 +112,19 @@ export const Dressup = () => {
               textColor={"black"} />
           </div>
           <div className={`${selectedNavButton == "Marketplace" ? "d-block" : "d-none"}`}>
-            <DressupMarket
+            <DressupItems
               clothes={clothes}
               setClothes={setClothes}
               presetList={presetList}
+              options={{}}
               setChangedClothes={setChangedClothes} />
           </div>
           <div className={`${selectedNavButton == "Mypage" ? "d-block" : "d-none"}`}>
-            <DressupMarket
+            <DressupItems
               clothes={clothes}
               setClothes={setClothes}
               presetList={presetList}
+              options={{memberNum:getUserInfo()?.num}}
               setChangedClothes={setChangedClothes} />
           </div>
           <div className={`${selectedNavButton == "Info" ? "d-block" : "d-none"}`}>

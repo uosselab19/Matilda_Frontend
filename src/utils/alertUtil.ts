@@ -37,7 +37,7 @@ export const alertModal = async (title: string, text: string, url: string, alt?:
 	return Swal.fire({
 		title: title,
 		text: text,
-		imageUrl: (url.length>0 && url!="no img")?url:item_img1,
+		imageUrl: (url.length > 0 && url != "no img") ? url : item_img1,
 		imageAlt: alt ? alt : "Modal Image",
 		imageWidth: width ? width : 500,
 		imageHeight: width ? width : 500,
@@ -91,7 +91,7 @@ export const confirmModal = async (title: string, text: string, confirmText: str
 	return Swal.fire({
 		title: title,
 		text: text,
-		imageUrl: (url.length>0 && url!="no img")?url:item_img1,
+		imageUrl: (url.length > 0 && url != "no img") ? url : item_img1,
 		imageWidth: width ? width : 500,
 		imageHeight: width ? width : 500,
 		width: width ? width + 60 : 560,
@@ -122,3 +122,29 @@ export const alertInput = async (title: string, text: string, placeholder: strin
 
 	return newValue;
 }
+
+export const confirmInputModal = async (title: string, text: string, confirmText: string, cancelText: string, placeholder: string, url: string, alt?: string) => {
+	return await Swal.fire({
+		title: title,
+		imageUrl: (url.length > 0 && url != "no img") ? url : item_img1,
+		imageAlt: alt ? alt : "Modal Image",
+		input: 'text',
+		inputLabel: text,
+		inputPlaceholder: placeholder,
+		allowOutsideClick: false,
+		showCancelButton: true,
+		confirmButtonText: confirmText,
+		confirmButtonColor: '#81c147',
+		cancelButtonText: cancelText,
+		cancelButtonColor: '#d33',
+		inputValidator: (value) => {
+			if (!value) {
+				return '빈칸을 채워주세요!'
+			} else if(isNaN(Number(value))){
+				return '숫자로 입력해주세요!';
+			}
+			return "";
+		}
+	})
+}
+

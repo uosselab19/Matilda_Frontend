@@ -14,11 +14,11 @@ export const ReceiptCard = (props: ReceiptCard) => {
                 aria-expanded="false"
                 aria-controls={`collapseReceipt${index + 1}`}>
                 <div className='w-100 my-1 ms-0'>
-                    <span className="ps-3 py-2"> Method: {title}</span>
+                    <span className="ps-3 py-2 fw-bold">{title}</span>
                 </div>
             </div>
-            <div className='card-body collapse py-1 row' id={`collapseReceipt${index + 1}`}>
-                <div className='col-4'>txHash: {"asdf"}</div>
+            <div className='card-body collapse py-1 row fw-bold' id={`collapseReceipt${index + 1}`}>
+                <div className='col-12'>txHash: {"0xe877149bae6be03ad1952c17d817344798f0351c629acafa627f5c6c055babe2"}</div>
                 <div className='col-12'>seller address: {"0x64469e021f23353a3e0757bc4d211a6f9756d37a"}</div>
                 <div className='col-12'>buyer address: {"0x04c1499f9fa23668c08c5322992a8e9bba709ede"}</div>
             </div>
