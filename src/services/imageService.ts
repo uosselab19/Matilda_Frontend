@@ -15,14 +15,12 @@ export async function postImage(image: {}) {
     return { data, error };
 }
 
-export async function getCID(info:any) {
+export async function getCID(itemNum: number) {
     let [data, error] = [undefined, undefined] as any;
     try {
         const form = new FormData();
-        Object.keys(info).forEach((e) => { form.append(e, info[e]); })
+        form.append("num", itemNum.toString());
 
-        console.log(form);
-        
         const result = await imageApiClient.post('/getCID', form);
         data = result?.data;
     } catch (err) {

@@ -15,15 +15,16 @@ interface DressupItemsProps {
   setClothes: React.Dispatch<React.SetStateAction<Clothes>>;
   presetList: Clothes[];
   options: {};
+  exceptionCodes?: string[];
   setChangedClothes: React.Dispatch<React.SetStateAction<DetailItem>>;
 }
 
 export const DressupItems = (props: DressupItemsProps) => {
-  const { clothes, setClothes, presetList, options, setChangedClothes } = props;
+  const { clothes, setClothes, presetList, options, exceptionCodes, setChangedClothes } = props;
   const [numShowItems, numShowPages] = [12, 10];
   const navigate = useNavigate();
 
-  const { count, items, page, setPage, setSelectCondition } = useItems(selectItems, options, numShowItems);
+  const { count, items, page, setPage, setSelectCondition } = useItems(selectItems, options, numShowItems, exceptionCodes);
 
   const handleCard = async (itemNum: number) => {
     const { data, error } = await getItem(itemNum);
@@ -42,7 +43,7 @@ export const DressupItems = (props: DressupItemsProps) => {
         else {
           if (!presetList.some((e) => { return e == clothes; })) {
             const result = await confirmWarning(`페이지 이동`, "아직 입고 있는 착장 정보가 프리셋에 저장이 되지 않았는데 페이지를 이동할까요?", `저장하고 올게요.`, '이동할게요.');
-            if (result.isDismissed) navigate(`/marketplace/NFTitem?nft_id=${itemNum}`);
+            if (result.isDismissed) navigate(`/NFTitem?nft_id=${itemNum}`);
             if (result.isConfirmed) alertError('멈췄어요!', "저장하고 오시는 게 더 좋을 듯싶네요 ㅎㅎ");
           }
         }

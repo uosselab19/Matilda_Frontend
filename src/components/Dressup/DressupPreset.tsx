@@ -98,7 +98,7 @@ const PresetCard = (props: PresetCard) => {
           </button>
         </div>
       </div>
-      <div className='card-bodycollapse show' id={`collapsePreset${index + 1}`}>
+      <div className='card-bodycollapse show p-0' id={`collapsePreset${index + 1}`}>
         <DressupCard
           clothes={clothes}
           setClothes={setClothes}

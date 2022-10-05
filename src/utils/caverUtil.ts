@@ -29,11 +29,7 @@ export const getBalance = async (address: string) => {
 	return _peb2Klay(await caver.rpc.klay.getBalance(address));
 }
 
-export const mint = async (minter: string, objectURL: string) => {
-	console.log(minter);
-	console.log(objectURL);
-	const tokenURI="hello mindul";
-	
+export const mint = async (minter: string, tokenURI:string) => {
 	return await mtt.methods.mintNFT(minter, tokenURI).send({ from: process.env.address });;
 };
 

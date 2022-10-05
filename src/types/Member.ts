@@ -47,4 +47,6 @@ export interface UserInfo {
   exp: number;
   refreshToken: string;
   accessToken: string;
+  address: string;
+  privateKey: string;
 }

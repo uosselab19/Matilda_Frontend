@@ -7,12 +7,11 @@ import { loadModel } from '../../utils/threejs/threeModelUtil';
 import createFittingRoom from '../../utils/threejs/threeRoomUtil';
 import { Clothes } from '../../types/Clothes';
 import { Scene } from 'three';
-import { getS3Url } from '../../utils/S3';
 import { NavButtons } from '../../components/NavButtons';
 import { DetailItem } from '../../types/Item';
-import { getObjectUrl } from '../../services/objectService';
 import { alertError } from '../../utils/alertUtil';
 import { getUserInfo } from '../../utils/cookieUtil';
+import { getCID } from '../../services/imageService';
 
 
 export const Dressup = () => {
@@ -47,7 +46,7 @@ export const Dressup = () => {
       console.log(sceneCatCode);
       console.log(changedClothes);
 
-      const { data, error } = await getObjectUrl(changedClothes.itemNum);
+      const { data, error } = await getCID(changedClothes.itemNum);
 
       if (error) {
         console.log(error);
@@ -59,8 +58,8 @@ export const Dressup = () => {
         // console.log(index);
         // console.log(sceneMesh);
         // if (index > -1) scene.remove(sceneMesh[index]);
-
-        loadModel(changedClothes.catCode, await getS3Url(data),
+        console.log(data);
+        loadModel(changedClothes.catCode, `https://nftstorage.link/ipfs/${data}`,
           changedClothes.catCode == "TOP" ? 0.4 * modelHeight : 0.55 * modelHeight, scene,
           changedClothes.catCode == "TOP" ? 40 : 17);
       }
@@ -100,7 +99,7 @@ export const Dressup = () => {
     <main className="container">
       <div className="row">
         <div className="col-12 fs-2 fw-bold my-4 text-center">Dress Up</div>
-        <div id="View" className="col-5" />
+        <div id="View" className="col-5 px-0" />
         <div id="page" className="col-7">
           <div className="my-3">
             <NavButtons
@@ -116,16 +115,23 @@ export const Dressup = () => {
               clothes={clothes}
               setClothes={setClothes}
               presetList={presetList}
-              options={{}}
+              options={{stateCodes:"OS"}}
               setChangedClothes={setChangedClothes} />
           </div>
           <div className={`${selectedNavButton == "Mypage" ? "d-block" : "d-none"}`}>
+            {
+            (getUserInfo())?
             <DressupItems
               clothes={clothes}
               setClothes={setClothes}
               presetList={presetList}
-              options={{memberNum:getUserInfo()?.num}}
-              setChangedClothes={setChangedClothes} />
+              options={{memberNum:getUserInfo().num, stateCodes:"OS,NOS"}}
+              setChangedClothes={setChangedClothes} /> 
+            :
+            <div className='d-flex justify-content-center py-2'>
+              로그인이 필요한 페이지입니다.
+            </div>
+            }
           </div>
           <div className={`${selectedNavButton == "Info" ? "d-block" : "d-none"}`}>
             <DressupInfo

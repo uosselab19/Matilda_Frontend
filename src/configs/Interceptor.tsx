@@ -12,9 +12,9 @@ const AxiosInterceptorSetup = (navigate: NavigateFunction) => {
 	async function interceptError(error: AxiosError) {
 		const response = error?.response as AxiosResponse;
 
-		// error code 로 분석하는 것도 괜찮을 것 같음.
+		// error code 로 분석하는 것도 괜찮을 것 같음
 		// "ECONNABORTED" : timeout error
-		// "ERR_BAD_RESPONSE" : response 잘못 받았을 떄 생기는 오류인 듯.
+		// "ERR_BAD_RESPONSE" : response 잘못 받았을 떄 생기는 오류인 듯
 		// "ERR_NETWORK" : 네트워크 서버가 꺼져있으면 이렇게 되는 듯!
 
 		if (!response) console.log("error response does not exist.");
@@ -24,8 +24,12 @@ const AxiosInterceptorSetup = (navigate: NavigateFunction) => {
 				console.log("error 401");
 				console.log(error.code);
 				if (confirm("인증이 만료되었습니다. 이동하시겠습니까?")) {
-					await refreshMember("");
-					setUserInfo("");
+					const {data, error} = await refreshMember("");
+					if(error){
+						console.log(error);
+						return;
+					}
+					setUserInfo(data);
 					navigate("/");
 					return;
 				}
@@ -56,7 +60,7 @@ const AxiosInterceptorSetup = (navigate: NavigateFunction) => {
 			error = err;
 		}
 
-		if(error) await interceptError(error);
+		if (error) await interceptError(error);
 		return config;
 	}
 
@@ -81,7 +85,7 @@ const AxiosInterceptorSetup = (navigate: NavigateFunction) => {
 
 		delete anonymousApiClient.defaults.headers["X-AUTH-TOKEN"];
 
-		if(error) await interceptError(error);
+		if (error) await interceptError(error);
 		return response;
 	}
 
@@ -90,14 +94,14 @@ const AxiosInterceptorSetup = (navigate: NavigateFunction) => {
 		(error: AxiosError) => interceptError(error));
 	apiClient.interceptors.response.use(
 		(response: any) => interceptResponse(response),
-		(error: AxiosError) => {interceptError(error);});
+		(error: AxiosError) => { interceptError(error); });
 
 	imageApiClient.interceptors.request.use(
 		(config: AxiosRequestConfig) => interceptRequest(config),
 		(error: AxiosError) => interceptError(error));
 	imageApiClient.interceptors.response.use(
-			(response: any) => interceptResponse(response),
-			(error: AxiosError) => interceptError(error));
+		(response: any) => interceptResponse(response),
+		(error: AxiosError) => interceptError(error));
 }
 
 export default function AxiosInterceptorNavigate() {

@@ -5,19 +5,20 @@ import { changeItem, getItem, putItem } from '../../services/itemService';
 import { alertError, alertInput, alertSuccess, alertWarning, confirmInputModal, confirmModal, confirmWarning } from '../../utils/alertUtil';
 import { getS3Url } from '../../utils/S3';
 import { getUserInfo } from '../../utils/cookieUtil';
-import { ReceiptCard } from '../../components/NFTItem/ReceiptCard';
-import { selectMember } from '../../services/memberService';
+import { HistoriesCard } from '../../components/NFTItem/HistoriesCard';
 import { buyNFT, mint, setForSale, unsetForSale, updateKeyring } from '../../utils/caverUtil';
-//import { buyNFT, setForSale, mint, unsetForSale } from '../../utils/caverUtil';
+import { getCID } from '../../services/imageService';
+import { getHistories } from '../../services/historiesService';
+import { Histories } from '../../types/Histories';
 
 export const NFTItem = () => {
   const [mode, setMode] = useState("");
   const [item, setItem] = useState({} as DetailItem);
-  const [member, setMember] = useState({} as any);
+  const [histories, setHistories] = useState([] as Histories[]);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const itemNum = Number(searchParams.get('nft_id') as string);
-
+  const member = getUserInfo();
   useEffect(() => {
     (async () => {
       const { data, error } = await getItem(itemNum);
@@ -28,7 +29,7 @@ export const NFTItem = () => {
         if (data.stateCode == "CR") setMode("mint");
         else if (data.stateCode == "NOS") setMode("sell");
         else if (data.stateCode == "OS") {
-          if (getUserInfo()?.num == data.memberNum) setMode("cancel");
+          if (member?.num == data.memberNum) setMode("cancel");
           else setMode("buy");
         }
         else {
@@ -38,18 +39,24 @@ export const NFTItem = () => {
         setItem(data as DetailItem);
       }
 
-      const member = await selectMember(getUserInfo().num);
-      if (member.error) {
-        console.log(member.error);
-        alertError("불러오기 에러", "NFT 발행을 위한 클레이튼 주소를 불러오는데 문제가 발생했습니다.")
-      } else {
-        console.log(member.data);
-        updateKeyring(member.data.walletAddress,
-          (member.data.memberNum == 2) ? "0x2a3fb48ab0477963a7fb378da8b0a3944e91aec8726c18bb21816d305d439044" : "0xa8ac3335a8a7bacd59b7f00e14ce5e2fb884e7278e73955cdf8ad6bff97b0334");
-        setMember(member.data);
+      updateKeyring(member.address, member.privateKey);
+
+      const histories = await getHistories({ itemNum: itemNum });
+      if (histories.error) {
+        console.log(histories.error);
+        alertError("변경이력 에러", "변경이력을 불러오는 중에 문제가 발생했습니다.");
+        return;
       }
+      setHistories(histories.data);
     })();
   }, []);
+
+
+  const historiesList = (histories: Histories[]) => {
+    return histories.map((e) => {
+      return (<HistoriesCard histories={e}/>);
+    }).reverse();
+  }
 
   const editButton = async (title: string, text: string, placeholder: string, key: string) => {
     const newValue = await alertInput(title, text, placeholder);
@@ -82,7 +89,8 @@ export const NFTItem = () => {
         const result = await confirmWarning("정말 구매할까요?", "구매하기를 누르시면 구매가 확정됩니다. 주의해주세요!", "구매하기", "취소하기");
         if (result.isDismissed) alertError("취소했어요!", "다시 한 번 생각해주시고 찾아와주세요 ㅎㅎ");
         if (result.isConfirmed) {
-          const txHash = await buyNFT(member.walletAddress, item.tokenId, item.price);
+          console.log(item);
+          const txHash = await buyNFT(member.address, item.tokenId, item.price);
           const newItem = await changeItem(itemNum, {
             buyerNum: member.memberNum,
             price: item.price,
@@ -105,9 +113,9 @@ export const NFTItem = () => {
     const value = Number(result.value);
     if (result.isDismissed) alertError("취소했어요!", "다시 한 번 생각해보시고 찾아와주세요 ㅎㅎ");
     if (result.isConfirmed) {
-      console.log(member.walletAddress);
+      console.log(member.address);
       console.log(item.tokenId);
-      const txHash = await setForSale(member.walletAddress, item.tokenId, value);
+      const txHash = await setForSale(member.address, item.tokenId, value);
       const newItem = await changeItem(itemNum, {
         buyerNum: member.memberNum,
         price: value,
@@ -127,7 +135,7 @@ export const NFTItem = () => {
     const result = await confirmModal("거래 무르기", "거래 등록을 해제하고 싶으면 해제하기 버튼을 눌러주세요!", "해제하기", "돌아가기", getS3Url(item.imgUrl), "cancel on sale");
     if (result.isDismissed) alertError("취소했어요!", "다시 한 번 생각해보시고 찾아와주세요 ㅎㅎ");
     if (result.isConfirmed) {
-      const txHash = await unsetForSale(member.walletAddress, item.tokenId);
+      const txHash = await unsetForSale(member.address, item.tokenId);
       const newItem = await changeItem(itemNum, {
         buyerNum: member.memberNum,
         option: "STATE_NOS",
@@ -146,17 +154,24 @@ export const NFTItem = () => {
     if (result.isDismissed) alertError("취소했어요!", "다시 한 번 생각해주시고 찾아와주세요 ㅎㅎ");
     if (result.isConfirmed) {
       console.log(item.objectUrl);
-      const txHash = await mint(member.walletAddress, item.objectUrl);
-      const returnValues = txHash.events.tokenMinted.returnValues;
-      const newItem = await changeItem(itemNum, {
-        buyerNum: item.memberNum,
-        option: "MINT",
-        tokenId: returnValues["tokenId"],
-        tokenUri: returnValues["tokenURI"],
-        transactionHash: txHash.transactionHash
-      } as ChangeItem);
-      setItem(newItem.data);
-      alertSuccess("발행 완료", "해당 아이템에 NFT 발행이 완료되었습니다!");
+      const { data, error } = await getCID(itemNum);
+      if (error) {
+        alertError("CID 불러오기 에러", "CID를 불러오는 중에 에러가 발생했어요!");
+        console.log(error);
+      } else {
+        const tokenURI = `ipfs://${data}`;
+        const txHash = await mint(member.address, tokenURI);
+        const returnValues = txHash.events.tokenMinted.returnValues;
+        const newItem = await changeItem(itemNum, {
+          buyerNum: item.memberNum,
+          option: "MINT",
+          tokenId: returnValues["tokenId"],
+          tokenUri: returnValues["tokenURI"],
+          transactionHash: txHash.transactionHash
+        } as ChangeItem);
+        setItem(newItem.data);
+        alertSuccess("발행 완료", "해당 아이템에 NFT 발행이 완료되었습니다!");
+      }
     }
   }
 
@@ -185,7 +200,7 @@ export const NFTItem = () => {
         {/* NFT 오른쪽 설명 부분 */}
         <div className="col-lg-7">
           <article className="blog-post">
-            <h1 className="blog-post-title mt-5 mb-4">{item.title}
+            <h1 className="blog-post-title mt-5 mb-2">{item.title}
               <button
                 type='button'
                 className={`btn btn-sm btn-secondary ms-3 ${(mode.length > 0 && mode != "buy") ? "" : "d-none"}`}
@@ -194,17 +209,17 @@ export const NFTItem = () => {
                 }}>
                 edit
               </button>
-              <span className="blog-post-meta fs-5 fw-normal ms-5">owned by {item.memberNickName}</span>
             </h1>
+            <div className="blog-post-meta fs-5 fw-normal mb-4">owned by {item.memberNickName}</div>
 
             <div className="row g-3">
               <div className="col-2 mt-3">
                 <h3 className="blog-post-title">Price : </h3>
               </div>
-              <div className="col-2">
+              <div className="col-10">
                 <h3>{item.price} Klay</h3>
               </div>
-              <div className='col-6'>
+              <div className='col-12'>
                 {(mode.length > 0) ? (
                   <button
                     type="button"
@@ -221,17 +236,11 @@ export const NFTItem = () => {
                   </button>
                 )}
               </div>
-              <div className='col-10 mt-2 fs-4'>
-                <div className="fs-3 fw-bold">Histories</div>
-                <ReceiptCard index={4} title={"buyNFT"} />
-                <ReceiptCard index={1} title={"setForSale"} />
-                <ReceiptCard index={6} title={"mint"} />
-                <ReceiptCard index={0} title={"create"} />
+              <div className='col-10 mt-4 fs-4'>
+                <div className="fs-3 fw-bold">변경이력</div>
+                {historiesList(histories)}
               </div>
             </div>
-
-
-
           </article>
         </div>
       </div>
