@@ -1,8 +1,7 @@
 import { createAccount, getBalance } from "../../utils/caverUtil";
 import { SelectMember } from "../../types/Member";
 import { putMemberKlaytn } from "../../services/memberService";
-import { alertError } from "../../utils/alertUtil";
-import { setUserInfo } from "../../utils/cookieUtil";
+import { alertError, alertSuccess } from "../../utils/alertUtil";
 import { useEffect, useState } from "react";
 
 interface MypageKlaytnProps {
@@ -11,7 +10,7 @@ interface MypageKlaytnProps {
 }
 
 export const MypageKlaytn = (props: MypageKlaytnProps) => {
-  const { userInfo } = props;
+  const { userInfo, setUserInfo } = props;
   const address = userInfo.walletAddress;
   const [balance, setBalance] = useState("0");
 
@@ -22,12 +21,13 @@ export const MypageKlaytn = (props: MypageKlaytnProps) => {
       alertError("멤버 수정 오류", "클레이튼 계정 생성에 오류가 있었습니다. 다시 시도해주세요!");
     } else {
       setUserInfo(data);
+      alertSuccess("생성 완료!","지갑 주소가 새로 생성되었습니다!");
     }
   }
 
   useEffect(() => {
     (async () => {
-      if (userInfo.walletAddress) setBalance(await getBalance(userInfo.walletAddress))
+      if (userInfo.walletAddress) setBalance(await getBalance(userInfo.walletAddress));
     })();
   }, [userInfo]);
 

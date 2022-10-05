@@ -9,10 +9,7 @@ import { Clothes } from '../../types/Clothes';
 import { Scene } from 'three';
 import { NavButtons } from '../../components/NavButtons';
 import { DetailItem } from '../../types/Item';
-import { alertError } from '../../utils/alertUtil';
 import { getUserInfo } from '../../utils/cookieUtil';
-import { getCID } from '../../services/imageService';
-
 
 export const Dressup = () => {
   const [scene] = useState(new Scene() as Scene);
@@ -44,25 +41,16 @@ export const Dressup = () => {
       const sceneMesh = scene.children.filter((_, i) => { return (i > 11); });
       const sceneCatCode = sceneMesh.map((e) => { return clothes[e.name]; });
       console.log(sceneCatCode);
-      console.log(changedClothes);
 
-      const { data, error } = await getCID(changedClothes.itemNum);
-
-      if (error) {
-        console.log(error);
-        alertError("URL 에러", "오브젝트를 불러오는 중 문제가 발생했습니다.");
-      } else {
-        // const index = Object.entries(clothes).findIndex(async (e) => {
-        //   return e[1].catCode === changedClothes.catCode;
-        // });
-        // console.log(index);
-        // console.log(sceneMesh);
-        // if (index > -1) scene.remove(sceneMesh[index]);
-        console.log(data);
-        loadModel(changedClothes.catCode, `https://nftstorage.link/ipfs/${data}`,
-          changedClothes.catCode == "TOP" ? 0.4 * modelHeight : 0.55 * modelHeight, scene,
-          changedClothes.catCode == "TOP" ? 40 : 17);
-      }
+      // const index = Object.entries(clothes).findIndex(async (e) => {
+      //   return e[1].catCode === changedClothes.catCode;
+      // });
+      // console.log(index);
+      // console.log(sceneMesh);
+      // if (index > -1) scene.remove(sceneMesh[index]);
+      loadModel(changedClothes.catCode, `https://nftstorage.link/ipfs/${changedClothes.tokenUri}`,
+        changedClothes.catCode == "TOP" ? 0.4 * modelHeight : 0.55 * modelHeight, scene,
+        changedClothes.catCode == "TOP" ? 40 : 17);
     })();
   }, [changedClothes]);
 
@@ -115,22 +103,22 @@ export const Dressup = () => {
               clothes={clothes}
               setClothes={setClothes}
               presetList={presetList}
-              options={{stateCodes:"OS"}}
+              options={{ stateCodes: "OS" }}
               setChangedClothes={setChangedClothes} />
           </div>
           <div className={`${selectedNavButton == "Mypage" ? "d-block" : "d-none"}`}>
             {
-            (getUserInfo())?
-            <DressupItems
-              clothes={clothes}
-              setClothes={setClothes}
-              presetList={presetList}
-              options={{memberNum:getUserInfo().num, stateCodes:"OS,NOS"}}
-              setChangedClothes={setChangedClothes} /> 
-            :
-            <div className='d-flex justify-content-center py-2'>
-              로그인이 필요한 페이지입니다.
-            </div>
+              (getUserInfo()) ?
+                <DressupItems
+                  clothes={clothes}
+                  setClothes={setClothes}
+                  presetList={presetList}
+                  options={{ memberNum: getUserInfo().num, stateCodes: "OS,NOS" }}
+                  setChangedClothes={setChangedClothes} />
+                :
+                <div className='d-flex justify-content-center py-2'>
+                  로그인이 필요한 페이지입니다.
+                </div>
             }
           </div>
           <div className={`${selectedNavButton == "Info" ? "d-block" : "d-none"}`}>

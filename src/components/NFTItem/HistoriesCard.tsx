@@ -6,7 +6,6 @@ interface HistoriesCardProps {
 
 export const HistoriesCard = (props: HistoriesCardProps) => {
     const { histories } = props;
-    console.log(histories);
 
     const setTitle = (histories: Histories) => {
         switch (histories.stateCode) {

@@ -15,16 +15,15 @@ interface DressupItemsProps {
   setClothes: React.Dispatch<React.SetStateAction<Clothes>>;
   presetList: Clothes[];
   options: {};
-  exceptionCodes?: string[];
   setChangedClothes: React.Dispatch<React.SetStateAction<DetailItem>>;
 }
 
 export const DressupItems = (props: DressupItemsProps) => {
-  const { clothes, setClothes, presetList, options, exceptionCodes, setChangedClothes } = props;
+  const { clothes, setClothes, presetList, options, setChangedClothes } = props;
   const [numShowItems, numShowPages] = [12, 10];
   const navigate = useNavigate();
 
-  const { count, items, page, setPage, setSelectCondition } = useItems(selectItems, options, numShowItems, exceptionCodes);
+  const { count, items, page, setPage, setSelectCondition } = useItems(selectItems, options, numShowItems);
 
   const handleCard = async (itemNum: number) => {
     const { data, error } = await getItem(itemNum);

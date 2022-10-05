@@ -19,6 +19,7 @@ export const NFTItem = () => {
   const [searchParams] = useSearchParams();
   const itemNum = Number(searchParams.get('nft_id') as string);
   const member = getUserInfo();
+  
   useEffect(() => {
     (async () => {
       const { data, error } = await getItem(itemNum);
@@ -36,7 +37,7 @@ export const NFTItem = () => {
           alertError("코드 에러", "페이지를 열 수 없는 정보가 들어있어서 돌아갑니다.");
           navigate("/");
         }
-        setItem(data as DetailItem);
+        if(data.stateCode!=item.stateCode) setItem(data as DetailItem);
       }
 
       updateKeyring(member.address, member.privateKey);
@@ -47,20 +48,17 @@ export const NFTItem = () => {
         alertError("변경이력 에러", "변경이력을 불러오는 중에 문제가 발생했습니다.");
         return;
       }
+      
       setHistories(histories.data);
     })();
-  }, [item]);
+  }, []);
 
-
-  const historiesList = (histories: Histories[]) => {
-    return histories.map((e) => {
-      return (<HistoriesCard histories={e}/>);
-    }).reverse();
-  }
+  const historiesList = histories.map((e) => {
+    return (<HistoriesCard histories={e} />);
+  }).reverse();
 
   const editButton = async (title: string, text: string, placeholder: string, key: string) => {
     const newValue = await alertInput(title, text, placeholder);
-
     const { data, error } = await putItem({ itemNum: itemNum, [key]: newValue } as UpdateItem);
     if (error) { return alertError("수정실패", "정보를 수정하는 중에 문제가 발생했습니다."); }
     else {
@@ -238,7 +236,7 @@ export const NFTItem = () => {
               </div>
               <div className='col-10 mt-4'>
                 <div className="fs-3 fw-bold">변경이력</div>
-                {historiesList(histories)}
+                {historiesList}
               </div>
             </div>
           </article>

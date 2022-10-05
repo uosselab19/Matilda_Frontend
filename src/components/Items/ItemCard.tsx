@@ -110,7 +110,8 @@ export default function Card(props: CardProps) {
           <img
             alt=""
             className="card-img"
-            src={(item && item.imgUrl != "no img") ? getS3Url(item.imgUrl) : item_img1}/>
+            src={(item && item.imgUrl != "no img") ? getS3Url(item.imgUrl) : item_img1}
+            width="100%"/>
           <div className="card-img-overlay" style={{ top: '70%', backgroundColor: bgColor, opacity: 0.8 }} />
           <div className="card-img-overlay d-flex flex-column">
             <div className={`card-text mt-auto d-flex justify-content-between px-2 ${size == 'lg' ? 'py-2' : ''}`}>

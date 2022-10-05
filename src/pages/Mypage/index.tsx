@@ -29,6 +29,7 @@ export const Mypage = () => {
         navigate('/');
       } else {
         if (!Object.keys(userInfo).length) {
+          console.log(cookieData);
           const { data, error } = await selectMember(cookieData.num);
           if (error) {
             console.log(error);
@@ -70,15 +71,15 @@ export const Mypage = () => {
 
           {/* 이 부분이 My Page 핵심 부분 */}
           <div className={`d-flex justify-content-center`}>
-            <div className={`${selectedNavButton == "myItemList" ? "d-block" : "d-none"}`}>
+            <div className={`w-100 ${selectedNavButton == "myItemList" ? "d-block" : "d-none"}`}>
               <MypageNFTs />
             </div>
-            <div className={`${selectedNavButton == "klaytn" ? "d-block" : "d-none"}`}>
+            <div className={`w-100 ${selectedNavButton == "klaytn" ? "d-block" : "d-none"}`}>
               <MypageKlaytn
                 userInfo={userInfo}
                 setUserInfo={setUserInfo} />
             </div>
-            <div className={`${selectedNavButton == "editInfo" ? "d-block" : "d-none"}`}>
+            <div className={`w-100 ${selectedNavButton == "editInfo" ? "d-block" : "d-none"}`}>
               <MypageOption
                 userInfo={userInfo}
                 setUserInfo={setUserInfo} />
