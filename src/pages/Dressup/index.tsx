@@ -48,7 +48,7 @@ export const Dressup = () => {
       // console.log(index);
       // console.log(sceneMesh);
       // if (index > -1) scene.remove(sceneMesh[index]);
-      loadModel(changedClothes.catCode, `https://nftstorage.link/ipfs/${changedClothes.tokenUri}`,
+      loadModel(changedClothes.catCode, `https://nftstorage.link/ipfs/${changedClothes.tokenUri.slice(7)}`,
         changedClothes.catCode == "TOP" ? 0.4 * modelHeight : 0.55 * modelHeight, scene,
         changedClothes.catCode == "TOP" ? 40 : 17);
     })();
