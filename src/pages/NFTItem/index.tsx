@@ -49,7 +49,7 @@ export const NFTItem = () => {
       }
       setHistories(histories.data);
     })();
-  }, []);
+  }, [item]);
 
 
   const historiesList = (histories: Histories[]) => {
@@ -179,7 +179,7 @@ export const NFTItem = () => {
     <main className="container">
       <div className="row my-5">
         {/* NFT 왼쪽 설명 부분 */}
-        <div className="col-lg-3">
+        <div className="col-lg-4">
           <article className="blog-post m-4">
             <img src={getS3Url(item.imgUrl)} width="100%" />
             <p />
@@ -236,7 +236,7 @@ export const NFTItem = () => {
                   </button>
                 )}
               </div>
-              <div className='col-10 mt-4 fs-4'>
+              <div className='col-10 mt-4'>
                 <div className="fs-3 fw-bold">변경이력</div>
                 {historiesList(histories)}
               </div>
