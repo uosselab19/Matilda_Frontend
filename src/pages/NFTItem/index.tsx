@@ -52,7 +52,7 @@ export const NFTItem = () => {
 
       setHistories(histories.data);
     })();
-  }, []);
+  }, [mode]);
 
   const historiesList = histories.map((e) => {
     return (<HistoriesCard histories={e} key={e.historyNum}/>);
@@ -101,6 +101,7 @@ export const NFTItem = () => {
           setItem(newItem.data);
           console.log(newItem);
           console.log(txHash);
+          setMode("OS");
           await alertSuccess("구매 완료", "구매가 완료되었습니다!");
         }
       }
@@ -125,8 +126,8 @@ export const NFTItem = () => {
       } as ChangeItem);
       setItem(newItem.data);
       console.log(txHash);
-      alertSuccess("등록 완료", "지금부터 Marketplace에 당신이 올려놓은 NFT가 보일 거에요!");
-
+      setMode("NOS");
+      await alertSuccess("등록 완료", "지금부터 Marketplace에 당신이 올려놓은 NFT가 보일 거에요!");
     }
   }
 
@@ -144,7 +145,8 @@ export const NFTItem = () => {
       } as ChangeItem);
       setItem(newItem.data);
       console.log(txHash);
-      alertSuccess("무름~", "거래 등록을 해제했습니다.");
+      setMode("NOS");
+      await alertSuccess("무름~", "거래 등록을 해제했습니다.");
     }
   }
 
@@ -169,7 +171,8 @@ export const NFTItem = () => {
           transactionHash: txHash.transactionHash
         } as ChangeItem);
         setItem(newItem.data);
-        alertSuccess("발행 완료", "해당 아이템에 NFT 발행이 완료되었습니다!");
+        setMode("NOS");
+        await alertSuccess("발행 완료", "해당 아이템에 NFT 발행이 완료되었습니다!");
       }
     }
   }
