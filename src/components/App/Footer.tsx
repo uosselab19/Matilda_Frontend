@@ -1,11 +1,18 @@
 import { refreshMember } from "../../services/securityService";
-import { getUserInfo } from "../../utils/cookieUtil";
+import { alertError } from "../../utils/alertUtil";
+import { getUserInfo, getUserInfoByToken, setUserInfo } from "../../utils/cookieUtil";
 
 export const Footer = () => {
   //Footer는 현재는 디버그용 버튼으로 활용 중
   const scrollTop = async () => {
     console.log(getUserInfo());
-    refreshMember({ ignore: "no" });
+    const { data, error } = await refreshMember({ ignore: true });
+    if (error) {
+      console.log(error);
+      alertError("리프레시 에러", "리프레시 안 됨 ㅋㅋㅋㅋㅋ");
+      return;
+    }
+    setUserInfo(getUserInfoByToken(data));
   };
 
   return (

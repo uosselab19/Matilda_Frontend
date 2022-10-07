@@ -24,7 +24,6 @@ export const refreshMember = async (info: any) => {
 
   try {
     const userInfo = getUserInfo();
-    console.log(userInfo);
     if (!userInfo) throw "userInfo is not exists";
 
     const result = await apiClient.post(

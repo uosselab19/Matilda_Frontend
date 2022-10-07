@@ -7,9 +7,8 @@ import { useEffect } from 'react';
 import { signinMember } from '../../services/securityService';
 import SigninBox from '../../components/forms/signinBox';
 import SubmitButton from '../../components/forms/SubmitButton';
-import { setUserInfo, getUserInfo } from '../../utils/cookieUtil';
+import { setUserInfo, getUserInfo, getUserInfoByToken } from '../../utils/cookieUtil';
 import { alertError } from '../../utils/alertUtil';
-import { getUserInfoByToken } from '../../utils/tokenUils';
 import { encrypt } from '../../utils/cryptoUtil';
 
 const validate = (values: SigninMember) => {
