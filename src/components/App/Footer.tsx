@@ -1,9 +1,11 @@
+import { refreshMember } from "../../services/securityService";
 import { getUserInfo } from "../../utils/cookieUtil";
 
 export const Footer = () => {
   //Footer는 현재는 디버그용 버튼으로 활용 중
   const scrollTop = async () => {
     console.log(getUserInfo());
+    refreshMember({ ignore: "no" });
   };
 
   return (

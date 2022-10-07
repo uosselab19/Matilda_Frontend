@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { Header } from './Header';
 import { Footer } from './Footer';
@@ -13,16 +13,16 @@ import { NFTItem } from '../../pages/NFTItem';
 import { NotFound } from '../../pages/NotFound';
 import { AxiosInterceptorSetup } from '../../configs/Interceptor';
 
-function AxiosInterceptorNavigate() {
-  const navigate = useNavigate();
-  AxiosInterceptorSetup(navigate);
-  return <></>;
-}
+// function AxiosInterceptorNavigate() {
+//   AxiosInterceptorSetup();
+//   return <></>;
+// }
 
 export const App = () => {
+  AxiosInterceptorSetup();
   return (
     <BrowserRouter basename='/'>
-      {<AxiosInterceptorNavigate />}
+      {/* {<AxiosInterceptorNavigate />} */}
       <Header />
       <Routes>
         <Route path="" element={<Home />} />
