@@ -10,6 +10,7 @@ import { buyNFT, mint, setForSale, unsetForSale, updateKeyring } from '../../uti
 import { getCID } from '../../services/imageService';
 import { getHistories } from '../../services/historiesService';
 import { Histories } from '../../types/Histories';
+import { decrypt } from '../../utils/cryptoUtil';
 
 export const NFTItem = () => {
   const [mode, setMode] = useState("");
@@ -19,7 +20,7 @@ export const NFTItem = () => {
   const [searchParams] = useSearchParams();
   const itemNum = Number(searchParams.get('nft_id') as string);
   const member = getUserInfo();
-  
+
   useEffect(() => {
     (async () => {
       const { data, error } = await getItem(itemNum);
@@ -37,10 +38,10 @@ export const NFTItem = () => {
           alertError("코드 에러", "페이지를 열 수 없는 정보가 들어있어서 돌아갑니다.");
           navigate("/");
         }
-        if(data.stateCode!=item.stateCode) setItem(data as DetailItem);
+        if (data.stateCode != item.stateCode) setItem(data as DetailItem);
       }
 
-      updateKeyring(member.address, member.privateKey);
+      if(member) updateKeyring(member.address, decrypt(member.privateKey));
 
       const histories = await getHistories({ itemNum: itemNum });
       if (histories.error) {
@@ -48,13 +49,13 @@ export const NFTItem = () => {
         alertError("변경이력 에러", "변경이력을 불러오는 중에 문제가 발생했습니다.");
         return;
       }
-      
+
       setHistories(histories.data);
     })();
   }, []);
 
   const historiesList = histories.map((e) => {
-    return (<HistoriesCard histories={e} />);
+    return (<HistoriesCard histories={e} key={e.historyNum}/>);
   }).reverse();
 
   const editButton = async (title: string, text: string, placeholder: string, key: string) => {
@@ -90,7 +91,7 @@ export const NFTItem = () => {
           console.log(item);
           const txHash = await buyNFT(member.address, item.tokenId, item.price);
           const newItem = await changeItem(itemNum, {
-            buyerNum: member.memberNum,
+            buyerNum: member.num,
             price: item.price,
             option: "TRADE",
             tokenId: item.tokenId,
@@ -115,7 +116,7 @@ export const NFTItem = () => {
       console.log(item.tokenId);
       const txHash = await setForSale(member.address, item.tokenId, value);
       const newItem = await changeItem(itemNum, {
-        buyerNum: member.memberNum,
+        buyerNum: member.num,
         price: value,
         option: "STATE_OS",
         tokenId: item.tokenId,
@@ -135,7 +136,7 @@ export const NFTItem = () => {
     if (result.isConfirmed) {
       const txHash = await unsetForSale(member.address, item.tokenId);
       const newItem = await changeItem(itemNum, {
-        buyerNum: member.memberNum,
+        buyerNum: member.num,
         option: "STATE_NOS",
         tokenId: item.tokenId,
         tokenUri: item.tokenUri,
@@ -197,8 +198,8 @@ export const NFTItem = () => {
 
         {/* NFT 오른쪽 설명 부분 */}
         <div className="col-lg-7">
-          <article className="blog-post">
-            <h1 className="blog-post-title mt-5 mb-2">{item.title}
+          <div className="row g-3">
+            <div className="col-12 fs-1 fw-bold mt-5">{item.title}
               <button
                 type='button'
                 className={`btn btn-sm btn-secondary ms-3 ${(mode.length > 0 && mode != "buy") ? "" : "d-none"}`}
@@ -207,39 +208,31 @@ export const NFTItem = () => {
                 }}>
                 edit
               </button>
-            </h1>
-            <div className="blog-post-meta fs-5 fw-normal mb-4">owned by {item.memberNickName}</div>
-
-            <div className="row g-3">
-              <div className="col-2 mt-3">
-                <h3 className="blog-post-title">Price : </h3>
-              </div>
-              <div className="col-10">
-                <h3>{item.price} Klay</h3>
-              </div>
-              <div className='col-12'>
-                {(mode.length > 0) ? (
-                  <button
-                    type="button"
-                    className="btn btn-primary w-50 fs-5 fw-bold"
-                    onClick={handleButton}>
-                    {mode}
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    disabled={true}
-                    className="btn btn-secondary w-50 fs-5 fw-bold">
-                    wait
-                  </button>
-                )}
-              </div>
-              <div className='col-10 mt-4'>
-                <div className="fs-3 fw-bold">변경이력</div>
-                {historiesList}
-              </div>
             </div>
-          </article>
+            <div className="col-12 fs-5 fw-normal mt-0">owned by {item.memberNickName}</div>
+            <div className="col-12 fs-3">Price : {item.price} Klay</div>
+            <div className='col-12'>
+              {(mode.length > 0) ? (
+                <button
+                  type="button"
+                  className="btn btn-primary w-50 fs-5 fw-bold"
+                  onClick={handleButton}>
+                  {mode}
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  disabled={true}
+                  className="btn btn-secondary w-50 fs-5 fw-bold">
+                  wait
+                </button>
+              )}
+            </div>
+            <div className='col-12 fs-3 mt-4'>
+              변경이력
+              <div className='w-75 fs-5'>{historiesList}</div>
+            </div>
+          </div>
         </div>
       </div>
     </main>

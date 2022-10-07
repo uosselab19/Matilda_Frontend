@@ -1,5 +1,5 @@
 import { AxiosRequestConfig, AxiosError, AxiosResponse } from "axios";
-import { NavigateFunction, useNavigate } from "react-router-dom";
+import { NavigateFunction } from "react-router-dom";
 import { refreshMember } from "../services/securityService";
 import { UserInfo } from "../types/Member";
 import { alertError } from "../utils/alertUtil";
@@ -8,7 +8,7 @@ import { anonymousApiClient, apiClient, imageApiClient } from "./apiClient";
 
 export const interceptorHandledError = "Interceptor Handled Error";
 
-const AxiosInterceptorSetup = (navigate: NavigateFunction) => {
+export const AxiosInterceptorSetup = (navigate: NavigateFunction) => {
 	async function interceptError(error: AxiosError) {
 		const response = error?.response as AxiosResponse;
 
@@ -24,13 +24,16 @@ const AxiosInterceptorSetup = (navigate: NavigateFunction) => {
 				console.log("error 401");
 				console.log(error.code);
 				if (confirm("인증이 만료되었습니다. 이동하시겠습니까?")) {
-					const {data, error} = await refreshMember("");
-					if(error){
+					const { data, error } = await refreshMember("");
+					if (error) {
 						console.log(error);
 						return;
 					}
-					setUserInfo(data);
-					navigate("/");
+					console.log(data);
+					if (data) {
+						setUserInfo(data);
+						navigate("/");
+					}
 					return;
 				}
 			}
@@ -54,7 +57,9 @@ const AxiosInterceptorSetup = (navigate: NavigateFunction) => {
 			if (!userInfo) {
 				throw new Error(`Expected 'userInfo' not to be undefined`);
 			}
-
+			console.log("qwer");
+			console.log(config);
+			config.headers['REFRESH-TOKEN'] = userInfo?.refreshToken;
 			config.headers['X-AUTH-TOKEN'] = userInfo?.accessToken;
 		} catch (err) {
 			error = err;
@@ -76,6 +81,8 @@ const AxiosInterceptorSetup = (navigate: NavigateFunction) => {
 				throw new Error(`Expected 'userInfo' not to be undefined`);
 			}
 
+			console.log("asdf");
+			console.log(response);
 			anonymousApiClient.defaults.headers["X-AUTH-TOKEN"] = userInfo.accessToken;
 			const result = await anonymousApiClient.post('/security/validCheck', { headers: { "X-AUTH-TOKEN": userInfo.accessToken } })
 			console.log(result);
@@ -102,10 +109,4 @@ const AxiosInterceptorSetup = (navigate: NavigateFunction) => {
 	imageApiClient.interceptors.response.use(
 		(response: any) => interceptResponse(response),
 		(error: AxiosError) => interceptError(error));
-}
-
-export default function AxiosInterceptorNavigate() {
-	const navigate = useNavigate();
-	AxiosInterceptorSetup(navigate);
-	return <></>;
 }

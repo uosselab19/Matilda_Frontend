@@ -18,7 +18,7 @@ export const refreshMember = async (info: any) => {
   let [data, error] = [undefined, undefined] as any;
 
   try {
-    const result = await apiClient.post(`/security/refresh`, info);
+    const result = await apiClient.post(`/security/refresh`, {ignore: info});
 
     data = result?.data as SigninResponse | undefined;
   } catch (err) {

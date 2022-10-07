@@ -1,6 +1,6 @@
 import Caver from "caver-js";
 import fs from "fs";
-import MatildaToken from '../configs/MatildaToken.json';
+import MatildaToken from './MatildaToken.json';
 
 const ws = new Caver.providers.WebsocketProvider(
   process.env.rpcURL,

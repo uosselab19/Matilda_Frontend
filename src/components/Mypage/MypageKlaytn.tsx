@@ -3,6 +3,7 @@ import { SelectMember } from "../../types/Member";
 import { putMemberKlaytn } from "../../services/memberService";
 import { alertError, alertSuccess } from "../../utils/alertUtil";
 import { useEffect, useState } from "react";
+import { encrypt } from "../../utils/cryptoUtil";
 
 interface MypageKlaytnProps {
   userInfo: SelectMember;
@@ -16,7 +17,7 @@ export const MypageKlaytn = (props: MypageKlaytnProps) => {
 
   const createWallet = async () => {
     const { address, privateKey } = createAccount();
-    const { data, error } = await putMemberKlaytn(userInfo.memberNum, { walletAddress: address, walletPrivateKey: privateKey });
+    const { data, error } = await putMemberKlaytn(userInfo.memberNum, { walletAddress: address, walletPrivateKey: encrypt(privateKey) });
     if (error) {
       alertError("멤버 수정 오류", "클레이튼 계정 생성에 오류가 있었습니다. 다시 시도해주세요!");
     } else {

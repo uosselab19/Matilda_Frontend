@@ -10,6 +10,7 @@ import SubmitButton from '../../components/forms/SubmitButton';
 import { setUserInfo, getUserInfo } from '../../utils/cookieUtil';
 import { alertError } from '../../utils/alertUtil';
 import { getUserInfoByToken } from '../../utils/tokenUils';
+import { encrypt } from '../../utils/cryptoUtil';
 
 const validate = (values: SigninMember) => {
   const errors = {
@@ -24,7 +25,8 @@ export const Signin = () => {
   const navigate = useNavigate();
 
   const callback = async (values: SigninMember) => {
-    const { data, error } = await signinMember(values);
+    const encryptedValues = { ...values, ["password"]: encrypt(values.password) };
+    const { data, error } = await signinMember(encryptedValues);
     if (error) {
       console.log(error);
       alertError('로그인 에러', `로그인에 실패했어요.`);
