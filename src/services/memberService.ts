@@ -40,7 +40,6 @@ export const putMember = async (member: UpdateMember) => {
 
   try {
     const userInfo = getUserInfo();
-    console.log(userInfo);
     if (!userInfo) throw "userInfo is not exists";
     
     const result = await apiClient.put(
@@ -61,7 +60,6 @@ export const putMemberKlaytn = async (memberNum: number, member: UpdateMemberKla
 
   try {
     const userInfo = getUserInfo();
-    console.log(userInfo);
     if (!userInfo) throw "userInfo is not exists";
 
     const result = await apiClient.put(

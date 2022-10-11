@@ -29,7 +29,6 @@ export const Mypage = () => {
         navigate('/');
       } else {
         if (!Object.keys(userInfo).length) {
-          console.log(cookieData);
           const { data, error } = await selectMember(cookieData.num);
           if (error) {
             console.log(error);
@@ -44,7 +43,6 @@ export const Mypage = () => {
   }, [userInfo]);
 
   //userInfo가 null인 경우면 JSX 안에 있는 userInfo.name 때문에 에러뜨게 되는 시스템이라 부득이하게 이렇게 사용
-  console.log(userInfo);
   return (userInfo && Object.keys(userInfo).length) ? (
     <main className="container d-flex flex-column justify-content-center">
       <div className="row my-3">

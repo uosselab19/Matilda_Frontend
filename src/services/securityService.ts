@@ -45,7 +45,6 @@ export const signoutMember = async () => {
 
   try {
     const userInfo = getUserInfo();
-    console.log(userInfo);
     if (!userInfo) throw "userInfo is not exists";
 
     const result = await apiClient.post(
@@ -67,7 +66,6 @@ export const vaildCheckMember = async () => {
 
   try {
     const userInfo = getUserInfo();
-    console.log(userInfo);
     if (!userInfo) throw "userInfo is not exists";
 
     const result = await apiClient.post(

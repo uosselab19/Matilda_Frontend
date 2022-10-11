@@ -113,9 +113,7 @@ export const alertInput = async (title: string, text: string, placeholder: strin
 		inputPlaceholder: placeholder,
 		showCancelButton: true,
 		inputValidator: (value) => {
-			if (!value) {
-				return 'You need to write something!'
-			}
+			if (!value) { return 'You need to write something!' }
 			return "";
 		}
 	})
@@ -140,7 +138,7 @@ export const confirmInputModal = async (title: string, text: string, confirmText
 		inputValidator: (value) => {
 			if (!value) {
 				return '빈칸을 채워주세요!'
-			} else if(isNaN(Number(value))){
+			} else if (isNaN(Number(value))) {
 				return '숫자로 입력해주세요!';
 			}
 			return "";

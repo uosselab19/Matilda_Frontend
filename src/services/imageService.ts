@@ -5,7 +5,6 @@ export async function postImage(image: {}) {
     let [data, error] = [undefined, undefined] as any;
     try {
         const userInfo = getUserInfo();
-        console.log(userInfo);
         if (!userInfo) throw "userInfo is not exists";
 
         const form = new FormData();
@@ -28,7 +27,6 @@ export async function getCID(itemNum: number) {
     let [data, error] = [undefined, undefined] as any;
     try {
         const userInfo = getUserInfo();
-        console.log(userInfo);
         if (!userInfo) throw "userInfo is not exists";
 
         const form = new FormData();
