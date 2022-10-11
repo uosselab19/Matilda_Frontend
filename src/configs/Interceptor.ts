@@ -10,6 +10,7 @@ const interceptResponse = async (value: any) => {
 	let error: any;
 	try {
 		console.log(value);
+		console.log("qwer");
 
 	} catch (err) {
 		error = err;

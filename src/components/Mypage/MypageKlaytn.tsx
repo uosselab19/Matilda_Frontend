@@ -52,7 +52,7 @@ export const MypageKlaytn = (props: MypageKlaytnProps) => {
               :
               <button
                 type="button"
-                className="btn btn-lg btn-white col-10 fs-5"
+                className="btn btn-lg btn-light col-10 fs-5"
                 onClick={createWallet}>
                 지갑을 만들까요?
               </button>
@@ -61,8 +61,8 @@ export const MypageKlaytn = (props: MypageKlaytnProps) => {
           {/* 클레이 보유 금액 */}
           <div className="col-12 row my-3">
             <div className="col-12 fs-3">Account</div>
-            <div className="col-8 fs-4">{balance}</div>
-            <div className="col-4 fs-5">KLAY</div>
+            <div className="col-2 fs-4">Balance:</div>
+            <div className="col-10 fs-4">{balance} KLAY</div>
           </div>
         </div>
       </form>

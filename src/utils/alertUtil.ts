@@ -45,49 +45,52 @@ export const alertModal = async (title: string, text: string, url: string, alt?:
 	})
 }
 
-export const confirmSuccess = async (title: string, text: string, confirmText: string, cancelText: string) => {
+export const confirmSuccess = async (title: string, text: string, confirmText: string, denyText: string) => {
 	return Swal.fire({
 		icon: 'success',
 		title: title,
 		text: text,
 		allowOutsideClick: false,
-		showCancelButton: true,
+		showCloseButton: true,
+		showDenyButton: true,
 		confirmButtonText: confirmText,
 		confirmButtonColor: '#81c147',
-		cancelButtonText: cancelText,
-		cancelButtonColor: '#d33',
+		denyButtonText: denyText,
+		denyButtonColor: '#d33',
 	});
 }
 
-export const confirmWarning = async (title: string, text: string, confirmText: string, cancelText: string) => {
+export const confirmWarning = async (title: string, text: string, confirmText: string, denyText: string) => {
 	return Swal.fire({
 		icon: 'warning',
 		title: title,
 		text: text,
 		allowOutsideClick: false,
-		showCancelButton: true,
+		showCloseButton: true,
+		showDenyButton: true,
 		confirmButtonText: confirmText,
 		confirmButtonColor: '#81c147',
-		cancelButtonText: cancelText,
-		cancelButtonColor: '#d33',
+		denyButtonText: denyText,
+		denyButtonColor: '#d33',
 	});
 }
 
-export const confirmQuestion = async (title: string, text: string, confirmText: string, cancelText: string) => {
+export const confirmQuestion = async (title: string, text: string, confirmText: string, denyText: string) => {
 	return Swal.fire({
 		icon: 'question',
 		title: title,
 		text: text,
 		allowOutsideClick: false,
-		showCancelButton: true,
+		showCloseButton: true,
+		showDenyButton: true,
 		confirmButtonText: confirmText,
 		confirmButtonColor: '#81c147',
-		cancelButtonText: cancelText,
-		cancelButtonColor: '#d33',
+		denyButtonText: denyText,
+		denyButtonColor: '#d33',
 	});
 }
 
-export const confirmModal = async (title: string, text: string, confirmText: string, cancelText: string, url: string, alt?: string, width?: number) => {
+export const confirmModal = async (title: string, text: string, confirmText: string, denyText: string, url: string, alt?: string, width?: number) => {
 	return Swal.fire({
 		title: title,
 		text: text,
@@ -97,11 +100,12 @@ export const confirmModal = async (title: string, text: string, confirmText: str
 		width: width ? width + 60 : 560,
 		imageAlt: alt ? alt : "Modal Image",
 		allowOutsideClick: false,
-		showCancelButton: true,
+		showCloseButton: true,
+		showDenyButton: true,
 		confirmButtonText: confirmText,
 		confirmButtonColor: '#81c147',
-		cancelButtonText: cancelText,
-		cancelButtonColor: '#d33'
+		denyButtonText: denyText,
+		denyButtonColor: '#d33'
 	})
 }
 
@@ -111,7 +115,8 @@ export const alertInput = async (title: string, text: string, placeholder: strin
 		input: 'text',
 		inputLabel: text,
 		inputPlaceholder: placeholder,
-		showCancelButton: true,
+		showCloseButton: true,
+		showDenyButton: true,
 		inputValidator: (value) => {
 			if (!value) { return 'You need to write something!' }
 			return "";
@@ -121,7 +126,7 @@ export const alertInput = async (title: string, text: string, placeholder: strin
 	return newValue;
 }
 
-export const confirmInputModal = async (title: string, text: string, confirmText: string, cancelText: string, placeholder: string, url: string, alt?: string) => {
+export const confirmInputModal = async (title: string, text: string, confirmText: string, denyText: string, placeholder: string, url: string, alt?: string) => {
 	return await Swal.fire({
 		title: title,
 		imageUrl: (url.length > 0 && url != "no img") ? url : item_img1,
@@ -130,11 +135,12 @@ export const confirmInputModal = async (title: string, text: string, confirmText
 		inputLabel: text,
 		inputPlaceholder: placeholder,
 		allowOutsideClick: false,
-		showCancelButton: true,
+		showCloseButton: true,
+		showDenyButton: true,
 		confirmButtonText: confirmText,
 		confirmButtonColor: '#81c147',
-		cancelButtonText: cancelText,
-		cancelButtonColor: '#d33',
+		denyButtonText: denyText,
+		denyButtonColor: '#d33',
 		inputValidator: (value) => {
 			if (!value) {
 				return '빈칸을 채워주세요!'

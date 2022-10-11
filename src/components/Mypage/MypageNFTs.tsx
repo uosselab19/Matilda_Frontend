@@ -23,7 +23,6 @@ export const MypageNFTs = () => {
       console.log(data);
       const result = await confirmModal(data.title, data.description, (data.stateCode=="CR")?"NFT 발행하기":"판매하기", "돌아가기", getS3Url(data.imgUrl), 'Not NFT Image');
       if (result.isConfirmed) {navigate(`/NFTItem?nft_id=${data.itemNum}`);}
-      if (result.isDismissed) {alertError("취소했어요!", "다시 한 번 생각해보시고 찾아와주세요 ㅎㅎ");}
     }
   }
 

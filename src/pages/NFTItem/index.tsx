@@ -83,10 +83,8 @@ export const NFTItem = () => {
     if (!cookie) alertWarning("로그인이 필요해요!", "로그인 후 이용해주세요!");
     else {
       const result = await confirmModal("구매할까요?", "마음에 드신다면 구매하기 버튼을 누르세요!", "구매하기", "돌아가기", getS3Url(item.imgUrl), "Selling NFT");
-      if (result.isDismissed) alertError("취소했어요!", "다시 한 번 생각해주시고 찾아와주세요 ㅎㅎ");
       if (result.isConfirmed) {
         const result = await confirmWarning("정말 구매할까요?", "구매하기를 누르시면 구매가 확정됩니다. 주의해주세요!", "구매하기", "취소하기");
-        if (result.isDismissed) alertError("취소했어요!", "다시 한 번 생각해주시고 찾아와주세요 ㅎㅎ");
         if (result.isConfirmed) {
           console.log(item);
           const txHash = await buyNFT(member.address, item.tokenId, item.price);
@@ -111,7 +109,6 @@ export const NFTItem = () => {
   const handleSell = async () => {
     const result = await confirmInputModal("판매 등록하기", "가격을 적고 판매하기 버튼을 눌러주세요!", "판매하기", "돌아가기", "0", getS3Url(item.imgUrl), "on sale");
     const value = Number(result.value);
-    if (result.isDismissed) alertError("취소했어요!", "다시 한 번 생각해보시고 찾아와주세요 ㅎㅎ");
     if (result.isConfirmed) {
       console.log(member.address);
       console.log(item.tokenId);
@@ -133,7 +130,6 @@ export const NFTItem = () => {
 
   const handleCancel = async () => {
     const result = await confirmModal("거래 무르기", "거래 등록을 해제하고 싶으면 해제하기 버튼을 눌러주세요!", "해제하기", "돌아가기", getS3Url(item.imgUrl), "cancel on sale");
-    if (result.isDismissed) alertError("취소했어요!", "다시 한 번 생각해보시고 찾아와주세요 ㅎㅎ");
     if (result.isConfirmed) {
       const txHash = await unsetForSale(member.address, item.tokenId);
       const newItem = await changeItem(itemNum, {
@@ -152,7 +148,6 @@ export const NFTItem = () => {
 
   const handleMint = async () => {
     const result = await confirmModal("NFT 발행", "NFT를 발행하고 싶으면 발행하기 버튼을 눌러주세요!", "발행하기", "돌아가기", getS3Url(item.imgUrl), "Minting NFT");
-    if (result.isDismissed) alertError("취소했어요!", "다시 한 번 생각해주시고 찾아와주세요 ㅎㅎ");
     if (result.isConfirmed) {
       console.log(item.objectUrl);
       const { data, error } = await getCID(itemNum);

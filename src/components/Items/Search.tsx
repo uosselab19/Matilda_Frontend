@@ -34,7 +34,7 @@ export default function Search(props: SearchProps) {
     onKeyUp={(e)=>{if(e.key=="Enter") handleSubmit(e);}} >
       <form>
         <div className="row d-flex justify-content-between">
-          <div className="col-4">
+          <div className="col-2">
             <SelectBox
               id="test"
               label=""
@@ -49,6 +49,22 @@ export default function Search(props: SearchProps) {
               value={values['catCode']}
               keyProperty="title"
               valueProperty="catCode" />
+          </div>
+          <div className="col-2">
+            <SelectBox
+              id="test"
+              label=""
+              placeholder=""
+              helpText="Please enter"
+              disabled={false}
+              size={size}
+              options={categoryList}
+              handleChange={(e) => {
+                handleChange(e);
+              }}
+              value={values['sortKey']}
+              keyProperty="sortKey"
+              valueProperty="sortKey" />
           </div>
           <div className="col-6">
             <SearchBox

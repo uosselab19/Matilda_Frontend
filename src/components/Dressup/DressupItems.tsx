@@ -36,13 +36,12 @@ export const DressupItems = (props: DressupItemsProps) => {
         setClothes((clothes) => ({ ...clothes, [data.catCode]: data }));
         setChangedClothes(data);
       }
-
-      if (result.isDismissed) {
+      if (result.isDenied) {
         if (!getUserInfo()) alertError('회원정보 없음!', "저장하고 오시는 게 더 좋을 듯싶네요 ㅎㅎ");
         else {
           if (!presetList.some((e) => { return e == clothes; })) {
             const result = await confirmWarning(`페이지 이동`, "아직 입고 있는 착장 정보가 프리셋에 저장이 되지 않았는데 페이지를 이동할까요?", `저장하고 올게요.`, '이동할게요.');
-            if (result.isDismissed) navigate(`/NFTitem?nft_id=${itemNum}`);
+            if (result.isDenied) navigate(`/NFTitem?nft_id=${itemNum}`);
             if (result.isConfirmed) alertError('멈췄어요!', "저장하고 오시는 게 더 좋을 듯싶네요 ㅎㅎ");
           }
         }
