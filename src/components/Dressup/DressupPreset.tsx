@@ -89,10 +89,16 @@ const PresetCard = (props: PresetCard) => {
         aria-expanded="true"
         aria-controls={`collapsePreset${index + 1}`}>
         <div className='row w-100 ms-0'>
-          <span className="fs-4 fw-bold ps-3 py-2 col-9">Preset {index + 1}</span>
+          <span className="fs-4 fw-bold ps-3 py-2 col-8">Preset {index + 1}</span>
           <button
             type="button"
-            className="btn btn-light col-3"
+            className="btn btn-light col-2"
+            onClick={() => { handleLoad }}>
+            저장하기
+          </button>
+          <button
+            type="button"
+            className="btn btn-light col-2"
             onClick={() => { handleLoad }}>
             불러오기
           </button>
