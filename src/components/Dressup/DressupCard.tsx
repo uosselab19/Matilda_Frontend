@@ -5,11 +5,18 @@ import { getS3Url } from "../../utils/S3";
 interface DressupCardProps {
 	clothes: Clothes;
 	setClothes: React.Dispatch<React.SetStateAction<Clothes>>;
-	blankMessage:string;
+	blankMessage: string;
 }
 
 export const DressupCard = (props: DressupCardProps) => {
 	const { clothes, blankMessage } = props;
+
+	const handleBuy = (e) => {
+		console.log(e);
+	}
+	const handleCancel = (e) => {
+		console.log(e);
+	}
 
 	return (Object.entries(clothes).length > 0) ? (
 		<div className="row row-cols-1 g-1">
@@ -31,7 +38,7 @@ export const DressupCard = (props: DressupCardProps) => {
 								<button
 									type="button"
 									className="btn btn-primary w-100 h-100"
-									onClick={() => { }}>
+									onClick={() => { handleBuy(elem[1]); }}>
 									Buy
 								</button>
 							</div>
@@ -39,7 +46,7 @@ export const DressupCard = (props: DressupCardProps) => {
 								<button
 									type="button"
 									className="btn btn-danger w-100 h-100"
-									onClick={() => { }}>
+									onClick={() => { handleCancel(elem[1]); }}>
 									취소
 								</button>
 							</div>

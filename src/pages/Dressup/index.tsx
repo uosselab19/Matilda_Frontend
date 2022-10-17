@@ -40,11 +40,11 @@ export const Dressup = () => {
     (async () => {
       //옷을 안 입었으면 확인할 필요가 없음
       if (!Object.entries(clothes).length) return;
-      
+
       //이미 입은 카테고리의 옷을 입으려고 시도하면 그 전에 있던 옷을 지워야 함
       //그거 지우는 코드
       const sceneMesh = scene.children.filter((_, i) => { return (i > 11); });
-      const alreadyExistsMeshIndex = sceneMesh.findIndex((e) => { return e.name==changedClothes.catCode; });
+      const alreadyExistsMeshIndex = sceneMesh.findIndex((e) => { return e.name == changedClothes.catCode; });
       if (alreadyExistsMeshIndex > -1) scene.remove(sceneMesh[alreadyExistsMeshIndex]);
 
       //옷 입기 코드
@@ -128,11 +128,18 @@ export const Dressup = () => {
               setPresetList={setPresetList} />
           </div>
           <div className={`${selectedNavButton == "Preset" ? "d-block" : "d-none"}`}>
-            <DressupPreset
-              clothes={clothes}
-              setClothes={setClothes}
-              presetList={presetList}
-              setPresetList={setPresetList} />
+            {
+              (getUserInfo()) ?
+                <DressupPreset
+                  clothes={clothes}
+                  setClothes={setClothes}
+                  presetList={presetList}
+                  setPresetList={setPresetList} />
+                :
+                <div className='d-flex justify-content-center py-2'>
+                  로그인이 필요한 페이지입니다.
+                </div>
+            }
           </div>
         </div>
       </div>

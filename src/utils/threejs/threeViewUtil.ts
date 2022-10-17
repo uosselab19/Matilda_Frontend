@@ -4,7 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 export default function createView(modelHeight: number, roomWidth: number, roomHeight: number, scene:Scene) {
   const dressupDom = document.getElementById('View') as HTMLElement; // 마운트가 되어야 Dom을 찾을 수 있다.
-  let [canvasWidth, canvasDomHeight] = [dressupDom.clientWidth - 16, (4 / 3) * (dressupDom.clientWidth)]; // 브라우저 크기 확인
+  let [canvasWidth, canvasDomHeight] = [dressupDom.clientWidth, (4 / 3) * (dressupDom.clientWidth)]; // 브라우저 크기 확인
 
   //scene : 화면 출력의 대상
   scene.background = new THREE.Color(0x999999); // 플레이스홀더의 색깔은 회색으로.
