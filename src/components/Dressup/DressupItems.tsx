@@ -36,6 +36,7 @@ export const DressupItems = (props: DressupItemsProps) => {
         setClothes((clothes) => ({ ...clothes, [data.catCode]: data }));
         setChangedClothes(data);
       }
+      
       if (result.isDenied) {
         if (!getUserInfo()) alertError('회원정보 없음!', "저장하고 오시는 게 더 좋을 듯싶네요 ㅎㅎ");
         else {

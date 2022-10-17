@@ -152,3 +152,27 @@ export const confirmInputModal = async (title: string, text: string, confirmText
 	})
 }
 
+export const alertProgress = async (title: string, progress:any) => {
+	let timerInterval;
+	return Swal.fire({
+		title: title,
+		html: `진행률 : <b></b>%`,
+		timer: 500,
+		allowOutsideClick: false,
+		showCloseButton: true,
+		didOpen: () => {
+			Swal.showLoading();
+			const b = Swal.getHtmlContainer()?.querySelector('b') as HTMLElement;
+			let progressPoint = (progress.value / progress.total * 100);
+			timerInterval = setInterval(() => {
+				if(progress.error) clearInterval(timerInterval);
+				progressPoint = (progress.value / progress.total * 100);
+				b.textContent = progressPoint.toString();
+				if (progressPoint < 100) Swal.increaseTimer(100);
+			}, 100);
+		},
+		willClose: () => {
+			clearInterval(timerInterval);
+		}
+	})
+}
