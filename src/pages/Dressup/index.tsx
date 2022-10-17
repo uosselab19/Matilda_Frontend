@@ -26,6 +26,7 @@ export const Dressup = () => {
     { key: "Preset", title: "Preset" },
   ];
 
+  //초기 3D 방 세팅
   useEffect(() => {
     (async () => {
       createView(modelHeight, roomWidth, roomHeight, scene);
@@ -34,20 +35,19 @@ export const Dressup = () => {
     })();
   }, []);
 
+  //옷을 입기 위한 코드
   useEffect(() => {
     (async () => {
+      //옷을 안 입었으면 확인할 필요가 없음
       if (!Object.entries(clothes).length) return;
-
+      
+      //이미 입은 카테고리의 옷을 입으려고 시도하면 그 전에 있던 옷을 지워야 함
+      //그거 지우는 코드
       const sceneMesh = scene.children.filter((_, i) => { return (i > 11); });
-      const sceneCatCode = sceneMesh.map((e) => { return clothes[e.name]; });
-      console.log(sceneCatCode);
+      const alreadyExistsMeshIndex = sceneMesh.findIndex((e) => { return e.name==changedClothes.catCode; });
+      if (alreadyExistsMeshIndex > -1) scene.remove(sceneMesh[alreadyExistsMeshIndex]);
 
-      // const index = Object.entries(clothes).findIndex(async (e) => {
-      //   return e[1].catCode === changedClothes.catCode;
-      // });
-      // console.log(index);
-      // console.log(sceneMesh);
-      // if (index > -1) scene.remove(sceneMesh[index]);
+      //옷 입기 코드
       loadModel(changedClothes.catCode, `https://nftstorage.link/ipfs/${changedClothes.tokenUri.slice(7)}`,
         changedClothes.catCode == "TOP" ? 0.4 * modelHeight : 0.55 * modelHeight, scene,
         changedClothes.catCode == "TOP" ? 40 : 17);
