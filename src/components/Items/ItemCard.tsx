@@ -1,6 +1,6 @@
 import item_img1 from '../../assets/images/Marketplace/item_img.png';
 import makerThumbImg1 from '../../assets/images/Profile/thumbProfileImage.png';
-import { getS3ImgUrl } from '../../utils/S3';
+import { getS3Url } from '../../utils/S3';
 import { Item } from '../../types/Item';
 import CardPlaceholder from './ItemCardPlaceholder';
 
@@ -13,6 +13,16 @@ interface CardProps {
 
 export default function Card(props: CardProps) {
   const { item, size, handleCard } = props;
+
+  const chooseColor = (stateCode: string|undefined): [string, string] => {
+    switch (stateCode) {
+      case "CR": return ["white", "black"];
+      case "OS": return ["green", "black"];
+      case "NOS": return ["black", "white"];
+      default: return ["red", "white"];
+    }
+  }
+  const [bgColor, textColor] = chooseColor(item?.stateCode);
 
   const handleMouse = (e: React.MouseEvent): void => {
     e.stopPropagation();
@@ -33,7 +43,7 @@ export default function Card(props: CardProps) {
         'style',
         'transition-duration: 1.25s;' +
         'transition-timing-function: easy-in;' +
-        `background-color: ${(item?.stateCode != "CR") ? 'black' : 'white'};` +
+        `background-color: ${bgColor};` +
         'top: 0%;' +
         'opacity: 0.8;'
       );
@@ -60,7 +70,7 @@ export default function Card(props: CardProps) {
         'style',
         'transition-duration: 1.25s;' +
         'transition-timing-function: easy-in;' +
-        `background-color:${(item?.stateCode != "CR") ? 'black' : 'white'};` +
+        `background-color:${bgColor};` +
         'opacity:0.8;' +
         'top: 70%;'
       );
@@ -79,17 +89,16 @@ export default function Card(props: CardProps) {
     }
   };
 
-
   return (
     <div>
       <div
         className={`cardItemNum${item ? item.itemNum : ""}`}
-        onClick={() => { if (handleCard) handleCard(item); }}
+        onClick={() => { if (handleCard) handleCard(item?.itemNum); }}
         draggable="false"
         aria-expanded="false"
         style={{ display: (item) ? "block" : "none" }} >
         <div
-          className={`card overflow-hidden text-${(item?.stateCode != "CR") ? 'white' : 'black'} d-flex flex-column`}
+          className={`card overflow-hidden text-${textColor} d-flex flex-column`}
           onMouseOver={handleMouse}
           onMouseLeave={handleMouse}
           style={{
@@ -101,10 +110,11 @@ export default function Card(props: CardProps) {
           <img
             alt=""
             className="card-img"
-            src={item?getS3ImgUrl(item.imgUrl):item_img1} />
-          <div className="card-img-overlay" style={{ top: '70%', backgroundColor: (item?.stateCode != "CR") ? 'black' : 'white', opacity: 0.8 }} />
+            src={(item && item.imgUrl != "no img") ? getS3Url(item.imgUrl) : item_img1}
+            width="100%"/>
+          <div className="card-img-overlay" style={{ top: '70%', backgroundColor: bgColor, opacity: 0.8 }} />
           <div className="card-img-overlay d-flex flex-column">
-            <div className={`card-text mt-auto d-flex justify-content-between px-2 ${size == 'lg' ? 'py-2' : ''}`}>
+            <div className={`card-text mt-auto d-flex justify-content-between px-1 ${size == 'lg' ? 'py-2' : ''}`}>
               {(size == 'lg') ?
                 <img
                   src={makerThumbImg1}

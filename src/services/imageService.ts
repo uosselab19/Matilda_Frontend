@@ -1,12 +1,20 @@
 import { imageApiClient } from "../configs/apiClient";
+import { getUserInfo } from "../utils/cookieUtil";
 
 export async function postImage(image: {}) {
     let [data, error] = [undefined, undefined] as any;
     try {
+        const userInfo = getUserInfo();
+        if (!userInfo) throw "userInfo is not exists";
+
         const form = new FormData();
         Object.keys(image).forEach((e) => { form.append(e, image[e]); })
 
-        const result = await imageApiClient.post('/convert', form);
+        const result = await imageApiClient.post(
+            '/convert',
+            form,
+            { headers: { "X-AUTH-TOKEN": userInfo.accessToken } }
+        );
         data = result?.data;
     } catch (err) {
         error = err;
@@ -15,15 +23,20 @@ export async function postImage(image: {}) {
     return { data, error };
 }
 
-export async function getCID(info:any) {
+export async function getCID(itemNum: number) {
     let [data, error] = [undefined, undefined] as any;
     try {
-        const form = new FormData();
-        Object.keys(info).forEach((e) => { form.append(e, info[e]); })
+        const userInfo = getUserInfo();
+        if (!userInfo) throw "userInfo is not exists";
 
-        console.log(form);
-        
-        const result = await imageApiClient.post('/getCID', form);
+        const form = new FormData();
+        form.append("num", itemNum.toString());
+
+        const result = await imageApiClient.post(
+            '/getCID',
+            form,
+            { headers: { "X-AUTH-TOKEN": userInfo.accessToken } }
+        );
         data = result?.data;
     } catch (err) {
         error = err?.response || err?.message;

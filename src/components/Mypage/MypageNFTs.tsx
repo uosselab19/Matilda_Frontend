@@ -1,28 +1,28 @@
 import Items from '../Items/Items';
 import useItems from '../../hooks/useItems';
-import { selectItems } from '../../services/itemService';
-import { Item } from '../../types/Item';
+import { getItem, selectItems } from '../../services/itemService';
 import { useNavigate } from 'react-router-dom';
 import { getUserInfo } from '../../utils/cookieUtil';
-import { confirmModal } from '../../utils/alertUtil';
-import { SweetAlertResult } from 'sweetalert2';
+import { alertError, confirmModal } from '../../utils/alertUtil';
+import { getS3Url } from '../../utils/S3';
 
 export const MypageNFTs = () => {
   const navigate = useNavigate();
-  const [numShowItems, numShowPages] = [15, 5];
+  const [numShowItems, numShowPages] = [12, 5];
 
   const cookie = getUserInfo();
 
   const { count, items, page, setPage } = useItems(selectItems, { memberNum: cookie.num }, numShowItems);
 
-  const handleCard = async (item: Item) => {
-    let result: SweetAlertResult<any>;
-    if (item.catCode) {
-      result = await confirmModal('NFT 등록', '아직 민팅하지 않은 3D 오브젝트에요. 해당 오브젝트를 NFT로 만들까요?', "민팅하기", "돌아가기", item.imgUrl, 'Not NFT Image');
-      if (result.isConfirmed) navigate("/NFTminting");
+  const handleCard = async (itemNum: number) => {
+    const { data, error } = await getItem(itemNum);
+    if (error) {
+      console.log(error);
+      alertError('아이템을 찾지 못 했어요!', '아이템 정보를 불러오는 중 문제가 발생했어요!');
     } else {
-      result = await confirmModal('판매하기', '해당 NFT를 판매할 수 있어요. 판매할까요?', "판매하기", "돌아가기", item.imgUrl, 'Completely NFT Image');
-      if (result.isConfirmed) navigate(`/mypage/NFTItem?nft_id=${item.itemNum}`);
+      console.log(data);
+      const result = await confirmModal(data.title, data.description, (data.stateCode=="CR")?"NFT 발행하기":"판매하기", "돌아가기", getS3Url(data.imgUrl), 'Not NFT Image');
+      if (result.isConfirmed) {navigate(`/NFTItem?nft_id=${data.itemNum}`);}
     }
   }
 

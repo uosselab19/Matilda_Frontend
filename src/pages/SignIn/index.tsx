@@ -7,9 +7,9 @@ import { useEffect } from 'react';
 import { signinMember } from '../../services/securityService';
 import SigninBox from '../../components/forms/signinBox';
 import SubmitButton from '../../components/forms/SubmitButton';
-import { setUserInfo, getUserInfo } from '../../utils/cookieUtil';
+import { setUserInfo, getUserInfo, getUserInfoByToken } from '../../utils/cookieUtil';
 import { alertError } from '../../utils/alertUtil';
-import { getUserInfoByToken } from '../../utils/tokenUils';
+import { encrypt } from '../../utils/cryptoUtil';
 
 const validate = (values: SigninMember) => {
   const errors = {
@@ -24,7 +24,8 @@ export const Signin = () => {
   const navigate = useNavigate();
 
   const callback = async (values: SigninMember) => {
-    const { data, error } = await signinMember(values);
+    const encryptedValues = { ...values, ["password"]: encrypt(values.password) };
+    const { data, error } = await signinMember(encryptedValues);
     if (error) {
       console.log(error);
       alertError('로그인 에러', `로그인에 실패했어요.`);
@@ -90,8 +91,8 @@ export const Signin = () => {
 
         {/* remember ID 체크 */}
         <div className="checkbox mt-4 mb-3">
-          <input type="checkbox" className="form-checkbox" id="floatingCheckbox" value="remember-me" tabIndex={-1}></input>
-          <label htmlFor="floatingCheckbox">Remember ID 부분</label>
+          <input type="checkbox" className="form-checkbox me-2" id="floatingCheckbox" value="remember-me" tabIndex={-1}></input>
+          <label htmlFor="floatingCheckbox">Remember ID</label>
         </div>
 
         {/* Sign in 버튼 */}

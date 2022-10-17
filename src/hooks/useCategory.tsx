@@ -1,4 +1,4 @@
-import imageDR from '../assets/images/Convert3D/imageDR.png';
+import imageDR from '../assets/images/Convert3D/imageDRE.png';
 import imageTOP from '../assets/images/Convert3D/imageTOP.png';
 import imageBTM from '../assets/images/Convert3D/imageBTM.png';
 import imageHEA from '../assets/images/Convert3D/imageHEADWEAR.png';
@@ -11,7 +11,7 @@ import imageRIN from '../assets/images/Convert3D/imageRING.png';
 export default function useCategory() {
   return [
     { title: '전체', image: imageDR, catCode: '' },
-    { title: '드레스', image: imageDR, catCode: 'DR' },
+    { title: '드레스', image: imageDR, catCode: 'DRE' },
     { title: '상의', image: imageTOP, catCode: 'TOP' },
     { title: '하의', image: imageBTM, catCode: 'BTM' },
     { title: '모자', image: imageHEA, catCode: 'HEA' },

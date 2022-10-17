@@ -25,7 +25,7 @@ export default function TextArea(props: TextAreaProps) {
         {label}
       </label>
       <textarea
-        className={[boxClass, `border-${error?"danger":"dark"}`, `input ${error && 'is-danger'}`].join(' ')}
+        className={[boxClass, `border-${error?"danger":"dark"}`, `input ${error && 'is-danger'}`, ``].join(' ')}
         id={id}
         name={name}
         rows={rows}

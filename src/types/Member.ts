@@ -16,6 +16,11 @@ export interface UpdateMember {
   description?: string;
 }
 
+export interface UpdateMemberKlaytn {
+  walletAddress: string;
+  walletPrivateKey: string;
+}
+
 export interface SigninMember {
   id: string;
   password: string;
@@ -42,4 +47,6 @@ export interface UserInfo {
   exp: number;
   refreshToken: string;
   accessToken: string;
+  address: string;
+  privateKey: string;
 }

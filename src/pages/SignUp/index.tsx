@@ -6,6 +6,7 @@ import useForm from '../../hooks/useForm';
 import { insertMember } from '../../services/memberService';
 import { InsertMember } from '../../types/Member';
 import { alertError, alertSuccess } from '../../utils/alertUtil';
+import { encrypt } from '../../utils/cryptoUtil';
 import { isRequired, isID, isPassword, isEmail, notMaxLength, notMinLength } from '../../utils/validatorUtil';
 
 const validate = (values: InsertMember) => {
@@ -25,14 +26,24 @@ const validate = (values: InsertMember) => {
 export const Signup = () => {
   const navigate = useNavigate();
   const callback = async (values: InsertMember) => {
-    const { error } = await insertMember(values);
+    if (!values.password) {
+      alertError("에러가 발생했어요!", "패스워드가 들어가지 않았어요.");
+      console.log("data with no password is trying to pass my db");
+      return;
+    }
+
+    const encryptedValues = { ...values, ["password"]: encrypt(values.password) };
+    const { error } = await insertMember(encryptedValues);
 
     if (error) {
-      alertError('에러가 발생했어요!', error);
-    } else {
-      alertSuccess('회원가입이 완료되었습니다!', '로그인을 하셔야 회원 서비스를 이용할 수 있습니다.');
-      navigate('/signin', { replace: false });
+      console.log(error);
+      alertError("에러가 발생했어요!", "");
+      return;
     }
+
+    alertSuccess('회원가입이 완료되었습니다!', '로그인을 하셔야 회원 서비스를 이용할 수 있습니다.');
+    navigate('/signin', { replace: false });
+    return;
   };
 
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);

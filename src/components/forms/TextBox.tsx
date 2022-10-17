@@ -26,7 +26,7 @@ export default function TextBox(props: TextBoxProps) {
       </label>
       <input
         type={type || 'text'}
-        className={[boxClass, `border-${error?"danger":"dark"}`, `input ${error && 'is-danger'}`].join(' ')}
+        className={[boxClass, `border-${error?"danger":"dark"}`, `input ${error && 'is-danger'}`, ``].join(' ')}
         name={name}
         id={id}
         placeholder={placeholder}

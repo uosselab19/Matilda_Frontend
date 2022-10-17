@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { MypageNFTs } from '../../components/Mypage/MypageNFTs';
-import { MypageWallet } from '../../components/Mypage/MypageWallet';
+import { MypageKlaytn } from '../../components/Mypage/MypageKlaytn';
 import { MypageOption } from '../../components/Mypage/MypageOption';
 import { useNavigate } from 'react-router-dom';
 import { NavButtons } from '../../components/NavButtons';
@@ -12,12 +12,12 @@ import { alertError } from '../../utils/alertUtil';
 
 export const Mypage = () => {
   const navigate = useNavigate();
-  const [selectedNavButton, setSelectedNavButton] = useState("myNFTList");
+  const [selectedNavButton, setSelectedNavButton] = useState("myItemList");
   const [userInfo, setUserInfo] = useState({} as SelectMember);
 
   const navItems = [
-    { key: "myNFTList", title: "My NFT List" },
-    { key: "klaytnSetting", title: "Klaytn setting" },
+    { key: "myItemList", title: "My Item List" },
+    { key: "klaytn", title: "Klaytn" },
     { key: "editInfo", title: "Edit Info" }
   ];
 
@@ -33,6 +33,7 @@ export const Mypage = () => {
           if (error) {
             console.log(error);
             alertError('누구셨죠...?', '유저정보를 불러오는 중 에러가 발생했습니다.');
+            navigate('/');
           } else {
             setUserInfo(data);
           }
@@ -42,7 +43,7 @@ export const Mypage = () => {
   }, [userInfo]);
 
   //userInfo가 null인 경우면 JSX 안에 있는 userInfo.name 때문에 에러뜨게 되는 시스템이라 부득이하게 이렇게 사용
-  return Object.keys(userInfo).length ? (
+  return (userInfo && Object.keys(userInfo).length) ? (
     <main className="container d-flex flex-column justify-content-center">
       <div className="row my-3">
         <div className="col-md-4">
@@ -69,13 +70,15 @@ export const Mypage = () => {
 
           {/* 이 부분이 My Page 핵심 부분 */}
           <div className={`d-flex justify-content-center`}>
-            <div className={`${selectedNavButton == "myNFTList" ? "d-block" : "d-none"}`}>
+            <div className={`w-100 ${selectedNavButton == "myItemList" ? "d-block" : "d-none"}`}>
               <MypageNFTs />
             </div>
-            <div className={`${selectedNavButton == "klaytnSetting" ? "d-block" : "d-none"}`}>
-              <MypageWallet />
+            <div className={`w-100 ${selectedNavButton == "klaytn" ? "d-block" : "d-none"}`}>
+              <MypageKlaytn
+                userInfo={userInfo}
+                setUserInfo={setUserInfo} />
             </div>
-            <div className={`${selectedNavButton == "editInfo" ? "d-block" : "d-none"}`}>
+            <div className={`w-100 ${selectedNavButton == "editInfo" ? "d-block" : "d-none"}`}>
               <MypageOption
                 userInfo={userInfo}
                 setUserInfo={setUserInfo} />

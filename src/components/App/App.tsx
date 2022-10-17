@@ -5,20 +5,24 @@ import { Footer } from './Footer';
 import { Home } from '../../pages/Home';
 import { Marketplace } from '../../pages/Marketplace';
 import { Convert3D } from '../../pages/Convert3D';
-import { MintNFT } from '../../pages/MintNFT';
 import { Dressup } from '../../pages/Dressup';
 import { Signin } from '../../pages/SignIn';
 import { Signup } from '../../pages/SignUp';
 import { Mypage } from '../../pages/Mypage';
 import { NFTItem } from '../../pages/NFTItem';
 import { NotFound } from '../../pages/NotFound';
-import { Test } from '../Test/Test';
-import AxiosInterceptorNavigate from '../../configs/Interceptor';
+import { AxiosInterceptorSetup } from '../../configs/Interceptor';
+
+// function AxiosInterceptorNavigate() {
+//   AxiosInterceptorSetup();
+//   return <></>;
+// }
 
 export const App = () => {
+  AxiosInterceptorSetup();
   return (
     <BrowserRouter basename='/'>
-      {<AxiosInterceptorNavigate />}
+      {/* {<AxiosInterceptorNavigate />} */}
       <Header />
       <Routes>
         <Route path="" element={<Home />} />
@@ -26,16 +30,13 @@ export const App = () => {
         {/*header에 연결된 component*/}
         <Route path="marketplace" element={<Marketplace />} />
         <Route path="3Dconversion" element={<Convert3D />} />
-        <Route path="NFTminting" element={<MintNFT />} />
         <Route path="dressup" element={<Dressup />} />
 
         <Route path="signin" element={<Signin />} />
         <Route path="signup" element={<Signup />} />
         <Route path="mypage" element={<Mypage />} />
-        <Route path="test" element={<Test />} />
 
-        <Route path="marketplace/NFTItem" element={<NFTItem mode={'Buy'} />} />
-        <Route path="mypage/NFTItem" element={<NFTItem mode={'Sell'} />} />
+        <Route path="NFTItem" element={<NFTItem />} />
 
         <Route path="/*" element={<NotFound />} />
       </Routes>

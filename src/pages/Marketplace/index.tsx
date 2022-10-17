@@ -3,15 +3,14 @@ import Search from '../../components/Items/Search';
 import { useNavigate } from 'react-router-dom';
 import useItems from '../../hooks/useItems';
 import { selectItems } from '../../services/itemService';
-import { Item } from '../../types/Item';
 
 export const Marketplace = () => {
   const [numShowItems, numShowPages] = [20, 10];
-  const { count, items, page, setPage, setSelectCondition } = useItems(selectItems, {}, numShowItems);
+  const { count, items, page, setPage, setSelectCondition } = useItems(selectItems, {stateCodes:"OS"}, numShowItems);
 
   const navigate = useNavigate();
-  const handleCard = (item: Item) => {
-    navigate(`/marketplace/NFTItem?nft_id=${item.itemNum}`, { replace: false });
+  const handleCard = (itemNum: number) => {
+    navigate(`/NFTItem?nft_id=${itemNum}`, { replace: false });
   };
 
   return (
