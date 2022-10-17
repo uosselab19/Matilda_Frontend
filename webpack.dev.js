@@ -14,7 +14,8 @@ module.exports = merge(common, {
 			directory: path.join(__dirname, "public")
 		},
 		historyApiFallback: true,
-		port: 3000
+		port: 3000,
+		allowedHosts:"all"
 	},
 	plugins: [
 		new DefinePlugin({
