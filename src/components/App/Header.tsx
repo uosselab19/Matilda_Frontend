@@ -20,7 +20,7 @@ export const Header = () => {
   //로그아웃 버튼 기능
   const fetchSignout = async () => {
     await signoutMember();
-    alertSuccess('로그아웃', `로그아웃했습니다!`);// 로그아웃했다고 알림
+    alertSuccess('로그아웃', `로그아웃했습니다!`); // 로그아웃했다고 알림
     removeUserInfo(); // 로그인 기록 쿠키 지우기
     linkTo('/'); // 로그아웃하면 홈페이지로
   };
@@ -31,15 +31,21 @@ export const Header = () => {
 
   const sign = // 오른쪽 버튼 보여주기
     (
-      <div className='btn-group' role="group">
+      <div className="btn-group" role="group">
         <button
           className="btn btn-outline-light me-1"
-          onClick={() => { getUserInfo() ? fetchSignout() : linkTo('/signin'); }}>
+          onClick={() => {
+            getUserInfo() ? fetchSignout() : linkTo('/signin');
+          }}
+        >
           {getUserInfo() ? 'sign-out' : 'Sign-in'}
         </button>
         <button
           className="btn btn-secondary"
-          onClick={() => { getUserInfo() ? linkTo('/mypage') : linkTo('/signup'); }}>
+          onClick={() => {
+            getUserInfo() ? linkTo('/mypage') : linkTo('/signup');
+          }}
+        >
           {getUserInfo() ? 'My Page' : 'Sign-up'}
         </button>
       </div>
@@ -50,7 +56,7 @@ export const Header = () => {
     { key: '/', title: 'Home' },
     { key: '/marketplace', title: 'Marketplace' },
     { key: '/dressup', title: 'Dress Up' },
-    { key: '/3Dconversion', title: '3D Conversion' },
+    { key: '/3Dconversion', title: '3D Conversion' }
   ];
 
   return (
@@ -63,12 +69,7 @@ export const Header = () => {
 
           {/* lg 이상 클 때 */}
           <div className="nav col-lg-auto me-lg-auto d-none d-lg-block align-items-center">
-            <NavButtons
-              navItems={navItems}
-              selectedNavButton={selectedNavButton}
-              onClick={linkTo}
-              textBold={true}
-              textColor={"white"} />
+            <NavButtons navItems={navItems} selectedNavButton={selectedNavButton} onClick={linkTo} textBold={true} textColor={'white'} />
           </div>
 
           {/* 검색바 */}
@@ -84,7 +85,8 @@ export const Header = () => {
                   selectedNavButton={selectedNavButton}
                   onClick={linkTo}
                   textBold={true}
-                  textColor={"white"} />
+                  textColor={'white'}
+                />
                 <div className="d-flex justify-content-end">{sign}</div>
               </div>
             </div>
@@ -96,7 +98,8 @@ export const Header = () => {
                 data-bs-target="#navbarToggleExternalContent"
                 aria-controls="navbarToggleExternalContent"
                 aria-expanded="false"
-                aria-label="Toggle navigation">
+                aria-label="Toggle navigation"
+              >
                 <span className="navbar-toggler-icon" />
               </button>
             </div>

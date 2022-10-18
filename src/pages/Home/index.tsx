@@ -29,10 +29,18 @@ export const Home = () => {
             <div className="col-7">
               <h1 className="display-4 fw-normal mb-5">이런 기능들이 있어요!</h1>
               <ul className="lead fw-normal">
-                <li><p>2D 이미지 3D로 바꿔주기</p></li>
-                <li><p>NFT 변환해주기</p></li>
-                <li><p>NFT 구경하기</p> </li>
-                <li><p>구경한 NFT를 마네킹에 입혀보기</p></li>
+                <li>
+                  <p>2D 이미지 3D로 바꿔주기</p>
+                </li>
+                <li>
+                  <p>NFT 변환해주기</p>
+                </li>
+                <li>
+                  <p>NFT 구경하기</p>{' '}
+                </li>
+                <li>
+                  <p>구경한 NFT를 마네킹에 입혀보기</p>
+                </li>
               </ul>
             </div>
 

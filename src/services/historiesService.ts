@@ -4,8 +4,7 @@ export const getHistories = async (param: any) => {
   let [data, error] = [undefined, undefined] as any;
 
   try {
-    const result = await anonymousApiClient.get(
-      `histories`, {
+    const result = await anonymousApiClient.get(`histories`, {
       params: param,
       headers: {}
     });
@@ -16,4 +15,4 @@ export const getHistories = async (param: any) => {
   }
 
   return { data, error };
-}
+};

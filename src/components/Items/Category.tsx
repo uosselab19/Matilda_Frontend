@@ -26,7 +26,8 @@ export default function Category() {
           onClick={() => {
             navigate(`/marketplace?cat_id=${cat_code}`, { replace: true });
             setCategory(cat_code);
-          }}>
+          }}
+        >
           {title}
         </button>
       );

@@ -1,5 +1,5 @@
 interface Category {
-    catCode: string;
-    image: '*.png';
-    title: string;
-  }
+  catCode: string;
+  image: '*.png';
+  title: string;
+}

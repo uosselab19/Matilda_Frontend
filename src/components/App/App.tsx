@@ -21,7 +21,7 @@ import { AxiosInterceptorSetup } from '../../configs/Interceptor';
 export const App = () => {
   AxiosInterceptorSetup();
   return (
-    <BrowserRouter basename='/'>
+    <BrowserRouter basename="/">
       {/* {<AxiosInterceptorNavigate />} */}
       <Header />
       <Routes>

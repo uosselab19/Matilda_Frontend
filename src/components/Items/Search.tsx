@@ -30,8 +30,11 @@ export default function Search(props: SearchProps) {
 
   return (
     <div
-    className={`container text-center mb-${size=="lg"?"4":"3"}`}
-    onKeyUp={(e)=>{if(e.key=="Enter") handleSubmit(e);}} >
+      className={`container text-center mb-${size == 'lg' ? '4' : '3'}`}
+      onKeyUp={(e) => {
+        if (e.key == 'Enter') handleSubmit(e);
+      }}
+    >
       <form>
         <div className="row d-flex justify-content-between">
           <div className="col-2">
@@ -48,7 +51,8 @@ export default function Search(props: SearchProps) {
               }}
               value={values['catCode']}
               keyProperty="title"
-              valueProperty="catCode" />
+              valueProperty="catCode"
+            />
           </div>
           {/* <div className="col-2">
             <SelectBox
@@ -77,7 +81,8 @@ export default function Search(props: SearchProps) {
                 handleChange(e);
               }}
               value={values['title']}
-              error={errors['title']} />
+              error={errors['title']}
+            />
           </div>
           <div className="col-2">
             <button
@@ -85,7 +90,8 @@ export default function Search(props: SearchProps) {
               className="btn btn-outline-success w-100 h-100"
               onClick={(e) => {
                 handleSubmit(e);
-              }}>
+              }}
+            >
               Search
             </button>
           </div>

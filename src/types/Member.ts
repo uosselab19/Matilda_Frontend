@@ -41,7 +41,7 @@ export interface SelectMember {
 
 export interface UserInfo {
   id: string;
-  num:number;
+  num: number;
   role: string;
   iat: number;
   exp: number;

@@ -31,40 +31,47 @@ export const DressupItems = (props: DressupItemsProps) => {
       console.log(error);
       alertError('아이템을 찾지 못 했어요!', '아이템 정보를 불러오는 중 문제가 발생했어요!');
     } else {
-      const result = await confirmModal(data.title, data.description, "입혀보기", "구매하기", getS3Url(data.imgUrl), data.title, 400);
+      const result = await confirmModal(data.title, data.description, '입혀보기', '구매하기', getS3Url(data.imgUrl), data.title, 400);
       if (result.isConfirmed) {
         setClothes((clothes) => ({ ...clothes, [data.catCode]: data }));
         setChangedClothes(data);
       }
-      
+
       if (result.isDenied) {
-        if (!getUserInfo()) alertError('회원정보 없음!', "저장하고 오시는 게 더 좋을 듯싶네요 ㅎㅎ");
+        if (!getUserInfo()) alertError('회원정보 없음!', '저장하고 오시는 게 더 좋을 듯싶네요 ㅎㅎ');
         else {
-          if (!presetList.some((e) => { return e == clothes; })) {
-            const result = await confirmWarning(`페이지 이동`, "아직 입고 있는 착장 정보가 프리셋에 저장이 되지 않았는데 페이지를 이동할까요?", `저장하고 올게요.`, '이동할게요.');
+          if (
+            !presetList.some((e) => {
+              return e == clothes;
+            })
+          ) {
+            const result = await confirmWarning(
+              `페이지 이동`,
+              '아직 입고 있는 착장 정보가 프리셋에 저장이 되지 않았는데 페이지를 이동할까요?',
+              `저장하고 올게요.`,
+              '이동할게요.'
+            );
             if (result.isDenied) navigate(`/NFTitem?nft_id=${itemNum}`);
-            if (result.isConfirmed) alertError('멈췄어요!', "저장하고 오시는 게 더 좋을 듯싶네요 ㅎㅎ");
+            if (result.isConfirmed) alertError('멈췄어요!', '저장하고 오시는 게 더 좋을 듯싶네요 ㅎㅎ');
           }
         }
       }
     }
-  }
+  };
 
   return (
     <div>
-      <Search
-        size={"lg"}
-        handleSearch={setSelectCondition} />
+      <Search size={'lg'} handleSearch={setSelectCondition} />
       <Items
         items={items}
         page={page}
         setPage={setPage}
         count={count}
-        size={"lg"}
+        size={'lg'}
         numShowItems={numShowItems}
         numShowPages={numShowPages}
-        handleCard={handleCard} />
+        handleCard={handleCard}
+      />
     </div>
   );
 };
-

@@ -16,8 +16,12 @@ export default function useForm(callback: Function, validate: Function) {
   }, [errors, isSubmitting]);
 
   const validObject = (obj: {}) => {
-    return Object.fromEntries(Object.entries(obj).filter((e) => { return e[1]; }));
-  }
+    return Object.fromEntries(
+      Object.entries(obj).filter((e) => {
+        return e[1];
+      })
+    );
+  };
 
   const handleSubmit = (event: ChangeEvent<any>) => {
     if (event) event.preventDefault();

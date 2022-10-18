@@ -31,9 +31,7 @@ function validate(values: UpdateItem) {
 }
 
 export const MintNFT = () => {
-  const callback = (values: UpdateItem) => {
-
-  };
+  const callback = (values: UpdateItem) => {};
 
   const navigate = useNavigate();
   const [itemImage, setItemImage] = useState('');
@@ -44,9 +42,8 @@ export const MintNFT = () => {
   const { count, items, page, setPage } = useItems(selectItems, { memberNum: cookie?.num, stateCode: 'CR' }, numShowItems);
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
 
-
   const handleCard = (item: Item) => {
-    setItemImage((item.imgUrl) ? getS3Url(item.imgUrl) : "");
+    setItemImage(item.imgUrl ? getS3Url(item.imgUrl) : '');
   };
 
   useEffect(() => {
@@ -62,7 +59,10 @@ export const MintNFT = () => {
   return (
     <main
       className="container"
-      onKeyUp={(e) => { if (e.key == "Enter") handleSubmit(e); }} >
+      onKeyUp={(e) => {
+        if (e.key == 'Enter') handleSubmit(e);
+      }}
+    >
       <div className="row">
         <div className="d-flex justify-content-center align-items-center fw-bold fs-2 my-4">NFT Minting</div>
         <div className="col-6 d-flex justify-content-center flex-column">
@@ -75,7 +75,8 @@ export const MintNFT = () => {
             size={'md'}
             numShowItems={numShowItems}
             numShowPages={numShowPages}
-            handleCard={handleCard} />
+            handleCard={handleCard}
+          />
         </div>
         <div className="col-6">
           <p>
@@ -100,7 +101,8 @@ export const MintNFT = () => {
                 handleChange={handleChange}
                 handleClick={handleClick}
                 value={values['title']}
-                error={errors['title']} />
+                error={errors['title']}
+              />
 
               {/* 설명 */}
               <TextArea
@@ -114,7 +116,8 @@ export const MintNFT = () => {
                 handleChange={handleChange}
                 handleClick={handleClick}
                 value={values['description']}
-                error={errors['description']} />
+                error={errors['description']}
+              />
 
               {/* 가격 */}
               <TextBox
@@ -128,21 +131,21 @@ export const MintNFT = () => {
                 handleChange={handleChange}
                 handleClick={handleClick}
                 value={values['price']}
-                error={errors['price']} />
+                error={errors['price']}
+              />
             </div>
 
             <SubmitButton
-              title={"Mint NFT"}
+              title={'Mint NFT'}
               handleSubmit={handleSubmit}
               values={values}
               errors={errors}
-              keys={["title", "description", "price"]}
-              allRequired={true} />
-
+              keys={['title', 'description', 'price']}
+              allRequired={true}
+            />
           </form>
         </div>
       </div>
     </main>
   );
 };
-

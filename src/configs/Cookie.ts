@@ -1,4 +1,4 @@
-import Cookies from "universal-cookie";
+import Cookies from 'universal-cookie';
 
 export const cookies = new Cookies();
-export const userInfoKey = "userInfo"
+export const userInfoKey = 'userInfo';

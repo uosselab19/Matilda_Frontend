@@ -19,6 +19,6 @@ export default function useCategory() {
     { title: '목걸이', image: imageNEC, catCode: 'NEC' },
     { title: '가방', image: imageBAG, catCode: 'BAG' },
     { title: '마스크', image: imageMAS, catCode: 'MAS' },
-    { title: '반지', image: imageRIN, catCode: 'RIN' },
+    { title: '반지', image: imageRIN, catCode: 'RIN' }
   ];
 }

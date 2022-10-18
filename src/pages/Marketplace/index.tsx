@@ -6,7 +6,7 @@ import { selectItems } from '../../services/itemService';
 
 export const Marketplace = () => {
   const [numShowItems, numShowPages] = [20, 10];
-  const { count, items, page, setPage, setSelectCondition } = useItems(selectItems, {stateCodes:"OS"}, numShowItems);
+  const { count, items, page, setPage, setSelectCondition } = useItems(selectItems, { stateCodes: 'OS' }, numShowItems);
 
   const navigate = useNavigate();
   const handleCard = (itemNum: number) => {
@@ -16,18 +16,17 @@ export const Marketplace = () => {
   return (
     <main>
       <div className="d-flex justify-content-center align-items-center fw-bold fs-2 my-5">Marketplace</div>
-      <Search
-        size="lg"
-        handleSearch={setSelectCondition} />
+      <Search size="lg" handleSearch={setSelectCondition} />
       <Items
         items={items}
         page={page}
         setPage={setPage}
         count={count}
-        size={"lg"}
+        size={'lg'}
         numShowItems={numShowItems}
         numShowPages={numShowPages}
-        handleCard={handleCard} />
+        handleCard={handleCard}
+      />
     </main>
   );
 };

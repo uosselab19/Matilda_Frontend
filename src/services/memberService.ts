@@ -6,24 +6,19 @@ export const insertMember = async (member: any) => {
   let [data, error] = [undefined, undefined] as any;
 
   try {
-    const result = await anonymousApiClient.post(
-      `/members`,
-      member,
-      { headers: {} }
-    );
+    const result = await anonymousApiClient.post(`/members`, member, { headers: {} });
     data = result?.data;
   } catch (err) {
     error = err;
   }
   return { data, error };
-}
+};
 
 export const selectMember = async (memberID: number) => {
   let [data, error] = [undefined, undefined] as any;
 
   try {
-    const result = await apiClient.get(
-      `/members/${memberID}`, {
+    const result = await apiClient.get(`/members/${memberID}`, {
       params: undefined,
       headers: {}
     });
@@ -33,45 +28,36 @@ export const selectMember = async (memberID: number) => {
   }
 
   return { data, error };
-}
+};
 
 export const putMember = async (member: UpdateMember) => {
   let [data, error] = [undefined, undefined] as any;
 
   try {
     const userInfo = getUserInfo();
-    if (!userInfo) throw "userInfo is not exists";
-    
-    const result = await apiClient.put(
-      `/members/auth/${member.memberNum}`,
-      member,
-      { headers: { "X-AUTH-TOKEN": userInfo.accessToken } }
-    );
+    if (!userInfo) throw 'userInfo is not exists';
+
+    const result = await apiClient.put(`/members/auth/${member.memberNum}`, member, { headers: { 'X-AUTH-TOKEN': userInfo.accessToken } });
     data = result?.data;
   } catch (err) {
     error = err;
   }
 
   return { data, error };
-}
+};
 
 export const putMemberKlaytn = async (memberNum: number, member: UpdateMemberKlaytn) => {
   let [data, error] = [undefined, undefined] as any;
 
   try {
     const userInfo = getUserInfo();
-    if (!userInfo) throw "userInfo is not exists";
+    if (!userInfo) throw 'userInfo is not exists';
 
-    const result = await apiClient.put(
-      `/members/auth/klaytn/${memberNum}`,
-      member,
-      { headers: { "X-AUTH-TOKEN": userInfo.accessToken } }
-    );
+    const result = await apiClient.put(`/members/auth/klaytn/${memberNum}`, member, { headers: { 'X-AUTH-TOKEN': userInfo.accessToken } });
     data = result?.data;
   } catch (err) {
     error = err;
   }
 
   return { data, error };
-}
-
+};

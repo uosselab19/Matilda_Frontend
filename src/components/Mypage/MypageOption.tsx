@@ -41,9 +41,7 @@ export const MypageOption = (props: MypageOptionProps) => {
     <div>
       <div className="my-5">
         <h1>회원정보 수정</h1>
-        <p>
-          회원정보를 수정하는 부분입니다!
-        </p>
+        <p>회원정보를 수정하는 부분입니다!</p>
       </div>
 
       <form id="memberEditForm" className="" noValidate>
@@ -54,13 +52,14 @@ export const MypageOption = (props: MypageOptionProps) => {
             id="password"
             label="Password"
             type="password"
-            placeholder={""}
+            placeholder={''}
             disabled={false}
             readonly={false}
             handleChange={handleChange}
             handleClick={handleClick}
             value={values['password']}
-            error={errors['password']} />
+            error={errors['password']}
+          />
 
           {/* 닉네임 */}
           <TextBox
@@ -68,12 +67,13 @@ export const MypageOption = (props: MypageOptionProps) => {
             id="nickname"
             label="Nickname"
             type="text"
-            placeholder={errors['nickname'] ? "" : userInfo.nickname || ""}
+            placeholder={errors['nickname'] ? '' : userInfo.nickname || ''}
             disabled={false}
             readonly={false}
             handleChange={handleChange}
             value={values['nickname']}
-            error={errors['nickname']} />
+            error={errors['nickname']}
+          />
 
           {/* 이메일 */}
           <TextBox
@@ -81,19 +81,20 @@ export const MypageOption = (props: MypageOptionProps) => {
             id="email"
             label="Email"
             type="email"
-            placeholder={errors['email'] ? "" : userInfo.email || ""}
+            placeholder={errors['email'] ? '' : userInfo.email || ''}
             disabled={false}
             readonly={false}
             handleChange={handleChange}
             value={values['email']}
-            error={errors['email']} />
+            error={errors['email']}
+          />
 
           {/* 프사*/}
           <ImageBox
             name="profileImg"
             id="profileImg"
             label="Profile Image"
-            placeholder={userInfo.profileImg || ""}
+            placeholder={userInfo.profileImg || ''}
             disabled={false}
             readonly={false}
             handleChange={handleChange}
@@ -107,21 +108,23 @@ export const MypageOption = (props: MypageOptionProps) => {
             id="description"
             label="Description"
             rows={5}
-            placeholder={errors['description'] ? "" : userInfo.description || ""}
+            placeholder={errors['description'] ? '' : userInfo.description || ''}
             disabled={false}
             readonly={false}
             handleChange={handleChange}
             value={values['description']}
-            error={errors['description']} />
+            error={errors['description']}
+          />
         </div>
 
         <SubmitButton
-          title={"Edit info"}
+          title={'Edit info'}
           handleSubmit={handleSubmit}
           values={values}
           errors={errors}
-          keys={["password", "nickname", "email", "profileImg", "description"]}
-          allRequired={false} />
+          keys={['password', 'nickname', 'email', 'profileImg', 'description']}
+          allRequired={false}
+        />
       </form>
     </div>
   );

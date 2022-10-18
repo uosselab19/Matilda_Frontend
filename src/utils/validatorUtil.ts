@@ -94,7 +94,7 @@ export function notMin(value: any, min = 0, customMessage?: string) {
 
 export function notMax(value: any, max = 10, customMessage?: string) {
   if (!value?.length) return undefined;
-  
+
   if (value > max) {
     return customMessage || `해당 항목을 ${max} 이하로 입력해 주세요.`;
   }

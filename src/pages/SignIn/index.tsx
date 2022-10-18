@@ -24,7 +24,7 @@ export const Signin = () => {
   const navigate = useNavigate();
 
   const callback = async (values: SigninMember) => {
-    const encryptedValues = { ...values, ["password"]: encrypt(values.password) };
+    const encryptedValues = { ...values, ['password']: encrypt(values.password) };
     const { data, error } = await signinMember(encryptedValues);
     if (error) {
       console.log(error);
@@ -50,13 +50,15 @@ export const Signin = () => {
 
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
 
-
   return (
     <main
       className="container form-signin"
       style={{ marginTop: '6%', width: '330px' }}
-      onKeyUp={(e) => { if (e.key == "Enter") handleSubmit(e); }} >
-      <div className='row'>
+      onKeyUp={(e) => {
+        if (e.key == 'Enter') handleSubmit(e);
+      }}
+    >
+      <div className="row">
         <div className="text-center my-3">
           <img src={matilda} width="128px" />
         </div>
@@ -73,7 +75,8 @@ export const Signin = () => {
           handleChange={handleChange}
           handleClick={handleClick}
           value={values['id']}
-          error={errors['id']} />
+          error={errors['id']}
+        />
 
         {/* Password 입력란 */}
         <SigninBox
@@ -87,7 +90,8 @@ export const Signin = () => {
           handleChange={handleChange}
           handleClick={handleClick}
           value={values['password']}
-          error={errors['password']} />
+          error={errors['password']}
+        />
 
         {/* remember ID 체크 */}
         <div className="checkbox mt-4 mb-3">
@@ -97,12 +101,13 @@ export const Signin = () => {
 
         {/* Sign in 버튼 */}
         <SubmitButton
-          title={"Sign in"}
+          title={'Sign in'}
           handleSubmit={handleSubmit}
           values={values}
           errors={errors}
-          keys={["id", "password"]}
-          allRequired={true} />
+          keys={['id', 'password']}
+          allRequired={true}
+        />
 
         <div className="text-center mt-3">
           <Link to="/signup" className="text-muted">
