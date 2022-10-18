@@ -50,7 +50,7 @@ export default function Search(props: SearchProps) {
               keyProperty="title"
               valueProperty="catCode" />
           </div>
-          <div className="col-2">
+          {/* <div className="col-2">
             <SelectBox
               id="test"
               label=""
@@ -65,8 +65,8 @@ export default function Search(props: SearchProps) {
               value={values['sortKey']}
               keyProperty="sortKey"
               valueProperty="sortKey" />
-          </div>
-          <div className="col-6">
+          </div> */}
+          <div className="col-8">
             <SearchBox
               id="searchBox"
               name="title"
