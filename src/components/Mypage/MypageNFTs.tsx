@@ -21,10 +21,19 @@ export const MypageNFTs = () => {
       alertError('아이템을 찾지 못 했어요!', '아이템 정보를 불러오는 중 문제가 발생했어요!');
     } else {
       console.log(data);
-      const result = await confirmModal(data.title, data.description, (data.stateCode=="CR")?"NFT 발행하기":"판매하기", "돌아가기", getS3Url(data.imgUrl), 'Not NFT Image');
-      if (result.isConfirmed) {navigate(`/NFTItem?nft_id=${data.itemNum}`);}
+      const result = await confirmModal(
+        data.title,
+        data.description,
+        data.stateCode == 'CR' ? 'NFT 발행하기' : '판매하기',
+        '돌아가기',
+        getS3Url(data.imgUrl),
+        'Not NFT Image'
+      );
+      if (result.isConfirmed) {
+        navigate(`/NFTItem?nft_id=${data.itemNum}`);
+      }
     }
-  }
+  };
 
   return (
     <div className="row">
@@ -33,10 +42,11 @@ export const MypageNFTs = () => {
         page={page}
         setPage={setPage}
         count={count}
-        size={"md"}
+        size={'md'}
         numShowItems={numShowItems}
         numShowPages={numShowPages}
-        handleCard={handleCard} />
+        handleCard={handleCard}
+      />
     </div>
   );
 };

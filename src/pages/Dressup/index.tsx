@@ -16,16 +16,17 @@ export const Dressup = () => {
   const [clothes, setClothes] = useState({} as Clothes);
   const [changedClothes, setChangedClothes] = useState({} as DetailItem);
   const [presetList, setPresetList] = useState([] as Clothes[]);
-  const [selectedNavButton, setSelectedNavButton] = useState("Marketplace");
+  const [selectedNavButton, setSelectedNavButton] = useState('Marketplace');
   const [modelHeight, roomWidth, roomHeight] = [60, 512, 200];
 
   const navItems = [
-    { key: "Marketplace", title: "Marketplace" },
-    { key: "Mypage", title: "My page" },
-    { key: "Info", title: "Wear I am" },
-    { key: "Preset", title: "Preset" },
+    { key: 'Marketplace', title: 'Marketplace' },
+    { key: 'Mypage', title: 'My page' },
+    { key: 'Info', title: 'Wear I am' },
+    { key: 'Preset', title: 'Preset' }
   ];
 
+  //초기 3D 방 세팅
   useEffect(() => {
     (async () => {
       createView(modelHeight, roomWidth, roomHeight, scene);
@@ -34,23 +35,30 @@ export const Dressup = () => {
     })();
   }, []);
 
+  //옷을 입기 위한 코드
   useEffect(() => {
     (async () => {
+      //옷을 안 입었으면 확인할 필요가 없음
       if (!Object.entries(clothes).length) return;
 
-      const sceneMesh = scene.children.filter((_, i) => { return (i > 11); });
-      const sceneCatCode = sceneMesh.map((e) => { return clothes[e.name]; });
-      console.log(sceneCatCode);
+      //이미 입은 카테고리의 옷을 입으려고 시도하면 그 전에 있던 옷을 지워야 함
+      //그거 지우는 코드
+      const sceneMesh = scene.children.filter((_, i) => {
+        return i > 11;
+      });
+      const alreadyExistsMeshIndex = sceneMesh.findIndex((e) => {
+        return e.name == changedClothes.catCode;
+      });
+      if (alreadyExistsMeshIndex > -1) scene.remove(sceneMesh[alreadyExistsMeshIndex]);
 
-      // const index = Object.entries(clothes).findIndex(async (e) => {
-      //   return e[1].catCode === changedClothes.catCode;
-      // });
-      // console.log(index);
-      // console.log(sceneMesh);
-      // if (index > -1) scene.remove(sceneMesh[index]);
-      loadModel(changedClothes.catCode, `https://nftstorage.link/ipfs/${changedClothes.tokenUri.slice(7)}`,
-        changedClothes.catCode == "TOP" ? 0.4 * modelHeight : 0.55 * modelHeight, scene,
-        changedClothes.catCode == "TOP" ? 40 : 17);
+      //옷 입기 코드
+      loadModel(
+        changedClothes.catCode,
+        `https://nftstorage.link/ipfs/${changedClothes.tokenUri.slice(7)}`,
+        changedClothes.catCode == 'TOP' ? 0.4 * modelHeight : 0.55 * modelHeight,
+        scene,
+        changedClothes.catCode == 'TOP' ? 40 : 17
+      );
     })();
   }, [changedClothes]);
 
@@ -96,43 +104,40 @@ export const Dressup = () => {
               onClick={setSelectedNavButton}
               textBold={true}
               textSize={5}
-              textColor={"black"} />
+              textColor={'black'}
+            />
           </div>
-          <div className={`${selectedNavButton == "Marketplace" ? "d-block" : "d-none"}`}>
+          <div className={`${selectedNavButton == 'Marketplace' ? 'd-block' : 'd-none'}`}>
             <DressupItems
               clothes={clothes}
               setClothes={setClothes}
               presetList={presetList}
-              options={{ stateCodes: "OS" }}
-              setChangedClothes={setChangedClothes} />
+              options={{ stateCodes: 'OS' }}
+              setChangedClothes={setChangedClothes}
+            />
           </div>
-          <div className={`${selectedNavButton == "Mypage" ? "d-block" : "d-none"}`}>
-            {
-              (getUserInfo()) ?
-                <DressupItems
-                  clothes={clothes}
-                  setClothes={setClothes}
-                  presetList={presetList}
-                  options={{ memberNum: getUserInfo().num, stateCodes: "OS,NOS" }}
-                  setChangedClothes={setChangedClothes} />
-                :
-                <div className='d-flex justify-content-center py-2'>
-                  로그인이 필요한 페이지입니다.
-                </div>
-            }
+          <div className={`${selectedNavButton == 'Mypage' ? 'd-block' : 'd-none'}`}>
+            {getUserInfo() ? (
+              <DressupItems
+                clothes={clothes}
+                setClothes={setClothes}
+                presetList={presetList}
+                options={{ memberNum: getUserInfo().num, stateCodes: 'OS,NOS' }}
+                setChangedClothes={setChangedClothes}
+              />
+            ) : (
+              <div className="d-flex justify-content-center py-2">로그인이 필요한 페이지입니다.</div>
+            )}
           </div>
-          <div className={`${selectedNavButton == "Info" ? "d-block" : "d-none"}`}>
-            <DressupInfo
-              clothes={clothes}
-              setClothes={setClothes}
-              setPresetList={setPresetList} />
+          <div className={`${selectedNavButton == 'Info' ? 'd-block' : 'd-none'}`}>
+            <DressupInfo clothes={clothes} setClothes={setClothes} setPresetList={setPresetList} />
           </div>
-          <div className={`${selectedNavButton == "Preset" ? "d-block" : "d-none"}`}>
-            <DressupPreset
-              clothes={clothes}
-              setClothes={setClothes}
-              presetList={presetList}
-              setPresetList={setPresetList} />
+          <div className={`${selectedNavButton == 'Preset' ? 'd-block' : 'd-none'}`}>
+            {getUserInfo() ? (
+              <DressupPreset clothes={clothes} setClothes={setClothes} presetList={presetList} setPresetList={setPresetList} />
+            ) : (
+              <div className="d-flex justify-content-center py-2">로그인이 필요한 페이지입니다.</div>
+            )}
           </div>
         </div>
       </div>

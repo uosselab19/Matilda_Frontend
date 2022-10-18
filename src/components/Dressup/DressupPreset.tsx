@@ -11,13 +11,13 @@ interface PresetCard {
   clothes: Clothes;
   setClothes: React.Dispatch<React.SetStateAction<Clothes>>;
   presetList: Clothes[];
-  setPresetList: React.Dispatch<React.SetStateAction<Clothes[]>>
+  setPresetList: React.Dispatch<React.SetStateAction<Clothes[]>>;
 }
 interface DressupPresetProps {
   clothes: Clothes;
   setClothes: React.Dispatch<React.SetStateAction<Clothes>>;
   presetList: Clothes[];
-  setPresetList: React.Dispatch<React.SetStateAction<Clothes[]>>
+  setPresetList: React.Dispatch<React.SetStateAction<Clothes[]>>;
 }
 
 const PresetCard = (props: PresetCard) => {
@@ -28,7 +28,12 @@ const PresetCard = (props: PresetCard) => {
     if (!presetList[index]) {
       alertWarning("데이터 <span style='color:red'>미</span>포함", '불러올 옷이 없습니다.');
     } else {
-      const result = await confirmQuestion(`Preset${index + 1}에 불러오기`, `Preset${index + 1}에 저장된 옷을 불러오는 게 맞나요?`, '맞아요!', `아니에요;;`);
+      const result = await confirmQuestion(
+        `Preset${index + 1}에 불러오기`,
+        `Preset${index + 1}에 저장된 옷을 불러오는 게 맞나요?`,
+        '맞아요!',
+        `아니에요;;`
+      );
       if (result.isConfirmed) {
         const getClothes = Object.entries(presetList[index]);
         let result = {};
@@ -87,32 +92,36 @@ const PresetCard = (props: PresetCard) => {
         data-bs-toggle="collapse"
         data-bs-target={`#collapsePreset${index + 1}`}
         aria-expanded="true"
-        aria-controls={`collapsePreset${index + 1}`}>
-        <div className='row w-100 ms-0'>
-          <span className="fs-4 fw-bold ps-3 py-2 col-8">Preset {index + 1}</span>
+        aria-controls={`collapsePreset${index + 1}`}
+      >
+        <div className="row w-100 ms-0">
+          <span className="fs-4 fw-bold ps-3 py-2 col-6">Preset {index + 1}</span>
           <button
             type="button"
-            className="btn btn-light col-2"
-            onClick={() => { handleLoad }}>
+            className="btn btn-light col-3"
+            onClick={() => {
+              handleLoad;
+            }}
+          >
             저장하기
           </button>
           <button
             type="button"
-            className="btn btn-light col-2"
-            onClick={() => { handleLoad }}>
+            className="btn btn-light col-3"
+            onClick={() => {
+              handleLoad;
+            }}
+          >
             불러오기
           </button>
         </div>
       </div>
-      <div className='card-bodycollapse show p-0' id={`collapsePreset${index + 1}`}>
-        <DressupCard
-          clothes={clothes}
-          setClothes={setClothes}
-          blankMessage={`Preset ${index + 1}에 저장된 옷이 없습니다.`} />
+      <div className="card-bodycollapse show p-0" id={`collapsePreset${index + 1}`}>
+        <DressupCard clothes={clothes} setClothes={setClothes} blankMessage={`Preset ${index + 1}에 저장된 옷이 없습니다.`} />
       </div>
     </div>
   );
-}
+};
 
 export const DressupPreset = (props: DressupPresetProps) => {
   const { clothes, setClothes, presetList, setPresetList } = props;
@@ -125,7 +134,7 @@ export const DressupPreset = (props: DressupPresetProps) => {
 
       if (error) {
         console.log(error);
-        alertError('멤버정보 오류', "멤버정보를 불러오는데 오류가 일어났어요.");
+        alertError('멤버정보 오류', '멤버정보를 불러오는데 오류가 일어났어요.');
         return;
       }
 
@@ -135,7 +144,7 @@ export const DressupPreset = (props: DressupPresetProps) => {
   }, []);
 
   return (
-    <div className='row row-cols-1 g-1'>
+    <div className="row row-cols-1 g-1">
       <PresetCard index={0} clothes={clothes} setClothes={setClothes} presetList={presetList} setPresetList={setPresetList} />
       <PresetCard index={1} clothes={clothes} setClothes={setClothes} presetList={presetList} setPresetList={setPresetList} />
       <PresetCard index={2} clothes={clothes} setClothes={setClothes} presetList={presetList} setPresetList={setPresetList} />

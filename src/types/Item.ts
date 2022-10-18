@@ -52,7 +52,7 @@ export interface DetailItem {
   tokenId: number;
   tokenUri: string;
   memberNickName: string;
-  memberNum:number;
+  memberNum: number;
   memberThumbImgUrl: string;
   stateCode: string;
 }

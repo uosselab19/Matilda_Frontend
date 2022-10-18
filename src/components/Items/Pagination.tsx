@@ -1,4 +1,4 @@
-import { Item } from "../../types/Item";
+import { Item } from '../../types/Item';
 
 //컴포넌트가 받을 props
 interface PagenationProps {
@@ -36,7 +36,7 @@ export default function Pagination(props: PagenationProps) {
     if (!items.length) return;
     setPage(number - 1);
     window.scrollTo({ top: 0 });
-  }
+  };
 
   //페이지네이션 숫자 버튼 만드는 JSX 반환
   const pagigationButton = (number: number, selected: boolean) => {
@@ -46,7 +46,10 @@ export default function Pagination(props: PagenationProps) {
           type="button"
           disabled={!items.length}
           className={`btn page-link link-dark ${selected ? 'fw-bold' : ''}`}
-          onClick={() => { handlePage(number) }}>
+          onClick={() => {
+            handlePage(number);
+          }}
+        >
           {number}
         </button>
       </li>
@@ -69,7 +72,10 @@ export default function Pagination(props: PagenationProps) {
             type="button"
             disabled={!items.length}
             className="btn page-link link-dark"
-            onClick={() => { prevPage(); }}>
+            onClick={() => {
+              prevPage();
+            }}
+          >
             Prev
           </button>
         </li>
@@ -79,7 +85,10 @@ export default function Pagination(props: PagenationProps) {
             type="button"
             disabled={!items.length}
             className="btn page-link link-dark"
-            onClick={() => { nextPage(); }}>
+            onClick={() => {
+              nextPage();
+            }}
+          >
             Next
           </button>
         </li>

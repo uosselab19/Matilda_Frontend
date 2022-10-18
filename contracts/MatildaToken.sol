@@ -2323,8 +2323,8 @@ contract MatildaToken is
 
     // 구매 및 거래
     function buyNFT(uint256 _tokenId) public payable {
-        require(msg.value == _tokenPrice[_tokenId], "Incorrect value entered");
         require(_isOnSale(_tokenId), "The token is not on sale");
+        require(msg.value == _tokenPrice[_tokenId], "Incorrect value entered");
         
         address payable seller = _tokenSeller[_tokenId];
         

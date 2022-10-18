@@ -14,14 +14,18 @@ interface CardProps {
 export default function Card(props: CardProps) {
   const { item, size, handleCard } = props;
 
-  const chooseColor = (stateCode: string|undefined): [string, string] => {
+  const chooseColor = (stateCode: string | undefined): [string, string] => {
     switch (stateCode) {
-      case "CR": return ["white", "black"];
-      case "OS": return ["green", "black"];
-      case "NOS": return ["black", "white"];
-      default: return ["red", "white"];
+      case 'CR':
+        return ['white', 'black'];
+      case 'OS':
+        return ['green', 'black'];
+      case 'NOS':
+        return ['black', 'white'];
+      default:
+        return ['red', 'white'];
     }
-  }
+  };
   const [bgColor, textColor] = chooseColor(item?.stateCode);
 
   const handleMouse = (e: React.MouseEvent): void => {
@@ -34,69 +38,53 @@ export default function Card(props: CardProps) {
     if (e.type === 'mouseover') {
       childImg.setAttribute(
         'style',
-        'transition: width height;' +
-        'transition-duration: 1.25s;' +
-        'transition-timing-function: easy-in;' +
-        'transform:scale(1.5,1.5);'
+        'transition: width height;' + 'transition-duration: 1.25s;' + 'transition-timing-function: easy-in;' + 'transform:scale(1.5,1.5);'
       );
       childEffect.setAttribute(
         'style',
         'transition-duration: 1.25s;' +
-        'transition-timing-function: easy-in;' +
-        `background-color: ${bgColor};` +
-        'top: 0%;' +
-        'opacity: 0.8;'
+          'transition-timing-function: easy-in;' +
+          `background-color: ${bgColor};` +
+          'top: 0%;' +
+          'opacity: 0.8;'
       );
-      childDesc.setAttribute(
-        'style',
-        'transition-duration: 0.5s;' +
-        'transition-timing-function: easy-in;' +
-        'opacity:0;'
-      );
-      childTitle.setAttribute(
-        'style',
-        'transition-delay: 0.5s;' +
-        'opacity:1;'
-      );
+      childDesc.setAttribute('style', 'transition-duration: 0.5s;' + 'transition-timing-function: easy-in;' + 'opacity:0;');
+      childTitle.setAttribute('style', 'transition-delay: 0.5s;' + 'opacity:1;');
     } else {
       childImg.setAttribute(
         'style',
         'transition-property: width height;' +
-        'transition-duration: 01.25s;' +
-        'transition-timing-function: easy-in;' +
-        'transform:scale(1,1);'
+          'transition-duration: 01.25s;' +
+          'transition-timing-function: easy-in;' +
+          'transform:scale(1,1);'
       );
       childEffect.setAttribute(
         'style',
         'transition-duration: 1.25s;' +
-        'transition-timing-function: easy-in;' +
-        `background-color:${bgColor};` +
-        'opacity:0.8;' +
-        'top: 70%;'
+          'transition-timing-function: easy-in;' +
+          `background-color:${bgColor};` +
+          'opacity:0.8;' +
+          'top: 70%;'
       );
       childDesc.setAttribute(
         'style',
-        'transition-delay: 0.5s;' +
-        'transition-duration: 0.8s;' +
-        'transition-timing-function: easy-out;' +
-        'opacity:1;'
+        'transition-delay: 0.5s;' + 'transition-duration: 0.8s;' + 'transition-timing-function: easy-out;' + 'opacity:1;'
       );
-      childTitle.setAttribute(
-        'style',
-        'transition-delay: 0.3s;' +
-        'opacity:0;'
-      );
+      childTitle.setAttribute('style', 'transition-delay: 0.3s;' + 'opacity:0;');
     }
   };
 
   return (
     <div>
       <div
-        className={`cardItemNum${item ? item.itemNum : ""}`}
-        onClick={() => { if (handleCard) handleCard(item?.itemNum); }}
+        className={`cardItemNum${item ? item.itemNum : ''}`}
+        onClick={() => {
+          if (handleCard) handleCard(item?.itemNum);
+        }}
         draggable="false"
         aria-expanded="false"
-        style={{ display: (item) ? "block" : "none" }} >
+        style={{ display: item ? 'block' : 'none' }}
+      >
         <div
           className={`card overflow-hidden text-${textColor} d-flex flex-column`}
           onMouseOver={handleMouse}
@@ -106,29 +94,19 @@ export default function Card(props: CardProps) {
             borderTopLeftRadius: 30,
             borderBottomRightRadius: 10,
             borderBottomLeftRadius: 10
-          }} >
-          <img
-            alt=""
-            className="card-img"
-            src={(item && item.imgUrl != "no img") ? getS3Url(item.imgUrl) : item_img1}
-            width="100%"/>
+          }}
+        >
+          <img alt="" className="card-img" src={item && item.imgUrl != 'no img' ? getS3Url(item.imgUrl) : item_img1} width="100%" />
           <div className="card-img-overlay" style={{ top: '70%', backgroundColor: bgColor, opacity: 0.8 }} />
           <div className="card-img-overlay d-flex flex-column">
             <div className={`card-text mt-auto d-flex justify-content-between px-1 ${size == 'lg' ? 'py-2' : ''}`}>
-              {(size == 'lg') ?
-                <img
-                  src={makerThumbImg1}
-                  alt="profile"
-                  width="32"
-                  height="32"
-                  className="rounded-circle me-3" />
-                : null}
-              <div className='text-truncate'>{item ? item.title : ""}</div>
+              {size == 'lg' ? <img src={makerThumbImg1} alt="profile" width="32" height="32" className="rounded-circle me-3" /> : null}
+              <div className="text-truncate">{item ? item.title : ''}</div>
               {size == 'lg' ? <div>{`${item ? item.price : 0} KLAY`}</div> : null}
             </div>
           </div>
           <div className="card-img-overlay d-flex justify-content-center align-items-center mx-auto my-auto" style={{ opacity: 0 }}>
-            <h2 className="text-truncate">{item ? item.title : ""}</h2>
+            <h2 className="text-truncate">{item ? item.title : ''}</h2>
           </div>
         </div>
       </div>

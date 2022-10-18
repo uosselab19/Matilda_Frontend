@@ -30,7 +30,10 @@ export const Convert3D = () => {
         key={`category${index}`}
         type="button"
         className="btn btn-boundary-white fs-5 fw-bold d-flex justify-content-center align-items-center"
-        onClick={() => { setCategory(categoryElement); }}>
+        onClick={() => {
+          setCategory(categoryElement);
+        }}
+      >
         {categoryElement.title}
       </button>
     );
@@ -44,8 +47,8 @@ export const Convert3D = () => {
 
       <div className="row g-0">
         <div className="col-lg-4">
-          <div className='card w-75 h-100 border-secondary'>
-            <div className='card-header fs-4 fw-bold text-bg-secondary'>카테고리</div>
+          <div className="card w-75 h-100 border-secondary">
+            <div className="card-header fs-4 fw-bold text-bg-secondary">카테고리</div>
             <div className="card-list btn-group-vertical h-100" role="group" id="btn-group">
               {categoryItems}
             </div>
@@ -54,19 +57,15 @@ export const Convert3D = () => {
 
         {/* Convert 들어갈 부분 */}
         <div className="col-lg-8 d-flex flex-column">
-          <span className="my-2 fs-4">
-            {loading ? '변환 중입니다.' : '사진을 넣으면 3D 패션아이템으로 재탄생합니다!'}
-          </span>
+          <span className="my-2 fs-4">{loading ? '변환 중입니다.' : '사진을 넣으면 3D 패션아이템으로 재탄생합니다!'}</span>
           <div className="h-100 d-flex justify-content-center align-items-center">
-            {loading ?
+            {loading ? (
               // 로딩 중이면 로딩창 소환
               <Spinner delay={1.5} radius={1.5} />
-              :
+            ) : (
               //아니라면 이미지 받을 준비
-              <ConvertBox
-                category={category}
-                setLoading={setLoading} />
-            }
+              <ConvertBox category={category} setLoading={setLoading} />
+            )}
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 interface SigninResponse {
-    accessToken: string;
-    id: number;
-    refreshToken: string;
+  accessToken: string;
+  id: number;
+  refreshToken: string;
 }

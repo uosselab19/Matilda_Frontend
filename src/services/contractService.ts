@@ -5,8 +5,7 @@ export async function selectContract(contract: SelectContract) {
   let [data, error] = [[], undefined] as any;
 
   try {
-    const result = await anonymousApiClient.get(
-      '/contracts', {
+    const result = await anonymousApiClient.get('/contracts', {
       params: contract,
       headers: {}
     });

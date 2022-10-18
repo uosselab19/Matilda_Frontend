@@ -28,20 +28,24 @@ export default function ConvertBox(props: ConvertBoxProps) {
     const { data, error } = await postImage({ file: input, category: category.catCode });
     if (error) {
       console.log(error);
-      alertError("변환 실패", "변환이 제대로 이뤄지지 않았어요, 다시 한 번 시도해보세요!");
-    }
-    
-    else if(data) {
+      alertError('변환 실패', '변환이 제대로 이뤄지지 않았어요, 다시 한 번 시도해보세요!');
+    } else if (data) {
       console.log(data);
 
-      if(!data.imgUrl) {
-        alertError("변환 실패", "변환이 제대로 이뤄지지 않았어요, 다시 한 번 시도해보세요!");
+      if (!data.imgUrl) {
+        alertError('변환 실패', '변환이 제대로 이뤄지지 않았어요, 다시 한 번 시도해보세요!');
         return;
       }
-      
+
       const imgUrl = getS3Url(data.imgUrl);
       console.log(imgUrl);
-      alertModal("<span style='font-size:40px;'>변환 성공</span>", "변환이 이뤄진 모습을 확인해보세요!", imgUrl, 'Completely Converted Image', 440);
+      alertModal(
+        "<span style='font-size:40px;'>변환 성공</span>",
+        '변환이 이뤄진 모습을 확인해보세요!',
+        imgUrl,
+        'Completely Converted Image',
+        440
+      );
     }
 
     setLoading(false);
@@ -84,7 +88,8 @@ export default function ConvertBox(props: ConvertBoxProps) {
         onDragLeave={handleDrag}
         data-bs-toggle={modalID ? 'modal' : undefined}
         data-bs-target={modalID ? `#${modalID}` : undefined}
-        aria-controls={modalID ? `${modalID}` : undefined} >
+        aria-controls={modalID ? `${modalID}` : undefined}
+      >
         <img id="preview-image" alt="여기 맞아요, 사진을 넣어 주세요!" src={category.image} draggable="false" />
         <div className="card-img-overlay h-75 d-flex flex-column justify-content-end">
           <h5 className="card-title text-dark fs-2 fw-bold">{category.title}</h5>
@@ -93,13 +98,7 @@ export default function ConvertBox(props: ConvertBoxProps) {
           </p>
         </div>
       </div>
-      <input
-        id="file-input"
-        type="file"
-        style={{ display: 'none' }}
-        accept="image/*"
-        onChange={handleChange}
-        onClick={handleClick} />
+      <input id="file-input" type="file" style={{ display: 'none' }} accept="image/*" onChange={handleChange} onClick={handleClick} />
     </label>
   );
 }
