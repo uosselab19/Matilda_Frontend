@@ -3,12 +3,13 @@ import { MypageNFTs } from '../../components/Mypage/MypageNFTs';
 import { MypageKlaytn } from '../../components/Mypage/MypageKlaytn';
 import { MypageOption } from '../../components/Mypage/MypageOption';
 import { useNavigate } from 'react-router-dom';
-import { NavButtons } from '../../components/NavButtons';
+import { NavButtons } from '../../components/Navigation/NavButtons';
 import { SelectMember } from '../../types/Member';
 import profileImage from '../../assets/images/Profile/profileImage.png';
 import { selectMember } from '../../services/memberService';
 import { getUserInfo } from '../../utils/cookieUtil';
 import { alertError } from '../../utils/alertUtil';
+import { Subpage } from '../../components/Navigation/Subpage';
 
 export const Mypage = () => {
   const navigate = useNavigate();
@@ -16,9 +17,21 @@ export const Mypage = () => {
   const [userInfo, setUserInfo] = useState({} as SelectMember);
 
   const navItems = [
-    { key: 'myItemList', title: 'My Item List' },
-    { key: 'klaytn', title: 'Klaytn' },
-    { key: 'editInfo', title: 'Edit Info' }
+    {
+      key: 'myItemList',
+      title: 'My Item List',
+      page: <MypageNFTs />
+    },
+    {
+      key: 'klaytn',
+      title: 'Klaytn',
+      page: <MypageKlaytn userInfo={userInfo} setUserInfo={setUserInfo} />
+    },
+    {
+      key: 'editInfo',
+      title: 'Edit Info',
+      page: <MypageOption userInfo={userInfo} setUserInfo={setUserInfo} />
+    }
   ];
 
   useEffect(() => {
@@ -69,18 +82,10 @@ export const Mypage = () => {
               textColor={'black'}
             />
           </div>
-
+          
           {/* 이 부분이 My Page 핵심 부분 */}
           <div className={`d-flex justify-content-center`}>
-            <div className={`w-100 ${selectedNavButton == 'myItemList' ? 'd-block' : 'd-none'}`}>
-              <MypageNFTs />
-            </div>
-            <div className={`w-100 ${selectedNavButton == 'klaytn' ? 'd-block' : 'd-none'}`}>
-              <MypageKlaytn userInfo={userInfo} setUserInfo={setUserInfo} />
-            </div>
-            <div className={`w-100 ${selectedNavButton == 'editInfo' ? 'd-block' : 'd-none'}`}>
-              <MypageOption userInfo={userInfo} setUserInfo={setUserInfo} />
-            </div>
+            <Subpage selectedKey={selectedNavButton} pages={navItems}/>
           </div>
         </div>
       </div>

@@ -13,6 +13,10 @@ import { NFTItem } from '../../pages/NFTItem';
 import { NotFound } from '../../pages/NotFound';
 import { AxiosInterceptorSetup } from '../../configs/Interceptor';
 
+/*
+  해당 코드는 컴포넌트 밖을 벗어나는 함수에 대해
+  함수 호출 시 페이지를 옮겨야 하는 경우 사용
+ */
 // function AxiosInterceptorNavigate() {
 //   AxiosInterceptorSetup();
 //   return <></>;

@@ -7,9 +7,11 @@ import { loadModel } from '../../utils/threejs/threeModelUtil';
 import createFittingRoom from '../../utils/threejs/threeRoomUtil';
 import { Clothes } from '../../types/Clothes';
 import { Scene } from 'three';
-import { NavButtons } from '../../components/NavButtons';
+import { NavButtons } from '../../components/Navigation/NavButtons';
 import { DetailItem } from '../../types/Item';
 import { getUserInfo } from '../../utils/cookieUtil';
+import { BlankMessage } from '../../components/load/BlankMessage';
+import { Subpage } from '../../components/Navigation/Subpage';
 
 export const Dressup = () => {
   const [scene] = useState(new Scene() as Scene);
@@ -20,10 +22,48 @@ export const Dressup = () => {
   const [modelHeight, roomWidth, roomHeight] = [60, 512, 200];
 
   const navItems = [
-    { key: 'Marketplace', title: 'Marketplace' },
-    { key: 'Mypage', title: 'My page' },
-    { key: 'Info', title: 'Wear I am' },
-    { key: 'Preset', title: 'Preset' }
+    {
+      key: 'Marketplace',
+      title: 'Marketplace',
+      page:
+        <DressupItems
+          clothes={clothes}
+          setClothes={setClothes}
+          presetList={presetList}
+          options={{ stateCodes: 'OS' }}
+          setChangedClothes={setChangedClothes} />
+    }, {
+      key: 'Mypage',
+      title: 'My page',
+      page:
+        <BlankMessage isFull={getUserInfo()} blankMessage={'로그인이 필요한 페이지입니다.'}>
+          <DressupItems
+            clothes={clothes}
+            setClothes={setClothes}
+            presetList={presetList}
+            options={{ memberNum: getUserInfo()?.num, stateCodes: 'OS,NOS' }}
+            setChangedClothes={setChangedClothes} />
+        </BlankMessage>
+    }, {
+      key: 'Info',
+      title: 'Wear I am',
+      page:
+        <DressupInfo
+          clothes={clothes}
+          setClothes={setClothes}
+          setPresetList={setPresetList} />
+    }, {
+      key: 'Preset',
+      title: 'Preset',
+      page:
+        <BlankMessage isFull={getUserInfo()} blankMessage={'로그인이 필요한 페이지입니다.'}>
+          <DressupPreset
+            clothes={clothes}
+            setClothes={setClothes}
+            presetList={presetList}
+            setPresetList={setPresetList} />
+        </BlankMessage>
+    },
   ];
 
   //초기 3D 방 세팅
@@ -62,35 +102,6 @@ export const Dressup = () => {
     })();
   }, [changedClothes]);
 
-  // const handleInfo = async () => {
-  //   const footer=`
-  //   <div className="card" style="width: 18rem;">
-  //     <ul className="list-group list-group-flush">
-  //       <li className="list-group-item">옷 1</li>
-  //       <li className="list-group-item">바지</li>
-  //       <li className="list-group-item"></li>
-  //     </ul>
-  //   </div>
-  //   `;
-  //   const result = await alertInfo(`입은 옷들이에요!`, footer);
-  //   if(result.isConfirmed){
-
-  //   }
-  // };
-
-  // <div className='col-1 row g-1'>
-  //         <div id="Preset" className={`${(cookie ? "d-block" : "d-none")} align-self-start`}>
-  //           <DressupPreset
-  //             clothes={clothes}
-  //             setClothes={setClothes}
-  //             presetList={presetList}
-  //             setPresetList={setPresetList} />
-  //         </div>
-  //         <div className={`align-self-end my-5 w-100`}>
-  //           <button type="button" className="btn btn-primary w-100" onClick={() => { handleInfo(); }}> Info </button>
-  //         </div>
-  //       </div>
-
   return (
     <main className="container">
       <div className="row">
@@ -104,43 +115,11 @@ export const Dressup = () => {
               onClick={setSelectedNavButton}
               textBold={true}
               textSize={5}
-              textColor={'black'}
-            />
+              textColor={'black'} />
           </div>
-          <div className={`${selectedNavButton == 'Marketplace' ? 'd-block' : 'd-none'}`}>
-            <DressupItems
-              clothes={clothes}
-              setClothes={setClothes}
-              presetList={presetList}
-              options={{ stateCodes: 'OS' }}
-              setChangedClothes={setChangedClothes}
-            />
-          </div>
-          <div className={`${selectedNavButton == 'Mypage' ? 'd-block' : 'd-none'}`}>
-            {getUserInfo() ? (
-              <DressupItems
-                clothes={clothes}
-                setClothes={setClothes}
-                presetList={presetList}
-                options={{ memberNum: getUserInfo().num, stateCodes: 'OS,NOS' }}
-                setChangedClothes={setChangedClothes}
-              />
-            ) : (
-              <div className="d-flex justify-content-center py-2">로그인이 필요한 페이지입니다.</div>
-            )}
-          </div>
-          <div className={`${selectedNavButton == 'Info' ? 'd-block' : 'd-none'}`}>
-            <DressupInfo clothes={clothes} setClothes={setClothes} setPresetList={setPresetList} />
-          </div>
-          <div className={`${selectedNavButton == 'Preset' ? 'd-block' : 'd-none'}`}>
-            {getUserInfo() ? (
-              <DressupPreset clothes={clothes} setClothes={setClothes} presetList={presetList} setPresetList={setPresetList} />
-            ) : (
-              <div className="d-flex justify-content-center py-2">로그인이 필요한 페이지입니다.</div>
-            )}
-          </div>
+          <Subpage pages={navItems} selectedKey={selectedNavButton}/>
         </div>
       </div>
-    </main>
+    </main >
   );
 };

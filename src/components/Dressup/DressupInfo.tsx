@@ -33,7 +33,10 @@ export const DressupInfo = (props: DressupInfoProps) => {
 
   return (
     <div className="container">
-      <DressupCard clothes={clothes} setClothes={setClothes} blankMessage={`입고 있는 옷이 없습니다.`} />
+      <DressupCard
+        clothes={clothes}
+        setClothes={setClothes}
+        blankMessage={`입고 있는 옷이 없습니다.`} />
     </div>
   );
 };
