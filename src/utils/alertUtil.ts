@@ -173,7 +173,6 @@ export const confirmInputModal = async (
 export const alertLoading = async (title: string) => {
   return Swal.fire({
     title: title,
-    timer: 500,
     allowOutsideClick: false,
     showCloseButton: true,
     didOpen: () => {
