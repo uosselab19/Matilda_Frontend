@@ -4,7 +4,7 @@ import matildaWhite from '../../assets/images/matilda_white.png';
 import { alertSuccess } from '../../utils/alertUtil';
 import { getUserInfo, removeUserInfo } from '../../utils/cookieUtil';
 import { signoutMember } from '../../services/securityService';
-import { NavButtons } from '../NavButtons';
+import { NavButtons } from '../Navigation/NavButtons';
 
 export const Header = () => {
   const navigate = useNavigate(); //페이지 이동하는 훅

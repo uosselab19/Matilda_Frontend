@@ -16,12 +16,12 @@ export const createAccount = () => {
   return { address, privateKey };
 };
 
-export const removeKeyring = (address: string) => {
+export const removeKeyring =async (address: string) => {
   if (wallet.isExisted(address)) wallet.remove(address);
 };
 
-export const updateKeyring = (address: string, privateKey: string) => {
-  removeKeyring(address);
+export const updateKeyring = async (address: string, privateKey: string) => {
+  await removeKeyring(address);
   return wallet.newKeyring(address, privateKey);
 };
 

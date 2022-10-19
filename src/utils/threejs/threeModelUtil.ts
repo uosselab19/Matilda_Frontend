@@ -7,6 +7,7 @@ export async function loadModel(name: string, modelURL: string, modelHeight: num
   const locVecter = new THREE.Vector3(0, y, 0);
   const progress = { value: 0, total: 100, error: false };
   if (name != 'BaseMesh') alertProgress('옷 입는 중', progress);
+  
   new GLTFLoader().load(
     modelURL,
     // called when the resource is loaded

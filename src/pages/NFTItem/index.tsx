@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ChangeItem, DetailItem, UpdateItem } from '../../types/Item';
 import { changeItem, getItem, putItem } from '../../services/itemService';
-import { alertError, alertInput, alertSuccess, alertWarning, confirmInputModal, confirmModal, confirmWarning } from '../../utils/alertUtil';
+import { alertError, alertInput, alertLoading, alertSuccess, alertWarning, confirmInputModal, confirmModal, confirmWarning } from '../../utils/alertUtil';
 import { getS3Url } from '../../utils/S3';
 import { getUserInfo } from '../../utils/cookieUtil';
 import { HistoriesCard } from '../../components/NFTItem/HistoriesCard';
@@ -108,6 +108,7 @@ export const NFTItem = () => {
           '취소하기'
         );
         if (result.isConfirmed) {
+          alertLoading('구매하는 중');
           console.log(item);
           const txHash = await buyNFT(member.address, item.tokenId, item.price);
           const newItem = await changeItem(itemNum, {
@@ -140,6 +141,7 @@ export const NFTItem = () => {
     );
     const value = Number(result.value);
     if (result.isConfirmed) {
+      alertLoading('판매 등록하는 중');
       console.log(member.address);
       console.log(item.tokenId);
       const txHash = await setForSale(member.address, item.tokenId, value);
@@ -168,6 +170,7 @@ export const NFTItem = () => {
       'cancel on sale'
     );
     if (result.isConfirmed) {
+      alertLoading('판매 취소하는 중');
       const txHash = await unsetForSale(member.address, item.tokenId);
       const newItem = await changeItem(itemNum, {
         buyerNum: member.num,
@@ -193,6 +196,8 @@ export const NFTItem = () => {
       'Minting NFT'
     );
     if (result.isConfirmed) {
+      alertLoading('NFT 민트하는 중');
+
       console.log(item.objectUrl);
       const { data, error } = await getCID(itemNum);
       if (error) {

@@ -1,7 +1,24 @@
 import { useNavigate } from 'react-router-dom';
 import matilda from '../../assets/images/matilda.png';
 import matildaWhite from '../../assets/images/matilda_white.png';
-import { CapitalText } from '../../components/CapitalText';
+
+interface CapitalTextProps {
+  text: string;
+}
+
+const CapitalText = (props: CapitalTextProps) => {
+  const { text } = props;
+
+  const textStr = text.split('').map((e, i) => {
+    if (e == e.toUpperCase()) {
+      return <b key={i}>{e}</b>;
+    } else {
+      return e;
+    }
+  });
+
+  return <div className="fs-4">{textStr}</div>;
+};
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -19,7 +36,7 @@ export const Home = () => {
         <div className="col-md-5 py-5 w-100">
           <img className="d-block mx-auto my-5" src={matilda} width="128"></img>
           <h1 className="display-4 fw-normal">MATILDA</h1>
-          <CapitalText text={'Machine learning And non-fungible Token, Image to cLothes Design Application'} size={4} />
+          <CapitalText text={'Machine learning And non-fungible Token, Image to cLothes Design Application'} />
         </div>
       </div>
 
