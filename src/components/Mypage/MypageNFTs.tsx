@@ -36,7 +36,6 @@ export const MypageNFTs = () => {
   };
 
   return (
-    <div className="row">
       <Items
         items={items}
         page={page}
@@ -47,6 +46,5 @@ export const MypageNFTs = () => {
         numShowPages={numShowPages}
         handleCard={handleCard}
       />
-    </div>
   );
 };

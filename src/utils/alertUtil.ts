@@ -170,6 +170,18 @@ export const confirmInputModal = async (
   });
 };
 
+export const alertLoading = async (title: string) => {
+  return Swal.fire({
+    title: title,
+    timer: 500,
+    allowOutsideClick: false,
+    showCloseButton: true,
+    didOpen: () => {
+      Swal.showLoading();
+    }
+  });
+};
+
 export const alertProgress = async (title: string, progress: any) => {
   let timerInterval;
   return Swal.fire({
