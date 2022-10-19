@@ -99,8 +99,8 @@ export const Dressup = () => {
         h = 0.09 * modelHeight
         y = 57
       } else if (changedClothes.catCode == 'DRE') {
-        h = 0.68 * modelHeight
-        y = 32
+        h = 0.6 * modelHeight
+        y = 35.1
       }
 
       loadModel(
