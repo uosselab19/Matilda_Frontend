@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import { getUserInfo } from '../../utils/cookieUtil';
-import { selectMember } from '../../services/memberService';
+import { putMember, selectMember } from '../../services/memberService';
 import { Clothes } from '../../types/Clothes';
 import { alertError, alertSuccess, alertWarning, confirmQuestion } from '../../utils/alertUtil';
 import { DressupCard } from './DressupCard';
 import { getItem } from '../../services/itemService';
+import { UpdateMember } from '../../types/Member';
+import { BlankMessage } from '../load/BlankMessage';
 
 interface PresetCard {
   index: number;
@@ -12,16 +14,18 @@ interface PresetCard {
   setClothes: React.Dispatch<React.SetStateAction<Clothes>>;
   presetList: Clothes[];
   setPresetList: React.Dispatch<React.SetStateAction<Clothes[]>>;
+  scene:THREE.Scene;
 }
 interface DressupPresetProps {
   clothes: Clothes;
   setClothes: React.Dispatch<React.SetStateAction<Clothes>>;
   presetList: Clothes[];
   setPresetList: React.Dispatch<React.SetStateAction<Clothes[]>>;
+  scene:THREE.Scene;
 }
 
 const PresetCard = (props: PresetCard) => {
-  const { index, clothes, setClothes } = props;
+  const { index, clothes, setClothes, scene } = props;
 
   const handleLoad = async (props: PresetCard) => {
     const { index, presetList, setClothes } = props;
@@ -52,38 +56,38 @@ const PresetCard = (props: PresetCard) => {
     }
   };
 
-  // const handleSave = async (props: PresetCard) => {
-  //   const { index, presetList, setPresetList, clothes } = props;
-  //   if (!Object.getOwnPropertyNames(clothes).length) {
-  //     alertWarning("데이터 <span style='color:red'>미</span>포함", '저장할 옷이 없습니다!');
-  //     return;
-  //   }
+  const handleSave = async (props: PresetCard) => {
+    const { index, presetList, setPresetList, clothes } = props;
+    if (!Object.getOwnPropertyNames(clothes).length) {
+      alertWarning("데이터 <span style='color:red'>미</span>포함", '저장할 옷이 없습니다!');
+      return;
+    }
 
-  //   const result = await confirmQuestion(`Preset${index + 1}에 저장`, `지금 입은 옷을 Preset${index + 1}에 저장하는 게 맞나요?`, '맞아요!', `아니에요;;`);
-  //   if (result.isConfirmed) {
-  //     presetList[index] = clothes;
+    const result = await confirmQuestion(`Preset${index + 1}에 저장`, `지금 입은 옷을 Preset${index + 1}에 저장하는 게 맞나요?`, '맞아요!', `아니에요;;`);
+    if (result.isConfirmed) {
+      presetList[index] = clothes;
 
-  //     const cookie = getUserInfo();
+      const cookie = getUserInfo();
 
-  //     const putpresetList = presetList.map((e) => {
-  //       if (e) return Object.fromEntries(Object.entries(e).map((elem) => { return [elem[0], elem[1].itemNum] }));
-  //       else return null;
-  //     });
+      const putpresetList = presetList.map((e) => {
+        if (e) return Object.fromEntries(Object.entries(e).map((elem) => { return [elem[0], elem[1].itemNum] }));
+        else return null;
+      });
 
-  //     const { data, error } = await putMember({ memberNum: cookie.num, presetList: putpresetList } as UpdateMember);
+      const { data, error } = await putMember({ memberNum: cookie.num, presetList: putpresetList } as UpdateMember);
 
-  //     if (!error) {
-  //       console.log(data);
-  //       await setPresetList(putpresetList as Clothes[]);
-  //       alertSuccess('저장했습니다!', `Preset${index + 1}에 지금 입은 옷을 모두 저장했습니다.`);
-  //     } else {
-  //       console.log(error);
-  //       alertError('멤버수정 오류', error);
-  //     }
-  //   } else {
-  //     alertError('취소했어요!', '아무 일도 일어나지 않았답니다.');
-  //   }
-  // }
+      if (!error) {
+        console.log(data);
+        await setPresetList(putpresetList as Clothes[]);
+        alertSuccess('저장했습니다!', `Preset${index + 1}에 지금 입은 옷을 모두 저장했습니다.`);
+      } else {
+        console.log(error);
+        alertError('멤버수정 오류', error);
+      }
+    } else {
+      alertError('취소했어요!', '아무 일도 일어나지 않았답니다.');
+    }
+  }
 
   return (
     <div className="card col-12 row p-0 w-100 ms-0">
@@ -100,7 +104,7 @@ const PresetCard = (props: PresetCard) => {
             type="button"
             className="btn btn-light col-3"
             onClick={() => {
-              handleLoad;
+              handleSave;
             }}
           >
             저장하기
@@ -117,14 +121,16 @@ const PresetCard = (props: PresetCard) => {
         </div>
       </div>
       <div className="card-bodycollapse show p-0" id={`collapsePreset${index + 1}`}>
-        <DressupCard clothes={clothes} setClothes={setClothes} blankMessage={`Preset ${index + 1}에 저장된 옷이 없습니다.`} />
+        <BlankMessage isFull={Object.entries(clothes).length > 0} blankMessage={`Preset ${index + 1}에 저장된 옷이 없습니다.`}>
+          <DressupCard clothes={clothes} setClothes={setClothes} scene={scene} />
+        </BlankMessage>
       </div>
     </div>
   );
 };
 
 export const DressupPreset = (props: DressupPresetProps) => {
-  const { clothes, setClothes, presetList, setPresetList } = props;
+  const { clothes, setClothes, presetList, setPresetList, scene } = props;
 
   useEffect(() => {
     (async () => {
@@ -145,9 +151,9 @@ export const DressupPreset = (props: DressupPresetProps) => {
 
   return (
     <div className="row row-cols-1 g-1">
-      <PresetCard index={0} clothes={clothes} setClothes={setClothes} presetList={presetList} setPresetList={setPresetList} />
-      <PresetCard index={1} clothes={clothes} setClothes={setClothes} presetList={presetList} setPresetList={setPresetList} />
-      <PresetCard index={2} clothes={clothes} setClothes={setClothes} presetList={presetList} setPresetList={setPresetList} />
+      <PresetCard index={0} clothes={clothes} setClothes={setClothes} presetList={presetList} setPresetList={setPresetList} scene={scene} />
+      <PresetCard index={1} clothes={clothes} setClothes={setClothes} presetList={presetList} setPresetList={setPresetList} scene={scene} />
+      <PresetCard index={2} clothes={clothes} setClothes={setClothes} presetList={presetList} setPresetList={setPresetList} scene={scene} />
     </div>
   );
 };

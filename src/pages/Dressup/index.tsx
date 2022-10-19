@@ -3,7 +3,7 @@ import { DressupItems } from '../../components/Dressup/DressupItems';
 import { DressupPreset } from '../../components/Dressup/DressupPreset';
 import { DressupInfo } from '../../components/Dressup/DressupInfo';
 import createView from '../../utils/threejs/threeViewUtil';
-import { loadModel } from '../../utils/threejs/threeModelUtil';
+import { loadModel, removeModel } from '../../utils/threejs/threeModelUtil';
 import createFittingRoom from '../../utils/threejs/threeRoomUtil';
 import { Clothes } from '../../types/Clothes';
 import { Scene } from 'three';
@@ -46,12 +46,13 @@ export const Dressup = () => {
         </BlankMessage>
     }, {
       key: 'Info',
-      title: 'Wear I am',
+      title: 'Clothes Info',
       page:
         <DressupInfo
           clothes={clothes}
           setClothes={setClothes}
-          setPresetList={setPresetList} />
+          setPresetList={setPresetList}
+          scene={scene} />
     }, {
       key: 'Preset',
       title: 'Preset',
@@ -61,7 +62,8 @@ export const Dressup = () => {
             clothes={clothes}
             setClothes={setClothes}
             presetList={presetList}
-            setPresetList={setPresetList} />
+            setPresetList={setPresetList}
+            scene={scene} />
         </BlankMessage>
     },
   ];
@@ -71,7 +73,7 @@ export const Dressup = () => {
     (async () => {
       createView(modelHeight, roomWidth, roomHeight, scene);
       createFittingRoom('wooden', roomWidth, roomHeight, scene);
-      loadModel('BaseMesh', './assets/model/BaseMesh.glb', modelHeight, scene, 0);
+      loadModel('BaseMesh', './assets/model/BaseMesh.glb', modelHeight, 0, scene);
     })();
   }, []);
 
@@ -83,22 +85,28 @@ export const Dressup = () => {
 
       //이미 입은 카테고리의 옷을 입으려고 시도하면 그 전에 있던 옷을 지워야 함
       //그거 지우는 코드
-      const sceneMesh = scene.children.filter((_, i) => {
-        return i > 11;
-      });
-      const alreadyExistsMeshIndex = sceneMesh.findIndex((e) => {
-        return e.name == changedClothes.catCode;
-      });
-      if (alreadyExistsMeshIndex > -1) scene.remove(sceneMesh[alreadyExistsMeshIndex]);
+      removeModel(changedClothes, scene);
 
       //옷 입기 코드
+      let h, y;
+      if (changedClothes.catCode == 'TOP') {
+        h = 0.4 * modelHeight
+        y = 41
+      } else if (changedClothes.catCode == 'BTM') {
+        h = 0.55 * modelHeight
+        y = 17
+      } else if (changedClothes.catCode == 'HEA') {
+        h = 0.09 * modelHeight
+        y = 57
+      } else if (changedClothes.catCode == 'DRE') {
+        h = 0.68 * modelHeight
+        y = 32
+      }
+
       loadModel(
         changedClothes.catCode,
         `https://nftstorage.link/ipfs/${changedClothes.tokenUri.slice(7)}`,
-        changedClothes.catCode == 'TOP' ? 0.4 * modelHeight : 0.55 * modelHeight,
-        scene,
-        changedClothes.catCode == 'TOP' ? 40 : 17
-      );
+        h, y, scene);
     })();
   }, [changedClothes]);
 
@@ -117,7 +125,7 @@ export const Dressup = () => {
               textSize={5}
               textColor={'black'} />
           </div>
-          <Subpage pages={navItems} selectedKey={selectedNavButton}/>
+          <Subpage pages={navItems} selectedKey={selectedNavButton} />
         </div>
       </div>
     </main >
