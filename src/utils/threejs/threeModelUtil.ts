@@ -27,8 +27,10 @@ export async function loadModel(name: string, modelURL: string, modelHeight: num
       } else if (name == 'HEA') {
         matilda.rotateY(Math.PI / 2);
         matilda.scale.set(scale, scale, scale);
+      } else if (name == 'DRE') {
+        matilda.scale.set(scale+1.5, scale, scale+12.5);
       } else {
-        matilda.scale.set(scale, scale, scale);
+        matilda.scale.set(scale-0.5, scale, scale);
       }
       scene.add(matilda);
     },
