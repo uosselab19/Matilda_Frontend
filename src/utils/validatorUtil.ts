@@ -1,3 +1,4 @@
+// 항목이 모두 있는지 체크하는 함수
 export function isRequired(value: any, customMessage?: string) {
   if (value == null || value == undefined || (value?.length ?? 0) <= 0) {
     return customMessage || '해당 항목을 반드시 입력해주세요.';
@@ -6,6 +7,7 @@ export function isRequired(value: any, customMessage?: string) {
   return undefined;
 }
 
+// 정규표현식 - ID에 해당하는지 체크하는 함수
 export function isID(value: any, minLength = 8, maxLength = 16, customMessage?: string) {
   if (!value?.length) return undefined;
 
@@ -18,6 +20,7 @@ export function isID(value: any, minLength = 8, maxLength = 16, customMessage?: 
   return undefined;
 }
 
+// 정규표현식 - 비밀번호에 해당하는지 체크하는 함수
 export function isPassword(value: any, minLength = 8, maxLength = 16, customMessage?: string) {
   if (!value?.length) return undefined;
 
@@ -30,6 +33,7 @@ export function isPassword(value: any, minLength = 8, maxLength = 16, customMess
   return undefined;
 }
 
+// 정규표현식 - 이메일에 해당하는지 체크하는 함수
 export function isEmail(value: any, customMessage?: string) {
   if (!value?.length) return undefined;
 
@@ -42,6 +46,7 @@ export function isEmail(value: any, customMessage?: string) {
   return undefined;
 }
 
+// 입력값이 최소 길이 이상인지 체크하는 함수
 export function notMinLength(value: any, minLength = 2, customMessage?: string) {
   if (!value?.length) return undefined;
 
@@ -52,6 +57,7 @@ export function notMinLength(value: any, minLength = 2, customMessage?: string) 
   return undefined;
 }
 
+// 입력값이 최대 길이 이하인지 체크하는 함수
 export function notMaxLength(value: any, maxLength = 10, customMessage?: string) {
   if (!value?.length) return undefined;
 
@@ -62,6 +68,7 @@ export function notMaxLength(value: any, maxLength = 10, customMessage?: string)
   return undefined;
 }
 
+// 입력값이 정수인지 체크하는 함수
 export function isInt(value: any, customMessage?: string) {
   if (!value?.length) return undefined;
 
@@ -72,6 +79,7 @@ export function isInt(value: any, customMessage?: string) {
   return undefined;
 }
 
+// 입력값이 숫자인지 체크하는 함수
 export function isNumber(value: any, customMessage?: string) {
   if (!value?.length) return undefined;
 
@@ -82,6 +90,7 @@ export function isNumber(value: any, customMessage?: string) {
   return undefined;
 }
 
+// 입력값이 최소값 이상인지 체크하는 함수
 export function notMin(value: any, min = 0, customMessage?: string) {
   if (!value?.length) return undefined;
 
@@ -92,6 +101,7 @@ export function notMin(value: any, min = 0, customMessage?: string) {
   return undefined;
 }
 
+// 입력값이 최대값 이하인지 체크하는 함수
 export function notMax(value: any, max = 10, customMessage?: string) {
   if (!value?.length) return undefined;
 

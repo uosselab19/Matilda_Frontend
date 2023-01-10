@@ -13,6 +13,7 @@ import { getUserInfo } from '../../utils/cookieUtil';
 import { BlankMessage } from '../../components/load/BlankMessage';
 import { Subpage } from '../../components/Navigation/Subpage';
 
+// 착장 기능을 위한 페이지 컴포넌트
 export const Dressup = () => {
   const [scene] = useState(new Scene() as Scene);
   const [clothes, setClothes] = useState({} as Clothes);
@@ -21,6 +22,7 @@ export const Dressup = () => {
   const [selectedNavButton, setSelectedNavButton] = useState('Marketplace');
   const [modelHeight, roomWidth, roomHeight] = [60, 512, 200];
 
+  // 하위에 서브페이지를 위한 네비게이션
   const navItems = [
     {
       key: 'Marketplace',
@@ -77,31 +79,24 @@ export const Dressup = () => {
     })();
   }, []);
 
-  //옷을 입기 위한 코드
+  // 옷을 입기 위한 코드
   useEffect(() => {
     (async () => {
-      //옷을 안 입었으면 확인할 필요가 없음
+      // 옷을 안 입었으면 확인할 필요가 없음
       if (!Object.entries(clothes).length) return;
 
-      //이미 입은 카테고리의 옷을 입으려고 시도하면 그 전에 있던 옷을 지워야 함
-      //그거 지우는 코드
+      // 이미 입은 카테고리의 옷을 입으려고 시도하면 그 전에 있던 옷을 지워야 함
+      // 그거 지우는 코드
       removeModel(changedClothes, scene);
 
-      //옷 입기 코드
-      let h, y;
-      if (changedClothes.catCode == 'TOP') {
-        h = 0.4 * modelHeight
-        y = 41
-      } else if (changedClothes.catCode == 'BTM') {
-        h = 0.55 * modelHeight
-        y = 17
-      } else if (changedClothes.catCode == 'HEA') {
-        h = 0.09 * modelHeight
-        y = 57
-      } else if (changedClothes.catCode == 'DRE') {
-        h = 0.6 * modelHeight
-        y = 35.1
-      }
+      // 옷 입기 코드
+      // 위치는 눈대강으로 잡고 결정한 것.
+      // threejs 함수에서 설명했듯이 리깅 기능을 구현하지는 못했음.
+      let h:number=0, y:number=0;
+      if (changedClothes.catCode == 'TOP') { h = 0.4 * modelHeight; y = 41; }
+      else if (changedClothes.catCode == 'BTM') { h = 0.55 * modelHeight; y = 17; }
+      else if (changedClothes.catCode == 'HEA') { h = 0.09 * modelHeight; y = 57; }
+      else if (changedClothes.catCode == 'DRE') { h = 0.6 * modelHeight; y = 35.1; }
 
       loadModel(
         changedClothes.catCode,

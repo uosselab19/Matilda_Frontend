@@ -11,11 +11,13 @@ import { getUserInfo } from '../../utils/cookieUtil';
 import { alertError } from '../../utils/alertUtil';
 import { Subpage } from '../../components/Navigation/Subpage';
 
+// 마이페이지 컴포넌트
 export const Mypage = () => {
   const navigate = useNavigate();
   const [selectedNavButton, setSelectedNavButton] = useState('myItemList');
   const [userInfo, setUserInfo] = useState({} as SelectMember);
 
+  // 하위에 서브페이지를 위한 네비게이션
   const navItems = [
     {
       key: 'myItemList',
@@ -34,15 +36,16 @@ export const Mypage = () => {
     }
   ];
 
+  // 로그인 정보 확인 및 갱신을 위한 훅
   useEffect(() => {
     (async () => {
       const cookieData = getUserInfo();
-      if (!cookieData) {
+      if (!cookieData) { // 로그인 정보가 없으면 홈페이지로 퇴출
         alertError('누구세요...?', '유저정보가 없어서 홈페이지로 이동합니다.');
         navigate('/');
       } else {
-        if (!Object.keys(userInfo).length) {
-          const { data, error } = await selectMember(cookieData.num);
+        if (!Object.keys(userInfo).length) { // 쿠키에 빈칸만 날아오는 것을 방지
+          const { data, error } = await selectMember(cookieData.num); // 멤버 정보를 백엔드에서부터 가져오기
           if (error) {
             console.log(error);
             alertError('누구셨죠...?', '유저정보를 불러오는 중 에러가 발생했습니다.');

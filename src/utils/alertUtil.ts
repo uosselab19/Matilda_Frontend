@@ -1,6 +1,7 @@
 import Swal from 'sweetalert2';
 import item_img1 from '../assets/images/Marketplace/item_img.png';
 
+// 성공 알림
 export const alertSuccess = (title: string, text: string) => {
   return Swal.fire({
     icon: 'success',
@@ -9,6 +10,7 @@ export const alertSuccess = (title: string, text: string) => {
   });
 };
 
+// 경고 알림
 export const alertWarning = (title: string, text: string) => {
   return Swal.fire({
     icon: 'warning',
@@ -17,6 +19,7 @@ export const alertWarning = (title: string, text: string) => {
   });
 };
 
+// 에러 알림
 export const alertError = (title: string, text: string) => {
   return Swal.fire({
     icon: 'error',
@@ -25,6 +28,7 @@ export const alertError = (title: string, text: string) => {
   });
 };
 
+// 정보제공 알림
 export const alertInfo = (title: string, text: any) => {
   return Swal.fire({
     icon: 'info',
@@ -33,6 +37,7 @@ export const alertInfo = (title: string, text: any) => {
   });
 };
 
+// 경고 모달
 export const alertModal = async (title: string, text: string, url: string, alt?: string, width?: number) => {
   return Swal.fire({
     title: title,
@@ -45,6 +50,7 @@ export const alertModal = async (title: string, text: string, url: string, alt?:
   });
 };
 
+// 성공 확인 질문
 export const confirmSuccess = async (title: string, text: string, confirmText: string, denyText: string) => {
   return Swal.fire({
     icon: 'success',
@@ -60,6 +66,7 @@ export const confirmSuccess = async (title: string, text: string, confirmText: s
   });
 };
 
+// 경고 확인 질문
 export const confirmWarning = async (title: string, text: string, confirmText: string, denyText: string) => {
   return Swal.fire({
     icon: 'warning',
@@ -75,6 +82,7 @@ export const confirmWarning = async (title: string, text: string, confirmText: s
   });
 };
 
+// 선택 질문
 export const confirmQuestion = async (title: string, text: string, confirmText: string, denyText: string) => {
   return Swal.fire({
     icon: 'question',
@@ -90,6 +98,7 @@ export const confirmQuestion = async (title: string, text: string, confirmText: 
   });
 };
 
+// 질문이 있는 모달
 export const confirmModal = async (
   title: string,
   text: string,
@@ -117,6 +126,7 @@ export const confirmModal = async (
   });
 };
 
+// 값을 받을 수 있는 알림
 export const alertInput = async (title: string, text: string, placeholder: string) => {
   const { value: newValue } = await Swal.fire({
     title: title,
@@ -136,6 +146,7 @@ export const alertInput = async (title: string, text: string, placeholder: strin
   return newValue;
 };
 
+//값을 받을 수 있는 모달
 export const confirmInputModal = async (
   title: string,
   text: string,
@@ -170,6 +181,7 @@ export const confirmInputModal = async (
   });
 };
 
+// 로딩 알림
 export const alertLoading = async (title: string) => {
   return Swal.fire({
     title: title,
@@ -181,6 +193,7 @@ export const alertLoading = async (title: string) => {
   });
 };
 
+// 진행되는 거 보여주는 알림
 export const alertProgress = async (title: string, progress: any) => {
   let timerInterval;
   return Swal.fire({

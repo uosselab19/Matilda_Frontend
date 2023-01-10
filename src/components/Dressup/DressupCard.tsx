@@ -12,10 +12,7 @@ interface DressupCardProps {
 export const DressupCard = (props: DressupCardProps) => {
   const { clothes, setClothes, scene } = props;
 
-  // const handleBuy = (e) => {
-  //   console.log(e);
-  // };
-  const handleCancel = (e) => {
+  const handleCancel = (e: any) => {
     const newClothes = Object.fromEntries(Object.entries(clothes)
       .filter((elem) => {
         const selectedCondition = elem[1].catCode == e.catCode;
@@ -43,17 +40,6 @@ export const DressupCard = (props: DressupCardProps) => {
                   <div className="fs-4 fw-bold">{clothesElement.title}</div>
                 </div>
               </div>
-              {/* <div className="col-3">
-                <button
-                  type="button"
-                  className="btn btn-primary w-100 h-100"
-                  onClick={() => {
-                    handleBuy(elem[1]);
-                  }}
-                >
-                  구매하기
-                </button>
-              </div> */}
               <div className="col-2">
                 <button
                   type="button"

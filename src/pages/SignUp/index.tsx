@@ -9,6 +9,7 @@ import { alertError, alertSuccess } from '../../utils/alertUtil';
 import { encrypt } from '../../utils/cryptoUtil';
 import { isRequired, isID, isPassword, isEmail, notMaxLength, notMinLength } from '../../utils/validatorUtil';
 
+// 회원가입 유효성 검사
 const validate = (values: InsertMember) => {
   const errors = {
     id: isRequired(values?.id) || isID(values?.id),
@@ -23,6 +24,7 @@ const validate = (values: InsertMember) => {
   return errors;
 };
 
+// 회원가입 페이지 컴포넌트
 export const Signup = () => {
   const navigate = useNavigate();
   const callback = async (values: InsertMember) => {
@@ -32,20 +34,24 @@ export const Signup = () => {
       return;
     }
 
+    // 회원가입 시 비밀번호를 프론트엔드에서부터 백엔드로 갈 때 암호화해서 보내야 함
     const encryptedValues = { ...values, ['password']: encrypt(values.password) };
-    const { error } = await insertMember(encryptedValues);
+    const { error } = await insertMember(encryptedValues); // 백엔드에 정보 집어넣음
 
+    // 에러 발생 시 나오는 함수
     if (error) {
       console.log(error);
       alertError('에러가 발생했어요!', '');
       return;
     }
 
+    // 에러 없으면 로그인 페이지로 넘어감
     alertSuccess('회원가입이 완료되었습니다!', '로그인을 하셔야 회원 서비스를 이용할 수 있습니다.');
     navigate('/signin', { replace: false });
     return;
   };
 
+  // 폼 사용을 위함
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
 
   return (

@@ -14,6 +14,7 @@ interface TextBoxProps {
   error?: string;
 }
 
+//기본적인 text form 컴포넌트
 export default function TextBox(props: TextBoxProps) {
   const { id, name, label, type, placeholder, disabled, readonly, handleClick, handleChange, value, error } = props;
 

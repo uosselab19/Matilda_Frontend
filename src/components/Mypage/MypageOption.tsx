@@ -27,6 +27,7 @@ interface MypageOptionProps {
   setUserInfo: React.Dispatch<React.SetStateAction<SelectMember>>;
 }
 
+// 마이페이지 중 개인정보 변경을 담당하는 컴포넌트
 export const MypageOption = (props: MypageOptionProps) => {
   const { userInfo, setUserInfo } = props;
 
@@ -35,8 +36,10 @@ export const MypageOption = (props: MypageOptionProps) => {
     setUserInfo({} as SelectMember);
   };
 
+  // 개인정보를 변경하기 위해 form을 사용함
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
 
+  // form의 형식을 그대로 가져옴 (form 개발에 참고될 만한 코드포멧이니 참고하세요~)
   return (
     <div>
       <div className="my-5">

@@ -1,3 +1,4 @@
+// 마네킹의 옷 정보를 불러오기 위함
 export interface Clothes {
   DR?: string;
   TOP?: string;

@@ -14,6 +14,7 @@ interface TextAreaProps {
   error: string;
 }
 
+//긴 문장이 들어갈 수 있는 form 컴포넌트
 export default function TextArea(props: TextAreaProps) {
   const { id, name, label, rows, placeholder, disabled, readonly, handleClick, handleChange, value, error } = props;
 

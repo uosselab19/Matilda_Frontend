@@ -7,12 +7,15 @@ import { useNavigate } from 'react-router-dom';
 import { getUserInfo } from '../../utils/cookieUtil';
 import { alertError } from '../../utils/alertUtil';
 
+// 3D 변환을 위한 페이지 컴포넌트
 export const Convert3D = () => {
   const [category, setCategory] = useState({ catCode: '', image: convertImage, title: '' } as Category);
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
+  // 3D 변환은 로그인 정보가 필요함
+  // 변환된 3D 모델이 로그인한 회원의 소유가 되어야하기 때문
   useEffect(() => {
     (async () => {
       const cookieData = getUserInfo();

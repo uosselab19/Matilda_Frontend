@@ -12,6 +12,8 @@ interface ImageBoxProps {
   error?: string;
 }
 
+//사진 입력할 수 있는 박스
+//제대로 입력받는지 확인 안 한 코드
 export default function ImageBox(props: ImageBoxProps) {
   const { id, name, label, placeholder, disabled, readonly, handleChange, value } = props;
 

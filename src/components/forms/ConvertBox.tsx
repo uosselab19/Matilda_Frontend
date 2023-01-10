@@ -8,6 +8,7 @@ interface ConvertBoxProps {
   modalID?: string;
 }
 
+// Convert 3D 용도로만 쓰임
 export default function ConvertBox(props: ConvertBoxProps) {
   const { category, setLoading, modalID } = props;
 

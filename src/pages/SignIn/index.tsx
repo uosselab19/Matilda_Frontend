@@ -11,6 +11,7 @@ import { setUserInfo, getUserInfo, getUserInfoByToken } from '../../utils/cookie
 import { alertError } from '../../utils/alertUtil';
 import { encrypt } from '../../utils/cryptoUtil';
 
+// 로그인 유효성 검사
 const validate = (values: SigninMember) => {
   const errors = {
     id: isRequired(values?.id) || isID(values?.id),
@@ -20,9 +21,11 @@ const validate = (values: SigninMember) => {
   return errors;
 };
 
+//로그인 페이지 컴포넌트
 export const Signin = () => {
   const navigate = useNavigate();
 
+  // 폼 제출 시 호출되는 함수
   const callback = async (values: SigninMember) => {
     const encryptedValues = { ...values, ['password']: encrypt(values.password) };
     const { data, error } = await signinMember(encryptedValues);
@@ -38,6 +41,7 @@ export const Signin = () => {
     return;
   };
 
+  // 이미 로그인을 했는지 확인하기 위해 사용되는 훅
   useEffect(() => {
     (async () => {
       const userInfoData = getUserInfo();
@@ -48,6 +52,7 @@ export const Signin = () => {
     })();
   }, []);
 
+  // 폼 사용을 위함
   const { handleChange, handleClick, handleSubmit, values, errors } = useForm(callback, validate);
 
   return (

@@ -14,6 +14,8 @@ interface SigninBoxProps {
   error?: string;
 }
 
+//로그인을 위해 따로 디자인한 함수
+//실제로는 TextBox 컴포넌트와 기능적인 면에서는 차이가 없음
 export default function SigninBox(props: SigninBoxProps) {
   const { id, name, label, type, placeholder, disabled, readonly, handleClick, handleChange, value } = props;
 

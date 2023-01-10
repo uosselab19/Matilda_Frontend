@@ -13,8 +13,11 @@ interface NavButton {
   onClick: Function;
 }
 
+// 네비게이션 버튼을 구현하는 함수
 export const NavButtons = (props: NavButtonsProps) => {
   const { navItems, selectedNavButton, onClick, textBold, textSize, textColor } = props;
+  
+  //버튼을 만드는 함수
   const NavButton = (data: NavButton) => {
     const { key, title } = data;
     return (
@@ -33,6 +36,7 @@ export const NavButtons = (props: NavButtonsProps) => {
     );
   };
 
+  //실제 버튼은 navItems 값을 컴포넌트의 프로퍼티로 받아서 그걸 그대로 버튼으로 구현해버리면 됨
   return (
     <div className="d-flex justify-content-around">
       {navItems.map((e) => { return NavButton(e); })}

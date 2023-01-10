@@ -15,9 +15,11 @@ interface ItemsProps {
   handleCard?: Function;
 }
 
+//카드 컴포넌트를 묶어주는 컴포넌트
 export default function Items(props: ItemsProps) {
   const { items, page, setPage, count, size, numShowItems, numShowPages, handleCard } = props;
 
+  //카드 컴포넌트를 정보에 맞게 만들어주는 함수
   const makeCards = (size: string, items: any[]) => {
     return items.map((e, i) => {
       return <Card key={e ? e.itemNum : i} item={e} size={size} handleCard={handleCard} />;
@@ -26,6 +28,7 @@ export default function Items(props: ItemsProps) {
 
   const [showItems, setShowItems] = useState([] as JSX.Element[]);
 
+  //페이지가 넘어가는 등의 정보가 변경된 경우 카드를 갱신해주는 부분
   useEffect(() => {
     if (!items.length) {
       const initNum = Math.floor(count / numShowItems) == page ? count % numShowItems : numShowItems;

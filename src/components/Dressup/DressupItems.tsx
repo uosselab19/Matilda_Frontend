@@ -18,6 +18,7 @@ interface DressupItemsProps {
   setChangedClothes: React.Dispatch<React.SetStateAction<DetailItem>>;
 }
 
+//드레스업에서 아이템 보여주는 컴포넌트
 export const DressupItems = (props: DressupItemsProps) => {
   const { clothes, setClothes, presetList, options, setChangedClothes } = props;
   const [numShowItems, numShowPages] = [12, 10];
@@ -25,24 +26,33 @@ export const DressupItems = (props: DressupItemsProps) => {
 
   const { count, items, page, setPage, setSelectCondition } = useItems(selectItems, options, numShowItems);
 
+  // 아이템 정보가 담긴 카드를 핸들링하는 함수
   const handleCard = async (itemNum: number) => {
+    //아이템 정보 가져오기
     const { data, error } = await getItem(itemNum);
     if (error) {
+      //에러가 있을 경우
       console.log(error);
       alertError('아이템을 찾지 못 했어요!', '아이템 정보를 불러오는 중 문제가 발생했어요!');
     } else {
+      //아이템 불러오기 성공한 경우
+      //모달 띄워서 구매/입혀보기 선택하기
       const result = await confirmModal(data.title, data.description, '입혀보기', '구매하기', getS3Url(data.imgUrl), data.title, 400);
+      
+      //옷 입히기
       if (result.isConfirmed) {
         setClothes((clothes) => ({ ...clothes, [data.catCode]: data }));
         setChangedClothes(data);
       }
 
+      //구매하기
       if (result.isDenied) {
         if (!getUserInfo()) alertError('회원정보 없음!', '저장하고 오시는 게 더 좋을 듯싶네요 ㅎㅎ');
         else {
+          //회원정보가 있어야만 검색 가능
           if (
             !presetList.some((e) => {
-              return e == clothes;
+              return e == clothes; // 옷 정보에 아무것도 없을 경우
             })
           ) {
             const result = await confirmWarning(
