@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import useItems from '../../hooks/useItems';
 import { selectItems } from '../../services/itemService';
 
+// 마켓플레이스 페이지 컴포넌트
 export const Marketplace = () => {
   const [numShowItems, numShowPages] = [20, 10];
   const { count, items, page, setPage, setSelectCondition } = useItems(selectItems, { stateCodes: 'OS' }, numShowItems);

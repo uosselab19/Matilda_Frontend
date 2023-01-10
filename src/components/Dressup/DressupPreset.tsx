@@ -24,9 +24,11 @@ interface DressupPresetProps {
   scene:THREE.Scene;
 }
 
+//Card 컴포넌트
 const PresetCard = (props: PresetCard) => {
   const { index, clothes, setClothes, scene } = props;
 
+  //load 기능을 구현하기 위함
   const handleLoad = async (props: PresetCard) => {
     const { index, presetList, setClothes } = props;
     if (!presetList[index]) {
@@ -56,35 +58,39 @@ const PresetCard = (props: PresetCard) => {
     }
   };
 
+  //save 기능을 구현하기 위함
   const handleSave = async (props: PresetCard) => {
     const { index, presetList, setPresetList, clothes } = props;
+
+    //정보가 있는지 체크
     if (!Object.getOwnPropertyNames(clothes).length) {
       alertWarning("데이터 <span style='color:red'>미</span>포함", '저장할 옷이 없습니다!');
       return;
     }
 
+    //save 체크하는 함수
     const result = await confirmQuestion(`Preset${index + 1}에 저장`, `지금 입은 옷을 Preset${index + 1}에 저장하는 게 맞나요?`, '맞아요!', `아니에요;;`);
     if (result.isConfirmed) {
       presetList[index] = clothes;
 
       const cookie = getUserInfo();
-
       const putpresetList = presetList.map((e) => {
         if (e) return Object.fromEntries(Object.entries(e).map((elem) => { return [elem[0], elem[1].itemNum] }));
         else return null;
       });
-
+    
+      // 멤버 정보 불러오기
       const { data, error } = await putMember({ memberNum: cookie.num, presetList: putpresetList } as UpdateMember);
-
       if (!error) {
         console.log(data);
-        await setPresetList(putpresetList as Clothes[]);
+        setPresetList(putpresetList as Clothes[]);
         alertSuccess('저장했습니다!', `Preset${index + 1}에 지금 입은 옷을 모두 저장했습니다.`);
       } else {
         console.log(error);
         alertError('멤버수정 오류', error);
       }
     } else {
+      //save 취소했을 경우
       alertError('취소했어요!', '아무 일도 일어나지 않았답니다.');
     }
   }
@@ -129,9 +135,11 @@ const PresetCard = (props: PresetCard) => {
   );
 };
 
+// 위에 구현된 Card로부터 프리셋 컴포넌트를 생성
 export const DressupPreset = (props: DressupPresetProps) => {
   const { clothes, setClothes, presetList, setPresetList, scene } = props;
 
+  //데이터 불러오기
   useEffect(() => {
     (async () => {
       const cookie = getUserInfo();

@@ -11,6 +11,8 @@ interface CardProps {
   handleCard?: Function;
 }
 
+//카드에는 괜히 애니메이션 힘 줘서 개발함!
+//대부분의 아이템 목록에 들어가는 카드를 구현한 컴포넌트
 export default function Card(props: CardProps) {
   const { item, size, handleCard } = props;
 
@@ -28,6 +30,8 @@ export default function Card(props: CardProps) {
   };
   const [bgColor, textColor] = chooseColor(item?.stateCode);
 
+  //괜히 힘줘서 애니메이션 넣은 부분
+  //코드가 긴 편임에도 중요한 내용은 없음!
   const handleMouse = (e: React.MouseEvent): void => {
     e.stopPropagation();
     e.preventDefault();

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import matilda from '../../assets/images/matilda.png';
 
+// 페이지 이외의 url를 입력했을 때 보여줄 페이지 컴포넌트
 export const NotFound = () => {
   return (
     <main className="cover-container d-flex p-5 text-center my-5 flex-column justify-content-center">

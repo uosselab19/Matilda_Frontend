@@ -2,6 +2,8 @@ import * as THREE from 'three';
 import { Scene } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
+// 3D를 보여줄 화면과 카메라 조정을 담당하는 함수
+// 옷을 보여주기 위해 의도적으로 제약을 걸어둔 부분이 많으므로 유의
 export default function createView(modelHeight: number, roomWidth: number, roomHeight: number, scene: Scene) {
   const dressupDom = document.getElementById('View') as HTMLElement; // 마운트가 되어야 Dom을 찾을 수 있다.
   let [canvasWidth, canvasDomHeight] = [dressupDom.clientWidth, (4 / 3) * dressupDom.clientWidth]; // 브라우저 크기 확인
@@ -24,6 +26,7 @@ export default function createView(modelHeight: number, roomWidth: number, roomH
   ambientLight.name = 'ambientLight';
   scene.add(ambientLight);
 
+  //광원 만드는 코드
   const makeDirectionalLight = (name: string, x: number, y: number, z: number) => {
     const directionalLight = new THREE.DirectionalLight(0xffffff, 0.25);
     directionalLight.position.set(x, y, z);
@@ -31,6 +34,7 @@ export default function createView(modelHeight: number, roomWidth: number, roomH
     return directionalLight;
   };
 
+  // 효과적으로 모든 면에 빛을 비추게 하기 위해 여러 광원을 scene에 배치함
   scene.add(makeDirectionalLight('directionalLight1', roomWidth / 2, -roomHeight, -roomWidth / 2));
   scene.add(makeDirectionalLight('directionalLight2', -roomWidth / 2, -roomHeight, roomWidth / 2));
   scene.add(makeDirectionalLight('directionalLight3', roomWidth / 2, roomHeight, roomWidth / 2));

@@ -11,6 +11,9 @@ interface SearchBoxProps {
   error?: string;
 }
 
+//검색을 위한 박스
+//디자인에 문제가 있어서 고쳐야 하는데 안 고침
+//코드 기능에는 문제가 없으니 구조만 참고하세요
 export default function SearchBox(props: SearchBoxProps) {
   const { id, name, disabled, readonly, size, handleChange, value, error } = props;
 

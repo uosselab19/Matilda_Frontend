@@ -6,9 +6,9 @@ import { isRequired } from '../../utils/validatorUtil';
 import SearchBox from '../forms/SearchBox';
 import SelectBox from '../forms/SelectBox';
 
+//검색 유효성 검사
 function validate(values: SelectItem) {
   const errors = { searched: isRequired(values?.title) };
-
   return errors;
 }
 
@@ -17,6 +17,7 @@ interface SearchProps {
   handleSearch: Function;
 }
 
+// 검색 컴포넌트
 export default function Search(props: SearchProps) {
   const { size, handleSearch } = props;
   const serach = () => {
@@ -26,6 +27,7 @@ export default function Search(props: SearchProps) {
   // 3D 아이템 목록이 들어가는 리스트 생성하는 부분
   const categoryList = useCategory();
 
+  //useForm을 통해 form 컴포넌트로부터 검색할 키워드를 얻음
   const { handleChange, handleSubmit, values, errors } = useForm(serach, validate);
 
   return (
@@ -54,7 +56,10 @@ export default function Search(props: SearchProps) {
               valueProperty="catCode"
             />
           </div>
-          {/* <div className="col-2">
+          {/*
+              // 검색 키를 이용한 부분
+              // 구현하다가 공모전이 끝나서 만들 이유가 없어진 비운의 기능
+          <div className="col-2">
             <SelectBox
               id="test"
               label=""
@@ -69,7 +74,8 @@ export default function Search(props: SearchProps) {
               value={values['sortKey']}
               keyProperty="sortKey"
               valueProperty="sortKey" />
-          </div> */}
+          </div>
+          */}
           <div className="col-8">
             <SearchBox
               id="searchBox"

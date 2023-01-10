@@ -6,6 +6,8 @@ interface CapitalTextProps {
   text: string;
 }
 
+// 대문자 텍스트 진하게 보여주는 함수
+// 대문 디자인용
 const CapitalText = (props: CapitalTextProps) => {
   const { text } = props;
 
@@ -21,11 +23,11 @@ const CapitalText = (props: CapitalTextProps) => {
 };
 
 export const Home = () => {
-  const navigate = useNavigate();
-  const scrollTop = () => {
+  const navigate = useNavigate(); // 페이지 이동에 쓰이는 훅
+  const scrollTop = () => { // 스크롤 조정 함수
     window.scrollTo({ top: 0 });
   };
-  const explore = () => {
+  const explore = () => { // explore 버튼에서 사용하는 함수
     scrollTop();
     navigate('/marketplace', { replace: true });
   };

@@ -1,3 +1,4 @@
+// 아이템의 거래내역을 담은 타입
 export interface Histories {
   buyerNickName?: string;
   buyerNum?: number;

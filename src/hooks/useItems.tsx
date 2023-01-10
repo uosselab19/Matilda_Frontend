@@ -11,21 +11,25 @@ export default function useItems(promise: Function, initialSelectCondition: {}, 
   useEffect(() => {
     (async () => {
       setItems([]);
+      // 백엔드에서부터 아이템 정보와 아이템 개수를 가져옴
+      // 따로 구별한 이유는 백엔드 담당자와 시스템 구조를 상의할 때 나온 아이디어를 구현하기 위해서입니다.
       const { count, countError } = await countItems(selectCondition);
       const { data, error } = await promise({ ...selectCondition, ['skip']: page * numShowItems, ['take']: numShowItems });
 
+      // 아이템 개수를 백엔드에서부터 불러오지 못 할 때
       if (countError) {
         console.log(countError);
-        //alertError('아이템이 몇 개인지 알 수가 없어요.', '아이템 개수부터 확인하는데 그걸 못 불러오고 있어요.');
         return;
       }
 
+      // 갱신된 condition로부터 promise 함수가 에러난 경우
+      // 대게 백엔드로부터 item 정보를 불러오는 getItems 함수 등이 promise 함수로 사용됨
       if (error) {
         console.log(error);
-        //alertError('아이템을 찾지 못 했어요!', '아이템 목록이 없는 것 같아요..');
         return;
       }
 
+      // 제대로 값이 불러와졌다면 값을 넣어줌
       setCount(count);
       setItems(data);
     })();

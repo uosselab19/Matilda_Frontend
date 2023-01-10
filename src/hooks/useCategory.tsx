@@ -8,6 +8,8 @@ import imageBAG from '../assets/images/Convert3D/imageBAG.png';
 import imageMAS from '../assets/images/Convert3D/imageMASK.png';
 import imageRIN from '../assets/images/Convert3D/imageRING.png';
 
+// 카테고리를 저장해둔 훅
+// 딱히 훅으로 만들 이유는 없었는데 그냥 어쩌다보니 만듦;;
 export default function useCategory() {
   return [
     { title: '전체', image: imageDR, catCode: '' },

@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-//모든 텍스쳐 출처는 https://www.freepik.com/ 에서 가져온 자료들입니다.
+// 모든 텍스쳐 출처는 https://www.freepik.com/ 에서 가져온 자료들입니다.
 const textureLoader = new THREE.TextureLoader();
 
 //ground
@@ -43,6 +43,7 @@ function makeWall(name: string, theme: string, w: number, h: number, angle: numb
   return wall;
 }
 
+//위에 있는 벽과 바닥, 천장을 사용해서 방을 구현함
 export default function createFittingRoom(theme: string, width: number, height: number, scene: THREE.Scene) {
   scene.add(makeFloor('floor', theme, width)); //floor
   scene.add(makeWall('backWall', theme, width, height, 0, new THREE.Vector3(0, height / 2, -width / 2))); //back

@@ -12,22 +12,25 @@ import { getHistories } from '../../services/historiesService';
 import { Histories } from '../../types/Histories';
 import { decrypt } from '../../utils/cryptoUtil';
 
+// NFT 아이템 정보를 보여주는 페이지 컴포넌트
 export const NFTItem = () => {
-  const [mode, setMode] = useState('');
+  const [mode, setMode] = useState(''); // 페이지가 어떤 모드인지 결정하기 위함
   const [item, setItem] = useState({} as DetailItem);
   const [histories, setHistories] = useState([] as Histories[]);
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const [searchParams] = useSearchParams(); // 어떤 아이템의 페이지인지 나타내기 위함
   const itemNum = Number(searchParams.get('nft_id') as string);
   const member = getUserInfo();
 
+  // 모드가 갱신되면 페이지도 갱신하기 위함
   useEffect(() => {
     (async () => {
-      const { data, error } = await getItem(itemNum);
+      const { data, error } = await getItem(itemNum); // 아이템의 정보를 백엔드에서부터 가져옴
       if (error) {
         console.log(error);
         alertError('아이템을 찾지 못 했어요!', '아이템 정보를 불러오는 중 문제가 발생했어요!');
       } else {
+        // 백엔드에서 가져온 아이템 정보에서부터 페이지의 모드를 결정해주는 부분
         if (data.stateCode == 'CR') setMode('mint');
         else if (data.stateCode == 'NOS') setMode('sell');
         else if (data.stateCode == 'OS') {
@@ -40,8 +43,10 @@ export const NFTItem = () => {
         if (data.stateCode != item.stateCode) setItem(data as DetailItem);
       }
 
+      // 클레이튼 계정 갱신을 위함
       if (member) updateKeyring(member.address, decrypt(member.privateKey));
 
+      // 거래내역을 불러오기 위함
       const histories = await getHistories({ itemNum: itemNum });
       if (histories.error) {
         console.log(histories.error);
@@ -53,12 +58,14 @@ export const NFTItem = () => {
     })();
   }, [mode]);
 
+  // 거래내역을 모양에 맞게 변형해서 저장
   const historiesList = histories
     .map((e) => {
       return <HistoriesCard histories={e} key={e.historyNum} />;
     })
     .reverse();
 
+  // 수정 버튼 핸들러 함수
   const editButton = async (title: string, text: string, placeholder: string, key: string) => {
     const newValue = await alertInput(title, text, placeholder);
     const { data, error } = await putItem({ itemNum: itemNum, [key]: newValue } as UpdateItem);
@@ -71,6 +78,7 @@ export const NFTItem = () => {
     }
   };
 
+  // 버튼 핸들러 호출해주는 함수
   const handleButton = async () => {
     switch (mode) {
       case 'buy':
@@ -88,6 +96,7 @@ export const NFTItem = () => {
     }
   };
 
+  // 구매 버튼 핸들러 함수
   const handleBuy = async () => {
     const cookie = getUserInfo();
     if (!cookie) alertWarning('로그인이 필요해요!', '로그인 후 이용해주세요!');
@@ -129,6 +138,7 @@ export const NFTItem = () => {
     }
   };
 
+  // 판매 버튼 핸들러 함수
   const handleSell = async () => {
     const result = await confirmInputModal(
       '판매 등록하기',
@@ -160,6 +170,7 @@ export const NFTItem = () => {
     }
   };
 
+  // 취소 버튼 핸들러 함수
   const handleCancel = async () => {
     const result = await confirmModal(
       '거래 무르기',
@@ -186,6 +197,7 @@ export const NFTItem = () => {
     }
   };
 
+  // 발행 버튼 핸들러 함수
   const handleMint = async () => {
     const result = await confirmModal(
       'NFT 발행',

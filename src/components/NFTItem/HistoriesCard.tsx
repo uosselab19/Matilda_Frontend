@@ -4,9 +4,11 @@ interface HistoriesCardProps {
   histories: Histories;
 }
 
+// NFTItem의 거래이력을 나타내는 카드 컴포넌트
 export const HistoriesCard = (props: HistoriesCardProps) => {
   const { histories } = props;
 
+  // 문구는 stateCode마다 다르기 때문에 미리 저장해둠
   const setTitle = (histories: Histories) => {
     switch (histories.stateCode) {
       case 'CR':
@@ -24,6 +26,7 @@ export const HistoriesCard = (props: HistoriesCardProps) => {
     }
   };
   const title = setTitle(histories);
+
   return (
     <div className="card col-12 px-0 w-100 ms-0 my-1" key={histories.historyNum}>
       <div
@@ -38,6 +41,9 @@ export const HistoriesCard = (props: HistoriesCardProps) => {
         </div>
       </div>
       <div className="card-body collapse py-1 row" id={`collapseHistory${histories.historyNum}`}>
+        {/* 여기에 들어간 이상한 값은 임시로 넣어둔 값이고, 실제로는 개인 주소값이 들어가야 함 */}
+        {/* 근데 이건 미처 수정 못 하고 프로젝트가 종료돼서 그냥 내버려 둠 */}
+        {/* 아래 주소에 ${data}부분에 저 해시값 넣으면 해당 거래내역 들어가질 텐데 참고해서 개발하세요^^& */}
         <div className="col-12">txHash: {'0xe877149bae6be03ad1952c17d817344798f0351c629acafa627f5c6c055babe2'}</div>
         <div className="col-12">seller address: {'0x64469e021f23353a3e0757bc4d211a6f9756d37a'}</div>
         <div className="col-12">buyer address: {'0x04c1499f9fa23668c08c5322992a8e9bba709ede'}</div>

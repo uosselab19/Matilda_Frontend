@@ -10,7 +10,7 @@ export const Header = () => {
   const navigate = useNavigate(); //페이지 이동하는 훅
   const location = useLocation(); // url 찍어주는 훅
   const pathname = location.pathname;
-  const [selectedNavButton, setSelectedNavButton] = useState(pathname);
+  const [selectedNavButton, setSelectedNavButton] = useState(pathname); 
 
   const linkTo = (link: string) => {
     window.scrollTo({ top: 0 });
@@ -19,7 +19,7 @@ export const Header = () => {
 
   //로그아웃 버튼 기능
   const fetchSignout = async () => {
-    await signoutMember();
+    await signoutMember(); // 로그아웃 시도
     alertSuccess('로그아웃', `로그아웃했습니다!`); // 로그아웃했다고 알림
     removeUserInfo(); // 로그인 기록 쿠키 지우기
     linkTo('/'); // 로그아웃하면 홈페이지로
@@ -35,7 +35,7 @@ export const Header = () => {
         <button
           className="btn btn-outline-light me-1"
           onClick={() => {
-            getUserInfo() ? fetchSignout() : linkTo('/signin');
+            getUserInfo() ? fetchSignout() : linkTo('/signin'); 
           }}
         >
           {getUserInfo() ? 'sign-out' : 'Sign-in'}
@@ -73,7 +73,6 @@ export const Header = () => {
           </div>
 
           {/* 검색바 */}
-
           <div className="col-lg-auto d-none d-lg-block">{sign}</div>
 
           {/* lg 미만 작을 때 */}

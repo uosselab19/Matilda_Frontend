@@ -4,6 +4,7 @@ interface CardPlaceholderProps {
   loaded: boolean;
 }
 
+//플레이스홀더를 위해 추가한 부분
 export default function CardPlaceholder(props: CardPlaceholderProps) {
   const { loaded } = props;
 
